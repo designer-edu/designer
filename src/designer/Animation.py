@@ -1,7 +1,7 @@
 import math
-from games import GamesSprite
+from designer import GamesSprite
 import pygame
-import games
+import designer
 import random
 from typing import Tuple, Union
 
@@ -37,19 +37,19 @@ class GlideAnimation(Animation):
             self.y = math.ceil(self.y)
         super().__init__(speed, direction)
 
-    def step(self, sprite: games.GamesSprite):
+    def step(self, sprite: designer.GamesSprite):
         '''
         handles glide for each step of the game state
         :param sprite: GamesSprite to move
         :return:
         '''
-        if isinstance(sprite, games.GamesSprite):
+        if isinstance(sprite, designer.GamesSprite):
             sprites = [sprite]
-        elif isinstance(sprite, games.GamesGroup):
+        elif isinstance(sprite, designer.GamesGroup):
             sprites = [sprite]
         for temp_sprite in sprites:
             if (
-                    temp_sprite.rect.right) < games.GLOBAL_DIRECTOR.width and temp_sprite.rect.x > 0 and temp_sprite.rect.top < games.GLOBAL_DIRECTOR.height and temp_sprite.rect.y > 0:
+                    temp_sprite.rect.right) < designer.GLOBAL_DIRECTOR.width and temp_sprite.rect.x > 0 and temp_sprite.rect.top < designer.GLOBAL_DIRECTOR.height and temp_sprite.rect.y > 0:
                 if not sprite.finished_animation:
                     temp_sprite.rect.x += (self.speed * self.x)
                     temp_sprite.rect.y += (self.speed * self.y)
@@ -62,10 +62,10 @@ class JitterAnimation(Animation):
     def __init__(self, direction: int):
         self.direction = direction
 
-    def step(self, sprite: games.GamesSprite):
-        if isinstance(sprite, games.GamesSprite):
+    def step(self, sprite: designer.GamesSprite):
+        if isinstance(sprite, designer.GamesSprite):
             sprites = [sprite]
-        elif isinstance(sprite, games.GamesGroup):
+        elif isinstance(sprite, designer.GamesGroup):
             sprites = sprite.sprites
             x_dir = random.randint(-self.direction, self.direction)
             y_dir = random.randint(-self.direction, self.direction)
@@ -84,15 +84,15 @@ class RotateAnimation(Animation):
         self.total = 0
         super().__init__(speed, direction)
 
-    def step(self, sprite: games.GamesSprite):
+    def step(self, sprite: designer.GamesSprite):
         '''
         handles rotation per step of the game state
         :param sprite: GamesSprite to be moved
         :return:
         '''
-        if isinstance(sprite, games.GamesSprite):
+        if isinstance(sprite, designer.GamesSprite):
             sprites = [sprite]
-        elif isinstance(sprite, games.GamesGroup):
+        elif isinstance(sprite, designer.GamesGroup):
             sprites = sprite.sprites
         for sprite in sprites:
             if self.total < self.angle_limit:
@@ -104,7 +104,7 @@ class RotateAnimation(Animation):
                 sprite.dirty = 1
 
 
-def glide_around(*sprites: games.GamesSprite, speed: int):
+def glide_around(*sprites: designer.GamesSprite, speed: int):
     '''
     Moves sprite(s) around at random.
     :param sprites: collection of at least one GamesSprite to move around
@@ -115,7 +115,7 @@ def glide_around(*sprites: games.GamesSprite, speed: int):
         sprite.add_animation(JitterAnimation(speed, 0))
 
 
-def glide_right(sprite: games.GamesSprite, speed: int):
+def glide_right(sprite: designer.GamesSprite, speed: int):
     '''
        Moves sprite(s) to the right of the window.
        :param sprites: collection of at least one GamesSprite to move
@@ -125,7 +125,7 @@ def glide_right(sprite: games.GamesSprite, speed: int):
     sprite.add_animation(GlideAnimation(speed, 0))
 
 
-def glide_left(sprite: games.GamesSprite, speed: int):
+def glide_left(sprite: designer.GamesSprite, speed: int):
     '''
            Moves sprite(s) to the left of the window.
            :param sprites: collection of at least one GamesSprite to move
@@ -135,7 +135,7 @@ def glide_left(sprite: games.GamesSprite, speed: int):
     sprite.add_animation(GlideAnimation(speed, 180))
 
 
-def glide_up(sprite: games.GamesSprite, speed: int):
+def glide_up(sprite: designer.GamesSprite, speed: int):
     '''
            Moves sprite(s) up on the window.
            :param sprites: collection of at least one GamesSprite to move
@@ -145,7 +145,7 @@ def glide_up(sprite: games.GamesSprite, speed: int):
     sprite.add_animation(GlideAnimation(speed, 90))
 
 
-def glide_down(sprite: games.GamesSprite, speed: int):
+def glide_down(sprite: designer.GamesSprite, speed: int):
     '''
             Moves sprite(s) down on the window.
             :param sprites: collection of at least one GamesSprite to move
@@ -155,7 +155,7 @@ def glide_down(sprite: games.GamesSprite, speed: int):
     sprite.add_animation((GlideAnimation(speed, 270)))
 
 
-def glide_in_degrees(sprite: games.GamesSprite, direction: int, speed: int):
+def glide_in_degrees(sprite: designer.GamesSprite, direction: int, speed: int):
     '''
     Moves sprite(s) a given number of degrees in a specific direction
     :param sprite: collection of at least one GamesSprite to move

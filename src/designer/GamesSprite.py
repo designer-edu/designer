@@ -5,18 +5,18 @@ from typing import Union, Tuple, List
 
 import requests
 
-from games import Animation
+from designer import Animation
 import pygame
-import games
+import designer
 import random
 import math
 
-from games.colors import _process_color
+from designer.colors import _process_color
 
 
 class GamesSprite(pygame.sprite.DirtySprite):
     def __init__(self):
-        games.check_initialized()
+        designer.check_initialized()
         super().__init__()
         self.animations = []
         self.orig_img = None
@@ -27,13 +27,13 @@ class GamesSprite(pygame.sprite.DirtySprite):
         adds a sprite to the global state's sprite collection
         :return:
         '''
-        games.GLOBAL_DIRECTOR.add(self)
+        designer.GLOBAL_DIRECTOR.add(self)
         self.orig_img = self.image.copy()
 
     def add_animation(self, animation: Animation):
         """
         Adds an animation to GamesSprite's animations collection.
-        :param animation: games.Animation to be added
+        :param animation: designer.Animation to be added
         :return:
         """
         self.animations.append(animation)
@@ -314,14 +314,14 @@ class GamesGroup(GamesSprite):
 
     def __init__(self, *sprites: Union[GamesSprite, List[GamesSprite]]):
         super().__init__()
-        games.check_initialized()
+        designer.check_initialized()
         self.sprites = sprites
         # list of queued animation
         self.animations = []
         # flag to continue animation
         self.finished_animation = False
         self.dirty = 1
-        games.GLOBAL_DIRECTOR.add_group(self)
+        designer.GLOBAL_DIRECTOR.add_group(self)
         self._calc_total_sprite()
         # self.orig_img = self.image
         super().add()
@@ -358,7 +358,7 @@ class GamesGroup(GamesSprite):
         image = pygame.surface.Surface((w, h)).convert_alpha()
         for sprite in self.sprites:
             # remove individual sprites from collection and draw sprites onto one surface
-            games.GLOBAL_DIRECTOR.all_game_sprites.remove(sprite)
+            designer.GLOBAL_DIRECTOR.all_game_sprites.remove(sprite)
             tempx, tempy = sprite.rect.topleft
             tempx = tempx - x
             tempy = tempy - y

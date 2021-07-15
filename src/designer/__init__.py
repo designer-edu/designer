@@ -1,8 +1,8 @@
 import pygame
-from games.Director import *
-from games.Animation import *
-from games.GamesSprite import *
-from games.colors import *
+from designer.Director import *
+from designer.Animation import *
+from designer.GamesSprite import *
+from designer.colors import *
 
 
 

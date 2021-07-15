@@ -1,6 +1,6 @@
 from typing import Union, List
 
-import games
+import designer
 import pygame
 
 
@@ -75,8 +75,8 @@ def check_initialized():
     Checks if global state exists and creates one if it does not.
     :return:
     """
-    if games.GLOBAL_DIRECTOR is None:
-        games.GLOBAL_DIRECTOR = Director()
+    if designer.GLOBAL_DIRECTOR is None:
+        designer.GLOBAL_DIRECTOR = Director()
 
 
 def draw(*images):
@@ -86,7 +86,7 @@ def draw(*images):
     :return:
     """
     check_initialized()
-    games.GLOBAL_DIRECTOR.start()
+    designer.GLOBAL_DIRECTOR.start()
 
 
 def set_window_color(color: Union[str, List[str]]):
@@ -96,6 +96,6 @@ def set_window_color(color: Union[str, List[str]]):
     :return: None
     '''
     check_initialized()
-    games.GLOBAL_DIRECTOR.bkgr_color = color
-    games.GLOBAL_DIRECTOR.screen.fill(color)
-    games.GLOBAL_DIRECTOR.background.fill(color)
+    designer.GLOBAL_DIRECTOR.bkgr_color = color
+    designer.GLOBAL_DIRECTOR.screen.fill(color)
+    designer.GLOBAL_DIRECTOR.background.fill(color)

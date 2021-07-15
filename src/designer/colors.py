@@ -1,6 +1,8 @@
 import json
+import os
 
-f = open("API_design/games/colors.json")
+basepath = os.path.dirname(__file__)
+f = open(os.path.join(basepath,'colors.json'))
 colors = json.load(f)
 f.close()
 
