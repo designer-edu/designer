@@ -17,7 +17,7 @@ import sys
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../'))
-sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'src')))
+sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'docsrc')))
 
 # -- Project information -----------------------------------------------------
 
