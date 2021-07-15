@@ -1,5 +1,3 @@
-import os
-import sys
 
 # Configuration file for the Sphinx documentation builder.
 #
@@ -13,10 +11,11 @@ import sys
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
+import os
+import sys
 # sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('../'))
+# sys.path.insert(0, os.path.abspath('../'))
+sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'src')))
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'docsrc')))
 
 # -- Project information -----------------------------------------------------

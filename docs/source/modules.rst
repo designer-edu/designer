@@ -1,7 +1,6 @@
-src
-===
+docsrc
+======
 
 .. toctree::
    :maxdepth: 4
 
-   designer
