@@ -10,6 +10,7 @@ Welcome to Designer's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   designer
 
 
 Indices and tables
