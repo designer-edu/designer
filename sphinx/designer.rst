@@ -12,18 +12,18 @@ designer.Animation module
    :undoc-members:
    :show-inheritance:
 
-designer.Director module
-------------------------
+designer.DesignerObject module
+------------------------------
 
-.. automodule:: designer.Director
+.. automodule:: designer.DesignerObject
    :members:
    :undoc-members:
    :show-inheritance:
 
-designer.GamesSprite module
----------------------------
+designer.Director module
+------------------------
 
-.. automodule:: designer.GamesSprite
+.. automodule:: designer.Director
    :members:
    :undoc-members:
    :show-inheritance:

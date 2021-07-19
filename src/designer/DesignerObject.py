@@ -14,7 +14,7 @@ import math
 from designer.colors import _process_color
 
 
-class GamesSprite(pygame.sprite.DirtySprite):
+class GamesObject(pygame.sprite.DirtySprite):
     def __init__(self):
         designer.check_initialized()
         super().__init__()
@@ -24,7 +24,7 @@ class GamesSprite(pygame.sprite.DirtySprite):
 
     def add(self):
         '''
-        adds a sprite to the global state's sprite collection
+        adds a object to the global state's object collection
         :return:
         '''
         designer.GLOBAL_DIRECTOR.add(self)
@@ -32,7 +32,7 @@ class GamesSprite(pygame.sprite.DirtySprite):
 
     def add_animation(self, animation: Animation):
         """
-        Adds an animation to GamesSprite's animations collection.
+        Adds an animation to GamesObject's animations collection.
         :param animation: designer.Animation to be added
         :return:
         """
@@ -43,7 +43,7 @@ class GamesSprite(pygame.sprite.DirtySprite):
             animation.step(self)
 
 
-class Circle(GamesSprite):
+class Circle(GamesObject):
     def __init__(self, center: Tuple[int], size: int, color):
         super().__init__()
         self.dirty = 1
@@ -60,7 +60,7 @@ class Circle(GamesSprite):
         super().add()
 
 
-class Ellipse(GamesSprite):
+class Ellipse(GamesObject):
     def __init__(self, left, top, width, height, color):
         super().__init__()
         self.dirty = 1
@@ -86,7 +86,7 @@ def make_ellipse(color, args):
     return Ellipse(left, top, width, height, color)
 
 
-class Arc(GamesSprite):
+class Arc(GamesObject):
     def __init__(self, color, start_angle, stop_angle, thickness, left, top, width, height):
         super().__init__()
         self.dirty = 1
@@ -112,7 +112,7 @@ def make_arc(color, start_angle, stop_angle, thickness, args):
     return Arc(color, start_angle, stop_angle, thickness, left, top, width, height)
 
 
-class Line(GamesSprite):
+class Line(GamesObject):
     def __init__(self, start, end, thickness, color):
         super().__init__()
         color = _process_color(color)
@@ -167,7 +167,7 @@ class Line(GamesSprite):
         super().add()
 
 
-class Rectangle(GamesSprite):
+class Rectangle(GamesObject):
     def __init__(self, left: int, top: int, width: int, height: int, color):
         super().__init__()
         self.dirty = 1
@@ -182,7 +182,7 @@ class Rectangle(GamesSprite):
         super().add()
 
 
-class Text(GamesSprite):
+class Text(GamesObject):
     def __init__(self, left: int, top: int, text_color, text: str, text_size: int):
         super().__init__()
         self.dirty = 1
@@ -199,7 +199,7 @@ class Text(GamesSprite):
         super().add()
 
 
-class Image(GamesSprite):
+class Image(GamesObject):
     def __init__(self, path: str, left: int, top: int, width: int, height: int):
         super().__init__()
         self.dirty = 1
@@ -274,7 +274,7 @@ def make_text(text_color, text: str, text_size: int, *args):
 
 def image(path: str, *args):
     '''
-    Creates a Sprite image from file path and other parameters given
+    Creates a Object image from file path and other parameters given
     :param path: local file path of image to upload
     :param args: in this order: left (x), top (y) coordinates, width, height of image as ints or 2 tuples
     :return: Image object
@@ -288,8 +288,8 @@ def image(path: str, *args):
     return Image(path, left, top, width, height)
 
 
-class above(GamesSprite):
-    def __init__(self, top: GamesSprite, bottom: GamesSprite):
+class above(GamesObject):
+    def __init__(self, top: GamesObject, bottom: GamesObject):
         super().__init__()
         self.dirty = 1
 
@@ -307,22 +307,22 @@ class above(GamesSprite):
         super().add()
 
 
-class GamesGroup(GamesSprite):
+class GamesGroup(GamesObject):
     '''
-    class consisting of group of GamesSprites together to allow collective functionality
+    class consisting of group of GamesObjects together to allow collective functionality
     '''
 
-    def __init__(self, *sprites: Union[GamesSprite, List[GamesSprite]]):
+    def __init__(self, *objects: Union[GamesObject, List[GamesObject]]):
         super().__init__()
         designer.check_initialized()
-        self.sprites = sprites
+        self.objects = objects
         # list of queued animation
         self.animations = []
         # flag to continue animation
         self.finished_animation = False
         self.dirty = 1
         designer.GLOBAL_DIRECTOR.add_group(self)
-        self._calc_total_sprite()
+        self._calc_total_object()
         # self.orig_img = self.image
         super().add()
 
@@ -334,35 +334,35 @@ class GamesGroup(GamesSprite):
             if not self.finished_animation and self.animations:
                 animation.step(self)
 
-    def _calc_total_sprite(self):
+    def _calc_total_object(self):
         """
-        Groups individual sprites into one image.
+        Groups individual objects into one image.
         :return:
         """
-        x, y = self.sprites[0].rect.topleft
+        x, y = self.objects[0].rect.topleft
         w = 0
         h = 0
-        for sprite in self.sprites:
-            # calculates most topleft position of all sprites
-            temp_x, temp_y = (sprite.rect.topleft)
+        for object in self.objects:
+            # calculates most topleft position of all objects
+            temp_x, temp_y = (object.rect.topleft)
             if (temp_x < x):
                 x = temp_x
             if (temp_y < y):
                 y = temp_y
-            temp_w, temp_h = sprite.image.get_size()
-            # calculates greatest width and height of all sprites
+            temp_w, temp_h = object.image.get_size()
+            # calculates greatest width and height of all objects
             if (temp_w > w):
                 w = temp_w
             if (temp_h > h):
                 h = temp_h
         image = pygame.surface.Surface((w, h)).convert_alpha()
-        for sprite in self.sprites:
-            # remove individual sprites from collection and draw sprites onto one surface
-            designer.GLOBAL_DIRECTOR.all_game_sprites.remove(sprite)
-            tempx, tempy = sprite.rect.topleft
+        for object in self.objects:
+            # remove individual objects from collection and draw objects onto one surface
+            designer.GLOBAL_DIRECTOR.all_game_objects.remove(object)
+            tempx, tempy = object.rect.topleft
             tempx = tempx - x
             tempy = tempy - y
-            image.blit(sprite.image, (tempx, tempy))
+            image.blit(object.image, (tempx, tempy))
         # orient rect
         rect = image.get_rect()
         rect.x = x
@@ -372,10 +372,10 @@ class GamesGroup(GamesSprite):
         self.dirty = 1
 
 
-def group(*sprites: Union[GamesSprite, List[GamesSprite]]):
+def group(*objects: Union[GamesObject, List[GamesObject]]):
     '''
-    Function to group multiple sprites together.
-    :param sprites: collection of sprites to be grouped together for collective functionality
+    Function to group multiple objects together.
+    :param objects: collection of objects to be grouped together for collective functionality
     :return: group
     '''
-    return GamesGroup(*sprites)
+    return GamesGroup(*objects)
