@@ -1,5 +1,5 @@
 import math
-from designer import GamesSprite
+from designer import DesignerObject
 import pygame
 import designer
 import random
@@ -7,7 +7,7 @@ from typing import Tuple, Union
 
 
 class Animation:
-    def __init__(self, speed: int, direction: str):
+    def __init__(self, speed, direction):
         self.speed = speed
         self.direction = direction
 
@@ -19,10 +19,11 @@ class Animation:
 
 
 class GlideAnimation(Animation):
-    def __init__(self, speed: int, direction: int):
+    def __init__(self, speed, direction):
         """
         Initializer of animations that glide across the screen.
         Calls initializer of Animations, parent  class.
+
         :param speed: int at which to move in pixels per frame
         :param direction: int in degrees at which to move
         """
@@ -37,46 +38,55 @@ class GlideAnimation(Animation):
             self.y = math.ceil(self.y)
         super().__init__(speed, direction)
 
-    def step(self, sprite: designer.GamesSprite):
+    def step(self, object):
         '''
-        handles glide for each step of the game state
-        :param sprite: GamesSprite to move
-        :return:
+        Handles glide for each step of the game state.
+
+        :param object: DesignerObject to move
+        :type object: designer.DesignerObject
+        :return: None
         '''
-        if isinstance(sprite, designer.GamesSprite):
-            sprites = [sprite]
-        elif isinstance(sprite, designer.GamesGroup):
-            sprites = [sprite]
-        for temp_sprite in sprites:
+        if isinstance(object, designer.DesignerObject):
+            objects = [object]
+        elif isinstance(object, designer.DesignerGroup):
+            objects = [object]
+        for temp_object in objects:
             if (
-                    temp_sprite.rect.right) < designer.GLOBAL_DIRECTOR.width and temp_sprite.rect.x > 0 and temp_sprite.rect.top < designer.GLOBAL_DIRECTOR.height and temp_sprite.rect.y > 0:
-                if not sprite.finished_animation:
-                    temp_sprite.rect.x += (self.speed * self.x)
-                    temp_sprite.rect.y += (self.speed * self.y)
-                    temp_sprite.dirty = 1
+                    temp_object.rect.right) < designer.GLOBAL_DIRECTOR.width and temp_object.rect.x > 0 and temp_object.rect.top < designer.GLOBAL_DIRECTOR.height and temp_object.rect.y > 0:
+                if not object.finished_animation:
+                    temp_object.rect.x += (self.speed * self.x)
+                    temp_object.rect.y += (self.speed * self.y)
+                    temp_object.dirty = 1
             else:
-                sprite.finished_animation = True
+                object.finished_animation = True
 
 
 class JitterAnimation(Animation):
-    def __init__(self, direction: int):
+    def __init__(self, direction):
         self.direction = direction
 
-    def step(self, sprite: designer.GamesSprite):
-        if isinstance(sprite, designer.GamesSprite):
-            sprites = [sprite]
-        elif isinstance(sprite, designer.GamesGroup):
-            sprites = sprite.sprites
+    def step(self, object):
+        '''
+                handles glide for each step of the game state
+
+                :param object: DesignerObject to move
+                :type object: designer.DesignerObject
+                :return: None
+                '''
+        if isinstance(object, designer.DesignerObject):
+            objects = [object]
+        elif isinstance(object, designer.DesignerGroup):
+            objects = object.objects
             x_dir = random.randint(-self.direction, self.direction)
             y_dir = random.randint(-self.direction, self.direction)
-            for sprite in sprites:
-                sprite.rect.x += x_dir
-                sprite.rect.y += y_dir
-                sprite.dirty = 1
+            for object in objects:
+                object.rect.x += x_dir
+                object.rect.y += y_dir
+                object.dirty = 1
 
 
 class RotateAnimation(Animation):
-    def __init__(self, speed: int, direction: int, angle_limit: int, pos: Tuple):
+    def __init__(self, speed, direction, angle_limit, pos):
         self.speed = speed
         self.angle = 1
         self.angle_limit = angle_limit
@@ -84,98 +94,122 @@ class RotateAnimation(Animation):
         self.total = 0
         super().__init__(speed, direction)
 
-    def step(self, sprite: designer.GamesSprite):
+    def step(self, obj):
         '''
         handles rotation per step of the game state
-        :param sprite: GamesSprite to be moved
-        :return:
+
+        :param obj: DesignerObject to be moved
+        :type obj: designer.DesignerObject
+        :return: None
         '''
-        if isinstance(sprite, designer.GamesSprite):
-            sprites = [sprite]
-        elif isinstance(sprite, designer.GamesGroup):
-            sprites = sprite.sprites
-        for sprite in sprites:
+        if isinstance(obj, designer.DesignerObject):
+            objects = [obj]
+        elif isinstance(obj, designer.DesignerGroup):
+            objects = obj.objects
+        for obj in objects:
             if self.total < self.angle_limit:
                 self.total = self.total + (self.speed * self.angle)
-                sprite.image = pygame.transform.rotate(sprite.orig_img, self.total)
-                sprite.rect = sprite.image.get_rect(center=sprite.orig_img.get_rect(center=(sprite.rect.center)).center)
+                obj.image = pygame.transform.rotate(obj.orig_img, self.total)
+                obj.rect = obj.image.get_rect(center=obj.orig_img.get_rect(center=(obj.rect.center)).center)
 
-                # self.angle += (self.speed * self.angle)
-                sprite.dirty = 1
+                obj.dirty = 1
 
 
-def glide_around(*sprites: designer.GamesSprite, speed: int):
+def glide_around(*objects, speed):
     '''
-    Moves sprite(s) around at random.
-    :param sprites: collection of at least one GamesSprite to move around
+    Moves object(s) around at random.
+
+    :param objects: collection of at least one DesignerObject to move around
+    :type objects: designer.DesignerObject
     :param speed: int representing pixels to move per second
-    :return:
+    :type speed: int
+    :return: None
     '''
-    for sprite in sprites:
-        sprite.add_animation(JitterAnimation(speed, 0))
+    for object in objects:
+        object.add_animation(JitterAnimation(speed, 0))
 
 
-def glide_right(sprite: designer.GamesSprite, speed: int):
+def glide_right(obj, speed):
     '''
-       Moves sprite(s) to the right of the window.
-       :param sprites: collection of at least one GamesSprite to move
+       Moves object(s) to the right of the window.
+
+       :param obj: collection of at least one DesignerObject to move
+       :type obj: designer.DesignerObject
        :param speed: int representing pixels to move per second
-       :return:
+       :type speed: int
+       :return: None
        '''
-    sprite.add_animation(GlideAnimation(speed, 0))
+    obj.add_animation(GlideAnimation(speed, 0))
 
 
-def glide_left(sprite: designer.GamesSprite, speed: int):
+def glide_left(obj, speed):
     '''
-           Moves sprite(s) to the left of the window.
-           :param sprites: collection of at least one GamesSprite to move
+           Moves object(s) to the left of the window.
+
+           :param obj: collection of at least one DesignerObject to move
+           :type obj: designer.DesignerObject
            :param speed: int representing pixels to move per second
-           :return:
+           :type speed: int
+           :return: None
            '''
-    sprite.add_animation(GlideAnimation(speed, 180))
+    obj.add_animation(GlideAnimation(speed, 180))
 
 
-def glide_up(sprite: designer.GamesSprite, speed: int):
+def glide_up(obj, speed):
     '''
-           Moves sprite(s) up on the window.
-           :param sprites: collection of at least one GamesSprite to move
+           Moves object(s) up on the window.
+
+           :param obj: collection of at least one DesignerObject to move
+           :type obj: designer.DesignerObject
            :param speed: int representing pixels to move per second
-           :return:
+           :type speed: int
+           :return: None
      '''
-    sprite.add_animation(GlideAnimation(speed, 90))
+    obj.add_animation(GlideAnimation(speed, 90))
 
 
-def glide_down(sprite: designer.GamesSprite, speed: int):
+def glide_down(obj, speed):
     '''
-            Moves sprite(s) down on the window.
-            :param sprites: collection of at least one GamesSprite to move
+            Moves object(s) down on the window.
+
+            :param obj: collection of at least one DesignerObject to move
+            :type obj: designer.DesignerObject
             :param speed: int representing pixels to move per second
-            :return:
+            :type speed: int
+            :return: None
          '''
-    sprite.add_animation((GlideAnimation(speed, 270)))
+    obj.add_animation((GlideAnimation(speed, 270)))
 
 
-def glide_in_degrees(sprite: designer.GamesSprite, direction: int, speed: int):
+def glide_in_degrees(obj, direction, speed):
     '''
-    Moves sprite(s) a given number of degrees in a specific direction
-    :param sprite: collection of at least one GamesSprite to move
-    :param direction: direction in degrees counterclockwise for sprite to move
+    Moves object(s) a given number of degrees in a specific direction
+
+    :param obj: collection of at least one DesignerObject to move
+    :type obj: designer.DesignerObject
+    :param direction: direction in degrees counterclockwise for object to move
+    :type direction: int
     :param speed: int representing pixels to move per second
-    :return:
+    :type speed: int
+    :return: None
     '''
-    sprite.add_animation((GlideAnimation(speed, direction)))
+    obj.add_animation((GlideAnimation(speed, direction)))
 
 
-def rotate(sprite: GamesSprite, angle_limit: int, speed: int):
+def rotate(obj, angle_limit, speed):
     '''
-    Rotates sprite(s) in place for a given number of degrees
-    :param sprite: collection of at least one GameSprite to move
-    :param angle_limit: int in degrees to rotate sprite
-    :param speed: int representing pixels to move per second
-    :return:
+    Rotates object(s) in place for a given number of degrees
+
+    :param obj: collection of at least one GameObject to move
+    :type obj: designer.DesignerObject
+    :param angle_limit: degrees to rotate object
+    :type angle_limit: int
+    :param speed:  representing pixels to move per second
+    :type speed: int
+    :return: None
     '''
-    if isinstance(sprite, GamesSprite.GamesSprite):
-        sprite.add_animation(RotateAnimation(speed, 0, angle_limit, sprite.rect.topleft))
-    if isinstance(sprite, GamesSprite.GamesGroup):
-        for temp_sprite in sprite.sprites:
-            temp_sprite.add_animation(RotateAnimation(speed, 0, angle_limit, temp_sprite.rect.topleft))
+    if isinstance(obj, DesignerObject.DesignerObject):
+        obj.add_animation(RotateAnimation(speed, 0, angle_limit, obj.rect.topleft))
+    if isinstance(obj, DesignerObject.DesignerGroup):
+        for temp_object in obj.objects:
+            temp_object.add_animation(RotateAnimation(speed, 0, angle_limit, temp_object.rect.topleft))

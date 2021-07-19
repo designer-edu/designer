@@ -14,8 +14,11 @@ import math
 from designer.colors import _process_color
 
 
-class GamesObject(pygame.sprite.DirtySprite):
+class DesignerObject(pygame.sprite.DirtySprite):
     def __init__(self):
+        '''
+        Creates a DesignerObject, a visual component of Designer output.
+        '''
         designer.check_initialized()
         super().__init__()
         self.animations = []
@@ -24,27 +27,46 @@ class GamesObject(pygame.sprite.DirtySprite):
 
     def add(self):
         '''
-        adds a object to the global state's object collection
-        :return:
+        Adds self to the global state's object collection.
+        :return: None
         '''
         designer.GLOBAL_DIRECTOR.add(self)
         self.orig_img = self.image.copy()
 
-    def add_animation(self, animation: Animation):
+    def add_animation(self, animation):
         """
-        Adds an animation to GamesObject's animations collection.
-        :param animation: designer.Animation to be added
-        :return:
+        Adds an animation to self's animations collection.
+
+        :param animation: animation to be added
+        :type animation: designer.Animation
+
+        :return: None
+
         """
         self.animations.append(animation)
 
     def _handle_animation(self):
+        '''
+        Processes all animations in self's animation collection. Is continuously called in main game loop for each
+        Designer Object.
+        '''
         for animation in self.animations:
             animation.step(self)
 
 
-class Circle(GamesObject):
-    def __init__(self, center: Tuple[int], size: int, color):
+class Circle(DesignerObject):
+    def __init__(self, center, size, color):
+        '''
+        Creates a circle object on the window.
+
+        :param center: x, y coordinates of center of circle
+        :type center: Tuple[int]
+        :param size: radius of circle
+        :type size: int
+        :param color: color of circle
+        :type color: str or List[str]
+
+        '''
         super().__init__()
         self.dirty = 1
         color = _process_color(color)
@@ -60,8 +82,22 @@ class Circle(GamesObject):
         super().add()
 
 
-class Ellipse(GamesObject):
-    def __init__(self, left, top, width, height, color):
+class Ellipse(DesignerObject):
+    def __init__(self, color, left, top, width, height):
+        '''
+        Creates an ellipse Designer Object on the window.
+
+        :param color: color of ellipse
+        :type color: str or List[str]
+        :param left: x coordinate of top left corner of ellipse
+        :type left: int
+        :param top: y coordinate of top left corner of ellipse
+        :type top: int
+        :param width: width of ellipse to be drawn
+        :type width: int
+        :param height: height of ellipse to be drawn
+        :type height: int
+        '''
         super().__init__()
         self.dirty = 1
         color = _process_color(color)
@@ -77,17 +113,46 @@ class Ellipse(GamesObject):
 
 
 def make_ellipse(color, args):
+    '''
+    Function to make ellipse.
+
+    :param color: color of ellipse
+    :type color: str or List[str]
+    :param args: left top corner of ellipse and width and height of ellipse
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Ellipse object created
+    '''
     if len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
     else:
         left, top = args[0]
         width, height = args[1]
-    return Ellipse(left, top, width, height, color)
+    return Ellipse(color, left, top, width, height)
 
 
-class Arc(GamesObject):
+class Arc(DesignerObject):
     def __init__(self, color, start_angle, stop_angle, thickness, left, top, width, height):
+        """
+        Creates an Arc Designer Object on window.
+
+        :param color: color to draw arc
+        :type color: str or List[str]
+        :param start_angle: angle to start drawing arc at
+        :type start_angle: int
+        :param stop_angle: angle to stop drawing arc at
+        :type stop_angle: int
+        :param thickness: thickness of arc in pixels
+        :type thickness: int
+        :param left: x coordinate of top left corner of arc
+        :type left: int
+        :param top: y coordinate of top left corner of arc
+        :type top: int
+        :param width: width of arc to be drawn
+        :type width: int
+        :param height: height of arc to be drawn
+        :type height: int
+        """
         super().__init__()
         self.dirty = 1
         color = _process_color(color)
@@ -103,6 +168,21 @@ class Arc(GamesObject):
 
 
 def make_arc(color, start_angle, stop_angle, thickness, args):
+    """
+    Function to make arc.
+
+    :param color: color to draw arc
+    :type color: str or List[str]
+    :param start_angle: angle to start drawing arc at
+    :type start_angle: int
+    :param stop_angle: angle to stop drawing arc at
+    :type stop_angle: int
+    :param thickness: thickness of arc in pixels
+    :type thickness: int
+    :param args: left top corner of arc and width and height of arc
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Arc object created
+    """
     if len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
@@ -112,8 +192,21 @@ def make_arc(color, start_angle, stop_angle, thickness, args):
     return Arc(color, start_angle, stop_angle, thickness, left, top, width, height)
 
 
-class Line(GamesObject):
+class Line(DesignerObject):
     def __init__(self, start, end, thickness, color):
+        """
+        Creates Line Designer Object on window.
+
+        :param start: starting coordinates of line
+        :type start: Tuple[int]
+        :param end: ending coordinates of line
+        :type end: Tuple[int]
+        :param thickness: thickness of line in pixels
+        :type thickness: int
+        :param color: color of line
+        :type color: str or List[str]
+        """
+
         super().__init__()
         color = _process_color(color)
         self.dirty = 1
@@ -130,21 +223,10 @@ class Line(GamesObject):
         top = min(p1y, p2y, p3y, p4y)
         bottom = max(p1y, p2y, p3y, p4y)
 
-        # print(color, start, end, left, top, right, bottom, right - left, bottom - top)
 
         # calculate differences between x and y coordinates of line
         x = abs(start[0] - end[0])
         y = abs(start[1] - end[1])
-
-        # catch if straight line (x or y is 0) and adjust width to be thickness of line
-        if x != 0:
-            width = x
-        else:
-            width = thickness
-        if y != 0:
-            height = y
-        else:
-            height = thickness
 
         width = right - left
         height = bottom - top
@@ -158,17 +240,27 @@ class Line(GamesObject):
         self.rect = pygame.Rect(left, top, width, height)
 
         # set top left corner of rect to minimum of x and y points of line (this should guarantee top left coordinates)
-        # self.rect.left = min(start[0], end[0])
-        # self.rect.top = min(start[1], end[1])
-        # print(self.image)
-        # print(self.rect)
         self.rect.left = left
         self.rect.top = top
         super().add()
 
 
-class Rectangle(GamesObject):
-    def __init__(self, left: int, top: int, width: int, height: int, color):
+class Rectangle(DesignerObject):
+    def __init__(self, left, top, width, height, color):
+        """
+        Creates Rectangle Designer Object on window.
+
+        :param left: x position of top left corner of rectangle
+        :type left: int
+        :param top: y position of top left corner of rectangle
+        :type top: int
+        :param width: width of rectangle in pixels
+        :type width: int
+        :param height: height of rectangle in pixels
+        :type height: int
+        :param color: color of rectangle
+        :type color: str or List[str]
+        """
         super().__init__()
         self.dirty = 1
         color = _process_color(color)
@@ -182,8 +274,22 @@ class Rectangle(GamesObject):
         super().add()
 
 
-class Text(GamesObject):
-    def __init__(self, left: int, top: int, text_color, text: str, text_size: int):
+class Text(DesignerObject):
+    def __init__(self, left, top, text_color, text, text_size):
+        """
+        Creates Text Designer Object on window
+
+        :param left: x coordinate of top left corner of text box
+        :type left: int
+        :param top: y coordinate of top left corner of text box
+        :type top: int
+        :param text_color: color of text
+        :type text_color: str or List[str]
+        :param text: text to be written on window
+        :type text: str
+        :param text_size: font size of text
+        :type text_size: int
+        """
         super().__init__()
         self.dirty = 1
         text_color = _process_color(text_color)
@@ -199,8 +305,22 @@ class Text(GamesObject):
         super().add()
 
 
-class Image(GamesObject):
-    def __init__(self, path: str, left: int, top: int, width: int, height: int):
+class Image(DesignerObject):
+    def __init__(self, path, left, top, width, height):
+        """
+        Creates Image Designer Object on window
+
+        :param path: either url or local file path to image to load on screen
+        :type path: str
+        :param left: x position of top left corner of image
+        :type left: int
+        :param top: y position of top left corner of image
+        :type top: int
+        :param width: width of image in pixels
+        :type width: int
+        :param height: height of image in pixels
+        :type height: int
+        """
         super().__init__()
         self.dirty = 1
         try:
@@ -232,9 +352,10 @@ class Image(GamesObject):
         super().add()
 
 
-def circle(radius: int, color: Union[str, List['str']], *args):
+def circle(radius, color, *args):
     '''
     Creates a circle with conditions specified by parameters.
+
     :param radius: int, radius of circle in pixels
     :param color: color of circle
     :param args: center of circle in x, y either as separate ints or as a tuple of ints
@@ -247,13 +368,18 @@ def circle(radius: int, color: Union[str, List['str']], *args):
     return Circle((x, y), radius, color)
 
 
-def line(thickness: int, color: Union[str, List['str']], *args):
+def line(thickness, color, *args):
     '''
-    Creates a line with conditions specified by parameters.
+    Function to create a line.
+
     :param thickness: thickness of line in pixels
-    :param color: color of circle
-    :param args: x and y position of start and end coordinates, either as 4 separate ints or 2 tuples
-    :return:
+    :type thickness: int
+    :param color: color of line
+    :type color: str or List[str]
+    :param args: start and end coordinates of line
+    :type args: two tuples (start x, start y), (end x, end y) or four ints start x, start y, end x, end y
+
+    :return: Line object created
     '''
     if len(args) > 2:
         start = args[0], args[1]
@@ -264,7 +390,7 @@ def line(thickness: int, color: Union[str, List['str']], *args):
     return Line(start, end, thickness, color)
 
 
-def make_text(text_color, text: str, text_size: int, *args):
+def make_text(text_color, text, text_size, *args):
     if len(args) >= 2:
         left, top = args[0], args[1]
     else:
@@ -272,11 +398,14 @@ def make_text(text_color, text: str, text_size: int, *args):
     return Text(left, top, text_color, text, text_size)
 
 
-def image(path: str, *args):
+def image(path, *args):
     '''
-    Creates a Object image from file path and other parameters given
-    :param path: local file path of image to upload
-    :param args: in this order: left (x), top (y) coordinates, width, height of image as ints or 2 tuples
+    Function to create an image.
+
+    :param path: local file path or url of image to upload
+    :type path: str
+    :param args: left top corner of image and width and height of image
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Image object
     '''
     if len(args) > 2:
@@ -288,8 +417,8 @@ def image(path: str, *args):
     return Image(path, left, top, width, height)
 
 
-class above(GamesObject):
-    def __init__(self, top: GamesObject, bottom: GamesObject):
+class above(DesignerObject):
+    def __init__(self, top, bottom):
         super().__init__()
         self.dirty = 1
 
@@ -307,12 +436,12 @@ class above(GamesObject):
         super().add()
 
 
-class GamesGroup(GamesObject):
+class DesignerGroup(DesignerObject):
     '''
-    class consisting of group of GamesObjects together to allow collective functionality
+    class consisting of group of DesignerObjects together to allow collective functionality
     '''
 
-    def __init__(self, *objects: Union[GamesObject, List[GamesObject]]):
+    def __init__(self, *objects):
         super().__init__()
         designer.check_initialized()
         self.objects = objects
@@ -326,10 +455,25 @@ class GamesGroup(GamesObject):
         # self.orig_img = self.image
         super().add()
 
-    def add_animation(self, animation: Animation):
+    def add_animation(self, animation):
+        """
+         Adds an animation to self's animations collection.
+
+        :param animation: animation to be added
+        :type animation: designer.Animation
+
+        :return: None
+
+        """
         self.animations.append(animation)
 
     def _handle_animation(self):
+        '''
+        Processes all animations in self's animation collection. Is continuously called in main game loop for each
+        Designer Group.
+
+        :return: None
+        '''
         for animation in self.animations:
             if not self.finished_animation and self.animations:
                 animation.step(self)
@@ -337,7 +481,8 @@ class GamesGroup(GamesObject):
     def _calc_total_object(self):
         """
         Groups individual objects into one image.
-        :return:
+
+        :return: None
         """
         x, y = self.objects[0].rect.topleft
         w = 0
@@ -372,10 +517,12 @@ class GamesGroup(GamesObject):
         self.dirty = 1
 
 
-def group(*objects: Union[GamesObject, List[GamesObject]]):
+def group(*objects):
     '''
     Function to group multiple objects together.
+
     :param objects: collection of objects to be grouped together for collective functionality
-    :return: group
+    :type objects: at least one DesignerObject
+    :return: Created Designer Group object
     '''
-    return GamesGroup(*objects)
+    return DesignerGroup(*objects)

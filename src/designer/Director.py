@@ -8,8 +8,11 @@ class Director:
     def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps = 50):
         """
         Initializes the Director that will control the game state.
+
         :param width: width of the game window in pixels
+        :type width: int
         :param height: height of the game window in pixels
+        :type height: int
         :param background_color: color to initially fill the window with
         """
         pygame.init()
@@ -24,17 +27,18 @@ class Director:
 
         self.fps = fps
         self.running = False
-        self.all_game_sprites = pygame.sprite.LayeredDirty()
+        self.all_game_objects = pygame.sprite.LayeredDirty()
         self.groups = []
 
 
     def start(self):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
-        :return:
+
+        :return: None
         """
         self.running = True
-        self.all_game_sprites.clear(self.screen, self.background)
+        self.all_game_objects.clear(self.screen, self.background)
 
         time = 0
         while self.running:
@@ -42,29 +46,35 @@ class Director:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-            for gsprite in self.all_game_sprites:
-                gsprite._handle_animation()
+            for gobject in self.all_game_objects:
+                gobject._handle_animation()
             for group in self.groups:
                 group._handle_animation()
             time += 1
-            self.all_game_sprites.update()
-            rects = self.all_game_sprites.draw(self.screen)
+            self.all_game_objects.update()
+            rects = self.all_game_objects.draw(self.screen)
             pygame.display.update(rects)
 
     def add(self, *images):
         """
         Adds a DirtySprite to Director's DirtySprite collection.
-        :param images:
-        :return:
+
+        :param images: images to add to self's DirtySprite collection
+        :type images: designer.DesignerObjects
+
+        :return: nOne
         """
         for image in images:
-            self.all_game_sprites.add(image)
+            self.all_game_objects.add(image)
 
     def add_group(self, *groups):
         """
         Adds group of DirtySprites to Director's group collection.
-        :param groups:
-        :return:
+
+        :param groups: groups to add to self's group collection
+        :type groups: designer.DesignerGroups
+
+        :return: None
         """
         for group in groups:
             self.groups.append(group)
@@ -73,26 +83,29 @@ class Director:
 def check_initialized():
     """
     Checks if global state exists and creates one if it does not.
-    :return:
+
+    :return: None
     """
     if designer.GLOBAL_DIRECTOR is None:
         designer.GLOBAL_DIRECTOR = Director()
 
 
-def draw(*images):
+def draw():
     """
     Internally starts the game loop.
-    :param images:
-    :return:
+
+    :return: None
     """
     check_initialized()
     designer.GLOBAL_DIRECTOR.start()
 
 
-def set_window_color(color: Union[str, List[str]]):
+def set_window_color(color):
     '''
     Changes window color to given color.
     :param color: color to change window to
+    :type color: str or List[str]
+
     :return: None
     '''
     check_initialized()
