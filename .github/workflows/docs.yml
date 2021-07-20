@@ -50,7 +50,7 @@ jobs:
       - name: Commit documentation changes
         run: |
           git clone https://github.com/krishols/designer.git --branch docs --single-branch docs
-          cp -r docs/_build/html/* docs/
+          cp -r docsrc/_build/html/* docs/
           cd docs
           echo "" > .nojekyll
           git config --local user.email "action@github.com"
