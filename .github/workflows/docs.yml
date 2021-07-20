@@ -26,6 +26,7 @@ jobs:
       - uses: ammaraskar/sphinx-action@master
         with:
           pre-build-command: "python3 -m pip install -r requirements.txt && python3 -m pip install -e ."
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
           docs-folder: "docs/"
       # Build PDF using custom depedencies
       #- uses: ammaraskar/sphinx-action@master
@@ -48,7 +49,7 @@ jobs:
       # ===============================
       - name: Commit documentation changes
         run: |
-          git clone https://github.com/krishols/designer.git --branch gh-pages --single-branch docs
+          git clone https://github.com/krishols/designer.git --branch docs --single-branch docs
           cp -r docs/_build/html/* docs/
           cd docs
           echo "" > .nojekyll
