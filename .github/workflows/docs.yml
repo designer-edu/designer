@@ -26,7 +26,6 @@ jobs:
       - uses: ammaraskar/sphinx-action@master
         with:
           pre-build-command: "python3 -m pip install -r requirements.txt && python3 -m pip install -e ."
-          build-command: "sphinx-build sphinx ."
           docs-folder: "docs/"
       # Build PDF using custom depedencies
       #- uses: ammaraskar/sphinx-action@master
