@@ -48,7 +48,7 @@ jobs:
       # ===============================
       - name: Commit documentation changes
         run: |
-          git clone https://github.com/krishols/designer.git --branch gh-pages --single-branch gh-pages
+          git clone https://github.com/krishols/designer.git --branch gh-pages --single-branch docs
           cp -r docs/_build/html/* docs/
           cd docs
           echo "" > .nojekyll
