@@ -48,7 +48,7 @@ jobs:
       # ===============================
       - name: Commit documentation changes
         run: |
-          git clone https://github.com/krishols/designer.git --branch docs --single-branch docs
+          git clone https://github.com/krishols/designer.git --branch gh-pages --single-branch gh-pages
           cp -r docs/_build/html/* docs/
           cd docs
           echo "" > .nojekyll
@@ -61,7 +61,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          branch: docs
-          directory: docs
+          branch: gh-pages
+          directory: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
       # ===============================
