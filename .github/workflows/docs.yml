@@ -27,14 +27,14 @@ jobs:
         with:
           pre-build-command: "python3 -m pip install -r requirements.txt && python3 -m pip install -e ."
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          docs-folder: "docs/"
+          docs-folder: "docsrc/"
       # Build PDF using custom depedencies
       #- uses: ammaraskar/sphinx-action@master
       #  with:
       #    repo-token: "${{ secrets.GITHUB_TOKEN }}"
       #    pre-build-command: "apt-get update -y && apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended"
       #    build-command: "make latexpdf"
-      #    docs-folder: "docsrc/"
+      #    docsrc-folder: "docsrc/"
       # Create an artifact of the html output.
       #- uses: actions/upload-artifact@v1
       #  with:
@@ -45,7 +45,7 @@ jobs:
       #  with:
       #    name: Documentation
       #    path: docsrc/_build/latex/pdfexample.pdf
-      # Publish built docs to docs branch.
+      # Publish built docsrc to docsrc branch.
       # ===============================
       - name: Commit documentation changes
         run: |
