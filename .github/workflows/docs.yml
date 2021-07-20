@@ -7,11 +7,12 @@ name: "Build Documentation"
 # events but only for the main branch
 on:
   push:
-    branches: [ docs ]
+    branches: [ main, docs ]
   pull_request:
     branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
   # This workflow contains a single job called "build"
   docs:
     # The type of runner that the job will run on
@@ -25,7 +26,7 @@ on:
       - uses: ammaraskar/sphinx-action@master
         with:
           pre-build-command: "python3 -m pip install -r requirements.txt && python3 -m pip install -e ."
-          build-command: "sphinx-build sphinx build"
+          build-command: "sphinx-build ./sphinx build"
           docs-folder: "docs/"
       # Build PDF using custom depedencies
       #- uses: ammaraskar/sphinx-action@master
