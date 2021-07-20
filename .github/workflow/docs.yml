@@ -27,7 +27,7 @@ jobs:
         with:
           pre-build-command: "python3 -m pip install -r requirements_dev.txt && python3 -m pip install -e ."
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
-          docs-folder: "docsrc/"
+          docs-folder: "docs/"
       # Build PDF using custom depedencies
       #- uses: ammaraskar/sphinx-action@master
       #  with:
