@@ -24,8 +24,10 @@ class GlideAnimation(Animation):
         Initializer of animations that glide across the screen.
         Calls initializer of Animations, parent  class.
 
-        :param speed: int at which to move in pixels per frame
-        :param direction: int in degrees at which to move
+        :param speed: Pixels to move per second
+        :type speed: int
+        :param direction: Degrees at which to move
+        :type direction: int
         """
         direction = math.radians(direction)
         self.x = math.cos(direction)
@@ -42,8 +44,8 @@ class GlideAnimation(Animation):
         '''
         Handles glide for each step of the game state.
 
-        :param object: DesignerObject to move
-        :type object: designer.DesignerObject
+        :param object: Object to move
+        :type object: DesignerObject or DesignerGroup
         :return: None
         '''
         if isinstance(object, designer.DesignerObject):
@@ -67,10 +69,10 @@ class JitterAnimation(Animation):
 
     def step(self, object):
         '''
-                handles glide for each step of the game state
+              Handles glide for each step of the game state.
 
-                :param object: DesignerObject to move
-                :type object: designer.DesignerObject
+                :param object: Object to move
+                :type object: DesignerObject or DesignerGroup
                 :return: None
                 '''
         if isinstance(object, designer.DesignerObject):
@@ -96,10 +98,10 @@ class RotateAnimation(Animation):
 
     def step(self, obj):
         '''
-        handles rotation per step of the game state
+        Handles rotation for each step of the game state.
 
-        :param obj: DesignerObject to be moved
-        :type obj: designer.DesignerObject
+        :param obj: Object to be moved
+        :type obj: DesignerObject or DesignerGroup
         :return: None
         '''
         if isinstance(obj, designer.DesignerObject):
@@ -117,11 +119,11 @@ class RotateAnimation(Animation):
 
 def glide_around(*objects, speed):
     '''
-    Moves object(s) around at random.
+    Moves object around at random.
 
-    :param objects: collection of at least one DesignerObject to move around
-    :type objects: designer.DesignerObject
-    :param speed: int representing pixels to move per second
+    :param objects: Object to move around
+    :type objects: DesignerObject or DesignerGroup
+    :param speed: Pixels to move per second
     :type speed: int
     :return: None
     '''
@@ -131,11 +133,11 @@ def glide_around(*objects, speed):
 
 def glide_right(obj, speed):
     '''
-       Moves object(s) to the right of the window.
+       Moves object to the right of the window.
 
-       :param obj: collection of at least one DesignerObject to move
-       :type obj: designer.DesignerObject
-       :param speed: int representing pixels to move per second
+       :param obj: Object to move
+       :type obj: DesignerObject or DesignerGroup
+       :param speed: Pixels to move per second
        :type speed: int
        :return: None
        '''
@@ -144,11 +146,11 @@ def glide_right(obj, speed):
 
 def glide_left(obj, speed):
     '''
-           Moves object(s) to the left of the window.
+           Moves object to the left of the window.
 
-           :param obj: collection of at least one DesignerObject to move
-           :type obj: designer.DesignerObject
-           :param speed: int representing pixels to move per second
+           :param obj: Object to move
+           :type obj: DesignerObject
+           :param speed: Pixels to move per second
            :type speed: int
            :return: None
            '''
@@ -157,11 +159,11 @@ def glide_left(obj, speed):
 
 def glide_up(obj, speed):
     '''
-           Moves object(s) up on the window.
+           Moves object up on the window.
 
-           :param obj: collection of at least one DesignerObject to move
-           :type obj: designer.DesignerObject
-           :param speed: int representing pixels to move per second
+           :param obj: Object to move
+           :type obj: DesignerObject or DesignerGroup
+           :param speed: Pixels to move per second
            :type speed: int
            :return: None
      '''
@@ -170,11 +172,11 @@ def glide_up(obj, speed):
 
 def glide_down(obj, speed):
     '''
-            Moves object(s) down on the window.
+            Moves object down on the window.
 
-            :param obj: collection of at least one DesignerObject to move
-            :type obj: designer.DesignerObject
-            :param speed: int representing pixels to move per second
+            :param obj: Object to move
+            :type obj: DesignerObject or DesignerGroup
+            :param speed: Pixels to move per second
             :type speed: int
             :return: None
          '''
@@ -183,13 +185,13 @@ def glide_down(obj, speed):
 
 def glide_in_degrees(obj, direction, speed):
     '''
-    Moves object(s) a given number of degrees in a specific direction
+    Moves object a given number of degrees in that direction
 
-    :param obj: collection of at least one DesignerObject to move
-    :type obj: designer.DesignerObject
-    :param direction: direction in degrees counterclockwise for object to move
+    :param obj: Object to move
+    :type obj: DesignerObject or DesignerGroup
+    :param direction: Direction in degrees counterclockwise for object to move
     :type direction: int
-    :param speed: int representing pixels to move per second
+    :param speed: Pixels to move per second
     :type speed: int
     :return: None
     '''
@@ -198,13 +200,13 @@ def glide_in_degrees(obj, direction, speed):
 
 def rotate(obj, angle_limit, speed):
     '''
-    Rotates object(s) in place for a given number of degrees
+    Rotates object in place for a given number of degrees
 
-    :param obj: collection of at least one GameObject to move
-    :type obj: designer.DesignerObject
-    :param angle_limit: degrees to rotate object
+    :param obj: Object to move
+    :type obj: DesignerObject or DesignerGroup
+    :param angle_limit: Degrees to rotate object
     :type angle_limit: int
-    :param speed:  representing pixels to move per second
+    :param speed: Pixels to move per second
     :type speed: int
     :return: None
     '''

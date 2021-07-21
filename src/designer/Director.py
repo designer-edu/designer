@@ -103,6 +103,7 @@ def draw():
 def set_window_color(color):
     '''
     Changes window color to given color.
+
     :param color: color to change window to
     :type color: str or List[str]
 

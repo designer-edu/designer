@@ -112,7 +112,7 @@ class Ellipse(DesignerObject):
         super().add()
 
 
-def make_ellipse(color, args):
+def ellipse(color, args):
     '''
     Function to make ellipse.
 
@@ -167,7 +167,7 @@ class Arc(DesignerObject):
         super().add()
 
 
-def make_arc(color, start_angle, stop_angle, thickness, args):
+def arc(color, start_angle, stop_angle, thickness, args):
     """
     Function to make arc.
 
@@ -273,6 +273,24 @@ class Rectangle(DesignerObject):
 
         super().add()
 
+def rectangle(color, args):
+    '''
+    Function to create a rectangle.
+
+    :param color: color of rectangle
+    :type color: str or List[str]
+    :param args: left top corner of image and width and height of rectangle
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Rectangle object
+    '''
+    if len(args) > 2:
+        left, top = args[0], args[1]
+        width, height = args[2], args[3]
+    else:
+        left, top = args[0]
+        width, height = args[1]
+    return Image(left, top, width, height, color)
+
 
 class Text(DesignerObject):
     def __init__(self, left, top, text_color, text, text_size):
@@ -354,7 +372,7 @@ class Image(DesignerObject):
 
 def circle(radius, color, *args):
     '''
-    Creates a circle with conditions specified by parameters.
+    Function to create a circle. 
 
     :param radius: int, radius of circle in pixels
     :param color: color of circle
@@ -390,7 +408,7 @@ def line(thickness, color, *args):
     return Line(start, end, thickness, color)
 
 
-def make_text(text_color, text, text_size, *args):
+def text(text_color, text, text_size, *args):
     if len(args) >= 2:
         left, top = args[0], args[1]
     else:
