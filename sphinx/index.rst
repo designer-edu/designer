@@ -5,12 +5,13 @@
 
 Welcome to Designer's documentation!
 ====================================
+Designer is a classroom tool that allows you to create visual output as you learn to code in Python!
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   designer
+   students/docs
    
 
 
