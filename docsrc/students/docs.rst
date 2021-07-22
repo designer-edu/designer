@@ -16,4 +16,4 @@ Designer Objects and Grouping Objects
 Settings
 --------
 .. automodule:: designer.Director
-    :members: set_window_color, draw
+    :members: set_window_color, set_window_size, draw

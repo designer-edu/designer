@@ -16,7 +16,8 @@ class Director:
         :param background_color: color to initially fill the window with
         """
         pygame.init()
-        self.screen = pygame.display.set_mode((width, height))
+        self.window_size = width, height
+        self.screen = pygame.display.set_mode(self.window_size)
         self.bkgr_color = background_color
         self.screen.fill(background_color)
 
@@ -39,6 +40,8 @@ class Director:
         """
         self.running = True
         self.all_game_objects.clear(self.screen, self.background)
+        self.screen = pygame.display.set_mode(self.window_size)
+        self.screen.fill(self.bkgr_color)
 
         time = 0
         while self.running:
@@ -103,6 +106,7 @@ def draw():
 def set_window_color(color):
     '''
     Changes window color to given color.
+    Must call before adding any DesignerObjects.
 
     :param color: color to change window to
     :type color: str or List[str]
@@ -113,3 +117,17 @@ def set_window_color(color):
     designer.GLOBAL_DIRECTOR.bkgr_color = color
     designer.GLOBAL_DIRECTOR.screen.fill(color)
     designer.GLOBAL_DIRECTOR.background.fill(color)
+
+def set_window_size(width, height):
+    """
+    Set size of window in pixels.
+    Must call before adding any DesignerObjects.
+
+    :param width: number of pixels to set horizontal size of window
+    :type width: int
+    :param height: number of pixels to set vertical size of window
+    :type height: int
+    :return: None
+    """
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.window_size = width, height

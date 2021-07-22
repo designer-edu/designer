@@ -9,7 +9,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
-sphinx/_build
+sphinx/
 develop-eggs/
 dist/
 downloads/
