@@ -772,10 +772,29 @@ Calls initializer of Animations, parent  class.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.Director.set_window_color">
 <span class="sig-name descname"><span class="pre">set_window_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.set_window_color" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes window color to given color.</p>
+<dd><p>Changes window color to given color.
+Must call before adding any DesignerObjects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to change window to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Director.set_window_size">
+<span class="sig-name descname"><span class="pre">set_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.set_window_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set size of window in pixels.
+Must call before adding any DesignerObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – number of pixels to set horizontal size of window</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – number of pixels to set vertical size of window</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
