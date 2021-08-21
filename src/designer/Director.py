@@ -42,6 +42,7 @@ class Director:
         self.all_game_objects.clear(self.screen, self.background)
         self.screen = pygame.display.set_mode(self.window_size)
         self.screen.fill(self.bkgr_color)
+        print(self.all_game_objects)
 
         time = 0
         while self.running:
@@ -70,6 +71,7 @@ class Director:
         for image in images:
             self.all_game_objects.add(image)
 
+
     def add_group(self, *groups):
         """
         Adds group of DirtySprites to Director's group collection.
@@ -93,7 +95,7 @@ def check_initialized():
         designer.GLOBAL_DIRECTOR = Director()
 
 
-def draw():
+def draw(*objs):
     """
     Internally starts the game loop.
 

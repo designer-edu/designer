@@ -78,6 +78,7 @@ class Circle(DesignerObject):
         self.color = color
 
         self.rect = self.image.get_rect(center=center)
+        print(self.image)
 
         super().add()
 
@@ -223,7 +224,6 @@ class Line(DesignerObject):
         top = min(p1y, p2y, p3y, p4y)
         bottom = max(p1y, p2y, p3y, p4y)
 
-
         # calculate differences between x and y coordinates of line
         x = abs(start[0] - end[0])
         y = abs(start[1] - end[1])
@@ -266,14 +266,19 @@ class Rectangle(DesignerObject):
         color = _process_color(color)
 
         self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
-        pygame.draw.rect(self.image, color, [left, top, width, height])
+        pygame.draw.rect(self.image, color, (0, 0, width, height))
 
+
+
+        self.color = color
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
+        print(self.rect)
 
         super().add()
 
-def rectangle(color, args):
+
+def rectangle(color, *args):
     '''
     Function to create a rectangle.
 
@@ -289,7 +294,7 @@ def rectangle(color, args):
     else:
         left, top = args[0]
         width, height = args[1]
-    return Image(left, top, width, height, color)
+    return Rectangle(left, top, width, height, color)
 
 
 class Text(DesignerObject):
@@ -319,8 +324,52 @@ class Text(DesignerObject):
         self.image = font.render(text, True, text_color)
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
+        print(self.rect.topleft)
 
         super().add()
+
+
+class Shape(DesignerObject):
+    def __init__(self, points, left, top, width, height, color):
+
+        super().__init__()
+        self.dirty = 1
+        color = _process_color(color)
+        print(width, height)
+
+        self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
+        pygame.draw.polygon(self.image, color, points)
+
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (left, top)
+        print(self.rect.topleft)
+
+        super().add()
+
+
+def shape(color, points: List[Tuple]):
+    designer.check_initialized()
+    max_x = 0
+    max_y = 0
+    new_points = []
+    min_x = designer.GLOBAL_DIRECTOR.width
+    min_y = designer.GLOBAL_DIRECTOR.height
+    for pt in points:
+        if pt[0] < min_x:
+            min_x = pt[0]
+        if pt[0] > max_x:
+            max_x = pt[0]
+        if pt[1] < min_y:
+            min_y = pt[1]
+        if pt[1] > max_y:
+            max_y = pt[1]
+        x = designer.GLOBAL_DIRECTOR.width - pt[0]
+        y = designer.GLOBAL_DIRECTOR.height - pt[1]
+        new_points.append((x, y))
+    width = max_x - min_x
+    height = max_y - min_y
+    new_points = [(x - min_x, y - min_y) for x, y in points]
+    return Shape(new_points, min_x, min_y, width, height, color)
 
 
 class Image(DesignerObject):
@@ -370,12 +419,12 @@ class Image(DesignerObject):
         super().add()
 
 
-def circle(radius, color, *args):
+def circle(color, radius, *args):
     '''
     Function to create a circle. 
 
-    :param radius: int, radius of circle in pixels
     :param color: color of circle
+    :param radius: int, radius of circle in pixels
     :param args: center of circle in x, y either as separate ints or as a tuple of ints
     :return: Circle object
     '''
@@ -503,8 +552,7 @@ class DesignerGroup(DesignerObject):
         :return: None
         """
         x, y = self.objects[0].rect.topleft
-        w = 0
-        h = 0
+        max_x, max_y = self.objects[0].rect.bottomright
         for object in self.objects:
             # calculates most topleft position of all objects
             temp_x, temp_y = (object.rect.topleft)
@@ -512,13 +560,15 @@ class DesignerGroup(DesignerObject):
                 x = temp_x
             if (temp_y < y):
                 y = temp_y
-            temp_w, temp_h = object.image.get_size()
+            temp_w, temp_h = object.rect.bottomright
             # calculates greatest width and height of all objects
-            if (temp_w > w):
-                w = temp_w
-            if (temp_h > h):
-                h = temp_h
-        image = pygame.surface.Surface((w, h)).convert_alpha()
+            if (temp_w > max_x):
+                max_x = temp_w
+            if (temp_h > max_y):
+                max_y = temp_h
+        width = max_x - x
+        height = max_y - y
+        image = pygame.surface.Surface((width, height)).convert_alpha()
         for object in self.objects:
             # remove individual objects from collection and draw objects onto one surface
             designer.GLOBAL_DIRECTOR.all_game_objects.remove(object)
@@ -530,6 +580,7 @@ class DesignerGroup(DesignerObject):
         rect = image.get_rect()
         rect.x = x
         rect.y = y
+        print(rect)
         self.image = image
         self.rect = rect
         self.dirty = 1

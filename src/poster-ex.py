@@ -1,24 +1,15 @@
 from designer import *
 
-set_window_size(800, 600)
-set_window_color((colors['lavender']))
-#face = make_circle((400, 300), 100, colors['lightyellow'])
-face = circle(100, colors['lightyellow'], 400, 300)
-# move_left(face)
-# left = make_circle((450, 275), 20, colors['black'])
-left = circle(20, colors['black'], 450, 275)
-# right = make_circle((350, 275), 20, colors['black'])
-right = circle(20, colors['black'], 350, 275)
-# smile = make_arc(525, 500, 350, 275, colors['pink'], math.pi, 0, 3)
+background_fox = image('https://bit.ly/3zFlzuT', 0, 0, 800, 600)
 
-smiley_face = group(face, right, left)
-#move_left(smiley_face)
-rotate(smiley_face, 270, 1)
-text('green', "Hello", 30, 0, 0)
-text('purple', 'World', 30, 550, 550)
-image('https://media.giphy.com/media/dvwzLgWGNQoGMEju4U/giphy.gif', 0, 0, 800, 600)
-# image('API_design/images/duck.png', 100, 100, 100, 100)
-# make_image('images/crab.png', 500, 500, 50, 50)
-#rotate(face, 125, 360)
-# rotate(smiley_face, direction=125, angle_limit=360)
-draw()
+roof = shape('lightyellow', [(100, 150), (200, 300), (0, 300)])
+bottom_house = rectangle('firebrick', 0, 300, 200, 200)
+door = rectangle('black', 60, 350, 75, 150)
+door_handle = line(3, 'white', 70, 400, 70, 450)
+house = group(roof, bottom_house, door, door_handle)
+
+gn_text = text('green', "Goodnight Moon", 30, 50, 50)
+moon = circle('lightgray', 75, 500, 100)
+
+draw(background_fox, house, gn_text, moon)
+
