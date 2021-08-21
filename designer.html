@@ -539,6 +539,13 @@ Calls initializer of Animations, parent  class.</p>
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Shape">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates a DesignerObject, a visual component of Designer output.</p>
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="designer.DesignerObject.Text">
 <em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Text" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
@@ -585,13 +592,13 @@ Calls initializer of Animations, parent  class.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.circle">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a circle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>radius</strong> – int, radius of circle in pixels</p></li>
 <li><p><strong>color</strong> – color of circle</p></li>
+<li><p><strong>radius</strong> – int, radius of circle in pixels</p></li>
 <li><p><strong>args</strong> – center of circle in x, y either as separate ints or as a tuple of ints</p></li>
 </ul>
 </dd>
@@ -669,7 +676,7 @@ Calls initializer of Animations, parent  class.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.rectangle">
-<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.rectangle" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.rectangle" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a rectangle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -683,6 +690,11 @@ Calls initializer of Animations, parent  class.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.text">
@@ -760,7 +772,7 @@ Calls initializer of Animations, parent  class.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.Director.draw">
-<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.draw" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Internally starts the game loop.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
