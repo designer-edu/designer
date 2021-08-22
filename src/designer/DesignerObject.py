@@ -78,7 +78,7 @@ class Circle(DesignerObject):
         self.color = color
 
         self.rect = self.image.get_rect(center=center)
-        print(self.image)
+
 
         super().add()
 
@@ -273,7 +273,6 @@ class Rectangle(DesignerObject):
         self.color = color
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
-        print(self.rect)
 
         super().add()
 
@@ -324,7 +323,6 @@ class Text(DesignerObject):
         self.image = font.render(text, True, text_color)
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
-        print(self.rect.topleft)
 
         super().add()
 
@@ -335,14 +333,14 @@ class Shape(DesignerObject):
         super().__init__()
         self.dirty = 1
         color = _process_color(color)
-        print(width, height)
+
 
         self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
         pygame.draw.polygon(self.image, color, points)
 
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
-        print(self.rect.topleft)
+
 
         super().add()
 
@@ -407,7 +405,7 @@ class Image(DesignerObject):
                         shutil.copyfileobj(r.raw, f)
                     self.image = pygame.image.load('temp').convert_alpha()
                 else:
-                    print('Image Couldn\'t be retreived')
+                    print('Image Couldn\'t be retrieved')
             except:
                 print("Unexpected error:", sys.exc_info()[0])
                 raise
@@ -580,7 +578,6 @@ class DesignerGroup(DesignerObject):
         rect = image.get_rect()
         rect.x = x
         rect.y = y
-        print(rect)
         self.image = image
         self.rect = rect
         self.dirty = 1

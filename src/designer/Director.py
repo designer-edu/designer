@@ -42,7 +42,7 @@ class Director:
         self.all_game_objects.clear(self.screen, self.background)
         self.screen = pygame.display.set_mode(self.window_size)
         self.screen.fill(self.bkgr_color)
-        print(self.all_game_objects)
+
 
         time = 0
         while self.running:
