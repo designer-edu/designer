@@ -1,8 +1,8 @@
 from designer import *
 
-set_window_color((colors['lavender']))
-circle = circle(100, colors['lightyellow'], (400, 300))
-glide_left(circle)
+set_window_color('lavender')
+yellow_circle = circle('lightyellow', 100, (400, 300))
+glide_left(yellow_circle)
 draw()
 '''
 How many function calls are there?

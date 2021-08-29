@@ -1,8 +1,27 @@
 from designer import *
 
-set_window_color((colors['lavender']))
-circle = circle(100, colors['lightyellow'], 400, 300)
-glide_left(circle, 1)
+# set background color
+set_window_color('lightgreen')
+
+# make face
+face = circle('lightyellow', 100, 400, 300)
+
+# make eyes
+right_eye = circle('black', 10, 450, 275)
+left_eye = circle('black', 10, 350, 275)
+
+# make eyebrows
+right_eyebrow = line(2, 'black', 425, 265, 470, 250)
+left_eyebrow = line(2, 'black', 375, 265, 330, 250)
+
+# make mouth
+mouth = circle('black', 20, 400, 350)
+
+#EXTRA CREDIT, GROUPING
+emoji = group(face, right_eye, left_eye, right_eyebrow, left_eyebrow, mouth)
+glide_down(emoji, 1)
+
+
 draw()
 '''
 How many function calls are there?

@@ -3,13 +3,10 @@
 
 ##### Learning Objectives: 
 
-- Recall the components that make up a function.  
-
-- Apply your understanding by analyzing pre-written Designer code.
-
-- Evaluate Designer documentation. **discuss with Dr. Bart** 
-
-- Develop your own working program by calling Designer functions. 
+1. Define what a function is in the context of function calls 
+2. List the components of a function call 
+3. Interpret documentation for function calls 
+4. Create programs with function calls 
 
 
 
@@ -65,5 +62,6 @@ Let’s transform this moving circle into something a little more recognizable. 
 
 - Stop the circle from moving
 
-- Add your own function calls to make the circle into a smiley face 
-- Extra credit: check out the other Designer functions and make the entire smiley face move! 
+- Add your own function calls to make the circle into an emoji  
+
+- Extra credit: check out the other Designer functions and make the entire emoji move! 
