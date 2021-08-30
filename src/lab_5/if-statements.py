@@ -37,7 +37,7 @@ number = input("What is your favorite number from 0 to 10? ")
 back_color = handle_number(number)
 set_window_color(back_color)
 
-draw_house = input("Do you want to build a house? ")
+draw_house = input("Do you want to build a house? Answer \"yes\" or \"no\"")
 if draw_house.lower() == 'yes':
     roof = shape('lightyellow', [(400, 150), (500, 300), (300, 300)])
     bottom_house = rectangle('firebrick', 300, 300, 200, 200)
