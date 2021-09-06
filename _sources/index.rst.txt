@@ -3,9 +3,9 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Designer's documentation!
+Welcome to Designer's documentation.
 ====================================
-Designer is a classroom tool that allows you to create visual output as you learn to code in Python!
+Designer is a classroom tool that allows you to create visual output as you learn to code in Python.
 
 .. toctree::
    :maxdepth: 2
