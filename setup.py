@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name='designer',
-    version='0.0.1',
+    version='0.0.2',
     python_requires='>=3.6',
     author='krishols, acbart',
     author_email='kris@udel.edu',
@@ -19,8 +19,7 @@ setuptools.setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
 
-        'Intended Audience :: Students ',
-        'Topic :: Graphics :: Eduation',
+        'Topic :: Education',
 
         'License :: OSI Approved :: MIT License',
 
