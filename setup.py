@@ -8,9 +8,11 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name='designer',
-    version='0.0.2',
+    version='0.0.75',
     python_requires='>=3.6',
     author='krishols, acbart',
+    packages=['designer'],
+    package_data={'designer': ['data/colors.json']},
     author_email='kris@udel.edu',
     description='Student-friendly and evidence-based visual graphics library.',
     license='MIT',

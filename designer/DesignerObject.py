@@ -1,14 +1,12 @@
 import os
 import shutil
 import sys
-from typing import Union, Tuple, List
+from typing import Tuple, List
 
 import requests
 
-from designer import Animation
 import pygame
 import designer
-import random
 import math
 
 from designer.colors import _process_color

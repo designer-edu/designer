@@ -1,10 +1,12 @@
+import importlib
 import json
 import os
+from os import path
 
-basepath = os.path.dirname(__file__)
-f = open(os.path.join(basepath,'colors.json'))
-colors = json.load(f)
-f.close()
+this_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'data/colors.json'), encoding='utf-8') as f:
+    colors = json.load(f)
+    f.close()
 
 def _process_color(color) -> 'List[int]':
     """

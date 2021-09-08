@@ -3,7 +3,6 @@ from designer import DesignerObject
 import pygame
 import designer
 import random
-from typing import Tuple, Union
 
 
 class Animation:
@@ -48,7 +47,7 @@ class GlideAnimation(Animation):
         :type object: DesignerObject or DesignerGroup
         :return: None
         '''
-        if isinstance(object, designer.DesignerObject):
+        if isinstance(object, DesignerObject):
             objects = [object]
         elif isinstance(object, designer.DesignerGroup):
             objects = [object]
@@ -75,7 +74,7 @@ class JitterAnimation(Animation):
                 :type object: DesignerObject or DesignerGroup
                 :return: None
                 '''
-        if isinstance(object, designer.DesignerObject):
+        if isinstance(object, DesignerObject):
             objects = [object]
         elif isinstance(object, designer.DesignerGroup):
             objects = object.objects
@@ -104,7 +103,7 @@ class RotateAnimation(Animation):
         :type obj: DesignerObject or DesignerGroup
         :return: None
         '''
-        if isinstance(obj, designer.DesignerObject):
+        if isinstance(obj, DesignerObject):
             objects = [obj]
         elif isinstance(obj, designer.DesignerGroup):
             objects = obj.objects
