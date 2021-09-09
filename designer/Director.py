@@ -1,6 +1,8 @@
 from typing import List
 
+
 import designer
+# from designer import GLOBAL_DIRECTOR
 import pygame
 
 
@@ -58,6 +60,8 @@ class Director:
             self.all_game_objects.update()
             rects = self.all_game_objects.draw(self.screen)
             pygame.display.update(rects)
+        pygame.display.quit()
+        pygame.quit()
 
     def add(self, *images):
         """
@@ -91,7 +95,8 @@ def check_initialized():
 
     :return: None
     """
-    if designer.GLOBAL_DIRECTOR is None:
+
+    if not designer.GLOBAL_DIRECTOR:
         designer.GLOBAL_DIRECTOR = Director()
 
 

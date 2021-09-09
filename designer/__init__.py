@@ -5,5 +5,4 @@ from designer.DesignerObject import *
 from designer.colors import *
 
 
-
-GLOBAL_DIRECTOR = None
+GLOBAL_DIRECTOR = Director()
