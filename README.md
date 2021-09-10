@@ -1,7 +1,15 @@
 ![Documentation](https://github.com/krishols/designer/actions/workflows/docs.yml/badge.svg)
 # Designer
-#### A Python interactive graphics library designed with student data for student and classroom use.
+An interactive graphics library designed with student data to learn Python.
 
 # Installation
+Install from the command line: 
 
+ ```
+ pip install designer
+ ```
+  
+Or install from [this repository](github.com/krishols/designer).
 
+# Documentation
+Find the documentation for Designer [here](https://krishols.github.io/designer/).
