@@ -1,3 +1,7 @@
 ![Documentation](https://github.com/krishols/designer/actions/workflows/docs.yml/badge.svg)
 # Designer
-### An evidence-based and student friendly visual graphics library to learn computer science with Python.
+#### A Python interactive graphics library designed with student data for student and classroom use.
+
+# Installation
+
+

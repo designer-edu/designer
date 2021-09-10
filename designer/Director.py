@@ -1,13 +1,11 @@
 from typing import List
 
-
 import designer
-# from designer import GLOBAL_DIRECTOR
 import pygame
 
 
 class Director:
-    def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps = 50):
+    def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps=50):
         """
         Initializes the Director that will control the game state.
 
@@ -33,7 +31,6 @@ class Director:
         self.all_game_objects = pygame.sprite.LayeredDirty()
         self.groups = []
 
-
     def start(self):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
@@ -44,7 +41,6 @@ class Director:
         self.all_game_objects.clear(self.screen, self.background)
         self.screen = pygame.display.set_mode(self.window_size)
         self.screen.fill(self.bkgr_color)
-
 
         time = 0
         while self.running:
@@ -74,7 +70,6 @@ class Director:
         """
         for image in images:
             self.all_game_objects.add(image)
-
 
     def add_group(self, *groups):
         """
@@ -124,6 +119,7 @@ def set_window_color(color):
     designer.GLOBAL_DIRECTOR.bkgr_color = color
     designer.GLOBAL_DIRECTOR.screen.fill(color)
     designer.GLOBAL_DIRECTOR.background.fill(color)
+
 
 def set_window_size(width, height):
     """

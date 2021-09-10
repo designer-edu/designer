@@ -77,7 +77,6 @@ class Circle(DesignerObject):
 
         self.rect = self.image.get_rect(center=center)
 
-
         super().add()
 
 
@@ -109,25 +108,6 @@ class Ellipse(DesignerObject):
         self.rect.y = top
 
         super().add()
-
-
-def ellipse(color, args):
-    '''
-    Function to make ellipse.
-
-    :param color: color of ellipse
-    :type color: str or List[str]
-    :param args: left top corner of ellipse and width and height of ellipse
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Ellipse object created
-    '''
-    if len(args) > 2:
-        left, top = args[0], args[1]
-        width, height = args[2], args[3]
-    else:
-        left, top = args[0]
-        width, height = args[1]
-    return Ellipse(color, left, top, width, height)
 
 
 class Arc(DesignerObject):
@@ -164,31 +144,6 @@ class Arc(DesignerObject):
         self.rect.y = top
 
         super().add()
-
-
-def arc(color, start_angle, stop_angle, thickness, args):
-    """
-    Function to make arc.
-
-    :param color: color to draw arc
-    :type color: str or List[str]
-    :param start_angle: angle to start drawing arc at
-    :type start_angle: int
-    :param stop_angle: angle to stop drawing arc at
-    :type stop_angle: int
-    :param thickness: thickness of arc in pixels
-    :type thickness: int
-    :param args: left top corner of arc and width and height of arc
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Arc object created
-    """
-    if len(args) > 2:
-        left, top = args[0], args[1]
-        width, height = args[2], args[3]
-    else:
-        left, top = args[0]
-        width, height = args[1]
-    return Arc(color, start_angle, stop_angle, thickness, left, top, width, height)
 
 
 class Line(DesignerObject):
@@ -266,32 +221,11 @@ class Rectangle(DesignerObject):
         self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
         pygame.draw.rect(self.image, color, (0, 0, width, height))
 
-
-
         self.color = color
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
 
         super().add()
-
-
-def rectangle(color, *args):
-    '''
-    Function to create a rectangle.
-
-    :param color: color of rectangle
-    :type color: str or List[str]
-    :param args: left top corner of image and width and height of rectangle
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Rectangle object
-    '''
-    if len(args) > 2:
-        left, top = args[0], args[1]
-        width, height = args[2], args[3]
-    else:
-        left, top = args[0]
-        width, height = args[1]
-    return Rectangle(left, top, width, height, color)
 
 
 class Text(DesignerObject):
@@ -342,30 +276,6 @@ class Shape(DesignerObject):
 
         super().add()
 
-
-def shape(color, points: List[Tuple]):
-    designer.check_initialized()
-    max_x = 0
-    max_y = 0
-    new_points = []
-    min_x = designer.GLOBAL_DIRECTOR.width
-    min_y = designer.GLOBAL_DIRECTOR.height
-    for pt in points:
-        if pt[0] < min_x:
-            min_x = pt[0]
-        if pt[0] > max_x:
-            max_x = pt[0]
-        if pt[1] < min_y:
-            min_y = pt[1]
-        if pt[1] > max_y:
-            max_y = pt[1]
-        x = designer.GLOBAL_DIRECTOR.width - pt[0]
-        y = designer.GLOBAL_DIRECTOR.height - pt[1]
-        new_points.append((x, y))
-    width = max_x - min_x
-    height = max_y - min_y
-    new_points = [(x - min_x, y - min_y) for x, y in points]
-    return Shape(new_points, min_x, min_y, width, height, color)
 
 
 class Image(DesignerObject):
@@ -431,6 +341,50 @@ def circle(color, radius, *args):
     return Circle((x, y), radius, color)
 
 
+def ellipse(color, args):
+    '''
+    Function to make ellipse.
+
+    :param color: color of ellipse
+    :type color: str or List[str]
+    :param args: left top corner of ellipse and width and height of ellipse
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Ellipse object created
+    '''
+    if len(args) > 2:
+        left, top = args[0], args[1]
+        width, height = args[2], args[3]
+    else:
+        left, top = args[0]
+        width, height = args[1]
+    return Ellipse(color, left, top, width, height)
+
+
+def arc(color, start_angle, stop_angle, thickness, args):
+    """
+    Function to make arc.
+
+    :param color: color to draw arc
+    :type color: str or List[str]
+    :param start_angle: angle to start drawing arc at
+    :type start_angle: int
+    :param stop_angle: angle to stop drawing arc at
+    :type stop_angle: int
+    :param thickness: thickness of arc in pixels
+    :type thickness: int
+    :param args: left top corner of arc and width and height of arc
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Arc object created
+    """
+    if len(args) > 2:
+        left, top = args[0], args[1]
+        width, height = args[2], args[3]
+    else:
+        left, top = args[0]
+        width, height = args[1]
+    return Arc(color, start_angle, stop_angle, thickness, left, top, width, height)
+
+
 def line(thickness, color, *args):
     '''
     Function to create a line.
@@ -453,12 +407,56 @@ def line(thickness, color, *args):
     return Line(start, end, thickness, color)
 
 
+def rectangle(color, *args):
+    '''
+    Function to create a rectangle.
+
+    :param color: color of rectangle
+    :type color: str or List[str]
+    :param args: left top corner of image and width and height of rectangle
+    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
+    :return: Rectangle object
+    '''
+    if len(args) > 2:
+        left, top = args[0], args[1]
+        width, height = args[2], args[3]
+    else:
+        left, top = args[0]
+        width, height = args[1]
+    return Rectangle(left, top, width, height, color)
+
+
 def text(text_color, text, text_size, *args):
     if len(args) >= 2:
         left, top = args[0], args[1]
     else:
         left, top = args[0]
     return Text(left, top, text_color, text, text_size)
+
+
+def shape(color, points: List[Tuple]):
+    designer.check_initialized()
+    max_x = 0
+    max_y = 0
+    new_points = []
+    min_x = designer.GLOBAL_DIRECTOR.width
+    min_y = designer.GLOBAL_DIRECTOR.height
+    for pt in points:
+        if pt[0] < min_x:
+            min_x = pt[0]
+        if pt[0] > max_x:
+            max_x = pt[0]
+        if pt[1] < min_y:
+            min_y = pt[1]
+        if pt[1] > max_y:
+            max_y = pt[1]
+        x = designer.GLOBAL_DIRECTOR.width - pt[0]
+        y = designer.GLOBAL_DIRECTOR.height - pt[1]
+        new_points.append((x, y))
+    width = max_x - min_x
+    height = max_y - min_y
+    new_points = [(x - min_x, y - min_y) for x, y in points]
+    return Shape(new_points, min_x, min_y, width, height, color)
 
 
 def image(path, *args):
