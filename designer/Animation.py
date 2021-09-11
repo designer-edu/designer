@@ -39,34 +39,34 @@ class GlideAnimation(Animation):
             self.y = math.ceil(self.y)
         super().__init__(speed, direction)
 
-    def step(self, object):
+    def step(self, obj):
         '''
         Handles glide for each step of the game state.
 
-        :param object: Object to move
-        :type object: DesignerObject or DesignerGroup
+        :param obj: Object to move
+        :type obj: DesignerObject or DesignerGroup
         :return: None
         '''
-        if isinstance(object, DesignerObject):
-            objects = [object]
-        elif isinstance(object, designer.DesignerGroup):
-            objects = [object]
-        for temp_object in objects:
+        if isinstance(obj, designer.DesignerObject):
+            objs = [obj]
+        elif isinstance(obj, designer.DesignerGroup):
+            objs = [obj]
+        for temp_object in objs:
             if (
                     temp_object.rect.right) < designer.GLOBAL_DIRECTOR.width and temp_object.rect.x > 0 and temp_object.rect.top < designer.GLOBAL_DIRECTOR.height and temp_object.rect.y > 0:
-                if not object.finished_animation:
+                if not obj.finished_animation:
                     temp_object.rect.x += (self.speed * self.x)
                     temp_object.rect.y += (self.speed * self.y)
                     temp_object.dirty = 1
             else:
-                object.finished_animation = True
+                obj.finished_animation = True
 
 
 class JitterAnimation(Animation):
     def __init__(self, direction):
         self.direction = direction
 
-    def step(self, object):
+    def step(self, obj):
         '''
               Handles glide for each step of the game state.
 
@@ -74,16 +74,16 @@ class JitterAnimation(Animation):
                 :type object: DesignerObject or DesignerGroup
                 :return: None
                 '''
-        if isinstance(object, DesignerObject):
-            objects = [object]
-        elif isinstance(object, designer.DesignerGroup):
-            objects = object.objects
+        if isinstance(obj, DesignerObject):
+            objs = [obj]
+        elif isinstance(obj, designer.DesignerGroup):
+            objs = obj.objects
             x_dir = random.randint(-self.direction, self.direction)
             y_dir = random.randint(-self.direction, self.direction)
-            for object in objects:
-                object.rect.x += x_dir
-                object.rect.y += y_dir
-                object.dirty = 1
+            for obj in objs:
+                obj.rect.x += x_dir
+                obj.rect.y += y_dir
+                obj.dirty = 1
 
 
 class RotateAnimation(Animation):
@@ -104,10 +104,10 @@ class RotateAnimation(Animation):
         :return: None
         '''
         if isinstance(obj, DesignerObject):
-            objects = [obj]
+            objs = [obj]
         elif isinstance(obj, designer.DesignerGroup):
-            objects = obj.objects
-        for obj in objects:
+            objs = obj.objects
+        for obj in objs:
             if self.total < self.angle_limit:
                 self.total = self.total + (self.speed * self.angle)
                 obj.image = pygame.transform.rotate(obj.orig_img, self.total)
@@ -116,7 +116,7 @@ class RotateAnimation(Animation):
                 obj.dirty = 1
 
 
-def glide_around(*objects, speed):
+def glide_around(*objs, speed):
     '''
     Moves object around at random.
 
@@ -126,8 +126,8 @@ def glide_around(*objects, speed):
     :type speed: int
     :return: None
     '''
-    for object in objects:
-        object.add_animation(JitterAnimation(speed, 0))
+    for obj in objs:
+        obj.add_animation(JitterAnimation(speed, 0))
 
 
 def glide_right(obj, speed):

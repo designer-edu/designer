@@ -360,7 +360,7 @@ def ellipse(color, args):
     return Ellipse(color, left, top, width, height)
 
 
-def arc(color, start_angle, stop_angle, thickness, args):
+def arc(color, start_angle, stop_angle, thickness, *args):
     """
     Function to make arc.
 
@@ -385,7 +385,7 @@ def arc(color, start_angle, stop_angle, thickness, args):
     return Arc(color, start_angle, stop_angle, thickness, left, top, width, height)
 
 
-def line(thickness, color, *args):
+def line(color, thickness, *args):
     '''
     Function to create a line.
 
