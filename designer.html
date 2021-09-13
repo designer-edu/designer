@@ -161,20 +161,961 @@
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="designer-animation-module">
-<h2>designer.Animation module<a class="headerlink" href="#designer-animation-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-designer.Animation">
+<span id="designer-animation-module"></span><h2>designer.Animation module<a class="headerlink" href="#module-designer.Animation" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.Animation.Animation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.Animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Animation.Animation.is_finished">
+<span class="sig-name descname"><span class="pre">is_finished</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.Animation.is_finished" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Animation.Animation.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.Animation.start" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.Animation.GlideAnimation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">GlideAnimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.GlideAnimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#designer.Animation.Animation" title="designer.Animation.Animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.Animation.Animation</span></code></a></p>
+<p>Initializer of animations that glide across the screen.
+Calls initializer of Animations, parent  class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+<li><p><strong>direction</strong> (<em>int</em>) – Degrees at which to move</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Animation.GlideAnimation.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.GlideAnimation.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles glide for each step of the game state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>object</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.Animation.JitterAnimation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">JitterAnimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">direction</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.JitterAnimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#designer.Animation.Animation" title="designer.Animation.Animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.Animation.Animation</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Animation.JitterAnimation.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.JitterAnimation.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles glide for each step of the game state.</p>
+<blockquote>
+<div><dl class="field-list simple">
+<dt class="field-odd">param object</dt>
+<dd class="field-odd"><p>Object to move</p>
+</dd>
+<dt class="field-even">type object</dt>
+<dd class="field-even"><p>DesignerObject or DesignerGroup</p>
+</dd>
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.Animation.RotateAnimation">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">RotateAnimation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">speed</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.RotateAnimation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#designer.Animation.Animation" title="designer.Animation.Animation"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.Animation.Animation</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Animation.RotateAnimation.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.RotateAnimation.step" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles rotation for each step of the game state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to be moved</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_around">
+<span class="sig-name descname"><span class="pre">glide_around</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_around" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object around at random.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objects</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move around</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_down">
+<span class="sig-name descname"><span class="pre">glide_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object down on the window!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_in_degrees">
+<span class="sig-name descname"><span class="pre">glide_in_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_in_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object a given number of degrees in that direction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>direction</strong> (<em>int</em>) – Direction in degrees counterclockwise for object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_left">
+<span class="sig-name descname"><span class="pre">glide_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object to the left of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_right">
+<span class="sig-name descname"><span class="pre">glide_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object to the right of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.glide_up">
+<span class="sig-name descname"><span class="pre">glide_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.glide_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object up on the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Animation.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Animation.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotates object in place for a given number of degrees</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>angle_limit</strong> (<em>int</em>) – Degrees to rotate object</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="designer-designerobject-module">
-<h2>designer.DesignerObject module<a class="headerlink" href="#designer-designerobject-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-designer.DesignerObject">
+<span id="designer-designerobject-module"></span><h2>designer.DesignerObject module<a class="headerlink" href="#module-designer.DesignerObject" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Arc">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates an Arc Designer Object on window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to draw arc</p></li>
+<li><p><strong>start_angle</strong> (<em>int</em>) – angle to start drawing arc at</p></li>
+<li><p><strong>stop_angle</strong> (<em>int</em>) – angle to stop drawing arc at</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – x coordinate of top left corner of arc</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – y coordinate of top left corner of arc</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of arc to be drawn</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of arc to be drawn</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Circle">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">center</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates a circle object on the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>center</strong> (<em>Tuple</em><em>[</em><em>int</em><em>]</em>) – x, y coordinates of center of circle</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – radius of circle</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of circle</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.DesignerGroup">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">DesignerGroup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.DesignerGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>class consisting of group of DesignerObjects together to allow collective functionality</p>
+<p>Creates a DesignerObject, a visual component of Designer output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.DesignerObject.DesignerGroup.add_animation">
+<span class="sig-name descname"><span class="pre">add_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">animation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.DesignerGroup.add_animation" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Adds an animation to self’s animations collection.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>animation</strong> (<em>designer.Animation</em>) – animation to be added</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.DesignerObject">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">DesignerObject</span></span><a class="headerlink" href="#designer.DesignerObject.DesignerObject" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pygame.sprite.DirtySprite</span></code></p>
+<p>Creates a DesignerObject, a visual component of Designer output.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.DesignerObject.DesignerObject.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.DesignerObject.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds self to the global state’s object collection.
+:return: None</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.DesignerObject.DesignerObject.add_animation">
+<span class="sig-name descname"><span class="pre">add_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">animation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.DesignerObject.add_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds an animation to self’s animations collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>animation</strong> (<em>designer.Animation</em>) – animation to be added</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Ellipse">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates an ellipse Designer Object on the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of ellipse</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – x coordinate of top left corner of ellipse</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – y coordinate of top left corner of ellipse</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of ellipse to be drawn</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of ellipse to be drawn</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Image">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates Image Designer Object on window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – either url or local file path to image to load on screen</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – x position of top left corner of image</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – y position of top left corner of image</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of image in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of image in pixels</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Line">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates Line Designer Object on window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start</strong> (<em>Tuple</em><em>[</em><em>int</em><em>]</em>) – starting coordinates of line</p></li>
+<li><p><strong>end</strong> (<em>Tuple</em><em>[</em><em>int</em><em>]</em>) – ending coordinates of line</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of line</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Rectangle">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates Rectangle Designer Object on window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> (<em>int</em>) – x position of top left corner of rectangle</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – y position of top left corner of rectangle</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of rectangle in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of rectangle in pixels</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of rectangle</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Shape">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">points</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates a DesignerObject, a visual component of Designer output.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.Text">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.Text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates Text Designer Object on window</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>left</strong> (<em>int</em>) – x coordinate of top left corner of text box</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – y coordinate of top left corner of text box</p></li>
+<li><p><strong>text_color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of text</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – text to be written on window</p></li>
+<li><p><strong>text_size</strong> (<em>int</em>) – font size of text</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.DesignerObject.above">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">above</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bottom</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.above" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><code class="xref py py-class docutils literal notranslate"><span class="pre">designer.DesignerObject.DesignerObject</span></code></a></p>
+<p>Creates a DesignerObject, a visual component of Designer output.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.arc">
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make arc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to draw arc</p></li>
+<li><p><strong>start_angle</strong> (<em>int</em>) – angle to start drawing arc at</p></li>
+<li><p><strong>stop_angle</strong> (<em>int</em>) – angle to stop drawing arc at</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of arc and width and height of arc</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Arc object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.circle">
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> – color of circle</p></li>
+<li><p><strong>radius</strong> – int, radius of circle in pixels</p></li>
+<li><p><strong>args</strong> – center of circle in x, y either as separate ints or as a tuple of ints</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Circle object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.ellipse">
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make ellipse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of ellipse</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of ellipse and width and height of ellipse</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ellipse object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.group">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to group multiple objects together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Created Designer Group object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.image">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to upload</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of image and width and height of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.line">
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of line</p></li>
+<li><p><strong>args</strong> (<em>two tuples</em><em> (</em><em>start x</em><em>, </em><em>start y</em><em>)</em><em>, </em><em>(</em><em>end x</em><em>, </em><em>end y</em><em>) or </em><em>four ints start x</em><em>, </em><em>start y</em><em>, </em><em>end x</em><em>, </em><em>end y</em>) – start and end coordinates of line</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Line object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.rectangle">
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a rectangle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of rectangle</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of image and width and height of rectangle</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rectangle object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_size</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
-<section id="designer-director-module">
-<h2>designer.Director module<a class="headerlink" href="#designer-director-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-designer.Director">
+<span id="designer-director-module"></span><h2>designer.Director module<a class="headerlink" href="#module-designer.Director" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="designer.Director.Director">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Director</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">800</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">600</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">background_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(255,</span> <span class="pre">255,</span> <span class="pre">255)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.Director" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initializes the Director that will control the game state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – width of the game window in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of the game window in pixels</p></li>
+<li><p><strong>background_color</strong> – color to initially fill the window with</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Director.Director.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.Director.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a DirtySprite to Director’s DirtySprite collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>images</strong> (<em>designer.DesignerObjects</em>) – images to add to self’s DirtySprite collection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nOne</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Director.Director.add_group">
+<span class="sig-name descname"><span class="pre">add_group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">groups</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.Director.add_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds group of DirtySprites to Director’s group collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>groups</strong> (<em>designer.DesignerGroups</em>) – groups to add to self’s group collection</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="designer.Director.Director.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.Director.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Director.check_initialized">
+<span class="sig-name descname"><span class="pre">check_initialized</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.check_initialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Checks if global state exists and creates one if it does not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Director.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internally starts the game loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Director.set_window_color">
+<span class="sig-name descname"><span class="pre">set_window_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.set_window_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes window color to given color.
+Must call before adding any DesignerObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to change window to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.Director.set_window_size">
+<span class="sig-name descname"><span class="pre">set_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.Director.set_window_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set size of window in pixels.
+Must call before adding any DesignerObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – number of pixels to set horizontal size of window</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – number of pixels to set vertical size of window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<section id="designer-colors-module">
-<h2>designer.colors module<a class="headerlink" href="#designer-colors-module" title="Permalink to this headline">¶</a></h2>
+<section id="module-designer.colors">
+<span id="designer-colors-module"></span><h2>designer.colors module<a class="headerlink" href="#module-designer.colors" title="Permalink to this headline">¶</a></h2>
 </section>
-<section id="module-contents">
-<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+<section id="module-designer">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-designer" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.arc">
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make arc.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to draw arc</p></li>
+<li><p><strong>start_angle</strong> (<em>int</em>) – angle to start drawing arc at</p></li>
+<li><p><strong>stop_angle</strong> (<em>int</em>) – angle to stop drawing arc at</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of arc and width and height of arc</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Arc object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.circle">
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a circle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> – color of circle</p></li>
+<li><p><strong>radius</strong> – int, radius of circle in pixels</p></li>
+<li><p><strong>args</strong> – center of circle in x, y either as separate ints or as a tuple of ints</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Circle object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.draw">
+<span class="sig-name descname"><span class="pre">draw</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Internally starts the game loop.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.ellipse">
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make ellipse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of ellipse</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of ellipse and width and height of ellipse</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ellipse object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_around">
+<span class="sig-name descname"><span class="pre">glide_around</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_around" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object around at random.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objects</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move around</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_down">
+<span class="sig-name descname"><span class="pre">glide_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_down" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object down on the window!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_in_degrees">
+<span class="sig-name descname"><span class="pre">glide_in_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_in_degrees" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object a given number of degrees in that direction</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>direction</strong> (<em>int</em>) – Direction in degrees counterclockwise for object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_left">
+<span class="sig-name descname"><span class="pre">glide_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_left" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object to the left of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_right">
+<span class="sig-name descname"><span class="pre">glide_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_right" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object to the right of the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.glide_up">
+<span class="sig-name descname"><span class="pre">glide_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.glide_up" title="Permalink to this definition">¶</a></dt>
+<dd><p>Moves object up on the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.group">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to group multiple objects together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Created Designer Group object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.image">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to upload</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of image and width and height of image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.line">
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a line.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of line</p></li>
+<li><p><strong>args</strong> (<em>two tuples</em><em> (</em><em>start x</em><em>, </em><em>start y</em><em>)</em><em>, </em><em>(</em><em>end x</em><em>, </em><em>end y</em><em>) or </em><em>four ints start x</em><em>, </em><em>start y</em><em>, </em><em>end x</em><em>, </em><em>end y</em>) – start and end coordinates of line</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Line object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.rectangle">
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.rectangle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a rectangle.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of rectangle</p></li>
+<li><p><strong>args</strong> (<em>two Tuples</em><em> (</em><em>left</em><em>, </em><em>top</em><em>)</em><em>, </em><em>(</em><em>width</em><em>, </em><em>height</em><em>) or </em><em>four ints left</em><em>, </em><em>top</em><em>, </em><em>width</em><em>, </em><em>height</em>) – left top corner of image and width and height of rectangle</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rectangle object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.rotate">
+<span class="sig-name descname"><span class="pre">rotate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_limit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotates object in place for a given number of degrees</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj</strong> (<a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerObject" title="designer.DesignerObject.DesignerObject"><em>DesignerObject</em></a><em> or </em><a class="reference internal" href="students/docs.html#designer.DesignerObject.DesignerGroup" title="designer.DesignerObject.DesignerGroup"><em>DesignerGroup</em></a>) – Object to move</p></li>
+<li><p><strong>angle_limit</strong> (<em>int</em>) – Degrees to rotate object</p></li>
+<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.set_window_color">
+<span class="sig-name descname"><span class="pre">set_window_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.set_window_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes window color to given color.
+Must call before adding any DesignerObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color to change window to</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.set_window_size">
+<span class="sig-name descname"><span class="pre">set_window_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.set_window_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set size of window in pixels.
+Must call before adding any DesignerObjects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>width</strong> (<em>int</em>) – number of pixels to set horizontal size of window</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – number of pixels to set vertical size of window</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.shape" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.text">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_size</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.text" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 </section>
 
