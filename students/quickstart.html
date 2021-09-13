@@ -4,7 +4,8 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
+  <meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>Designer Quick Start Guide &mdash; Designer 0.0.1 documentation</title>
@@ -168,7 +169,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="designer-quick-start-guide">
+  <section id="designer-quick-start-guide">
 <span id="quickstart"></span><h1>Designer Quick Start Guide<a class="headerlink" href="#designer-quick-start-guide" title="Permalink to this headline">¶</a></h1>
 <p>Designer is an educational interactive graphics Python library. What does that mean?</p>
 <p>As a student, you can use Designer to learn and practice Python by creating output of pictures and
@@ -181,7 +182,7 @@ basic animations.</p>
 </div>
 <p>These two lines of code create an external blank white window to appear. You will generally always need
 these two lines of code for Designer to function. Let’s fill in some code in between.</p>
-<div class="section" id="what-are-our-options">
+<section id="what-are-our-options">
 <h2>What are our options?<a class="headerlink" href="#what-are-our-options" title="Permalink to this headline">¶</a></h2>
 <p>We can add visual elements, called DesignerObjects, to personalize our output.
 A DesignerObject is any graphic representation to add to the window.</p>
@@ -194,7 +195,7 @@ A DesignerObject is any graphic representation to add to the window.</p>
 <p>You can use and pass around DesignerObjects as arguments to the <code class="docutils literal notranslate"><span class="pre">draw()</span></code> function to add the DesignerObjects
 you make to the window.</p>
 <p>What are some DesignerObjects?</p>
-<div class="section" id="shapes">
+<section id="shapes">
 <h3>1. Shapes!<a class="headerlink" href="#shapes" title="Permalink to this headline">¶</a></h3>
 <p>You can make lines, circles, rectangles, ellipses, arcs, or any general polygons with at least three sides.</p>
 <p>Let’s look at the code and output for making a rectangle:</p>
@@ -212,8 +213,8 @@ The function, <code class="docutils literal notranslate"><span class="pre">recta
 <li><p>The window operates on an x, y plane, where (0, 0), is the top left of the window. Moving to the right on the window increases the x value and moving down on the window increases the y value.</p></li>
 <li><p>The final two arguments, “400, 300”, represent the width (400 pixels) and height (600 pixels) of the rectangle to be drawn.</p></li>
 </ul>
-</div>
-<div class="section" id="images">
+</section>
+<section id="images">
 <h3>2. Images!<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
 <p>You can add images in two different ways:
 #. The file path to an image
@@ -231,8 +232,8 @@ The function, <code class="docutils literal notranslate"><span class="pre">recta
 <li><p>The next two arguments, “0, 0”, are again the left (0) top (0) corner of the image.</p></li>
 <li><p>The final two arguments, “200, 300” are the width (200 pixels) and height (300 pixels) of the image.</p></li>
 </ul>
-</div>
-<div class="section" id="text">
+</section>
+<section id="text">
 <h3>3. Text!<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
 <p>You can add any string to the window.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -248,8 +249,8 @@ The function, <code class="docutils literal notranslate"><span class="pre">recta
 <li><p>The next argument, “40”, is the size of the text’s font.</p></li>
 <li><p>The final two arguments, “0, 0”, are the left (0), top (0), corner of the text.</p></li>
 </ul>
-</div>
-<div class="section" id="make-a-designerobject-move">
+</section>
+<section id="make-a-designerobject-move">
 <h3>4. Make a DesignerObject move!<a class="headerlink" href="#make-a-designerobject-move" title="Permalink to this headline">¶</a></h3>
 <p>Let’s go back to our frog image code. What if we want it to glide across the window?</p>
 <p>Easy, let’s add one function call!</p>
@@ -264,9 +265,9 @@ The function, <code class="docutils literal notranslate"><span class="pre">recta
 to the function as the first parameter, we can set it to glide to the right of the window.</p>
 <p>The second parameter, “10”, is the speed of the frog gliding. The higher the speed, the quicker the DesignerObject moves.</p>
 <p>Check out the <a class="reference external" href="https://krishols.github.io/designer/students/docs.html#module-designer.DesignerObject">documentation of DesignerObjects</a> to see all that you can add to your output!</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
 
            </div>
