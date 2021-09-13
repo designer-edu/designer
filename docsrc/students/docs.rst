@@ -4,16 +4,16 @@ Animation
 ---------
 
 .. automodule:: designer.Animation
-   :members:
+   :members: glide_around, glide_down, glide_in_degrees, glide_left, glide_right, glide_up, rotate
 
 Designer Objects and Grouping Objects
 -------------------------------------
 
 .. automodule:: designer.DesignerObject
-    :members:
+    :members: arc, circle, ellipse, rectangle, shape, line, image, text, group
 
 
 Settings
 --------
 .. automodule:: designer.Director
-    :members:
+    :members: draw, set_window_color, set_window_size

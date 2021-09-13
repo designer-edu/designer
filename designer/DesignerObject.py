@@ -332,7 +332,7 @@ def circle(color, radius, *args):
     :param color: color of circle
     :param radius: int, radius of circle in pixels
     :param args: center of circle in x, y either as separate ints or as a tuple of ints
-    :return: Circle object
+    :return: Circle object created
     '''
     if len(args) >= 2:
         x, y = args[0], args[1]
@@ -343,7 +343,7 @@ def circle(color, radius, *args):
 
 def ellipse(color, args):
     '''
-    Function to make ellipse.
+    Function to make an ellipse.
 
     :param color: color of ellipse
     :type color: str or List[str]
@@ -362,7 +362,7 @@ def ellipse(color, args):
 
 def arc(color, start_angle, stop_angle, thickness, *args):
     """
-    Function to make arc.
+    Function to make an arc.
 
     :param color: color to draw arc
     :type color: str or List[str]
@@ -415,7 +415,7 @@ def rectangle(color, *args):
     :type color: str or List[str]
     :param args: left top corner of image and width and height of rectangle
     :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Rectangle object
+    :return: Rectangle object created
     '''
     if len(args) > 2:
         left, top = args[0], args[1]
@@ -427,6 +427,17 @@ def rectangle(color, *args):
 
 
 def text(text_color, text, text_size, *args):
+    '''
+       Function to create text.
+
+       :param color: color of text
+       :type color: str or List[str]
+       :param text: text to appear on window
+       :type text: str
+       :param args: top left coordinates of text box
+       :type args: either Tuple (left, top) or two ints (left, top)
+       :return: Text object created
+       '''
     if len(args) >= 2:
         left, top = args[0], args[1]
     else:
@@ -435,6 +446,15 @@ def text(text_color, text, text_size, *args):
 
 
 def shape(color, points: List[Tuple]):
+    '''
+           Function to create a shape of at least three points.
+
+           :param color: color of shape.
+           :type color: str or List[str]
+           :param points: coordinates of points of shape
+           :type points: List[Tuple] in (x, y), (x, y) format of points to be connected of shape
+           :return: Shape object created
+           '''
     designer.check_initialized()
     max_x = 0
     max_y = 0

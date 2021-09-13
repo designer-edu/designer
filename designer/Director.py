@@ -97,7 +97,10 @@ def check_initialized():
 
 def draw(*objs):
     """
-    Internally starts the game loop.
+    Draws Designer Objects on window.
+
+    :param objs: objects that have been created to draw on the window
+    :type objs: DesignerObjects
 
     :return: None
     """
