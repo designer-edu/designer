@@ -52,8 +52,7 @@ class GlideAnimation(Animation):
         elif isinstance(obj, designer.DesignerGroup):
             objs = [obj]
         for temp_object in objs:
-            if (
-                    temp_object.rect.right) < designer.GLOBAL_DIRECTOR.width and temp_object.rect.x > 0 and temp_object.rect.top < designer.GLOBAL_DIRECTOR.height and temp_object.rect.y > 0:
+            if temp_object.rect.right <= designer.GLOBAL_DIRECTOR.width and temp_object.rect.left >= 0 and temp_object.rect.top <= designer.GLOBAL_DIRECTOR.height and temp_object.rect.bottom >= 0:
                 if not obj.finished_animation:
                     temp_object.rect.x += (self.speed * self.x)
                     temp_object.rect.y += (self.speed * self.y)
@@ -80,10 +79,10 @@ class JitterAnimation(Animation):
             objs = obj.objects
             x_dir = random.randint(-self.direction, self.direction)
             y_dir = random.randint(-self.direction, self.direction)
-            for obj in objs:
-                obj.rect.x += x_dir
-                obj.rect.y += y_dir
-                obj.dirty = 1
+        for obj in objs:
+            obj.rect.x += x_dir
+            obj.rect.y += y_dir
+            obj.dirty = 1
 
 
 class RotateAnimation(Animation):

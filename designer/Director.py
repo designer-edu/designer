@@ -1,6 +1,7 @@
 from typing import List
 
 import designer
+import sys
 import pygame
 
 
@@ -58,6 +59,7 @@ class Director:
             pygame.display.update(rects)
         pygame.display.quit()
         pygame.quit()
+        sys.exit()
 
     def add(self, *images):
         """

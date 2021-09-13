@@ -1,0 +1,2 @@
+from designer import *
+draw()
