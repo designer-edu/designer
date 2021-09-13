@@ -4,6 +4,75 @@ from designer import *
 set_window_color('lightgreen')
 
 # FIRST EMOJI (SMILE)
+
+# constants
+sixth_width = get_width() / 6
+sixth_height = get_height() / 6
+
+# make face
+smile_face = circle('lightyellow', get_width()/9, sixth_width, sixth_height)
+
+# make eyes
+s_right_eye = circle('black', 10, sixth_width + 50, sixth_height - 25)
+s_left_eye = circle('black', 10, sixth_width - 50, sixth_height - 25)
+
+# Make mouth (mouth example with arc)
+s_mouth = arc('red', 3.14, 0, 5, sixth_width - 65, sixth_height - 20, sixth_width, sixth_height - 20)
+
+# group emoji 1 (OPTIONAL - Especially good code style)
+smile = group(smile_face, s_right_eye, s_left_eye, s_mouth)
+
+# SECOND EMOJI (FROWN):
+
+# constants:
+half_width = get_width() / 2
+half_height = get_height() / 2
+
+# make face
+frown_face = circle('lightyellow', get_width()/9, half_width, half_height)
+
+# make eyes
+f_right_eye = circle('black', 10, half_width + 50, half_height - 25)
+f_left_eye = circle('black', 10, half_width - 50, half_height - 25)
+
+# make mouth (mouth example with lines)
+mouth_1 = line('red', 5, 340, 370, 350, 340)
+mouth_2 = line('red', 5, half_height + 50, half_width - 60, half_height + 150, half_width - 60)
+mouth_3 = line('red', 5, 450, 340, 460, 370)
+
+f_mouth = group(mouth_1, mouth_2, mouth_3)
+
+# group emoji 2 (OPTIONAL - Especially good code style)
+frown = group(frown_face, f_right_eye, f_left_eye, f_mouth)
+
+
+# THIRD EMOJI:
+fs_width = get_width() * 5 / 6
+fs_height = get_height() * 5 / 6
+# make face
+angry_face = circle('lightyellow', 100, fs_width, fs_height)
+
+# make eyes
+a_right_eye = circle('black', 10, fs_width + 50, fs_height - 25)
+a_left_eye = circle('black', 10, fs_width - 50, fs_height - 25)
+
+# make eyebrows
+a_right_eyebrow = line('black', 2, fs_width - 75, fs_height - 60, fs_width - 20, fs_height - 40)
+a_left_eyebrow = line('black', 2, fs_width + 20, fs_height - 40, fs_width + 75, fs_height - 60)
+
+# make mouth
+a_mouth = circle('black', 20, fs_width, fs_height + 50)
+
+# group emoji 3 (OPTIONAL - Especially good code style)
+angry = group(angry_face, a_right_eye, a_left_eye, a_right_eyebrow, a_left_eyebrow, a_mouth)
+
+# Extra Credit Animation
+# glide_down(emoji, 1)
+
+
+draw(smile, frown, angry)
+'''
+# FIRST EMOJI (SMILE)
 # make face
 smile_face = circle('lightyellow', 100, 100, 300)
 
@@ -16,6 +85,7 @@ s_mouth = arc('red', (3.14* 3)/4, 3.14/4, 5, 50, 340, 100, 20)
 
 # group emoji 1 (OPTIONAL - Especially good code style)
 smile = group(smile_face, s_right_eye, s_left_eye, s_mouth)
+
 
 # SECOND EMOJI (FROWN):
 # make face
@@ -56,6 +126,7 @@ angry = group(angry_face, a_right_eye, a_left_eye, a_right_eyebrow, a_left_eyebr
 
 
 draw(smile, frown, angry)
+'''
 '''
 How many function calls are there?
 There are 4 function calls

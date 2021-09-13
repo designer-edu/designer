@@ -139,3 +139,21 @@ def set_window_size(width, height):
     """
     check_initialized()
     designer.GLOBAL_DIRECTOR.window_size = width, height
+
+def get_width():
+    """
+    Get the width of the window.
+
+    :return: pixels of horizontal width of window
+    :rtype: int
+    """
+    return designer.GLOBAL_DIRECTOR.window_size[0]
+
+def get_height():
+    """
+    Get the height of the window.
+
+    :return: pixels of vertical height of window
+    :rtype: int
+    """
+    return designer.GLOBAL_DIRECTOR.window_size[1]

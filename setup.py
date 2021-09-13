@@ -8,7 +8,7 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setuptools.setup(
     name='designer',
-    version='0.0.80',
+    version='0.0.81',
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer'],
@@ -17,6 +17,7 @@ setuptools.setup(
     description='Student-friendly and evidence-based visual graphics library.',
     license='MIT',
     long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/krishols/designer',
     classifiers=[
         'Development Status :: 3 - Alpha',
