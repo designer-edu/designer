@@ -171,7 +171,7 @@ def glide_up(obj, speed):
 
 def glide_down(obj, speed):
     '''
-            Moves object down on the window!
+            Moves object down on the window.
 
             :param obj: Object to move
             :type obj: DesignerObject or DesignerGroup
