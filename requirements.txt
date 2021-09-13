@@ -10,9 +10,7 @@ chardet==4.0.0
 colorama==0.4.4
 commonmark==0.9.1
 decorator==5.0.9
--e git+https://github.com/krishols/designer.git@f70cc325e8cc3b1dbcce085083da438d3473ead9#egg=designer
 docutils==0.17.1
-e==1.4.5
 idna==2.10
 imagesize==1.2.0
 importlib-metadata==4.5.0
@@ -59,7 +57,6 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 sphinxjp.themes.basicstrap==0.5.0
-e .
 toml==0.10.2
 tornado==6.1
 tqdm==4.61.1
