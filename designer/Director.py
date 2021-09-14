@@ -147,6 +147,7 @@ def get_width():
     :return: pixels of horizontal width of window
     :rtype: int
     """
+    check_initialized()
     return designer.GLOBAL_DIRECTOR.window_size[0]
 
 def get_height():
@@ -156,4 +157,5 @@ def get_height():
     :return: pixels of vertical height of window
     :rtype: int
     """
+    check_initialized()
     return designer.GLOBAL_DIRECTOR.window_size[1]
