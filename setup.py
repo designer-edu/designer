@@ -6,19 +6,19 @@ this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
-with open('requirements.txt') as f:
-    REQUIREMENTS = f.read().splitlines()
+REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
+
 
 setuptools.setup(
     name='designer',
-    version='0.0.82',
+    version='0.0.85',
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer'],
     package_data={'designer': ['data/colors.json']},
     author_email='kris@udel.edu',
     description='Student-friendly and evidence-based visual graphics library.',
-    install_requires='REQUIREMENTS',
+    install_requires=REQUIREMENTS,
     license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',

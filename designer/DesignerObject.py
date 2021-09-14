@@ -445,12 +445,12 @@ def text(text_color, text, text_size, *args):
     return Text(left, top, text_color, text, text_size)
 
 
-def shape(color, points: List[Tuple]):
+def shape(color, points):
     '''
            Function to create a shape of at least three points.
 
            :param color: color of shape.
-           :type color: str or List[str]
+           :type color: str
            :param points: coordinates of points of shape
            :type points: List[Tuple] in (x, y), (x, y) format of points to be connected of shape
            :return: Shape object created
