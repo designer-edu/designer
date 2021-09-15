@@ -1,6 +1,7 @@
 .. _colors:
 
-# List of Colors
+List of Colors
+==============
 
 Here is a list of all the supported colors you can use when drawing! ::
 
