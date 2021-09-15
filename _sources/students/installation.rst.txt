@@ -8,18 +8,17 @@ Thonny
 
 Designer can be installed through the Integrated Development Environment (IDE) Thonny_ in two ways:
 
-1. Through the `Thonny system shell`_
-    - Open the Thonny system shell through *Tools* -> *Open system shell*
-    - Type ``pip install designer``
-
-**OR:**
-
-2. Through the `Thonny package manager`_
+1. Through the `Thonny package manager`_
     - Open the package manager through *Tools* -> *Manage packages*
     - Type in the search bar for "designer"
     - Press "Find packages from PyPI"
     - Designer should be loaded from the search. Press "Install".
 
+**OR:**
+
+2. Through the `Thonny system shell`_
+    - Open the Thonny system shell through *Tools* -> *Open system shell*
+    - Type ``pip install designer``
 To make sure that Designer has been successfully installed, open a new Python (.py) file.
 
 Type ``from designer import *``.
