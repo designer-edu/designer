@@ -5,7 +5,6 @@ Designer Objects and Grouping Objects
 -------------------------------------
 
 .. automodule:: designer.DesignerObject
-    :members: shape, group
 
 .. function:: line(color, thickness, start_x, start_y, end_x, end_y)
 
@@ -122,6 +121,24 @@ Designer Objects and Grouping Objects
     :param height: height of image in pixels
     :type height: int
     :return: Image object created
+
+.. function:: shape(color, points)
+
+    Function to create a shape of at least three points.
+
+    :param color: color of shape.
+    :type color: str
+    :param points: coordinates of points of shape
+    :type points: List[Tuple] in (x, y), (x, y) format of points to be connected of shape
+    :return: Shape object created
+
+.. function:: group(*objects)
+
+    Function to group multiple objects together.
+
+    :param objects: collection of objects to be grouped together for collective functionality
+    :type objects: at least one DesignerObject
+    :return: Created Designer Group object
 
 Animation
 ---------
