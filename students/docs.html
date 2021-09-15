@@ -41,6 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Designer Troubleshooting" href="troubleshoot.html" />
     <link rel="prev" title="Designer Quick Start Guide" href="quickstart.html" /> 
 </head>
 
@@ -96,6 +97,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-designer.Director">Settings</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Designer Troubleshooting</a></li>
 </ul>
 
             
@@ -167,37 +169,6 @@
 <h1>Designer Documentation for Students<a class="headerlink" href="#designer-documentation-for-students" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="module-designer.DesignerObject">
 <span id="designer-objects-and-grouping-objects"></span><h2>Designer Objects and Grouping Objects<a class="headerlink" href="#module-designer.DesignerObject" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.group">
-<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to group multiple objects together.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Created Designer Group object</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.shape">
-<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a shape of at least three points.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
-<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Shape object created</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.line">
 <span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.line" title="Permalink to this definition">¶</a></dt>
@@ -336,6 +307,37 @@
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Image object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a shape of at least three points.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
+<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shape object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.group">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to group multiple objects together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Created Designer Group object</p>
 </dd>
 </dl>
 </dd></dl>
@@ -551,6 +553,7 @@ Must call before adding any DesignerObjects.</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="troubleshoot.html" class="btn btn-neutral float-right" title="Designer Troubleshooting" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="quickstart.html" class="btn btn-neutral float-left" title="Designer Quick Start Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
