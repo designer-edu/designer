@@ -9,7 +9,7 @@ Install from the command line:
  pip install designer
  ```
   
-Or install from [this repository](github.com/krishols/designer).
+Or install from [this repository](https://github.com/krishols/designer).
 
 # Documentation
 Find the documentation for Designer [here](https://krishols.github.io/designer/).
