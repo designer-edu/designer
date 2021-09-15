@@ -59,6 +59,12 @@ The function, ``rectangle``, creates and returns a rectangle DesignerObject. It'
 * The window operates on an x, y plane, where (0, 0), is the top left of the window. Moving to the right on the window increases the x value and moving down on the window increases the y value.
 * The final two arguments, "400, 300", represent the width (400 pixels) and height (600 pixels) of the rectangle to be drawn.
 
+.. image:: images/green_rect.png
+   :width: 700
+   :alt: computer window with left half of the window a green rectangle and right half of the window white.
+
+
+
 ==========
 2. Images!
 ==========
@@ -83,6 +89,12 @@ Noticing a trend yet? The function, ``image``, creates and returns an image Desi
 
 * The final two arguments, "200, 300" are the width (200 pixels) and height (300 pixels) of the image.
 
+.. image:: images/frog.png
+   :width: 700
+   :alt: computer window with left half of the window an image of a cartoon frog and right half of the window white.
+
+
+
 ========
 3. Text!
 ========
@@ -101,6 +113,12 @@ The function, ``text``, creates and returns a text DesignerObject.
 * The next argument, "Hello World!", is the text to add to the window.
 * The next argument, "40", is the size of the text's font.
 * The final two arguments, "0, 0", are the left (0), top (0), corner of the text.
+
+.. image:: images/hello_world.png
+   :width: 700
+   :alt: blank white computer window with words "Hello World!" on top left of the window.
+
+
 
 ==============================
 4. Make a DesignerObject move!
