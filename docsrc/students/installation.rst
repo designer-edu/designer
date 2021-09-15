@@ -19,6 +19,7 @@ Designer can be installed through the Integrated Development Environment (IDE) T
 2. Through the `Thonny system shell`_
     - Open the Thonny system shell through *Tools* -> *Open system shell*
     - Type ``pip install designer``
+
 To make sure that Designer has been successfully installed, open a new Python (.py) file.
 
 Type ``from designer import *``.

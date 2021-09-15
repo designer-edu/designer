@@ -1,10 +1,5 @@
 Designer Documentation for Students
 ===================================
-Animation
----------
-
-.. automodule:: designer.Animation
-   :members: glide_around, glide_down, glide_in_degrees, glide_left, glide_right, glide_up, rotate
 
 Designer Objects and Grouping Objects
 -------------------------------------
@@ -127,6 +122,13 @@ Designer Objects and Grouping Objects
     :param height: height of image in pixels
     :type height: int
     :return: Image object created
+
+Animation
+---------
+
+.. automodule:: designer.Animation
+   :members: glide_around, glide_down, glide_in_degrees, glide_left, glide_right, glide_up, rotate
+
 
 Settings
 --------
