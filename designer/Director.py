@@ -106,7 +106,10 @@ def draw(*objs):
 
     :return: None
     """
+
     check_initialized()
+    if not objs:
+        print("WARNING: you have not passed any DesignerObjects to draw!")
     designer.GLOBAL_DIRECTOR.start()
 
 
@@ -157,5 +160,6 @@ def get_height():
     :return: pixels of vertical height of window
     :rtype: int
     """
+
     check_initialized()
     return designer.GLOBAL_DIRECTOR.window_size[1]
