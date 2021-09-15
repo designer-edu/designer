@@ -10,10 +10,10 @@ Designer Objects and Grouping Objects
 
     Function to create a line.
 
-    :param thickness: thickness of line in pixels
-    :type thickness: int
     :param color: color of line
     :type color: str
+    :param thickness: thickness of line in pixels
+    :type thickness: int
     :param start_x: x-coordinate at which to start line
     :type start_x: int
     :param start_y: y-coordinate at which to start line
