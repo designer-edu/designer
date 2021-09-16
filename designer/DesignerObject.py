@@ -341,7 +341,7 @@ def circle(color, radius, *args):
     return Circle((x, y), radius, color)
 
 
-def ellipse(color, args):
+def ellipse(color, *args):
     '''
     Function to make an ellipse.
 
