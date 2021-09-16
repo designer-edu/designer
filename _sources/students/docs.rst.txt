@@ -76,9 +76,9 @@ Designer Objects and Grouping Objects
 
     :param color: color to draw arc
     :type color: str
-    :param start_angle: angle to start drawing arc at
+    :param start_angle: angle in radians to start drawing arc at
     :type start_angle: int
-    :param stop_angle: angle to stop drawing arc at
+    :param stop_angle: angle in radians to stop drawing arc at
     :type stop_angle: int
     :param thickness: thickness of arc in pixels
     :type thickness: int
