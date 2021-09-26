@@ -22,6 +22,32 @@ class DesignerObject(pygame.sprite.DirtySprite):
         self.animations = []
         self.orig_img = None
         self.finished_animation = False
+        self.angle = 0
+
+    def __setattr__(self, name, value):
+        super().__setattr__(name, value)
+        if name == 'angle' and self.orig_img:
+            self.image = pygame.transform.rotate(self.orig_img, self.angle)
+            self.rect = self.image.get_rect(center=self.orig_img.get_rect(center=(self.rect.center)).center)
+            self.dirty = 1
+
+    def __getitem__(self, item):
+        if item in ('x', 'X', 'left'):
+            return self.rect.x
+        elif item in ('y', 'Y', 'top'):
+            return self.rect.y
+        elif item in ('angle', 'rotation', 'rotate'):
+            return self.angle
+
+    def __setitem__(self, key, value):
+        if key in ('x', 'X', 'left'):
+            self.rect.x = value
+            self.dirty = 1
+        elif key in ('y', 'Y', 'top'):
+            self.rect.y = value
+            self.dirty = 1
+        elif key in ('angle', 'rotation', 'rotate'):
+            self.angle = value
 
     def add(self):
         '''

@@ -32,6 +32,11 @@ class Director:
         self.all_game_objects = pygame.sprite.LayeredDirty()
         self.groups = []
 
+        self.handlers = {
+            'updating': [],
+            'starting': []
+        }
+
     def start(self):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
@@ -43,6 +48,10 @@ class Director:
         self.screen = pygame.display.set_mode(self.window_size)
         self.screen.fill(self.bkgr_color)
 
+        self._game_state = {}
+        for handler in self.handlers.get('starting', {}):
+            self._game_state = handler()
+
         time = 0
         while self.running:
             pygame.time.Clock().tick(self.fps)
@@ -53,6 +62,10 @@ class Director:
                 gobject._handle_animation()
             for group in self.groups:
                 group._handle_animation()
+            for func in self.handlers.get('updating', []):
+                result = func(self._game_state)
+                if result is not None:
+                    self._game_state = result
             time += 1
             self.all_game_objects.update()
             rects = self.all_game_objects.draw(self.screen)
@@ -84,6 +97,18 @@ class Director:
         """
         for group in groups:
             self.groups.append(group)
+
+    def add_handler(self, event, func):
+        """
+        Registers the given handler for the event.
+
+        :param event:
+        :param func:
+        :return:
+        """
+        if event not in self.handlers:
+            raise ValueError(f"Unknown event: {event}")
+        self.handlers[event].append(func)
 
 
 def check_initialized():
@@ -143,6 +168,7 @@ def set_window_size(width, height):
     check_initialized()
     designer.GLOBAL_DIRECTOR.window_size = width, height
 
+
 def get_width():
     """
     Get the width of the window.
@@ -152,6 +178,7 @@ def get_width():
     """
     check_initialized()
     return designer.GLOBAL_DIRECTOR.window_size[0]
+
 
 def get_height():
     """
@@ -163,3 +190,9 @@ def get_height():
 
     check_initialized()
     return designer.GLOBAL_DIRECTOR.window_size[1]
+
+
+def when(event: str, *funcs):
+    check_initialized()
+    for func in funcs:
+        designer.GLOBAL_DIRECTOR.add_handler(event, func)

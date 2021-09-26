@@ -27,5 +27,6 @@ __all__ = [
     'glide_in_degrees',
     'rotate',
     'get_height',
-    'get_width'
+    'get_width',
+    'when'
 ]
