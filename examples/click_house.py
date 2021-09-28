@@ -13,10 +13,11 @@ def create_world():
   }
 
 def change_house(world):
+  destroy(world['house'])
   if world['available']:
     world['house'] = empty_lot()
   else:
-    world['available'] = house()
+    world['house'] = house()
   world['available'] = not world['available']
 
 when('starting', create_world)
