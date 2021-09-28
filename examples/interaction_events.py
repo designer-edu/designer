@@ -24,7 +24,6 @@ def create_the_world():
     }
 
 def score_the_frog(world):
-    collisions = overlapping(world['frog'], world['targets'])
     remaining_targets = []
     for target in world['targets']:
         if colliding(world['frog'], target):
