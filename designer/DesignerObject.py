@@ -583,6 +583,7 @@ class DesignerGroup(DesignerObject):
         width = max_x - x
         height = max_y - y
         image = pygame.surface.Surface((width, height)).convert_alpha()
+        image.fill((0, 0, 0, 0))
         for object in self.objects:
             # remove individual objects from collection and draw objects onto one surface
             designer.GLOBAL_DIRECTOR.all_game_objects.remove(object)
