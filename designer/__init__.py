@@ -1,5 +1,6 @@
 import pygame
 from designer.Director import *
+from designer.helpers import *
 from designer.Animation import *
 from designer.DesignerObject import *
 from designer.colors import *
@@ -28,5 +29,7 @@ __all__ = [
     'rotate',
     'get_height',
     'get_width',
-    'when'
+    'when',
+    'colliding',
+    'destroy'
 ]

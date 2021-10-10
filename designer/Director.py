@@ -3,6 +3,8 @@ from typing import List
 import designer
 import sys
 import pygame
+import weakref
+import inspect
 
 
 class Director:
@@ -34,7 +36,9 @@ class Director:
 
         self.handlers = {
             'updating': [],
-            'starting': []
+            'starting': [],
+            'typing': [],
+            'clicking': []
         }
 
     def start(self):
@@ -58,14 +62,16 @@ class Director:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+                elif event.type == pygame.KEYDOWN:
+                    self.handle_events('typing', event.key, event.mod, event.unicode, event.scancode)
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    self.handle_events('clicking', *event.pos, event.button)
+            self.remove_dead_objects()
             for gobject in self.all_game_objects:
                 gobject._handle_animation()
             for group in self.groups:
                 group._handle_animation()
-            for func in self.handlers.get('updating', []):
-                result = func(self._game_state)
-                if result is not None:
-                    self._game_state = result
+            self.handle_events('updating', time)
             time += 1
             self.all_game_objects.update()
             rects = self.all_game_objects.draw(self.screen)
@@ -73,6 +79,22 @@ class Director:
         pygame.display.quit()
         pygame.quit()
         sys.exit()
+
+    def handle_events(self, event_name, *events):
+        for func in self.handlers.get(event_name, []):
+            parameters_expected = len(inspect.signature(func).parameters)-1
+            result = func(self._game_state, *events[:parameters_expected])
+            if result is not None:
+                self._game_state = result
+            self.remove_dead_objects()
+
+    def remove_dead_objects(self):
+        pass
+        #self.all_game_objects = [gobject for gobject in self.all_game_objects if gobject is not None]
+        #self.all_game_objects.remove([None])
+        #self.groups = [g for g in self.groups if g is not None]
+        #for gobject in self.all_game_objects:
+        #    print(gobject, sys.getrefcount(gobject))
 
     def add(self, *images):
         """
@@ -85,6 +107,8 @@ class Director:
         """
         for image in images:
             self.all_game_objects.add(image)
+        rects = self.all_game_objects.draw(self.screen)
+        pygame.display.update(rects)
 
     def add_group(self, *groups):
         """
@@ -97,6 +121,8 @@ class Director:
         """
         for group in groups:
             self.groups.append(group)
+        rects = self.all_game_objects.draw(self.screen)
+        pygame.display.update(rects)
 
     def add_handler(self, event, func):
         """
@@ -110,89 +136,3 @@ class Director:
             raise ValueError(f"Unknown event: {event}")
         self.handlers[event].append(func)
 
-
-def check_initialized():
-    """
-    Checks if global state exists and creates one if it does not.
-
-    :return: None
-    """
-
-    if not designer.GLOBAL_DIRECTOR:
-        designer.GLOBAL_DIRECTOR = Director()
-
-
-def draw(*objs):
-    """
-    Draws Designer Objects on window.
-
-    :param objs: objects that have been created to draw on the window
-    :type objs: DesignerObjects
-
-    :return: None
-    """
-
-    check_initialized()
-    if not objs:
-        print("WARNING: you have not passed any DesignerObjects to draw!")
-    designer.GLOBAL_DIRECTOR.start()
-
-
-def set_window_color(color):
-    '''
-    Changes window color to given color.
-    Must call before adding any DesignerObjects.
-
-    :param color: color to change window to
-    :type color: str or List[str]
-
-    :return: None
-    '''
-    check_initialized()
-    designer.GLOBAL_DIRECTOR.bkgr_color = color
-    designer.GLOBAL_DIRECTOR.screen.fill(color)
-    designer.GLOBAL_DIRECTOR.background.fill(color)
-
-
-def set_window_size(width, height):
-    """
-    Set size of window in pixels.
-    Must call before adding any DesignerObjects.
-
-    :param width: number of pixels to set horizontal size of window
-    :type width: int
-    :param height: number of pixels to set vertical size of window
-    :type height: int
-    :return: None
-    """
-    check_initialized()
-    designer.GLOBAL_DIRECTOR.window_size = width, height
-
-
-def get_width():
-    """
-    Get the width of the window.
-
-    :return: pixels of horizontal width of window
-    :rtype: int
-    """
-    check_initialized()
-    return designer.GLOBAL_DIRECTOR.window_size[0]
-
-
-def get_height():
-    """
-    Get the height of the window.
-
-    :return: pixels of vertical height of window
-    :rtype: int
-    """
-
-    check_initialized()
-    return designer.GLOBAL_DIRECTOR.window_size[1]
-
-
-def when(event: str, *funcs):
-    check_initialized()
-    for func in funcs:
-        designer.GLOBAL_DIRECTOR.add_handler(event, func)

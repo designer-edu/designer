@@ -10,6 +10,7 @@ import designer
 import math
 
 from designer.colors import _process_color
+from designer.helpers import get_width, get_height
 
 
 class DesignerObject(pygame.sprite.DirtySprite):
@@ -38,6 +39,8 @@ class DesignerObject(pygame.sprite.DirtySprite):
             return self.rect.y
         elif item in ('angle', 'rotation', 'rotate'):
             return self.angle
+        else:
+            return self.__getattribute__(item)
 
     def __setitem__(self, key, value):
         if key in ('x', 'X', 'left'):
@@ -48,6 +51,8 @@ class DesignerObject(pygame.sprite.DirtySprite):
             self.dirty = 1
         elif key in ('angle', 'rotation', 'rotate'):
             self.angle = value
+        else:
+            self.__setattr__(key, value)
 
     def add(self):
         '''
@@ -96,6 +101,11 @@ class Circle(DesignerObject):
         color = _process_color(color)
         self.image = pygame.surface.Surface((2 * size, 2 * size), pygame.SRCALPHA, 32).convert_alpha()
         pygame.draw.circle(self.image, color, (size, size), size)
+
+        x, y = center
+        x = x if x is not None else get_width()/2 - size/2
+        y = y if y is not None else get_width() / 2 - size / 2
+        center = x, y
 
         self.center = center
         self.size = size
@@ -255,6 +265,7 @@ class Rectangle(DesignerObject):
 
 
 class Text(DesignerObject):
+    __initialized = False
     def __init__(self, left, top, text_color, text, text_size):
         """
         Creates Text Designer Object on window
@@ -275,15 +286,32 @@ class Text(DesignerObject):
         text_color = _process_color(text_color)
 
         # is there a way to load text quicker?
-        font = pygame.font.SysFont('Arial', text_size)
+        # TODO: Cache this font
+        self.font = pygame.font.SysFont('Arial', text_size)
 
         #  self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
-        self.image = font.render(text, True, text_color)
+        self.text = text
+        self.text_color = text_color
+        self.image = self.font.render(self.text, True, self.text_color)
         self.rect = self.image.get_rect()
+
+        left = left if left is not None else get_width() / 2 - self.rect.width / 2
+        top = top if top is not None else get_height() / 2 - self.rect.height / 2
         self.rect.topleft = (left, top)
+
+        self.__initialized = True
 
         super().add()
 
+    def __setattr__(self, name, value):
+        old_value = None
+        if self.__initialized:
+            old_value = getattr(self, name)
+        super().__setattr__(name, value)
+        if self.__initialized and name == 'text' and old_value != value:
+            self.image = self.font.render(value, True, self.text_color)
+            self.rect.size = self.image.get_size()
+            self.dirty = 1
 
 class Shape(DesignerObject):
     def __init__(self, points, left, top, width, height, color):
@@ -343,6 +371,11 @@ class Image(DesignerObject):
             except:
                 print("Unexpected error:", sys.exc_info()[0])
                 raise
+        width = width if width is not None else self.image.get_width()
+        height = height if height is not None else self.image.get_height()
+        left = left if left is not None else get_width()/2 - width/2
+        top = top if top is not None else get_height()/2 - height/2
+        # get_width()/2, get_height()/2
         self.image = pygame.transform.scale(self.image, (width, height))
         self.rect = self.image.get_rect()
         self.rect.topleft = left, top
@@ -360,7 +393,9 @@ def circle(color, radius, *args):
     :param args: center of circle in x, y either as separate ints or as a tuple of ints
     :return: Circle object created
     '''
-    if len(args) >= 2:
+    if len(args) == 0:
+        x, y = None, None
+    elif len(args) >= 2:
         x, y = args[0], args[1]
     else:
         x, y = args[0]
@@ -464,7 +499,9 @@ def text(text_color, text, text_size, *args):
        :type args: either Tuple (left, top) or two ints (left, top)
        :return: Text object created
        '''
-    if len(args) >= 2:
+    if not args:
+        left, top = None, None
+    elif len(args) >= 2:
         left, top = args[0], args[1]
     else:
         left, top = args[0]
@@ -518,9 +555,12 @@ def image(path, *args):
     if len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
-    else:
+    elif len(args) == 1:
         left, top = args[0]
         width, height = args[1]
+    else:
+        left, top = None, None
+        width, height = None, None
     return Image(path, left, top, width, height)
 
 
@@ -609,6 +649,7 @@ class DesignerGroup(DesignerObject):
         width = max_x - x
         height = max_y - y
         image = pygame.surface.Surface((width, height)).convert_alpha()
+        image.fill((0, 0, 0, 0))
         for object in self.objects:
             # remove individual objects from collection and draw objects onto one surface
             designer.GLOBAL_DIRECTOR.all_game_objects.remove(object)
