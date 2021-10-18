@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 from designer import *
 
 
@@ -12,7 +12,14 @@ def red_dot():
     return circle("red", 10)
 
 
-def create_world():
+World = {
+    'dots': [circle],
+    'score': int,
+    'message': text
+}
+
+
+def create_world() -> World:
     return {
         'dots': [warp(red_dot()) for _ in range(50)],
         'score': 0,
@@ -34,10 +41,18 @@ def grab_dots(world, x, y):
 def update_score(world):
     new_text = "Score: " + str(world['score']) + ", Dots: " + str(len(world['dots']))
     world['message']['text'] = new_text
+    for dot in world['dots']:
+        dot['x'] += randint(-5, 5)
+
+
+def draw_world(world):
+    return [world['dots'], world['message']]
 
 
 when('starting', create_world)
 when('clicking', grab_dots)
 when('updating', update_score)
+when('drawing', draw_world)
+# Check whether the game should end, provide predicate function
 
 draw()
