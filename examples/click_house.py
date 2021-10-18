@@ -22,7 +22,7 @@ def create_world():
 
 def change_house(world):
     print("CLICKED", world)
-    world['house'].kill()
+    destroy(world['house'])
     if world['available']:
         world['house'] = empty_lot()
     else:
