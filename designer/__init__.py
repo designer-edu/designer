@@ -31,5 +31,6 @@ __all__ = [
     'get_width',
     'when',
     'colliding',
-    'destroy'
+    'destroy',
+    'DesignerObject'
 ]
