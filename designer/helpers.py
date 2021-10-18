@@ -1,5 +1,5 @@
 import designer
-from designer.Director import Director
+from designer.director import Director
 import pygame
 
 

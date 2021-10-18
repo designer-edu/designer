@@ -1,7 +1,7 @@
 import pygame
-from designer.Director import *
+from designer.director import *
 from designer.helpers import *
-from designer.Animation import *
+from designer.animation import *
 from designer.objects import *
 from designer.colors import *
 
