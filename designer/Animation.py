@@ -1,5 +1,5 @@
 import math
-from designer import DesignerObject
+from designer.objects.designer_object import DesignerObject
 import pygame
 import designer
 import random
