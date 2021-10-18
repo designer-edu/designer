@@ -21,24 +21,42 @@ class DesignerObject(pygame.sprite.DirtySprite):
         designer.check_initialized()
         super().__init__()
         self.animations = []
-        self.orig_img = None
+        self._original_image = None
         self.finished_animation = False
         self.angle = 0
+        self.scale = 1
 
     def __setattr__(self, name, value):
         super().__setattr__(name, value)
-        if name == 'angle' and self.orig_img:
-            self.image = pygame.transform.rotate(self.orig_img, self.angle)
-            self.rect = self.image.get_rect(center=self.orig_img.get_rect(center=(self.rect.center)).center)
+        if name == 'angle' and self._original_image:
+            self.image = pygame.transform.rotate(self._original_image, self.angle)
+            self.rect = self.image.get_rect(center=self._original_image.get_rect(center=(self.rect.center)).center)
             self.dirty = 1
+        elif name == 'scale' and self._original_image:
+            self._rescale(int(self.width*self.scale), int(self.height*self.scale))
+            self.dirty = 1
+
+    def __getattr__(self, item):
+        if item in ('width',):
+            return self.rect.width
+        elif item in ('height',):
+            return self.rect.height
+        else:
+            return super().__getattr__(item)
 
     def __getitem__(self, item):
         if item in ('x', 'X', 'left'):
             return self.rect.x
         elif item in ('y', 'Y', 'top'):
             return self.rect.y
+        elif item in ('width',):
+            return self.rect.width
+        elif item in ('height',):
+            return self.rect.height
         elif item in ('angle', 'rotation', 'rotate'):
             return self.angle
+        elif item in ('scale',):
+            return self.scale
         else:
             return self.__getattribute__(item)
 
@@ -51,6 +69,8 @@ class DesignerObject(pygame.sprite.DirtySprite):
             self.dirty = 1
         elif key in ('angle', 'rotation', 'rotate'):
             self.angle = value
+        elif key in ('scale',):
+            self.scale = value
         else:
             self.__setattr__(key, value)
 
@@ -60,7 +80,7 @@ class DesignerObject(pygame.sprite.DirtySprite):
         :return: None
         '''
         designer.GLOBAL_DIRECTOR.add(self)
-        self.orig_img = self.image.copy()
+        self._original_image = self.image.copy()
 
     def add_animation(self, animation):
         """
@@ -81,6 +101,10 @@ class DesignerObject(pygame.sprite.DirtySprite):
         '''
         for animation in self.animations:
             animation.step(self)
+
+    def _rescale(self, new_width, new_height):
+        self.rect.width = new_width
+        self.rect.height = new_height
 
 
 class Circle(DesignerObject):
@@ -140,6 +164,10 @@ class Ellipse(DesignerObject):
         pygame.draw.ellipse(self.image, color, (0, 0, width, height))
 
         self.rect = self.image.get_rect()
+
+        left = left if left is not None else get_width() / 2 - self.rect.width / 2
+        top = top if top is not None else get_height() / 2 - self.rect.height / 2
+
         self.rect.x = left
         self.rect.y = top
 
@@ -176,6 +204,10 @@ class Arc(DesignerObject):
         pygame.draw.arc(self.image, color, (0, 0, width, height), start_angle, stop_angle, width=thickness)
 
         self.rect = self.image.get_rect()
+
+        left = left if left is not None else get_width() / 2 - self.rect.width / 2
+        top = top if top is not None else get_height() / 2 - self.rect.height / 2
+
         self.rect.x = left
         self.rect.y = top
 
@@ -259,6 +291,10 @@ class Rectangle(DesignerObject):
 
         self.color = color
         self.rect = self.image.get_rect()
+
+        left = left if left is not None else get_width() / 2 - self.rect.width / 2
+        top = top if top is not None else get_height() / 2 - self.rect.height / 2
+
         self.rect.topleft = (left, top)
 
         super().add()
@@ -327,9 +363,7 @@ class Shape(DesignerObject):
         self.rect = self.image.get_rect()
         self.rect.topleft = (left, top)
 
-
         super().add()
-
 
 
 class Image(DesignerObject):
@@ -352,7 +386,7 @@ class Image(DesignerObject):
         self.dirty = 1
         try:
             path_strs = path.split('/')
-            self.image = pygame.image.load(os.path.join(*path_strs)).convert_alpha()
+            self._original_image = pygame.image.load(os.path.join(*path_strs)).convert_alpha()
         except FileNotFoundError as err:
             try:
                 r = requests.get(path, stream=True)
@@ -365,23 +399,29 @@ class Image(DesignerObject):
                     # Open a local file with wb ( write binary ) permission.
                     with open('temp', 'wb') as f:
                         shutil.copyfileobj(r.raw, f)
-                    self.image = pygame.image.load('temp').convert_alpha()
+                    self._original_image = pygame.image.load('temp').convert_alpha()
                 else:
                     print('Image Couldn\'t be retrieved')
             except:
                 print("Unexpected error:", sys.exc_info()[0])
                 raise
+        self.image = self._original_image
         width = width if width is not None else self.image.get_width()
         height = height if height is not None else self.image.get_height()
         left = left if left is not None else get_width()/2 - width/2
         top = top if top is not None else get_height()/2 - height/2
         # get_width()/2, get_height()/2
-        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.scale(self._original_image, (width, height))
         self.rect = self.image.get_rect()
         self.rect.topleft = left, top
         self.rect.width = width
 
         super().add()
+
+    def _rescale(self, new_width, new_height):
+        self.rect.width = new_width
+        self.rect.height = new_height
+        self.image = pygame.transform.scale(self._original_image, (new_width, new_height))
 
 
 def circle(color, radius, *args):
@@ -412,7 +452,10 @@ def ellipse(color, *args):
     :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Ellipse object created
     '''
-    if len(args) > 2:
+    if len(args) == 2:
+        left, top = None, None
+        width, height = args[0], args[1]
+    elif len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
     else:
@@ -437,7 +480,10 @@ def arc(color, start_angle, stop_angle, thickness, *args):
     :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Arc object created
     """
-    if len(args) > 2:
+    if len(args) == 2:
+        left, top = None, None
+        width, height = args[2], args[3]
+    elif len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
     else:
@@ -478,7 +524,10 @@ def rectangle(color, *args):
     :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Rectangle object created
     '''
-    if len(args) > 2:
+    if len(args) == 2:
+        left, top = None, None
+        width, height = args[0], args[1]
+    elif len(args) > 2:
         left, top = args[0], args[1]
         width, height = args[2], args[3]
     else:
@@ -599,7 +648,7 @@ class DesignerGroup(DesignerObject):
         self.dirty = 1
         designer.GLOBAL_DIRECTOR.add_group(self)
         self._calc_total_object()
-        # self.orig_img = self.image
+        # self._original_image = self.image
         super().add()
 
     def add_animation(self, animation):
