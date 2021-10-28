@@ -1,11 +1,16 @@
+from os import environ
+
+environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
+
 import pygame
-from designer.director import *
+from designer.core.director import *
+from designer.core.event import *
 from designer.helpers import *
 from designer.animation import *
 from designer.objects import *
 from designer.colors import *
 
-GLOBAL_DIRECTOR = None
+GLOBAL_DIRECTOR: Director = None
 
 __all__ = [
     'circle',

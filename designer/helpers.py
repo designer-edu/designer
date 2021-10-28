@@ -1,5 +1,6 @@
 import designer
-from designer.director import Director
+from designer.core.event import register
+from designer.core.director import Director
 import pygame
 
 
@@ -12,6 +13,7 @@ def check_initialized():
 
     if not designer.GLOBAL_DIRECTOR:
         designer.GLOBAL_DIRECTOR = Director()
+        designer.GLOBAL_DIRECTOR._setup_initial_window()
 
 
 def draw(*objs):
@@ -25,9 +27,15 @@ def draw(*objs):
     """
 
     check_initialized()
-    if not objs and not designer.GLOBAL_DIRECTOR.handlers:
-        print("WARNING: you have not passed any DesignerObjects to draw!")
+    #if not objs and not designer.GLOBAL_DIRECTOR.handlers:
+    #    print("WARNING: you have not passed any DesignerObjects to draw!")
     designer.GLOBAL_DIRECTOR.start()
+
+
+def stop():
+    """ Stops the game. """
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.stop()
 
 
 def set_window_color(color):
@@ -41,9 +49,21 @@ def set_window_color(color):
     :return: None
     """
     check_initialized()
-    designer.GLOBAL_DIRECTOR.bkgr_color = color
+    designer.GLOBAL_DIRECTOR.background_color = color
     designer.GLOBAL_DIRECTOR.screen.fill(color)
     designer.GLOBAL_DIRECTOR.background.fill(color)
+
+
+def set_window_title(caption: str):
+    """
+    Set the title of the game's window (usually the title of your game).
+
+    :param caption: The caption that will be displayed in the window.
+                    Typically the name of your game.
+    :type caption: ``str``
+    """
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.window_title = caption
 
 
 def set_window_size(width, height):
@@ -87,25 +107,27 @@ def get_height():
 def when(event: str, *funcs):
     check_initialized()
     for func in funcs:
-        designer.GLOBAL_DIRECTOR.add_handler(event, func)
+        register(event, func)
 
 
 def colliding(*args):
     # TODO: Could use collide_circle and collide_mask for improved collisions
     check_initialized()
     if len(args) == 2:
-        return pygame.sprite.collide_rect(args[0], args[1])
+        obj1 = args[0]
+        obj2 = args[1]
+        return obj1.collide_other(obj2)
     elif len(args) == 3:
         if isinstance(args[0], int) and isinstance(args[1], int):
-            x, y, image = args
+            x, y, obj = args
         elif isinstance(args[1], int) and isinstance(args[2], int):
-            image, x, y = args
+            obj, x, y = args
         else:
             raise ValueError()
-        return image in designer.GLOBAL_DIRECTOR.all_game_objects.get_sprites_at((x, y))
+        return obj.collide_point(x, y)
 
 
 def destroy(*gobjects):
     check_initialized()
     for gobject in gobjects:
-        gobject.kill()
+        gobject.destroy()

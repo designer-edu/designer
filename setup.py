@@ -14,8 +14,10 @@ setuptools.setup(
     version='0.0.88',
     python_requires='>=3.6',
     author='krishols, acbart',
-    packages=['designer', 'designer.objects', 'designer.utilities'],
-    package_data={'designer': ['data/colors.json']},
+    packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core'],
+    package_data={
+        'designer': ['data/colors.json', 'data/default_key_mappings.txt']
+    },
     author_email='kris@udel.edu',
     description='Student-friendly and evidence-based visual graphics library.',
     install_requires=REQUIREMENTS,

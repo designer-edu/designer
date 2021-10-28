@@ -1,76 +1,119 @@
 import pygame
+import math
 
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
+from designer.core.internal_image import InternalImage
+from designer.utilities.vector import Vec2D
+from designer.utilities.surfaces import DesignerSurface
 
 
 class Text(DesignerObject):
-    __initialized = False
-    def __init__(self, left, top, text_color, text, text_size):
+    DEFAULT_FONT_SIZE = 16
+    DEFAULT_FONT_COLOR = 'black'
+    DEFAULT_FONT_NAME = 'Arial'
+    FONTS = {}
+
+    def __init__(self, center, anchor, text, text_size, color, font):
         """
         Creates Text Designer Object on window
 
-        :param left: x coordinate of top left corner of text box
-        :type left: int
-        :param top: y coordinate of top left corner of text box
-        :type top: int
-        :param text_color: color of text
-        :type text_color: str or List[str]
+        :param center: x, y coordinates of center of circle
+        :type center: Tuple[int]
+        :param anchor: the anchor to draw the circle at
+        :type anchor: str
+        :param color: color of text
+        :type color: str or List[str]
         :param text: text to be written on window
         :type text: str
         :param text_size: font size of text
         :type text_size: int
         """
         super().__init__()
-        self.dirty = 1
-        text_color = _process_color(text_color)
 
-        # is there a way to load text quicker?
-        # TODO: Cache this font
-        self.font = pygame.font.SysFont('Arial', text_size)
+        x, y = center
+        x = x if x is not None else get_width() / 2
+        y = y if y is not None else get_height() / 2
+        center = x, y
 
-        #  self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
-        self.text = text
-        self.text_color = text_color
-        self.image = self.font.render(self.text, True, self.text_color)
-        self.rect = self.image.get_rect()
+        self.pos = center
+        self.anchor = anchor
+        # Text Specific data
+        self._text = text
+        self._text_size = text_size
+        self._color = color
+        self._font_name = font
+        self._update_font()
 
-        left = left if left is not None else get_width() / 2 - self.rect.width / 2
-        top = top if top is not None else get_height() / 2 - self.rect.height / 2
-        self.rect.topleft = (left, top)
+        # Draw the actual circle image
+        self._internal_image = self._redraw_internal_image()
+        self._transform_image = self._internal_image._surf
 
-        self.__initialized = True
+    def _redraw_internal_image(self):
+        text_surface = self._font.render(str(self.text), True, _process_color(self.color))
+        target = InternalImage(size=text_surface.get_size())
+        target._surf.blit(text_surface, (0, 0))
+        return target
 
-        super().add()
+    @classmethod
+    def _get_font(cls, font, text_size):
+        if (font, text_size) not in cls.FONTS:
+            cls.FONTS[(font, text_size)] = pygame.font.SysFont(font, text_size)
+        return cls.FONTS[(font, text_size)]
 
-    def __setattr__(self, name, value):
-        old_value = None
-        if self.__initialized:
-            old_value = getattr(self, name)
-        super().__setattr__(name, value)
-        if self.__initialized and name == 'text' and old_value != value:
-            self.image = self.font.render(value, True, self.text_color)
-            self.rect.size = self.image.get_size()
-            self.dirty = 1
+    def _update_font(self):
+        self._font = self._get_font(self._font_name, self._text_size)
 
+    @property
+    def text_size(self):
+        return self._text_size
 
-def text(text_color, text, text_size, *args):
+    @text_size.setter
+    def text_size(self, value):
+        self._text_size = value
+        self._update_font()
+        self._redraw_internal_image()
+
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self._redraw_internal_image()
+
+    @property
+    def font(self):
+        return self._font
+
+    @font.setter
+    def font(self, value):
+        self._font_name = value
+        self._update_font()
+        self._redraw_internal_image()
+
+    @property
+    def text(self):
+        return self._text
+
+    @text.setter
+    def text(self, value):
+        self._text = text
+        self._redraw_internal_image()
+
+def text(text, color=Text.DEFAULT_FONT_COLOR, text_size=Text.DEFAULT_FONT_SIZE,
+         x=None, y=None, anchor='center', font_name=Text.DEFAULT_FONT_NAME):
     '''
        Function to create text.
 
-       :param color: color of text
-       :type color: str or List[str]
        :param text: text to appear on window
        :type text: str
-       :param args: top left coordinates of text box
-       :type args: either Tuple (left, top) or two ints (left, top)
+       :param color: color of text
+       :type color: str or List[str]
        :return: Text object created
        '''
-    if not args:
-        left, top = None, None
-    elif len(args) >= 2:
-        left, top = args[0], args[1]
-    else:
-        left, top = args[0]
-    return Text(left, top, text_color, text, text_size)
+    if x is not None and y is None:
+        x, y = x
+    return Text((x, y), anchor, text, text_size, color, font_name)

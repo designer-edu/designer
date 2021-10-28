@@ -1,17 +1,16 @@
-import pygame
-
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
+from designer.core.internal_image import InternalImage
 
 
 class Ellipse(DesignerObject):
-    def __init__(self, color, left, top, width, height):
+    DEFAULT_BORDER_WIDTH = 1
+
+    def __init__(self, left, top, width, height, anchor, color, border):
         '''
         Creates an ellipse Designer Object on the window.
 
-        :param color: color of ellipse
-        :type color: str or List[str]
         :param left: x coordinate of top left corner of ellipse
         :type left: int
         :param top: y coordinate of top left corner of ellipse
@@ -20,42 +19,45 @@ class Ellipse(DesignerObject):
         :type width: int
         :param height: height of ellipse to be drawn
         :type height: int
+        :param anchor: the anchor to draw the circle at
+        :type anchor: str
+        :param color: color of ellipse
+        :type color: str or List[str]
+        :param border: the width of the circle's line (0 is used for a filled circle)
+        :type border: int
         '''
         super().__init__()
-        self.dirty = 1
         color = _process_color(color)
-
-        self.image = pygame.surface.Surface((2 * width, 2 * height), pygame.SRCALPHA, 32).convert_alpha()
-        pygame.draw.ellipse(self.image, color, (0, 0, width, height))
-
-        self.rect = self.image.get_rect()
+        self.internal_image = InternalImage(size=(width, height))
+        self.internal_image.draw_ellipse(color, (0, 0, width, height), border)
 
         left = left if left is not None else get_width() / 2 - self.rect.width / 2
         top = top if top is not None else get_height() / 2 - self.rect.height / 2
 
-        self.rect.x = left
-        self.rect.y = top
+        self.pos = (left, top)
+        self.anchor = anchor
+        self.color = color
+        self.border = border
 
-        super().add()
 
-
-def ellipse(color, *args):
+def ellipse(color, x, y, width=None, height=None, anchor='center', border=None, filled=True):
     '''
     Function to make an ellipse.
 
     :param color: color of ellipse
     :type color: str or List[str]
-    :param args: left top corner of ellipse and width and height of ellipse
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Ellipse object created
     '''
-    if len(args) == 2:
-        left, top = None, None
-        width, height = args[0], args[1]
-    elif len(args) > 2:
-        left, top = args[0], args[1]
-        width, height = args[2], args[3]
-    else:
-        left, top = args[0]
-        width, height = args[1]
-    return Ellipse(color, left, top, width, height)
+    if width is None and height is None:
+        if isinstance(x, (int, float)):
+            width, height = x, y
+        else:
+            width, height = y
+            x, y = x
+    if filled is True:
+        border = 0
+    elif filled is False:
+        border = border or Ellipse.DEFAULT_BORDER_WIDTH
+    elif border is None:
+        border = Ellipse.DEFAULT_BORDER_WIDTH
+    return Ellipse(x, y, width, height, anchor, color, border)

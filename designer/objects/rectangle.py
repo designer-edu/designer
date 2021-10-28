@@ -1,44 +1,85 @@
 import pygame
+import math
 
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
+from designer.core.internal_image import InternalImage
+from designer.utilities.vector import Vec2D
+from designer.utilities.surfaces import DesignerSurface
+
 
 class Rectangle(DesignerObject):
-    def __init__(self, left, top, width, height, color):
+    DEFAULT_BORDER_WIDTH = 1
+
+    def __init__(self, center, anchor, width, height, color, border):
         """
         Creates Rectangle Designer Object on window.
 
-        :param left: x position of top left corner of rectangle
-        :type left: int
-        :param top: y position of top left corner of rectangle
-        :type top: int
+        :param center: x, y coordinates of center of circle
+        :type center: Tuple[int]
+        :param anchor: the anchor to draw the circle at
+        :type anchor: str
         :param width: width of rectangle in pixels
         :type width: int
         :param height: height of rectangle in pixels
         :type height: int
         :param color: color of rectangle
         :type color: str or List[str]
+        :param border: the width of the circle's line (0 is used for a filled circle)
+        :type border: int
         """
         super().__init__()
-        self.dirty = 1
-        color = _process_color(color)
 
-        self.image = pygame.surface.Surface((width, height), pygame.SRCALPHA, 32).convert_alpha()
-        pygame.draw.rect(self.image, color, (0, 0, width, height))
+        x, y = center
+        x = x if x is not None else get_width() / 2
+        y = y if y is not None else get_height() / 2
+        center = x, y
 
-        self.color = color
-        self.rect = self.image.get_rect()
+        self.pos = center
+        self.anchor = anchor
+        # Rectangle specific data
+        self._width = width
+        self._height = height
+        self._color = color
+        self._border = border
 
-        left = left if left is not None else get_width() / 2 - self.rect.width / 2
-        top = top if top is not None else get_height() / 2 - self.rect.height / 2
+        # Draw the actual rectangle image
+        self._internal_image = self._redraw_internal_image()
+        self._transform_image = self._internal_image._surf
 
-        self.rect.topleft = (left, top)
+    def _redraw_internal_image(self):
+        if int(self._width) > 0 and int(self._height) > 0:
+            new_image = InternalImage(size=(self._width, self._height))
+            new_image.draw_rect(_process_color(self._color),
+                                (0, 0),
+                                (self._width, self._height),
+                                self._border)
+            return new_image
+        else:
+            return InternalImage(size=(1, 1))
 
-        super().add()
+    @property
+    def color(self):
+        return self._color
+
+    @color.setter
+    def color(self, value):
+        self._color = value
+        self._redraw_internal_image()
+
+    @property
+    def border(self):
+        return self._border
+
+    @border.setter
+    def border(self, value):
+        self._border = value
+        self._redraw_internal_image()
 
 
-def rectangle(color, *args):
+def rectangle(color, width, height=None, x=None, y=None,
+              anchor='center', border=None, filled=True):
     '''
     Function to create a rectangle.
 
@@ -48,13 +89,18 @@ def rectangle(color, *args):
     :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
     :return: Rectangle object created
     '''
-    if len(args) == 2:
-        left, top = None, None
-        width, height = args[0], args[1]
-    elif len(args) > 2:
-        left, top = args[0], args[1]
-        width, height = args[2], args[3]
-    else:
-        left, top = args[0]
-        width, height = args[1]
-    return Rectangle(left, top, width, height, color)
+    if x is not None and y is None:
+        x, y = x
+    elif x is None and y is None and height is not None:
+        if not isinstance(height, (int, float)):
+            x, y = height
+            width, height = width
+    elif height is None:
+        width, height = width
+    if filled is True:
+        border = 0
+    elif filled is False:
+        border = border or Rectangle.DEFAULT_BORDER_WIDTH
+    elif border is None:
+        border = Rectangle.DEFAULT_BORDER_WIDTH
+    return Rectangle((x, y), anchor, width, height, color, border)
