@@ -77,7 +77,6 @@ def collide_water_fire(world):
     for drop in world['drops']:
         for fire in world['fires']:
             if colliding(drop, fire):
-                destroy(drop, fire)
                 if drop not in destroyed_drops:
                     destroyed_drops.append(drop)
                 if fire not in destroyed_fires:
