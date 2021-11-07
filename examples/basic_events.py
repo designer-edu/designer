@@ -35,7 +35,7 @@ COLORS = ['red', 'green', 'purple']
 
 def create_the_world():
     # This will not persist, it was not saved in the world!
-    text("Creating the world", "black", 30)
+    text("black", "Creating the world", 30)
     return {
         'orbs': [make_orb() for i in range(100)],
         'ada': make_ada(),

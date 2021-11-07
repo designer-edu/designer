@@ -194,6 +194,7 @@ class Director:
             self._game_state = new_game_state
         else:
             self._game_state = initial_game_state
+        del new_game_state
         # Hide any unused references
         from designer.utilities.search import _detect_objects_recursively
         kept_objects = _detect_objects_recursively(self._game_state)
@@ -220,6 +221,7 @@ class Director:
                         new_graphics = window._handle_event("director.render", Event(world=self._game_state), collect_results=True)
                         window._draw()
                         window._handle_event("director.post_render")
+                        del new_graphics
 
                     def update_callback(delta):
                         """
