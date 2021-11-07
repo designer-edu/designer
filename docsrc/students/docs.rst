@@ -1,10 +1,103 @@
 Designer Documentation for Students
 ===================================
 
-Designer Objects and Grouping Objects
--------------------------------------
+Designer Objects
+----------------
 
 .. automodule:: designer.DesignerObject
+
+.. py:attribute:: x
+    :type: integer
+
+    The horizontal position of the object on the screen.
+
+    .. code-block:: python
+
+        box = rectangle('red', 50, 50)
+        # Set to be 100 pixels from the left-hand side of the window
+        box['x'] = 100
+        # Move 5 pixels left
+        box['x'] -= 5
+
+.. py:attribute:: y
+    :type: integer
+
+    The vertical position of the object on the screen.
+
+    .. code-block:: python
+
+        box = rectangle('red', 50, 50)
+        # Set to be 100 pixels from the top of the window
+        box['y'] = 100
+        # Move 5 pixels up
+        box['y'] -= 5
+
+.. py:attribute:: pos
+    :type: [x, y]
+
+    The position of the object on the screen.
+
+Specific DesignerObjects
+########################
+
+.. _rectangle:
+
+.. py:function:: rectangle(color, width, height)
+                 rectangle(color, width, height, x, y)
+                 rectangle(color, width, height, x, y, border=None, anchor='center')
+
+    Function to create a rectangle object. You must specify the color, width, and height
+    of the rectangle. Optionally, you can also position it at a specific x/y coordinate,
+    although it will default to the center of the Window.
+
+    .. code-block:: python
+
+        from designer import *
+        # Black rectangle of size 100x100
+        rectangle("black", 100, 100)
+
+        # Red rectangle of size 50x50 in topleft corner
+        # Part of the rectangle will be caught off since its drawn from the center
+        red_box = rectangle("red", 50, 50, 0, 0)
+
+        # Once created, you can manipulate the border and other properties
+        red_box['color'] = 'purple'
+        red_box['x'] = 100
+
+    You can also control the border of the rectangle in order to make the shape not be
+    filled, but instead just a bordered rectangle.
+
+    .. code-block:: python
+
+        # Blue rectangle of size 75x100, not filled
+        empty = rectangle("blue", 75, 100, border=1)
+        empty['border'] = 7
+
+    And like any other shape, you can specify an :ref:`anchor<anchor>` to adjust the "pin" of the
+    object relative to its position.
+
+    .. code-block:: python
+
+        # Blue 50x50 rectangle drawn from the topleft corner, at position 0,0
+        rectangle("blue", 50, 50, 0, 0, anchor='topleft')
+
+    :param color: The :ref:`color<color>` of the rectangle
+    :type color: str
+    :param width: The horizontal width of the rectangle
+    :type width: int
+    :param height: The vertical height of the rectangle
+    :type height: int
+    :param x: The horizontal position in the Window. If not specified, defaults to the center of the window.
+    :type x: int
+    :param y: The vertical position in the Window. If not specified, defaults to the center of the window.
+    :type y: int
+    :param border: If given, the rectangle is not filled; instead, the center of the rectangle is empty and only a border is shown. The thickness of the border is given by this value.
+    :type border: int
+    :param anchor: An :ref:`anchor<anchor>` indicating where the "pin" (or "center") of the object should be relative to its position.
+    :type anchor: str
+
+    :return: Rectangle designer object created
+    :rtype: DesignerObject
 
 .. function:: line(color, thickness, start_x, start_y, end_x, end_y)
 
@@ -37,22 +130,6 @@ Designer Objects and Grouping Objects
     :param center_y: y-coordinate of center of circle
     :type center_y: int
     :return: Circle object created
-
-.. function:: rectangle(color, left, top, width, height)
-
-    Function to create a rectangle.
-
-    :param color: color of rectangle
-    :type color: str
-    :param left: left most x-coordinate of rectangle
-    :type left: int
-    :param top: top most y-coordinate of rectangle
-    :type top: int
-    :param width: width of ellipse in rectangle
-    :type width: int
-    :param height: height of ellipse in rectangle
-    :type height: int
-    :return: Rectangle object created
 
 .. function:: ellipse(color, left, top, width, height)
 
@@ -143,11 +220,21 @@ Designer Objects and Grouping Objects
 Animation
 ---------
 
-.. automodule:: designer.Animation
-   :members: glide_around, glide_down, glide_in_degrees, glide_left, glide_right, glide_up, rotate
+.. automodule:: designer.animation
+   :members: glide_down, glide_in_degrees, glide_left, glide_right, glide_up, spin
 
 
 Settings
 --------
-.. automodule:: designer.Director
+.. automodule:: designer.helpers
     :members: draw, set_window_color, set_window_size, get_width, get_height
+
+Events
+------
+
+.. _when:
+
+.. py:function:: when(event_name, event_handler)
+                 when(predicate_function, event_handler)
+
+    Binds the function given by `event_handler` to the `event_name`.

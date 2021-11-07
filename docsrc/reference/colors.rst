@@ -1,4 +1,4 @@
-.. _colors:
+.. _color:
 
 List of Colors
 ==============
