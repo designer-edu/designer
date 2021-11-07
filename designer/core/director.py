@@ -6,7 +6,7 @@ import weakref
 import inspect
 from pprint import pprint
 import pygame
-from weakref import ref as _wref
+from weakref import ref as _wref, WeakSet
 
 from designer.colors import _process_color
 from designer.core.window import Window
@@ -40,7 +40,7 @@ class Director:
 
         self._windows: List[Window] = []
 
-        self._all_sprites: List[_wref] = []
+        self._all_sprites: WeakSet = WeakSet([])
         self._game_state = None
 
         self.screen = pygame.display.set_mode(self.window_size)
@@ -61,11 +61,11 @@ class Director:
         Ensure that dead sprites are removed from the list and that sprites are
         redrawn on a window change.
         """
-        self._all_sprites = [s for s in self._all_sprites
-                             if s() is not None and s()._expire_static()]
+        self._all_sprites = WeakSet([s for s in self._all_sprites
+                                     if s is not None and s._expire_static()])
 
     def _track_object(self, object):
-        self._all_sprites.append(_wref(object))
+        self._all_sprites.add(object)
 
     @property
     def tick(self):
@@ -198,9 +198,10 @@ class Director:
         from designer.utilities.search import _detect_objects_recursively
         kept_objects = _detect_objects_recursively(self._game_state)
         for obj in self._all_sprites:
-            if obj() not in kept_objects:
-                obj().visible = False
-        self._all_sprites = kept_objects
+            if obj not in kept_objects:
+                obj.visible = False
+        self._all_sprites = WeakSet(kept_objects)
+        del kept_objects
         # Start running the game!
         self.running = True
         try:

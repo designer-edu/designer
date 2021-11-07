@@ -4,6 +4,8 @@ import random
 WATER_DROP_SPEED = 5
 PLANE_SPEED = 5
 
+set_window_title(None)
+
 World = {
     'fires': [DesignerObject],
     'drops': [DesignerObject],
