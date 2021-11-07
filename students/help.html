@@ -1,0 +1,288 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>More Help &mdash; Designer 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="List of Colors" href="../reference/colors.html" />
+    <link rel="prev" title="Designer Troubleshooting" href="troubleshoot.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Designer
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="world.html">Designer Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Designer Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">More Help</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#actions-after-start">Actions After Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#why-use-a-constructor">Why Use a Constructor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/colors.html">List of Colors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/anchors.html">List of Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/events.html">List of Events</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Designer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>More Help</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/students/help.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="more-help">
+<span id="help"></span><h1>More Help<a class="headerlink" href="#more-help" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="actions-after-start">
+<h2>Actions After Start<a class="headerlink" href="#actions-after-start" title="Permalink to this headline">¶</a></h2>
+<p>Once you call the <cite>start()</cite> function, no other code will run until your game finishes.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># These print statements demonstrate when code runs relative to start</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This line will execute before the game starts.&quot;</span><span class="p">)</span>
+<span class="n">start</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;This line will not execute until the game is over.&quot;</span>
+</pre></div>
+</div>
+<p>If you want to have activity in your game, you have to use the <cite>when</cite> function to add
+event handling.</p>
+</div>
+<div class="section" id="why-use-a-constructor">
+<h2>Why Use a Constructor<a class="headerlink" href="#why-use-a-constructor" title="Permalink to this headline">¶</a></h2>
+<p>We recommend having a nullary constructor to set up your World.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>However, strictly speaking, this isn’t necesary. You can actually just create
+a World and pass it in to the <code class="code docutils literal notranslate"><span class="pre">start</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">start</span><span class="p">({</span><span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)})</span>
+</pre></div>
+</div>
+<p>The end result is the same, and the version without the constructor seems much
+shorter. So why would you want to go through all the trouble?</p>
+<p>There are three main advantages to the Constructor approach.</p>
+<p>First, we can define the type more concretely. This makes it clearer to others
+what the World looks like and how it should be used. Technically, you can also
+achieve this if you store the World in a variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+<span class="n">initial_world</span><span class="p">:</span> <span class="n">World</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)}</span>
+<span class="n">start</span><span class="p">(</span><span class="n">initial_world</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Second, we can reset the game more easily. Whenever you want to reset the
+game to its initial state, you can simply have an updating function call
+the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function and return the resulting new world.</p>
+<p>Third, we can test our game more easily. Any time you want to create a World,
+you just call <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> and you have a fresh instance. From there,
+you can manipulate its fields and call update functions on the World.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../reference/colors.html" class="btn btn-neutral float-right" title="List of Colors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="troubleshoot.html" class="btn btn-neutral float-left" title="Designer Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, acbart, krishols.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

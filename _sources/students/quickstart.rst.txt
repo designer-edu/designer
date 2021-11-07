@@ -78,16 +78,14 @@ Let's use the link to this `frog image`_.
 
     from designer import *
 
-    frog = image('https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png', 0, 0, 200, 300)
+    frog = image('https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png', 100, 100)
     draw(frog)
 
 Noticing a trend yet? The function, ``image``, creates and returns an image DesignerObject.
 
 * The first argument of ``image`` can be a string representing a url to an image, such as in this example. Or, it can be a string of a file path to an image.
 
-* The next two arguments, "0, 0", are again the left (0) top (0) corner of the image.
-
-* The final two arguments, "200, 300" are the width (200 pixels) and height (300 pixels) of the image.
+* The next two arguments, "100, 100", are again the left (100) top (100) corner of the image.
 
 .. image:: images/frog.png
    :width: 700
@@ -104,15 +102,14 @@ You can add any string to the window.
 
     from designer import *
 
-    hello = text('blue', "Hello World!", 40, 0, 0)
+    hello = text("Hello World!", 'blue', 40)
     draw(hello)
 
 The function, ``text``, creates and returns a text DesignerObject.
 
-* The first argument, "blue", is the color the text will be.
-* The next argument, "Hello World!", is the text to add to the window.
-* The next argument, "40", is the size of the text's font.
-* The final two arguments, "0, 0", are the left (0), top (0), corner of the text.
+* The first argument, "Hello World!", is the text to add to the window.
+* The next argument, "blue", is the color the text will be.
+* The last argument, "40", is the size of the text's font.
 
 .. image:: images/hello_world.png
    :width: 700
@@ -131,9 +128,9 @@ Easy, let's add one function call!
 
    from designer import *
 
-    frog = image('https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png', 0, 0, 200, 300)
-    glide_right(frog, 10)
-    draw(frog)
+   frog = image('https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png')
+   glide_right(frog, 10)
+   draw(frog)
 
 See that we've added the function ``glide_right``. By passing a DesignerObject, in this case our frog image,
 to the function as the first parameter, we can set it to glide to the right of the window.
