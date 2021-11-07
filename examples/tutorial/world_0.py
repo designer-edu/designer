@@ -1,0 +1,3 @@
+from designer import *
+
+start()

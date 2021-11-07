@@ -5,17 +5,21 @@ import sys
 import weakref
 import inspect
 from pprint import pprint
+import pygame
 from weakref import ref as _wref
 
+from designer.colors import _process_color
 from designer.core.window import Window
 from designer.core.event import handle, Event, _pygame_to_spyral, GameEndException, register
+from designer.keyboard import KeyboardModule
+from designer.mouse import MouseModule
+
 
 DEFAULT_WINDOW_TITLE = "Designer Game"
-import pygame
 
 
 class Director:
-    def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps=50):
+    def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps=30):
         """
         Initializes the Director that will control the game state.
 
@@ -28,9 +32,11 @@ class Director:
         pygame.init()
         self._window_size = width, height
         self._window_title = DEFAULT_WINDOW_TITLE
+        self._window_color = background_color
         self._fps = fps
         self._tick = 0
         self.running = False
+        self.paused = False
 
         self._windows: List[Window] = []
 
@@ -38,11 +44,14 @@ class Director:
         self._game_state = None
 
         self.screen = pygame.display.set_mode(self.window_size)
-        self.background_color = background_color
-        self.screen.fill(self.background_color)
+        self.screen.fill(self._window_color)
+        pygame.display.set_caption(self._window_title)
+
+        self.keyboard = KeyboardModule()
+        self.mouse = MouseModule()
 
     def _setup_initial_window(self):
-        new_window = Window()
+        new_window = Window(self._window_size, self._fps)
         self._windows.append(new_window)
         register("system.quit", self.stop)
         new_window._register_default_events()
@@ -74,6 +83,10 @@ class Director:
     def window_size(self):
         return self._window_size
 
+    @window_size.setter
+    def window_size(self, value):
+        self._window_size = value
+
     @property
     def width(self):
         return self._window_size[0]
@@ -85,6 +98,24 @@ class Director:
     @property
     def window_title(self):
         return self._window_title
+
+    @window_title.setter
+    def window_title(self, value):
+        self._window_title = value
+        if isinstance(value, str):
+            pygame.display.set_caption(value)
+
+    @property
+    def window_color(self):
+        return self._window_color
+
+    @window_color.setter
+    def window_color(self, value):
+        self._window_color = value
+        self.screen.fill(_process_color(value))
+        # TODO: Director shouldn't do this, the window itself should handle that
+        self.current_window.background.fill(_process_color(value))
+        self.current_window.background._version += 1
 
     def replace(self, window):
         """
@@ -145,7 +176,7 @@ class Director:
         # Empty all events!
         pygame.event.get()
 
-    def start(self):
+    def start(self, initial_game_state):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
 
@@ -157,9 +188,23 @@ class Director:
         window = self.current_window
         clock = window.clock
         stack = self._windows
-        self._game_state = window._handle_event('starting')
+        # Load up initial game state
+        new_game_state = window._handle_event('director.start')
+        if new_game_state is not None:
+            self._game_state = new_game_state
+        else:
+            self._game_state = initial_game_state
+        # Hide any unused references
+        from designer.utilities.search import _detect_objects_recursively
+        kept_objects = _detect_objects_recursively(self._game_state)
+        for obj in self._all_sprites:
+            if obj() not in kept_objects:
+                obj().visible = False
+        self._all_sprites = kept_objects
+        # Start running the game!
+        self.running = True
         try:
-            while True:
+            while self.running:
                 window = stack[-1]
                 if window is not old_window:
                     clock = window.clock
@@ -171,7 +216,7 @@ class Director:
                         rendering-related events to be fired.
                         """
                         window._handle_event("director.pre_render")
-                        new_graphics = window._handle_event("drawing", Event(world=self._game_state), collect_results=True)
+                        new_graphics = window._handle_event("director.render", Event(world=self._game_state), collect_results=True)
                         window._draw()
                         window._handle_event("director.post_render")
 
@@ -180,6 +225,13 @@ class Director:
                         A closure for handling events, which includes firing the update
                         related events (e.g., pre_update, update, and post_update).
                         """
+                        if self.paused:
+                            window._event_source.tick()
+                            for event in window._event_source.get():
+                                if event.type == pygame.QUIT:
+                                    self.stop()
+                            self._tick += 1
+                            return
                         if len(pygame.event.get([pygame.VIDEOEXPOSE])) > 0:
                             window.redraw()
                             window._handle_event("director.redraw")
@@ -189,8 +241,7 @@ class Director:
                         for event in events:
                             window._queue_event(*_pygame_to_spyral(event, world=self._game_state))
                         window._handle_event("director.pre_update")
-                        window._handle_event('updating', Event(world=self._game_state, delta=delta))
-                        window._handle_event("director.update", Event(world=self._game_state, delta=delta))
+                        window._handle_event('director.update', Event(world=self._game_state, delta=delta))
                         self._tick += 1
                         window._handle_event("director.post_update")
 
@@ -200,41 +251,11 @@ class Director:
         except GameEndException:
             pass
 
-        '''
-        self.running = True
-        self.all_game_objects.clear(self.screen, self.background)
-        self.screen = pygame.display.set_mode(self.window_size)
-        self.screen.fill(self.background_color)
-
-        self._game_state = {}
-        for handler in self.handlers.get('starting', {}):
-            self._game_state = handler()
-
-        while self.running:
-            pygame.time.Clock().tick(self.fps)
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-                elif event.type == pygame.KEYDOWN:
-                    self.handle_events('typing', event.key, event.mod, event.unicode, event.scancode)
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    self.handle_events('clicking', *event.pos, event.button)
-            self.remove_dead_objects()
-            for gobject in self.all_game_objects:
-                gobject._handle_animation()
-            for group in self.groups:
-                group._handle_animation()
-            self.handle_events('updating', self.tick)
-            self.tick += 1
-            self.all_game_objects.update()
-            rects = self.all_game_objects.draw(self.screen)
-            pygame.display.update(rects)
-        pygame.display.quit()
-        pygame.quit()
-        sys.exit()
-        '''
-
     def stop(self):
         """ Cleanly quits the game. """
+        self.running = False
         pygame.quit()
         raise GameEndException("The game has ended correctly")
+
+    def pause(self, new_state=True):
+        self.paused = new_state

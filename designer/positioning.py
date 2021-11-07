@@ -1,22 +1,17 @@
 import pygame
 
 from designer.objects.designer_object import DesignerObject
+from designer.objects.group import group
 
 
-class above(DesignerObject):
-    def __init__(self, top, bottom):
-        super().__init__()
-        self.dirty = 1
+def above(top: DesignerObject, bottom: DesignerObject):
+    """ Moves the bottom to be below the top """
+    bottom.x = top.x + top.width/2 - bottom.width/2
+    bottom.y = top.y + top.height
+    return group(top, bottom)
 
-        x = top.rect.x
-        y = top.rect.y
-        width = max(top.rect.width, bottom.rect.width)
-        height = top.rect.height + bottom.rect.height
-
-        self.image = pygame.surface.Surface((width, height))
-        self.image.blit(top.image, (0, 0))
-        self.image.blit(bottom.image, (0, top.rect.height))
-
-        self.rect = self.image.get_rect(center=(x, y))
-
-        super().add()
+def below(bottom: DesignerObject, top: DesignerObject, ):
+    """ Moves the bottom to be below the top """
+    bottom.x = top.x + abs(top.width - bottom.width)//2
+    bottom.y = top.y + top.height
+    return group(top, bottom)

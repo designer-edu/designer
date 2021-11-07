@@ -4,18 +4,18 @@ import math
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
-from designer.core.internal_image import InternalImage
+from designer.core.internal_image import InternalImage, DesignerSurface
 from designer.utilities.vector import Vec2D
-from designer.utilities.surfaces import DesignerSurface
-
+from designer.utilities.util import _anchor_offset
 
 class Text(DesignerObject):
     DEFAULT_FONT_SIZE = 16
     DEFAULT_FONT_COLOR = 'black'
     DEFAULT_FONT_NAME = 'Arial'
     FONTS = {}
+    FIELDS = (*DesignerObject.FIELDS, 'text', 'color', 'font', 'text_size')
 
-    def __init__(self, center, anchor, text, text_size, color, font):
+    def __init__(self, center, anchor, text_string, text_size, color, font):
         """
         Creates Text Designer Object on window
 
@@ -37,24 +37,30 @@ class Text(DesignerObject):
         y = y if y is not None else get_height() / 2
         center = x, y
 
-        self.pos = center
-        self.anchor = anchor
+        self._pos = center
+        self._anchor = anchor
         # Text Specific data
-        self._text = text
+        self._text = text_string
         self._text_size = text_size
         self._color = color
         self._font_name = font
         self._update_font()
 
         # Draw the actual circle image
-        self._internal_image = self._redraw_internal_image()
-        self._transform_image = self._internal_image._surf
+        self._redraw_internal_image()
+
+    def _recalculate_offset(self):
+        if self._transform_image is None:
+            return
+        size = self._scale * self._transform_image.get_size()
+        offset = _anchor_offset(self._anchor, size[0], size[1])
+        self._offset = Vec2D(offset) - self._transform_offset
 
     def _redraw_internal_image(self):
         text_surface = self._font.render(str(self.text), True, _process_color(self.color))
         target = InternalImage(size=text_surface.get_size())
         target._surf.blit(text_surface, (0, 0))
-        return target
+        self._default_redraw_transforms(target)
 
     @classmethod
     def _get_font(cls, font, text_size):
@@ -100,10 +106,11 @@ class Text(DesignerObject):
 
     @text.setter
     def text(self, value):
-        self._text = text
+        self._text = value
         self._redraw_internal_image()
 
-def text(text, color=Text.DEFAULT_FONT_COLOR, text_size=Text.DEFAULT_FONT_SIZE,
+
+def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
          x=None, y=None, anchor='center', font_name=Text.DEFAULT_FONT_NAME):
     '''
        Function to create text.
@@ -115,5 +122,8 @@ def text(text, color=Text.DEFAULT_FONT_COLOR, text_size=Text.DEFAULT_FONT_SIZE,
        :return: Text object created
        '''
     if x is not None and y is None:
-        x, y = x
+        try:
+            x, y = x
+        except TypeError as e:
+            pass
     return Text((x, y), anchor, text, text_size, color, font_name)

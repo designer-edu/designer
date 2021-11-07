@@ -1,3 +1,5 @@
+import difflib
+
 import pygame
 import designer
 import math
@@ -7,21 +9,29 @@ from weakref import ref as _wref, ReferenceType
 from designer.core.window import Window
 from designer.core.event import Event, register
 from designer.utilities.vector import Vec2D
-from designer.utilities.surfaces import DesignerSurface
+from designer.core.internal_image import InternalImage, DesignerSurface
 from designer.utilities.rect import Rect
 from designer.utilities.util import _anchor_offset, _Blit, _CollisionBox
-from designer.core.internal_image import InternalImage
 from designer.utilities.animation import Animation
 
 
 class DesignerObject:
     """
-    DesignerObjects are how images and graphics are positioned and drawn onto the screen.
-    They aggregate together information such as where to be drawn, layering information, and more.
-
-    :param parent: The parent that this Sprite will belong to. Defaults to the current Window.
-    :type parent: :class:`View <designer.View>` or :class:`Window <designer.Window>`
+    DesignerObjects are how images and shapes are positioned and drawn onto the screen.
+    They aggregate together information such as where to be drawn, their size, and their color.
+    Each type of DesignerObject has its own specific kinds of attributes, but all DesignerObjects
+    have certain common attributes.
     """
+    FIELDS = (
+        "rect", "pos",
+        "layer",
+        "x", "y", "width", "height",
+        "size", "scale", "scale_x", "scale_y",
+        "anchor",
+        "angle", "flip_x", "flip_y", "visible",
+        "parent", "mask",
+        "alpha"
+    )
 
     def __init__(self, parent=None):
         designer.check_initialized()
@@ -34,35 +44,65 @@ class DesignerObject:
         self._age: int = 0
         #: Whether or not this DesignerObject will not need to be redrawn for a while
         self._static: bool = False
-        #: Internal field holding the original version of the image
-        self._internal_image: Optional[InternalImage] = None
-        self._internal_image_version: Optional[int] = None
-        self._layer: Optional[str] = None
-        self._computed_layer = 1
         self._make_static = False
-        self._pos = Vec2D(0, 0)
+
+        # Independent Fields
+        self._independent_fields = ('_pos', '_size', '_anchor', '_scale', '_angle', '_flip_x', '_flip_y')
+        self._layer: Optional[str] = None
         self._blend_flags = 0
+        self._alpha = 1.0
         self._visible = True
+        self._pos = Vec2D(0, 0)
+        self._size = Vec2D(1, 1)
         self._anchor = 'topleft'
-        self._offset = Vec2D(0, 0)
         self._scale = Vec2D(1.0, 1.0)
-        self._scaled_image: Optional[InternalImage] = None
-        self._parent = _wref(parent)
-        self._window: ReferenceType[Window] = _wref(parent.window)
         self._angle = 0
-        # TODO: Finish setting up cropping
-        #self._crop = None
-        #: The actual image after it has been scaled/cropped/rotated/etc.
-        self._transform_image: Optional[InternalImage] = None
-        self._transform_offset = Vec2D(0, 0)
         self._flip_x = False
         self._flip_y = False
+        # TODO: Finish setting up cropping
+        self._crop: Optional[Rect] = None
+        self._mask: Optional[Rect] = None
+
+        # Dependent fields
+        self._offset = Vec2D(0, 0)
+        self._computed_layer = 1
+        #: The actual image after it has been scaled/cropped/rotated/etc.
+        self._transform_image: Optional[DesignerSurface] = None
+        self._transform_offset = Vec2D(0, 0)
+
+        # Animation stuff
         self._animations: List[Animation] = []
         self._progress: Dict[Animation, float] = {}
-        self._mask = None
+
+        # Internal references to parents
+        self._parent = _wref(parent)
+        self._window: ReferenceType[Window] = _wref(parent.window)
+
+        # Establish backreferences
         parent._add_child(self)
         self._window()._register_object(self)
-        register('drawing', self._draw)
+
+        register('director.render', self._draw)
+
+        self.FIELDS = set(self.FIELDS)
+
+    def check_key(self, item):
+        if item not in dir(self):
+            suggestions = ", ".join(map(repr, difflib.get_close_matches(repr(item), self.FIELDS)))
+            if suggestions:
+                raise KeyError(f"Key {item!r} not found. Perhaps you meant one of these? {suggestions}")
+            else:
+                raise KeyError(f"Key {item!r} not found. I didn't recognize that key, you should check the documentation!")
+
+    def __getitem__(self, item):
+        """ Allow this object to be treated like a dictionary. """
+        self.check_key(item)
+        return getattr(self, item)
+
+    def __setitem__(self, key, value):
+        """ Allow this object to be treated like a dictionary. """
+        self.FIELDS.add(key)
+        self.__setattr__(key, value)
 
     def _set_static(self):
         """
@@ -90,84 +130,44 @@ class DesignerObject:
         self._set_collision_box()
         return True
 
-    def _recalculate_offset(self):
-        """
-        Recalculates this designer object's offset based on its position, transform
-        offset, anchor, its image, and the image's scaling.
-        """
-        if self.internal_image is None:
-            return
-        size = self._scale * self._internal_image.size
-        offset = _anchor_offset(self._anchor, size[0], size[1])
-        self._offset = Vec2D(offset) - self._transform_offset
+    def _make_blank_surface(self):
+        self._transform_image = DesignerSurface((1, 1))
+        self._recalculate_offset()
+        self._expire_static()
 
-    def _recalculate_transforms(self):
-        """
-        Calculates the transforms that need to be applied to this designer object's
-        image. In order: flipping, scaling, and rotation.
-        """
-        source = self._internal_image._surf
-        # Flip
+    def _default_redraw_transforms(self, target):
         if self._flip_x or self._flip_y:
-            source = pygame.transform.flip(source, self._flip_x, self._flip_y)
+            target.flip(self._flip_x, self._flip_y)
         # Scale
         if self._scale != (1.0, 1.0):
-            new_size = self._scale * self._internal_image.size
+            new_size = self._scale * target.size
             new_size = (int(new_size[0]), int(new_size[1]))
             if 0 in new_size:
                 self._transform_image = DesignerSurface((1, 1))
                 self._recalculate_offset()
                 self._expire_static()
                 return
-            new_surf = DesignerSurface(new_size)
-            source = pygame.transform.smoothscale(source, new_size, new_surf)
+            target.scale(new_size)
         # Rotate
         if self._angle != 0:
-            angle = 180.0 / math.pi * self._angle % 360
-            old = Vec2D(source.get_rect().center)
-            source = pygame.transform.rotate(source, angle).convert_alpha()
-            new = source.get_rect().center
-            self._transform_offset = old - new
+            angle = self._angle % 360
+            #old = Vec2D(target.rect.center)
+            target.rotate(angle)
+            #new = target.rect.center
+            #self._transform_offset = old - new
         # Finish updates
-        self._transform_image = source
+        self._transform_image = target._surf
         self._recalculate_offset()
         self._expire_static()
 
-    def _evaluate(self, animation, progress):
-        """
-        Performs a step of the given animation, setting any properties that will
-        change as a result of the animation (e.g., x position).
-        """
-        values = animation.evaluate(self, progress)
-        for a_property in animation.properties:
-            if a_property in values:
-                setattr(self, a_property, values[a_property])
+    def _redraw_internal_image(self):
+        pass
 
-    def _run_animations(self, delta):
+    def _recalculate_offset(self):
         """
-        For a given time-step (delta), perform a step of all the animations
-        associated with this designer object.
+        Recalculates this designer object's offset based on its position, transform
+        offset, anchor, its image, and the image's scaling.
         """
-        completed = []
-        for animation in self._animations:
-            self._progress[animation] += delta
-            progress = self._progress[animation]
-            if progress > animation.duration:
-                self._evaluate(animation, animation.duration)
-                if animation.loop is True:
-                    self._evaluate(animation, progress - animation.duration)
-                    self._progress[animation] = progress - animation.duration
-                elif animation.loop:
-                    current = progress - animation.duration + animation.loop
-                    self._evaluate(animation, current)
-                    self._progress[animation] = current
-                else:
-                    completed.append(animation)
-            else:
-                self._evaluate(animation, progress)
-        # Stop all completed animations
-        for animation in completed:
-            self.stop_animation(animation)
 
     @property
     def rect(self):
@@ -184,7 +184,7 @@ class DesignerObject:
 
         >>> my_object.rect = designer.utilities.rect.Rect(10, 10, 64, 64)
         """
-        return Rect(self._pos, self.size)
+        return Rect(self._pos, self._size)
 
     @rect.setter
     def rect(self, *rect):
@@ -232,22 +232,6 @@ class DesignerObject:
         self._expire_static()
 
     @property
-    def internal_image(self):
-        """
-        The actual internal_image being used by this class.
-        """
-        return self._internal_image
-
-    @internal_image.setter
-    def internal_image(self, value):
-        if self._internal_image is value:
-            return
-        self._internal_image = value
-        self._internal_image_version = value._version
-        self._recalculate_transforms()
-        self._expire_static()
-
-    @property
     def x(self) -> int:
         """
         The x coordinate of the object, which will remain synced with the
@@ -292,38 +276,35 @@ class DesignerObject:
         """
         The width of the object after all transforms. Number.
         """
-        if self._transform_image:
-            return self._transform_image.get_width()
+        return self._size[0]
 
     @width.setter
     def width(self, value):
-        self.scale = (value / self.width, self._scale[1])
+        self.size = (value, self.height)
 
     @property
     def height(self):
         """
         The height of the image after all transforms. Number.
         """
-        if self._transform_image:
-            return self._transform_image.get_height()
+        return self._size[1]
 
     @height.setter
     def height(self, value):
-        self.scale = (self._scale[0], value / self.height)
+        self.size = (self.width, value)
 
     @property
     def size(self):
         """
         The size of the image after all transforms (:class:`Vec2D <designer.utilities.vector.Vec2D>`).
         """
-        if self._transform_image:
-            return Vec2D(self._transform_image.get_size())
-        return Vec2D(0, 0)
+        return self._size
 
     @size.setter
     def size(self, value):
-        width, height = value
-        self.scale = (width / self.width, height / self.height)
+        self._size = Vec2D(value)
+        self._redraw_internal_image()
+        self._expire_static()
 
     @property
     def scale(self):
@@ -342,7 +323,7 @@ class DesignerObject:
         if self._scale == value:
             return
         self._scale = Vec2D(value)
-        self._recalculate_transforms()
+        self._redraw_internal_image()
         self._expire_static()
 
     @property
@@ -381,7 +362,7 @@ class DesignerObject:
         if self._angle == value:
             return
         self._angle = value
-        self._recalculate_transforms()
+        self._redraw_internal_image()
 
     @property
     def flip_x(self):
@@ -396,7 +377,7 @@ class DesignerObject:
         if self._flip_x == value:
             return
         self._flip_x = value
-        self._recalculate_transforms()
+        self._redraw_internal_image()
 
     @property
     def flip_y(self):
@@ -411,7 +392,18 @@ class DesignerObject:
         if self._flip_y == value:
             return
         self._flip_y = value
-        self._recalculate_transforms()
+        self._redraw_internal_image()
+
+    @property
+    def alpha(self):
+        return self._alpha
+
+    @alpha.setter
+    def alpha(self, value):
+        if self._alpha == value:
+            return
+        self._alpha = value
+        self._expire_static()
 
     @property
     def visible(self):
@@ -455,14 +447,6 @@ class DesignerObject:
         self._mask = value
         self._set_collision_box()
 
-    def __getitem__(self, item):
-        """ Allow this object to be treated like a dictionary. """
-        return getattr(self, item)
-
-    def __setitem__(self, key, value):
-        """ Allow this object to be treated like a dictionary. """
-        self.__setattr__(key, value)
-
     def _draw(self):
         """
         Internal method for generating this object's blit, unless it is
@@ -471,15 +455,13 @@ class DesignerObject:
         """
         if not self.visible:
             return
-        if self._internal_image is None:
+        if self._transform_image is None:
             return
-        # The image has changed versions!
-        if self._internal_image_version != self._internal_image._version:
-            self._internal_image_version = self._internal_image._version
-            self._recalculate_transforms()
-            self._expire_static()
         if self._static:
             return
+
+        # TODO: Make sure this is sufficient
+        self._transform_image.set_alpha(int(self._alpha*255))
 
         area = Rect(self._transform_image.get_rect())
         b = _Blit(self._transform_image, self._pos - self._offset,
@@ -498,7 +480,7 @@ class DesignerObject:
         """
         Updates this object's collision box.
         """
-        if self.internal_image is None:
+        if self._transform_image is None:
             return
         if self._mask is None:
             area = Rect(self._transform_image.get_rect())
@@ -518,6 +500,44 @@ class DesignerObject:
         self._window()._unregister_object(self)
         self._window()._remove_static_blit(self)
         self._parent()._remove_child(self)
+
+
+    def _evaluate(self, animation, progress):
+        """
+        Performs a step of the given animation, setting any properties that will
+        change as a result of the animation (e.g., x position).
+        """
+        values = animation.evaluate(self, progress)
+        for a_property in animation.properties:
+            if a_property in values:
+                setattr(self, a_property, values[a_property])
+
+    def _run_animations(self, delta):
+        """
+        For a given time-step (delta), perform a step of all the animations
+        associated with this designer object.
+        """
+        completed = []
+        for animation in self._animations:
+            self._progress[animation] += delta
+            progress = self._progress[animation]
+            if progress > animation.duration:
+                self._evaluate(animation, animation.duration)
+                if animation.loop is True:
+                    self._evaluate(animation, progress - animation.duration)
+                    self._progress[animation] = progress - animation.duration
+                elif animation.loop:
+                    current = progress - animation.duration + animation.loop
+                    self._evaluate(animation, current)
+                    self._progress[animation] = current
+                else:
+                    completed.append(animation)
+            else:
+                self._evaluate(animation, progress)
+        # Stop all completed animations
+        for animation in completed:
+            self.stop_animation(animation)
+
 
     def animate(self, animation):
         """
@@ -590,7 +610,7 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   position.
         """
-        return self._window().collide_point(self, point)
+        return self._window().collide_point(self, *point)
 
     def collide_rect(self, rect):
         """

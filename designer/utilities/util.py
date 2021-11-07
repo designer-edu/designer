@@ -1,11 +1,16 @@
 """When they have no other home, functions and classes are added here.
 Eventually, they should be refactored to a more permanent home."""
+import difflib
 
 import designer
 import math
 import pygame
 
+from designer.utilities.argument_checks import make_suggestions
 from designer.utilities.memoize import _ImageMemoize
+
+
+ANCHOR_WORDS = ('topleft', 'topright', 'midtop', 'bottomleft', 'bottomright', 'midbottom', 'midleft', 'midright', 'center')
 
 
 def _anchor_offset(anchor, width, height):
@@ -54,6 +59,12 @@ def _anchor_offset(anchor, width, height):
         offset = (w, h / 2.)
     elif a == 'center':
         offset = (w / 2., h / 2.)
+    elif isinstance(a, str):
+        suggestions = make_suggestions(a, ANCHOR_WORDS, cutoff=.3)
+        if suggestions:
+            raise ValueError(f"Invalid anchor {a!r}, perhaps you meant {suggestions}")
+        else:
+            raise ValueError(f"Invalid anchor {a!r}, should be a string like 'topleft', 'midright', or 'center'.")
     else:
         offset = a * designer.utilities.vector.Vec2D(-1, -1)
     return designer.utilities.vector.Vec2D(offset)
@@ -204,3 +215,19 @@ class _CollisionBox(object):
 
     def finalize(self):
         self.rect = designer.utilities.rect.Rect(self.position, self.area.size)
+
+
+def rect_from_points(points):
+    """
+    Must be an iterable sequence of pairs (tuple, list, Vec2D)
+    :param points:
+    :return:
+    """
+    if not points:
+        return designer.utilities.rect.Rect(0, 0, 1, 1)
+    return designer.utilities.rect.Rect(
+        min(point[0] for point in points),
+        min(point[1] for point in points),
+        max(point[0] for point in points),
+        max(point[1] for point in points)
+    )

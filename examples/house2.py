@@ -44,7 +44,7 @@ def make_house(make_house_flag: bool):
         bottom_house = rectangle('firebrick', 300, 300, 200, 200)
         door = rectangle('black', 360, 350, 75, 150)
         door_handle = line('white', 3, 370, 400, 370, 450)
-        house = group(roof_1, roof_2, bottom_house, door, door_handle)
+        house = (roof_1, roof_2, bottom_house, door, door_handle)
         draw(house)
     else:
         border = rectangle('black', 200, 200, 400, 300)
@@ -53,11 +53,11 @@ def make_house(make_house_flag: bool):
         draw(empty_lot)
 
 
-number = "10" #input("What is your favorite number from 0 to 20? \n")
+number = input("What is your favorite number from 0 to 20? \n")
 back_color = handle_number(number)
 set_window_color(back_color)
 
-draw_house = "yes" # input("Do you want to build a house? Answer \"yes\" or \"no\": \n")
+draw_house = input("Do you want to build a house? Answer \"yes\" or \"no\": \n")
 
 if draw_house.lower() == 'yes':
     make_house(True)

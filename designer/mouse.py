@@ -20,12 +20,7 @@
     .. warning:: Custom non-Sprite mouse cursors are currently not supported.
 
 """
-
-import sys
-import types
 import pygame
-
-old = sys.modules[__name__]
 
 cursors = {"arrow": pygame.cursors.arrow,
            "diamond": pygame.cursors.diamond,
@@ -33,26 +28,36 @@ cursors = {"arrow": pygame.cursors.arrow,
            "left": pygame.cursors.tri_left,
            "right": pygame.cursors.tri_right}
 
-class _MouseModule(types.ModuleType):
-    def __init__(self, *args):
-        types.ModuleType.__init__(self, *args)
-        self._visible = True
-    def _get_cursor(self):
-        return pygame.mouse.get_cursor()
-    def _set_cursor(self, cursor):
-        if cursor in cursors:
-            pygame.mouse.set_cursor(*cursors[cursor])
-        else:
-            pygame.mouse.set_cursor(*cursor)
-    def _get_visible(self):
-        return self._visible
-    def _set_visible(self, visiblity):
-        pygame.mouse.set_visible(visiblity)
-        self._visible = visiblity
-    cursor = property(_get_cursor, _set_cursor)
-    visible = property(_get_visible, _set_visible)
 
-# Keep the refcount from going to 0
-mouse = _MouseModule(__name__)
-sys.modules[__name__] = mouse
-mouse.__dict__.update(old.__dict__)
+class MouseModule:
+    def __init__(self):
+        self._visible = True
+        self._cursor = 'arrow'
+
+    @property
+    def cursor(self):
+        return self._cursor
+
+    @cursor.setter
+    def cursor(self, value):
+        if value in cursors:
+            self._cursor = cursors[value]
+        else:
+            self._cursor = value
+        pygame.mouse.set_cursor(*self._cursor)
+
+    @property
+    def visible(self):
+        return self._visible
+
+    @visible.setter
+    def visible(self, value):
+        pygame.mouse.set_visible(value)
+        self._visible = value
+
+
+def get_mouse_position():
+    return pygame.mouse.get_pos()
+
+def set_mouse_position(position):
+    pygame.mouse.set_pos(position)

@@ -1,12 +1,14 @@
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
-from designer.core.internal_image import InternalImage
-from designer.utilities.surfaces import DesignerSurface
+from designer.core.internal_image import InternalImage, DesignerSurface
+from designer.utilities import Vec2D
+from designer.utilities.util import _anchor_offset
 
 
 class Circle(DesignerObject):
     DEFAULT_BORDER_WIDTH = 1
+    FIELDS = (*DesignerObject.FIELDS, 'radius', 'color', 'border')
 
     def __init__(self, center, anchor, radius, color, border):
         """
@@ -30,44 +32,34 @@ class Circle(DesignerObject):
         y = y if y is not None else get_height()/2
         center = x, y
 
-        self.pos = center
-        self.anchor = anchor
+        self._pos = center
+        self._anchor = anchor
         # Circle specific data
         self._radius = radius
         self._color = color
         self._border = border
-        # Draw the actual circle image
-        self._internal_image = self._redraw_internal_image()
-        self._transform_image = self._internal_image._surf
+
+        # And draw!
+        self._redraw_internal_image()
+
+    def _recalculate_offset(self):
+        size = 2 * self._radius * self.scale[0]
+        offset = _anchor_offset(self._anchor, size, size)
+        self._offset = Vec2D(offset) - self._transform_offset
 
     def _redraw_internal_image(self):
         radius = self._radius * self._scale[0]
+        diameter = 2 * radius
+        color = _process_color(self._color)
         if int(radius) > 0:
-            new_image = InternalImage(size=(2 * radius, 2 * radius))
-            new_image.draw_circle(_process_color(self._color), (radius, radius),
-                                             radius, self._border)
-            return new_image
+            new_image = InternalImage(size=(diameter, diameter))
+            new_image.draw_circle(color, (radius, radius),
+                                  radius, self._border or 0)
+            target = new_image
         else:
-            return InternalImage(size=(1, 1))
-
-    def _recalculate_transforms(self):
-        """
-        Calculates the transforms that need to be applied to this designer object's
-        image. In order: flipping, scaling, and rotation.
-        """
-        source = self._internal_image
-        # Scale
-        if self._scale != (1.0, 1.0):
-            new_size = self._scale * self._radius
-            new_size = (int(new_size[0]), int(new_size[1]))
-            if 0 in new_size:
-                self._transform_image = DesignerSurface((1, 1))
-                self._recalculate_offset()
-                self._expire_static()
-                return
-            source = self._redraw_internal_image()
-        # Finish updates
-        self._transform_image = source._surf
+            target = InternalImage(size=(1, 1))
+            target.fill(color)
+        self._transform_image = target._surf
         self._recalculate_offset()
         self._expire_static()
 
@@ -78,6 +70,36 @@ class Circle(DesignerObject):
     @radius.setter
     def radius(self, value):
         self._radius = value
+        self._redraw_internal_image()
+
+    @property
+    def size(self):
+        return Vec2D(self._radius, self._radius)
+
+    @size.setter
+    def size(self, value):
+        if isinstance(value, (int, float)):
+            self._radius = int(value)
+        else:
+            self._radius = value[0]
+        self._redraw_internal_image()
+
+    @property
+    def width(self):
+        return self._radius*2
+
+    @width.setter
+    def width(self, value):
+        self._radius = value*2
+        self._redraw_internal_image()
+
+    @property
+    def height(self):
+        return self._radius*2
+
+    @height.setter
+    def height(self, value):
+        self._radius = value*2
         self._redraw_internal_image()
 
     @property
@@ -99,7 +121,7 @@ class Circle(DesignerObject):
         self._redraw_internal_image()
 
 
-def circle(color, radius, x=None, y=None, anchor='center', border=None, filled=True):
+def circle(color, radius, x=None, y=None, anchor='center', border=None):
     """
     Function to create a circle.
 
@@ -107,16 +129,17 @@ def circle(color, radius, x=None, y=None, anchor='center', border=None, filled=T
     >>> positioned_circle = circle('blue', 20, 0, 0, 'topleft')
     >>> empty_circle = circle('black', 10, filled=False)
 
+    :param x:
+    :param y:
+    :param filled:
+    :param border:
+    :param anchor:
     :param color: color of circle
     :param radius: int, radius of circle in pixels
     :return: Circle object created
     """
+    if not isinstance(radius, (int, float)):
+        raise ValueError(f"The parameter radius was given the value {radius!r} but that parameter must be either an integer or a float.")
     if x is not None and y is None:
         x, y = x
-    if filled is True:
-        border = 0
-    elif filled is False:
-        border = border or Circle.DEFAULT_BORDER_WIDTH
-    elif border is None:
-        border = Circle.DEFAULT_BORDER_WIDTH
     return Circle((x, y), anchor, radius, color, border)

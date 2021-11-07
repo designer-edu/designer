@@ -15,16 +15,11 @@ rate.
     `int` to control how many milliseconds to wait between repeated events.
 
 """
-
-import sys
-import types
 import pygame
 
-old = sys.modules[__name__]
 
-class _KeyboardModule(types.ModuleType):
-    def __init__(self, *args):
-        types.ModuleType.__init__(self, *args)
+class KeyboardModule:
+    def __init__(self):
         self._repeat = False
         self._delay = 600
         self._interval = 100
@@ -35,34 +30,32 @@ class _KeyboardModule(types.ModuleType):
         else:
             pygame.key.set_repeat()
 
-    def _set_repeat(self, repeat):
-        self._repeat = repeat
-        self._update_repeat_status()
-
-    def _get_repeat(self):
+    @property
+    def repeat(self):
         return self._repeat
 
-    def _set_interval(self, interval):
-        self._interval = interval
+    @repeat.setter
+    def repeat(self, value):
+        self._repeat = value
         self._update_repeat_status()
 
-    def _get_interval(self):
+    @property
+    def interval(self):
         return self._interval
 
-    def _set_delay(self, delay):
-        self._delay = delay
-        if delay == 0:
+    @interval.setter
+    def interval(self, value):
+        self._interval = value
+        self._update_repeat_status()
+
+    @property
+    def delay(self):
+        return self._delay
+
+    @delay.setter
+    def delay(self, value):
+        self._delay = value
+        if value == 0:
             self._repeat = False
         self._update_repeat_status()
 
-    def _get_delay(self):
-        return self._delay
-
-    repeat = property(_get_repeat, _set_repeat)
-    delay = property(_get_delay, _set_delay)
-    interval = property(_get_interval, _set_interval)
-
-# Keep the refcount from going to 0
-keyboard = _KeyboardModule(__name__)
-sys.modules[__name__] = keyboard
-keyboard.__dict__.update(old.__dict__)

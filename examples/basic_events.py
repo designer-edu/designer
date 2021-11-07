@@ -104,6 +104,7 @@ def step_orbs(world):
             orb['scale'] *= .99
             world['ada']['hspeed'] *= .99
             world['ada']['vspeed'] *= .99
+            world['ada']['angle'] = random.randint(-5, 5)
         elif orb['scale'][0] < 1:
             orb['scale'] += .0001
 
@@ -125,27 +126,27 @@ def destroy_latest_orb(world, unicode):
 
 
 def draw_text(world):
-    return text(f"{len(world['orbs'])} dots", "black", 30)
+    return text("black", f"{len(world['orbs'])} dots", 30)
 
 
 def stepping(world):
-    words = text(":)", "black", 30)
+    words = text("black", ":)", 30)
     words['y'] -= 50
     words['angle'] = 3.1415*2 * len(world['orbs'])/100
     return words
 
 
-import designer
+#import designer
 
-circle("red", 100)._draw()
-designer.GLOBAL_DIRECTOR.current_window._draw()
-import time
+#circle("red", 100)._draw()
+#designer.GLOBAL_DIRECTOR.current_window._draw()
+#import time
 
-time.sleep(1)
+#time.sleep(1)
 
 when('starting', create_the_world)
 when('updating', jiggle_the_ada, spin_the_ada, step_orbs, eat_the_orbs)
-when('input.mouse.down', warp_the_orbs)
-when('input.keyboard.down', recolor_the_orbs, destroy_latest_orb)
+when('clicking', warp_the_orbs)
+when('typing', recolor_the_orbs, destroy_latest_orb)
 #when('drawing', draw_text, stepping)
 draw()

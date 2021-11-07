@@ -1,6 +1,6 @@
 from designer import *
 
-circle('blue', 10)
-circle('black', 10, filled=False)
+first = circle('cornflowerblue', 10)
+second = circle('red', 5, filled=False)
 
-draw()
+draw(first, second)

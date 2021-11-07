@@ -1,5 +1,7 @@
 """Animations interpolate a property between two values over a number of frames.
 They can be combined to run at the same time, or directly after each other."""
+from designer.utilities.vector import Vec2D
+
 
 class Animation:
     """
@@ -18,7 +20,7 @@ class Animation:
     Animations can be appended one after another with the `+`
     operator, and can be run in parallel with the `&` operator.
 
-    >>> from designer import Animation, easing
+    >>> from designer.utilties import Animation, easing
     >>> first  = Animation('x', easing.Linear(0, 100), 2.0)
     >>> second = Animation('y', easing.Linear(0, 100), 2.0)
     # Sequential animations
@@ -76,8 +78,15 @@ class Animation:
         """
         progress = progress / self.duration
         value = self.easing(object, progress)
+        original = getattr(object, self.property)
+        if not self.absolute:
+            if isinstance(original, (tuple, list, Vec2D)):
+                value = (value[0] + original[0],
+                         value[1] + original[1])
+            else:
+                value += original
         if self._shift is not None:
-            if self.property == 'pos':
+            if isinstance(original, (tuple, list, Vec2D)):
                 value = (value[0] + self._shift[0],
                          value[1] + self._shift[1])
             else:

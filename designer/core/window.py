@@ -1,3 +1,4 @@
+import weakref
 from typing import Optional
 
 import pygame
@@ -9,6 +10,7 @@ import sys
 import designer
 from itertools import chain
 
+from designer.core.event import COMMON_EVENT_NAME_LOOKUP
 from designer.core.internal_image import InternalImage
 from designer.utilities.layer_tree import _LayerTree
 from collections import defaultdict
@@ -61,6 +63,7 @@ class Window:
         self._handling_events = False
         self._events = []
         self._pending = []
+        self._debug = True
 
         self._scale = designer.utilities.vector.Vec2D(1.0, 1.0)  # None
         self._surface = pygame.display.get_surface()
@@ -71,7 +74,7 @@ class Window:
             self.size = display_size
         self._background: Optional[InternalImage] = None
         self._background_image = InternalImage(size=display_size)
-        self._background_image.fill((255, 255, 255))
+        self._background_image.fill(designer.GLOBAL_DIRECTOR._window_color)
         self._background_version = 0
         self._surface.blit(self._background_image._surf, (0, 0))
 
@@ -143,24 +146,27 @@ class Window:
                                                 n.rsplit(".", 1)[0].startswith(namespace) or
                                                 namespace.rsplit(".", 1)[0].startswith(n))]
 
-    def _send_event_to_handler(self, event, type, handler: callable, args,
+    def _send_event_to_handler(self, event, event_type, handler: callable, args,
                                kwargs, priority, dynamic):
         """
         Internal method to dispatch events to their handlers.
         """
-        fillval = "__spyral_itertools_fillvalue__"
 
-        def _get_arg_val(arg, default=fillval):
+        def _get_arg_val(arg, default=inspect.Parameter.empty):
             if arg == 'event':
                 return event
             elif hasattr(event, arg):
                 return getattr(event, arg)
             else:
-                if default != fillval:
+                #print("MISSING?", event, arg, default, fillval, type, dir(event))
+                if default != inspect.Parameter.empty:
                     return default
-                raise TypeError("Handler expects an argument named "
-                                "%s, %s does not have that." %
-                                (arg, str(type)))
+                friendly_event_name = COMMON_EVENT_NAME_LOOKUP.get(event_type, event_type)
+                suggestions = ", ".join(map(repr,
+                                            [k for k in dir(event) if not k.startswith("__")]))
+                raise TypeError(f"Your event handler function expected a parameter named {arg!r}, but "
+                                f"the event {friendly_event_name!r} does not provide an argument with that name. "
+                                f"The parameters allowed for this event are: {suggestions}")
 
         if dynamic is True:
             original_handler = handler
@@ -192,7 +198,7 @@ class Window:
                 h_args.pop(0)
             d = len(h_args) - len(h_defaults)
             if d > 0:
-                h_defaults = [fillval] * d + list(*h_defaults)
+                h_defaults = [inspect.Parameter.empty] * d + list(*h_defaults)
             args = [_get_arg_val(arg, default) for arg, default
                     in zip(h_args, h_defaults)]
             kwargs = {}
@@ -205,17 +211,17 @@ class Window:
         if handler is not None:
             return handler(*args, **kwargs)
 
-    def _handle_event(self, type, event=None, collect_results=False):
+    def _handle_event(self, event_type, event=None, collect_results=False):
         """
         For a given event, send the event information to all registered handlers
         """
         handlers = chain.from_iterable(self._handlers[namespace]
                                        for namespace
-                                       in self._get_namespaces(type))
+                                       in self._get_namespaces(event_type))
         result = [] if collect_results else None
         for handler_info in handlers:
             try:
-                new_result = self._send_event_to_handler(event, type, *handler_info)
+                new_result = self._send_event_to_handler(event, event_type, *handler_info)
             except DeadFunctionError:
                 new_result = None
             if new_result is not None:
@@ -359,7 +365,7 @@ class Window:
     @property
     def background(self):
         """
-        The background of this window. The given :class:`Image <spyral.Image>`
+        The background of this window. The given :class:`InternalImage <designer.core.internal_image.InternalImage>`
         must be the same size as the Window. A background will be handled
         intelligently by Spyral; it knows to only redraw portions of it rather
         than the whole thing, unlike a Sprite.
@@ -367,13 +373,12 @@ class Window:
         return self._background_image
 
     @background.setter
-    def background(self, image):
+    def background(self, image: InternalImage):
+        if self.size != image.size:
+            image.scale(self.size)
         self._background_image = image
         self._background_version = image._version
         surface = image._surf
-        if surface.get_size() != self.size:
-            # TODO: Just rescale the image or whatever it is
-            raise ValueError(f"Background size ({surface.get_size()} must match the window's size ({self.size}).")
         size = self._surface.get_size()
         self._background = pygame.transform.smoothscale(surface, size)
         self._clear_this_frame.append(self._background.get_rect())
@@ -431,6 +436,8 @@ class Window:
         blit.apply_scale(self._scale)
         blit.finalize()
         self._static_blits[key] = blit
+        #weakref.finalize(key, self._remove_static_blit, key)
+        #weakref.finalize(key, print, "YOU KILLED", key)
         self._clear_this_frame.append(blit.rect)
 
     def _invalidate_views(self, view):
@@ -478,7 +485,7 @@ class Window:
         # any static blits which were obscured
         static_blits = len(self._static_blits)
         dynamic_blits = len(self._blits)
-        blits = self._blits + list(self._static_blits.values())
+        blits = list(self._static_blits.values()) + self._blits
         blits.sort(key=operator.attrgetter('layer'))
 
         # Clear this is a list of things which need to be cleared
@@ -505,10 +512,15 @@ class Window:
             # If a blit is entirely off screen, we can ignore it altogether
             if not screen_rect.contains(blit_rect) and not screen_rect.colliderect(blit_rect):
                 continue
+            # If this is a static blit...
             if blit.static:
                 skip_soft_clear = False
                 for rect in clear_this:
                     if blit_rect.colliderect(rect):
+                        # One of the rects (needing to be cleared this frame and marked dirty on the next)
+                        # is colliding with the current static blit's rect
+                        # so we blit this static blit onto the screen and then add this static blit to the
+                        # _soft_clear for next time
                         screen.blit(blit.surface, blit_rect, None, blit_flags)
                         skip_soft_clear = True
                         clear_this.append(blit_rect)
@@ -535,10 +547,11 @@ class Window:
                     r = screen.blit(blit.surface, blit_rect, None, blit_flags)
                     clear_next.append(r)
 
-        # pygame.display.set_caption("%d / %d static, %d dynamic. %d ups, %d fps" %
-        #                           (drawn_static, static_blits,
-        #                            dynamic_blits, self.clock.ups,
-        #                            self.clock.fps))
+        if designer.GLOBAL_DIRECTOR.window_title is None:
+            pygame.display.set_caption("%d / %d static, %d dynamic. %d ups, %d fps" %
+                                      (drawn_static, static_blits,
+                                       dynamic_blits, self.clock.ups,
+                                       self.clock.fps))
         # Do the display update
         pygame.display.update(self._clear_next_frame + self._clear_this_frame)
         # Get ready for the next call
@@ -662,7 +675,6 @@ class Window:
             point = (args[0], args[1])
         elif len(args) != 1:
             raise ValueError(f"Incorrect number of arguments to collide_point: Expected x and y, got {args}")
-
         if obj not in self._collision_boxes:
             return False
         object_box = self._collision_boxes[obj]

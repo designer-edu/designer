@@ -20,6 +20,7 @@ For a list of the events that are built into Designer, check the
         :ref:`Keyboard Modifiers <ref.mods>` appendix.
 
 """
+import inspect
 
 import pygame
 
@@ -88,6 +89,18 @@ _TYPE_TO_ATTRS = {
     #pygame.WINDOWEVENT: ('event', ),
 }
 
+COMMON_EVENT_NAMES = {
+    'drawing': 'director.render',
+    'starting': 'director.start',
+    'updating': 'director.update',
+    'quitting': 'system.quit',
+    'typing': 'input.keyboard.down',
+    'clicking': 'input.mouse.down',
+    'mouse motion': 'input.mouse.motion',
+}
+
+COMMON_EVENT_NAME_LOOKUP = {v: k for k, v in COMMON_EVENT_NAMES.items()}
+
 _TYPE_TO_TYPE = {
     pygame.QUIT: "system.quit",
     pygame.ACTIVEEVENT: "system.focus_change",
@@ -108,6 +121,8 @@ _TYPE_TO_TYPE = {
     pygame.TEXTEDITING: 'input.text.editing',
     pygame.TEXTINPUT: 'input.text.input',
 }
+
+KNOWN_EVENTS = [*_TYPE_TO_TYPE.values(), *COMMON_EVENT_NAMES.keys()]
 
 
 def queue(event_name, event=None):
@@ -159,6 +174,7 @@ def register(event_namespace, handler,
                          be called in reaction to the event, relative to the
                          other event handlers registered.
     """
+    event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
     designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (WeakMethod(handler),),
                                                           args, kwargs, priority, False)
 
@@ -185,6 +201,24 @@ def clear_namespace(namespace):
     designer.GLOBAL_DIRECTOR.current_window._clear_namespace(namespace)
 
 
+class KeyboardKey:
+    def __init__(self, value):
+        self._value = value
+
+    def __eq__(self, other):
+        if isinstance(other, KeyboardKey):
+            return self._value == other._value
+        elif isinstance(other, int):
+            return self._value == other
+        elif isinstance(other, str):
+            return self._value == pygame.key.key_code(other)
+        else:
+            raise TypeError(f"You attempted to compare a string Key ({self!r}) with the value {other!r}, but those types were not compatible.")
+
+    def __repr__(self):
+        return pygame.key.name(self._value)
+
+
 def _pygame_to_spyral(event, **kwargs):
     """
     Convert a Pygame event to a Spyral event, correctly converting arguments to
@@ -200,6 +234,9 @@ def _pygame_to_spyral(event, **kwargs):
     if event_type.startswith('input.keyboard'):
         k = keys.reverse_map.get(event.key, 'unknown')
         event_type += '.' + k
+        e.key = KeyboardKey(event.key)
+        e.modifier = event.mod
+        e.character = event.unicode
     if event_type.startswith('input.mouse.motion'):
         e.left, e.middle, e.right = map(bool, event.buttons)
     elif event_type.startswith('input.mouse'):
@@ -211,6 +248,8 @@ def _pygame_to_spyral(event, **kwargs):
         event_type += '.' + m
     if event_type.startswith('input.mouse'):
         e.pos = designer.utilities.Vec2D(e.pos) / designer.GLOBAL_DIRECTOR.current_window._scale
+        e.x = e.pos[0]
+        e.y = e.pos[1]
 
     return (event_type, e)
 

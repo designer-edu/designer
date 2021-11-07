@@ -13,6 +13,7 @@ Visualizations of these easings are available at
 """
 
 import math
+import random
 
 
 def Linear(start=0.0, finish=1.0):
@@ -178,3 +179,14 @@ def Polar(center=(0, 0),
                 center[1] + radius(theta) * math.sin(theta))
 
     return arc_easing
+
+
+def Random(lowest=0, highest=100):
+    """
+    Random function between lowest and highest
+    """
+
+    def random_easing(sprite, delta):
+        return random.randint(lowest, highest)
+
+    return random_easing

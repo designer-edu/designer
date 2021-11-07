@@ -1,11 +1,96 @@
 import pygame
 import copy
+import imghdr
+import math
 
 from designer.utilities.vector import Vec2D
 from designer.utilities.rect import Rect
-from designer.utilities.surfaces import DesignerSurface
 from designer.utilities.util import scale_surface
 
+
+class DesignerSurface(pygame.Surface):
+    """
+    Internal method for creating a DesignerSurface, which is just a Pygame
+    Surface with the proper full SRCALPHA, 32 bits, and alpha transparency.
+    """
+    def __init__(self, size):
+        super().__init__((int(size[0]), int(size[1])), pygame.SRCALPHA, 32)
+        self.convert_alpha()
+
+
+def from_sequence(images, orientation="right", padding=0):
+    """
+    A function that returns a new Image from a list of images by
+    placing them next to each other.
+
+    :param images: A list of images to lay out.
+    :type images: List of :class:`Image <spyral.Image>`
+    :param str orientation: Either 'left', 'right', 'above', 'below', or
+                            'square' (square images will be placed in a grid
+                            shape, like a chess board).
+    :param padding: The padding between each image. Can be specified as a
+                    scalar number (for constant padding between all images)
+                    or a list (for different paddings between each image).
+    :type padding: int or a list of ints.
+    :returns: A new :class:`Image <spyral.Image>`
+    """
+    if orientation == 'square':
+        length = int(math.ceil(math.sqrt(len(images))))
+        max_height = 0
+        sequence = []
+        x, y = 0, 0
+        for index, image in enumerate(images):
+            if index % length == 0:
+                x = 0
+                y += max_height
+                max_height = 0
+            else:
+                x += image.width
+                max_height = max(max_height, image.height)
+            sequence.append((image, (x, y)))
+    else:
+        if orientation in ('left', 'right'):
+            selector = Vec2D(1, 0)
+        else:
+            selector = Vec2D(0, 1)
+
+        if orientation in ('left', 'above'):
+            reversed(images)
+            # TODO: Does this actually do anything?
+
+        if type(padding) in (float, int):
+            padding = [padding] * len(images)
+        else:
+            padding = list(padding)
+            padding.append(0)
+        base = Vec2D(0, 0)
+        sequence = []
+        for image, padding in zip(images, padding):
+            sequence.append((image, base))
+            base = base + selector * (image.size + (padding, padding))
+    return from_conglomerate(sequence)
+
+
+def from_conglomerate(sequence):
+    """
+    A function that generates a new InternalImage from a sequence of
+    (image, position) pairs. These images will be placed onto a singe image
+    large enough to hold all of them. More explicit and less convenient than
+    :func:`from_seqeuence <spyral.image.from_sequence>`.
+
+    :param sequence: A list of (image, position) pairs, where the positions
+                     are :class:`Vec2D <spyral.Vec2D>` s.
+    :type sequence: List of image, position pairs.
+    :returns: A new :class:`Image <spyral.Image>`
+    """
+    width, height = 0, 0
+    for image, (x, y) in sequence:
+        width = max(width, x+image.width)
+        height = max(height, y+image.height)
+    new = InternalImage(size=(width, height))
+    for image, (x, y) in sequence:
+        new.draw_internal_image(image, (x, y))
+    return new
 
 class InternalImage(object):
     """
@@ -30,7 +115,7 @@ class InternalImage(object):
 
     """
 
-    def __init__(self, filename=None, size=None):
+    def __init__(self, filename=None, size=None, fileobj=None):
         if size is not None and filename is not None:
             raise ValueError("Must specify exactly one of size and filename. See http://platipy.org/en/latest/spyral_docs.html#spyral.internal_image.InternalImage")
         if size is None and filename is None:
@@ -40,8 +125,10 @@ class InternalImage(object):
             self._surf = DesignerSurface(size)
             self._name = None
         else:
-            self._surf = pygame.image.load(filename).convert_alpha()
             self._name = filename
+            if fileobj is None:
+                fileobj = filename
+            self._surf = pygame.image.load(fileobj).convert_alpha()
         self._version = 1
 
     def _get_width(self):
@@ -62,6 +149,10 @@ class InternalImage(object):
     #: The (width, height) of the internal_image (:class:`Vec2D <spyral.Vec2D`).
     #: Read-only.
     size = property(_get_size)
+
+    @property
+    def rect(self):
+        return self._surf.get_rect()
 
     def fill(self, color):
         """
@@ -261,6 +352,24 @@ class InternalImage(object):
         scale_surface.clear(self._surf)
         return self
 
+    def draw_surface(self, surf, position=(0, 0), anchor='topleft'):
+        """
+        Draws a pygame surface over this one.
+
+        :param internal_image: The internal_image to overlay on top of this one.
+        :type internal_image: :class:`InternalImage <designer.core.internal_image.InternalImage>`
+        :param position: The position of this internal_image.
+        :type position: :class:`Vec2D <spyral.Vec2D>`
+        :param str anchor: The anchor parameter is an
+                           :ref:`anchor position <ref.anchors>`.
+        :returns: This internal_image.
+        """
+        offset = self._calculate_offset(anchor, surf.get_size())
+        self._surf.blit(surf, position + offset)
+        self._version += 1
+        scale_surface.clear(self._surf)
+        return self
+
     def rotate(self, angle):
         """
         Rotates the internal_image by angle degrees clockwise. This may change the internal_image
@@ -301,6 +410,11 @@ class InternalImage(object):
         self._surf = pygame.transform.flip(self._surf,
                                            flip_x, flip_y).convert_alpha()
         return self
+
+    @classmethod
+    def from_surface(cls, surf: pygame.Surface):
+        image = InternalImage(size=surf.get_size())
+        return image.draw_surface(surf)
 
     def copy(self):
         """
