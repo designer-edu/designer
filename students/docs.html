@@ -209,153 +209,9 @@ have certain common attributes.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.width">
-<span class="sig-name descname"><span class="pre">width</span></span><em class="property"><span class="pre">:</span> <span class="pre">integer</span></em><a class="headerlink" href="#designer.DesignerObject.width" title="Permalink to this definition">¶</a></dt>
-<dd><p>The horizontal size of the object on the screen.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Set to be 100 pixels wide</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="c1"># Increase width by 10 pixels</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.height">
-<span class="sig-name descname"><span class="pre">height</span></span><em class="property"><span class="pre">:</span> <span class="pre">integer</span></em><a class="headerlink" href="#designer.DesignerObject.height" title="Permalink to this definition">¶</a></dt>
-<dd><p>The vertical size of the object on the screen.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Set to be 100 pixels tall</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-<span class="c1"># Increase height by 10 pixels</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.scale_x">
-<span class="sig-name descname"><span class="pre">scale_x</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#designer.DesignerObject.scale_x" title="Permalink to this definition">¶</a></dt>
-<dd><p>How much to multiply the object’s width by in calculating its final horizontal
-size on the screen.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will be drawn twice as wide</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="c1"># Will be drawn half as wide</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.scale_y">
-<span class="sig-name descname"><span class="pre">scale_y</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#designer.DesignerObject.scale_y" title="Permalink to this definition">¶</a></dt>
-<dd><p>How much to multiply the object’s height by in calculating its final vertical
-size on the screen.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will be drawn twice as tall</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
-<span class="c1"># Will be drawn half as tall</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.angle">
-<span class="sig-name descname"><span class="pre">angle</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#designer.DesignerObject.angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>An amount to rotate the image, in degrees (0-360). You can provide negative
-values and amounts greater than 360.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will be drawn at a 45 degree angle</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">45</span>
-<span class="c1"># Rotates it 180 degrees around</span>
-<span class="n">box</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">180</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.flip_x">
-<span class="sig-name descname"><span class="pre">flip_x</span></span><em class="property"><span class="pre">:</span> <span class="pre">boolean</span></em><a class="headerlink" href="#designer.DesignerObject.flip_x" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not to horizontally mirror this shape to the other direction.
-Note that symmetric shapes have no effect when they are mirrored, even
-if they are rotated. The order of transformations is flipping, scaling,
-and then rotating.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ada</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;ada.png&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will be flipped horizontally</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1"># Will not be flipped horizontally</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.flip_y">
-<span class="sig-name descname"><span class="pre">flip_y</span></span><em class="property"><span class="pre">:</span> <span class="pre">boolean</span></em><a class="headerlink" href="#designer.DesignerObject.flip_y" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not to vertically mirror this shape to the other direction.
-Note that symmetric shapes have no effect when they are mirrored, even
-if they are rotated. The order of transformations is flipping, scaling,
-and then rotating.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ada</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;ada.png&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will be flipped vertically</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1"># Will not be flipped vertically</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.visible">
-<span class="sig-name descname"><span class="pre">visible</span></span><em class="property"><span class="pre">:</span> <span class="pre">boolean</span></em><a class="headerlink" href="#designer.DesignerObject.visible" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether or not this object should actually be drawn on screen, or whether
-it will be hidden. Objects that are invisible still get “update” events.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Will not be drawn</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;visible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="c1"># Will be drawn</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;visible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.alpha">
-<span class="sig-name descname"><span class="pre">alpha</span></span><em class="property"><span class="pre">:</span> <span class="pre">float</span></em><a class="headerlink" href="#designer.DesignerObject.alpha" title="Permalink to this definition">¶</a></dt>
-<dd><p>A value from 0..1 indicating the amount of transparency (or “opacity”) that
-this object should have when it is being drawn on the screen.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-<span class="c1"># Partially transparent</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
-<span class="c1"># Fully invisible</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="c1"># Fully visible</span>
-<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.scale">
-<span class="sig-name descname"><span class="pre">scale</span></span><em class="property"><span class="pre">:</span> <span class="p"><span class="pre">[</span></span><a class="reference internal" href="#designer.DesignerObject.scale_x" title="designer.DesignerObject.scale_x"><span class="pre">scale_x</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#designer.DesignerObject.scale_y" title="designer.DesignerObject.scale_y"><span class="pre">scale_y</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#designer.DesignerObject.scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>The combined horizontal and vertical scale of the object on the screen,
-as a list of two values. You can also set a single value in order to control
-both properties at the same time.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="designer.DesignerObject.size">
-<span class="sig-name descname"><span class="pre">size</span></span><em class="property"><span class="pre">:</span> <span class="p"><span class="pre">[</span></span><a class="reference internal" href="#designer.DesignerObject.width" title="designer.DesignerObject.width"><span class="pre">width</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#designer.DesignerObject.height" title="designer.DesignerObject.height"><span class="pre">height</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#designer.DesignerObject.size" title="Permalink to this definition">¶</a></dt>
-<dd><p>The combined width and height of the object on the screen, as a list of two values.</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="designer.DesignerObject.pos">
 <span class="sig-name descname"><span class="pre">pos</span></span><em class="property"><span class="pre">:</span> <span class="p"><span class="pre">[</span></span><a class="reference internal" href="#designer.DesignerObject.x" title="designer.DesignerObject.x"><span class="pre">x</span></a><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#designer.DesignerObject.y" title="designer.DesignerObject.y"><span class="pre">y</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#designer.DesignerObject.pos" title="Permalink to this definition">¶</a></dt>
-<dd><p>The position of the object on the screen, as a list of two values.</p>
+<dd><p>The position of the object on the screen.</p>
 </dd></dl>
 
 <div class="section" id="specific-designerobjects">
@@ -419,269 +275,122 @@ object relative to its position.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.line">
-<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.line" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a line, beginning at the coordinates given by
-<cite>(start_x, start_y)</cite> and ending at the coordinates given by
-<cite>(end_x, end_y)</cite>. These coordinates are given as absolute values,
-and must be provided.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue line stretching from 0,0, to 50, 100</span>
-<span class="n">line</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thick Red line stretching from the middle to the bottom right</span>
-<span class="n">line</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a line.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the line</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – color of line</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
 <li><p><strong>start_x</strong> (<em>int</em>) – x-coordinate at which to start line</p></li>
 <li><p><strong>start_y</strong> (<em>int</em>) – y-coordinate at which to start line</p></li>
 <li><p><strong>end_x</strong> (<em>int</em>) – x-coordinate at which to end line</p></li>
 <li><p><strong>end_y</strong> (<em>int</em>) – y-coordinate at which to end line</p></li>
-<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Line designer object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
+<dd class="field-even"><p>Line object created</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.circle">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a circle with the given <cite>radius</cite>. Defaults to
-being drawn at the center of the screen, from the center of the
-circle.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black circle of radius 100</span>
-<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red circle of radius 50 in topleft corner</span>
-<span class="c1"># Part of the circle will be caught off since its drawn from the center</span>
-<span class="n">red_circle</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-</pre></div>
-</div>
-<p>You can also control the border of the circle in order to make the shape not be
-filled, but instead just a bordered circle.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue circle of size 75, not filled</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-</pre></div>
-</div>
-<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
-object relative to its position.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50-radius circle drawn from the topleft corner, at position 0,0</span>
-<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">center_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a circle.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the circle</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – color of circle</p></li>
 <li><p><strong>radius</strong> (<em>int</em>) – radius of circle in pixels</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>border</strong> (<em>int</em>) – If given, the circle is not filled; instead, the center of the circle is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
-<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+<li><p><strong>center_x</strong> (<em>int</em>) – x-coordinate of center of circle</p></li>
+<li><p><strong>center_y</strong> (<em>int</em>) – y-coordinate of center of circle</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Circle object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.ellipse">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.ellipse" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an ellipse object. You must specify the color, width, and height
-of the ellipse. Optionally, you can also position it at a specific x/y coordinate,
-although it will default to the center of the Window.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black ellipse of size 100x100</span>
-<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red ellipse of size 50x50 in topleft corner</span>
-<span class="c1"># Part of the rectangle will be caught off since its drawn from the center</span>
-<span class="n">red_ellipse</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-</pre></div>
-</div>
-<p>You can also control the border of the ellipse in order to make the shape not be
-filled, but instead just a bordered ellipse.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue ellipse of size 75x100, not filled</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-</pre></div>
-</div>
-<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
-object relative to its position.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50x50 ellipse drawn from the topleft corner, at position 0,0</span>
-<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.ellipse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make an ellipse.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the ellipse</p></li>
-<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the ellipse</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the ellipse</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>border</strong> (<em>int</em>) – If given, the ellipse is not filled; instead, the center of the ellipse is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
-<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of ellipse</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – left most x-coordinate of ellipse</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – top most y-coordinate of ellipse</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of ellipse in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of ellipse in pixels</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Ellipse designer object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
+<dd class="field-even"><p>Ellipse object created</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.arc">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.arc" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to make an arc, as if it were part of an ellipse. Think of the
-arc as being part of the border of an ellipse with the given width/height;
-then the <cite>start_angle</cite> and <cite>stop_angle</cite> are the slice (in degrees) of the
-border that will actually be drawn. This is a line, not a polygon, so there
-is no option to fill in the arc.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black arc of size 100x100, from 0 to 90 degrees (quarter circle)</span>
-<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="c1"># Black arc of size 100x100, from 135 to 270 degrees (2/3 circle)</span>
-<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red U of size 50x50 in topleft corner</span>
-<span class="c1"># Part will be cut off unless you change the anchor!</span>
-<span class="n">red_U</span> <span class="o">=</span> <span class="n">arc</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the thickness and other properties</span>
-<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;topleft&#39;</span>
-<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.arc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to make an arc.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the arc</p></li>
-<li><p><strong>start_angle</strong> (<em>int</em>) – angle in degrees to start drawing arc at</p></li>
-<li><p><strong>stop_angle</strong> (<em>int</em>) – angle in degrees to stop drawing arc at</p></li>
-<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the arc, as if it were a complete ellipse</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the arc, as if it were a complete ellipse</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of arc</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of arc</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – color to draw arc</p></li>
+<li><p><strong>start_angle</strong> (<em>int</em>) – angle in radians to start drawing arc at</p></li>
+<li><p><strong>stop_angle</strong> (<em>int</em>) – angle in radians to stop drawing arc at</p></li>
 <li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – left most x-coordinate of arc</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – top most y-coordinate of arc</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of arc in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of arc in pixels</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Arc object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.text">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.text" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Arial'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create text on the screen with the given color.
-Not all unicode characters are supported!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black text that reads &quot;Hello world!&quot;</span>
-<span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text_color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create text.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the text</p></li>
-<li><p><strong>message</strong> (<em>str</em>) – text to appear on window</p></li>
-<li><p><strong>size</strong> (<em>int</em>) – Font size of the text</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of text</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of text</p></li>
-<li><p><strong>font_name</strong> (<em>str</em>) – The name of the font to use. Defaults to ‘Arial’.</p></li>
+<li><p><strong>color</strong> (<em>str</em><em> or </em><em>List</em><em>[</em><em>str</em><em>]</em>) – color of text</p></li>
+<li><p><strong>text</strong> (<em>str</em>) – text to appear on window</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – left most x-coordinate of text</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – top most y-coordinate of text</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Text object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.image">
-<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.image" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an image from the given <cite>path</cite>. The <cite>path</cite> given
-can be a local file or a URL to a remote image. Keep in mind that
-loading large URLs can take a little while.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># A random corgi picture from a website</span>
-<span class="n">image</span><span class="p">(</span><span class="s2">&quot;http://placecorgi.com/260/180&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We recommend always storing images as local files in adjacent folders,
-to simplify problems with paths. Never use absolute file locations like
-<cite>C:/Users/acbart…</cite> or <cite>/usr/acbart/</cite>, but instead use relative paths.</p>
-<p>Most popular image formats are supported: <cite>png</cite>, <cite>gif</cite>, <cite>bmp</cite>, <cite>jpeg</cite>.</p>
-<p>Animated gifs are partially supported, although many suffer from corruption.</p>
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">left</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">top</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to use</p></li>
-<li><p><strong>x</strong> – left most x-coordinate of image</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to upload</p></li>
+<li><p><strong>left</strong> (<em>int</em>) – left most x-coordinate of image</p></li>
+<li><p><strong>top</strong> (<em>int</em>) – top most y-coordinate of image</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – width of image in pixels</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – height of image in pixels</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Image object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
@@ -690,7 +399,6 @@ to simplify problems with paths. Never use absolute file locations like
 <dt class="sig sig-object py" id="designer.DesignerObject.shape">
 <span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to create a shape of at least three points.</p>
-<p>TODO: Unfinished!</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -708,7 +416,6 @@ to simplify problems with paths. Never use absolute file locations like
 <dt class="sig sig-object py" id="designer.DesignerObject.group">
 <span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.group" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function to group multiple objects together.</p>
-<p>TODO: Unfinished!</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
