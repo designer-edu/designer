@@ -117,36 +117,15 @@ def eat_the_orbs(world):
     world['orbs'] = kept_orbs
 
 
-def destroy_latest_orb(world, unicode):
-    if unicode == 'd':
+def destroy_latest_orb(world, key):
+    if key == 'd':
         if world['orbs']:
             world['orbs'].pop()
         else:
             world['orbs'].append(make_orb())
 
-
-def draw_text(world):
-    return text("black", f"{len(world['orbs'])} dots", 30)
-
-
-def stepping(world):
-    words = text("black", ":)", 30)
-    words['y'] -= 50
-    words['angle'] = 3.1415*2 * len(world['orbs'])/100
-    return words
-
-
-#import designer
-
-#circle("red", 100)._draw()
-#designer.GLOBAL_DIRECTOR.current_window._draw()
-#import time
-
-#time.sleep(1)
-
 when('starting', create_the_world)
 when('updating', jiggle_the_ada, spin_the_ada, step_orbs, eat_the_orbs)
 when('clicking', warp_the_orbs)
 when('typing', recolor_the_orbs, destroy_latest_orb)
-#when('drawing', draw_text, stepping)
 draw()
