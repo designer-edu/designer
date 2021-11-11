@@ -10,7 +10,7 @@ import sys
 import designer
 from itertools import chain
 
-from designer.core.event import COMMON_EVENT_NAME_LOOKUP
+from designer.core.event import COMMON_EVENT_NAME_LOOKUP, get_positional_event_parameters
 from designer.core.internal_image import InternalImage
 from designer.utilities.layer_tree import _LayerTree
 from collections import defaultdict
@@ -151,8 +151,7 @@ class Window:
         """
         Internal method to dispatch events to their handlers.
         """
-
-        def _get_arg_val(arg, default=inspect.Parameter.empty):
+        def _get_arg_val(arg, default=inspect.Parameter.empty, index=None):
             if arg == 'event':
                 return event
             elif hasattr(event, arg):
@@ -161,9 +160,11 @@ class Window:
                 #print("MISSING?", event, arg, default, fillval, type, dir(event))
                 if default != inspect.Parameter.empty:
                     return default
+                positional_parameters = get_positional_event_parameters(event_type, event)
+                if index < len(positional_parameters):
+                    return getattr(event, positional_parameters[index])
                 friendly_event_name = COMMON_EVENT_NAME_LOOKUP.get(event_type, event_type)
-                suggestions = ", ".join(map(repr,
-                                            [k for k in dir(event) if not k.startswith("__")]))
+                suggestions = ", ".join(map(repr, [k for k in dir(event) if not k.startswith("__")]))
                 raise TypeError(f"Your event handler function expected a parameter named {arg!r}, but "
                                 f"the event {friendly_event_name!r} does not provide an argument with that name. "
                                 f"The parameters allowed for this event are: {suggestions}")
@@ -199,8 +200,8 @@ class Window:
             d = len(h_args) - len(h_defaults)
             if d > 0:
                 h_defaults = [inspect.Parameter.empty] * d + list(*h_defaults)
-            args = [_get_arg_val(arg, default) for arg, default
-                    in zip(h_args, h_defaults)]
+            args = [_get_arg_val(arg, default, index) for index, (arg, default)
+                    in enumerate(zip(h_args, h_defaults))]
             kwargs = {}
         elif args is None:
             args = []

@@ -189,7 +189,7 @@ class Director:
         clock = window.clock
         stack = self._windows
         # Load up initial game state
-        new_game_state = window._handle_event('director.start')
+        new_game_state = window._handle_event('director.start', Event(window=self))
         if new_game_state is not None:
             self._game_state = new_game_state
         else:

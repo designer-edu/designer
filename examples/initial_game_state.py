@@ -1,8 +1,9 @@
 from designer import *
 
 
-def spin(world):
-    world['box']['angle'] += 1
+def spin(w, d, event):
+    #print(event)
+    w['box']['angle'] += 1
 
 
 when('updating', spin)

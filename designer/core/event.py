@@ -58,6 +58,15 @@ class Event:
     def __init__(self, **kwargs):
         self.__dict__.update(kwargs)
 
+    def __getitem__(self, item):
+        return getattr(self, item)
+
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+
+    def __repr__(self):
+        return f"<Event {self.__dict__!r}>"
+
 
 # This might actually be unused!
 _EVENT_NAMES = ['QUIT', 'ACTIVEEVENT', 'USEREVENT',
@@ -70,7 +79,7 @@ MOUSE_MAP = ['left', 'middle', 'right', 'scroll_up', 'scroll_down']
 _TYPE_TO_ATTRS = {
     pygame.QUIT: tuple(),
     pygame.ACTIVEEVENT: ('gain', 'state'),
-    pygame.KEYDOWN: ('unicode', 'key', 'mod'),
+    pygame.KEYDOWN: ('key', 'unicode', 'mod'),
     pygame.KEYUP: ('key', 'mod'),
     pygame.MOUSEMOTION: ('pos', 'rel', 'buttons'),
     pygame.MOUSEBUTTONUP: ('pos', 'button'),
@@ -123,6 +132,20 @@ _TYPE_TO_TYPE = {
 }
 
 KNOWN_EVENTS = [*_TYPE_TO_TYPE.values(), *COMMON_EVENT_NAMES.keys()]
+
+
+def get_positional_event_parameters(event_type: str, event):
+    if event_type in ("updating", "director.update"):
+        return "world", "delta"
+    elif event_type in ("typing", ) or event_type.startswith("input.keyboard"):
+        return "world", "key", "modifier", "character"
+    elif event_type.startswith("input.mouse.motion"):
+        return "world", "x", "y", "left", "middle", "right"
+    elif event_type in ("clicking",) or event_type.startswith("input.mouse"):
+        return "world", "x", "y", "button"
+    elif event_type in ("starting", "director.start"):
+        return "window"
+    return [key for key in dir(event) if not key.startswith("__")]
 
 
 def queue(event_name, event=None):
