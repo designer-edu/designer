@@ -432,10 +432,10 @@ Specific DesignerObjects
     :return: Arc object created
     :rtype: DesignerObject
 
-.. function:: text(color, message)
-              text(color, message, size)
-              text(color, message, size, x, y)
-              text(color, message, size, x, y, font_name='Arial')
+.. function:: text(color, text)
+              text(color, text, size)
+              text(color, text, size, x, y)
+              text(color, text, size, x, y, font_name='Arial')
 
     Function to create text on the screen with the given color.
     Not all unicode characters are supported!
@@ -503,7 +503,7 @@ Specific DesignerObjects
 
 .. function:: group(*objects)
 
-    Function to group multiple objects together.
+    Function to group multiple objects together. They will produce one single picture when they are done.
 
     TODO: Unfinished!
 
@@ -520,8 +520,34 @@ Animation
 
 Settings
 --------
-.. automodule:: designer.helpers
-    :members: draw, set_window_color, set_window_size, get_width, get_height
+
+.. _get_width:
+
+.. py:function:: get_width()
+
+    Returns the horizontal size of the Window.
+
+    :rtype: int
+
+.. _get_height:
+
+.. py:function:: get_height()
+
+    Returns the vertical size of the Window.
+
+    :rtype: int
+
+.. _set_window_title:
+
+.. py:function:: set_window_height(message)
+                 set_window_height(None)
+
+    Changes the caption displayed at the top of the window. If you set the mesage to
+    be None instead, then it will render internal debug information about the
+    number of static and non-static objects being drawn on the screen.
+
+    :param message: The text to render in the screen.
+    :param type: str
 
 Events
 ------
@@ -532,3 +558,40 @@ Events
                  when(predicate_function, event_handler)
 
     Binds the function given by `event_handler` to the `event_name`.
+
+Collisions
+----------
+
+.. _colliding:
+
+.. py:function:: colliding(object, x, y) -> bool
+                 colliding(object, other_object) -> bool
+
+    Tests if the object is colliding with either the point or the other object.
+
+    :param object: A DesignerObject
+    :type object: DesignerObject
+    :param x: The horizontal position to check.
+    :type x: int
+    :param y: The vertical position to check.
+    :type y: int
+    :param other_object: Another DesignerObject to check against.
+    :type other_object: DesignerObject
+    :rtype: bool
+
+Game Control
+------------
+
+.. _stop:
+
+.. py:function:: stop()
+
+    Stops the game completely, closing the window.
+
+.. _pause:
+
+.. py:function:: pause()
+
+    Pauses the game, keeping the window open and whatever the last thing to draw was.
+    However, no further events will be processed (besides the `'quitting'` event).
+

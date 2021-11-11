@@ -22,7 +22,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
 `updating`
 ==========
 
-The `updating` event is by far the most common.
+The `updating` event is by far the most common. It happens every step of the world.
 
 .. py:function:: updating_handler(world)
                  updating_handler(world, delta)
@@ -40,12 +40,62 @@ The `updating` event is by far the most common.
 
         when('updating', update_the_world)
 
-Others
-======
+'clicking'
+==========
 
-`typing`
+The `clicking` event is when the mouse is clicked down.
 
-`clicking`
+.. py:function:: clicking_handler(world, x, y)
+                 clicking_handler(world, x, y, button)
+
+    :param world: The current state of the world. Initially, the value that you returned from your :ref:`starting_handler<starting_handler>`.
+    :param x: The current horizontal position of the mouse.
+    :type x: int
+    :param y: The current vertical position of the mouse.
+    :type y: int
+    :param button: The mouse button that was clicked. One of either `'left'`, `'middle'`, or `'right'`.
+    :type button: str
+
+    Binds a function to the mouse being clicked.
+
+    .. code-block:: python
+
+        def handle_mouse_click(world, x, y, button):
+            pass
+
+        when('clicking', handle_mouse_click)
+
+'typing'
+========
+
+The `typing` event happens when you press a key on the keyboard.
+
+.. py:function:: typing_handler(world, key)
+                 typing_handler(world, key, character)
+
+    :param world: The current state of the world. Initially, the value that you returned from your :ref:`starting_handler<starting_handler>`.
+    :param key: A user-friendly name for whatever key was pressed, such as `'left'` (for the left arrow) or `'space'`. A semi-complete list can be found at :ref:`keys<keys>`.
+    :type key: str
+    :param character: A string representation of the keyboard character, representing what the character looks like when typed. The `space` key would be represented as a `' '` here.
+    :type character: str
+
+    Binds a function to the `'typing'` handler.
+
+    .. code-block:: python
+
+        def handle_the_keyboard(world):
+            pass
+
+        when('typing', handle_the_keyboard)
+
+All Possible Events
+===================
+
+This is a list of all the events that are possible:
+
+* `'input.mouse.down'`
+* `'input.mouse.up'`
+* `'input.keyboard.down'`
 
 Custom event test
 =================
