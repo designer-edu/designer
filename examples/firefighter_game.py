@@ -14,6 +14,7 @@ World = {
     'counter': DesignerObject
 }
 
+
 def create_world():
     plane = create_plane()
     plane['hspeed'] = PLANE_SPEED
@@ -22,7 +23,7 @@ def create_world():
         'drops': [],
         'plane': plane,
         'score': 0,
-        'counter': text('black', '', 30, get_width()/2, 100)
+        'counter': text('black', '', 30, get_width() / 2, 100)
     }
 
 
@@ -71,7 +72,7 @@ def drop_water(world, key):
 
 def move_below(bottom, top):
     bottom['y'] = top['y'] + top['height']
-    bottom['x'] = top['x'] + top['width']/2 - bottom['width']/2
+    bottom['x'] = top['x'] + top['width'] / 2 - bottom['width'] / 2
 
 
 def drop_waters(world):
@@ -112,8 +113,8 @@ def update_counter(world):
 
 def grow_fire(world):
     for fire in world['fires']:
-        fire['scale'] += .0001 * (1+world['score'])
-    if len(world['fires']) < 8 and not random.randint(0, 10*len(world['fires'])):
+        fire['scale'] += .0001 * (1 + world['score'])
+    if len(world['fires']) < 8 and not random.randint(0, 10 * len(world['fires'])):
         new_fire = create_fire()
         linear_animation(new_fire, 'alpha', 0, 1.0, 3)
         world['fires'].append(new_fire)
@@ -124,6 +125,7 @@ def there_are_big_fires(world):
     for fire in world['fires']:
         any_big_fires_so_far = any_big_fires_so_far or fire['scale_x'] >= 1
     return any_big_fires_so_far
+
 
 def print_score(world):
     print("Your score was", world['score'])
