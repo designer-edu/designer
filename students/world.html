@@ -108,6 +108,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../reference/colors.html">List of Colors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/anchors.html">List of Anchors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/events.html">List of Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/keys.html">List of Keys</a></li>
 </ul>
 
             
@@ -391,8 +392,8 @@ the box jump around randomly first.</p>
 to the same event, with no limitation. You can also pass in multiple functions to the same event, if you want.</p>
 <p>The <cite>move_the_box</cite> function has become <cite>teleport_the_box</cite>, and it no longer consumes an <cite>x</cite> and a <cite>y</cite> (since those
 were only available in the <cite>clicking</cite> event). Instead, we now set the boxes <cite>x</cite> and <cite>y</cite> fields to be a randomly chosen
-value between 0 and either the width of the window (from <span class="xref std std-ref">get_width</span>) or the height of the window (from
-<span class="xref std std-ref">get_height</span>). The <cite>randint</cite> function is available in the built-in <cite>random</cite> module, and produces an
+value between 0 and either the width of the window (from <a class="reference internal" href="docs.html#get-width"><span class="std std-ref">get_width</span></a>) or the height of the window (from
+<a class="reference internal" href="docs.html#get-height"><span class="std std-ref">get_height</span></a>). The <cite>randint</cite> function is available in the built-in <cite>random</cite> module, and produces an
 integer between the two values given as parameters.</p>
 <p>If we teleported the box every step, the box would move very, very fast. To make things a little fairer, we only
 teleport the box on 1 in 10 updates. To achieve this, we guard the update with an <cite>if</cite> statement that checks if a
@@ -542,7 +543,7 @@ a string representation.</p>
 </div>
 <p>We haven’t added much new code - mostly just a new event handler named <cite>check_box_clicked</cite>. This function
 is bound to the <cite>“clicking”</cite> event that we saw before. However, the function uses a new feature we haven’t
-yet seen: the handy <span class="xref std std-ref">colliding</span> function. This function can take in either two objects, or an object
+yet seen: the handy <a class="reference internal" href="docs.html#colliding"><span class="std std-ref">colliding</span></a> function. This function can take in either two objects, or an object
 and an x/y pair. The function returns True if they overlap, or otherwise False if they do not. We use the function
 here to detect if the box was clicked.</p>
 <p>Actually clicking the box is a little tricky! For testing purposes, you might want to disable the teleportation or
@@ -646,8 +647,8 @@ to see what that value represents, since it’s a more meaningful name than just
 <p>We defined a second function <cite>flash_game_over</cite> that changes the <cite>“message”</cite>’s <cite>“text”</cite> field to be a friendly game
 over message. This takes advantage of the fact that after the game is paused, the Update event no longer triggers,
 meaning that the <cite>track_the_score</cite> function will not overwrite our message’s text.</p>
-<p>Finally, the <span class="xref std std-ref">pause</span> function (another Designer built-in) is used to hang the game without closing the
-Window (if you wanted to do that, then you could use the <span class="xref std std-ref">stop</span> function instead. Whatever was drawn last
+<p>Finally, the <a class="reference internal" href="docs.html#pause"><span class="std std-ref">pause</span></a> function (another Designer built-in) is used to hang the game without closing the
+Window (if you wanted to do that, then you could use the <a class="reference internal" href="docs.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
 will still be rendered, but no further events are detected.</p>
 <a class="reference internal image-reference" href="../_images/world_7.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends." src="../_images/world_7.gif" style="width: 700px;" /></a>
 </div>

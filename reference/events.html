@@ -41,6 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="List of Keys" href="keys.html" />
     <link rel="prev" title="List of Anchors" href="anchors.html" /> 
 </head>
 
@@ -99,10 +100,13 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">List of Events</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#starting"><cite>starting</cite></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#updating"><cite>updating</cite></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#others">Others</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clicking">‘clicking’</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#typing">‘typing’</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#all-possible-events">All Possible Events</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#custom-event-test">Custom event test</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="keys.html">List of Keys</a></li>
 </ul>
 
             
@@ -191,7 +195,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
 </div>
 <div class="section" id="updating">
 <h2><cite>updating</cite><a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h2>
-<p>The <cite>updating</cite> event is by far the most common.</p>
+<p>The <cite>updating</cite> event is by far the most common. It happens every step of the world.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="updating_handler">
 <span class="sig-name descname"><span class="pre">updating_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#updating_handler" title="Permalink to this definition">¶</a></dt>
@@ -215,10 +219,69 @@ and it must produce the game state of the world. Typically, this will be a dicti
 </dd></dl>
 
 </div>
-<div class="section" id="others">
-<h2>Others<a class="headerlink" href="#others" title="Permalink to this headline">¶</a></h2>
-<p><cite>typing</cite></p>
-<p><cite>clicking</cite></p>
+<div class="section" id="clicking">
+<h2>‘clicking’<a class="headerlink" href="#clicking" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>clicking</cite> event is when the mouse is clicked down.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="clicking_handler">
+<span class="sig-name descname"><span class="pre">clicking_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#clicking_handler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">clicking_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world</strong> – The current state of the world. Initially, the value that you returned from your <a class="reference internal" href="#starting-handler"><span class="std std-ref">starting_handler</span></a>.</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The current horizontal position of the mouse.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The current vertical position of the mouse.</p></li>
+<li><p><strong>button</strong> (<em>str</em>) – The mouse button that was clicked. One of either <cite>‘left’</cite>, <cite>‘middle’</cite>, or <cite>‘right’</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Binds a function to the mouse being clicked.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle_mouse_click</span><span class="p">(</span><span class="n">world</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">button</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">handle_mouse_click</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="typing">
+<h2>‘typing’<a class="headerlink" href="#typing" title="Permalink to this headline">¶</a></h2>
+<p>The <cite>typing</cite> event happens when you press a key on the keyboard.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="typing_handler">
+<span class="sig-name descname"><span class="pre">typing_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#typing_handler" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">typing_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">character</span></span></em><span class="sig-paren">)</span></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>world</strong> – The current state of the world. Initially, the value that you returned from your <a class="reference internal" href="#starting-handler"><span class="std std-ref">starting_handler</span></a>.</p></li>
+<li><p><strong>key</strong> (<em>str</em>) – A user-friendly name for whatever key was pressed, such as <cite>‘left’</cite> (for the left arrow) or <cite>‘space’</cite>. A semi-complete list can be found at <a class="reference internal" href="keys.html#keys"><span class="std std-ref">keys</span></a>.</p></li>
+<li><p><strong>character</strong> (<em>str</em>) – A string representation of the keyboard character, representing what the character looks like when typed. The <cite>space</cite> key would be represented as a <cite>‘ ‘</cite> here.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Binds a function to the <cite>‘typing’</cite> handler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle_the_keyboard</span><span class="p">(</span><span class="n">world</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;typing&#39;</span><span class="p">,</span> <span class="n">handle_the_keyboard</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="all-possible-events">
+<h2>All Possible Events<a class="headerlink" href="#all-possible-events" title="Permalink to this headline">¶</a></h2>
+<p>This is a list of all the events that are possible:</p>
+<ul class="simple">
+<li><p><cite>‘input.mouse.down’</cite></p></li>
+<li><p><cite>‘input.mouse.up’</cite></p></li>
+<li><p><cite>‘input.keyboard.down’</cite></p></li>
+</ul>
 </div>
 <div class="section" id="custom-event-test">
 <h2>Custom event test<a class="headerlink" href="#custom-event-test" title="Permalink to this headline">¶</a></h2>
@@ -231,6 +294,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="keys.html" class="btn btn-neutral float-right" title="List of Keys" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="anchors.html" class="btn btn-neutral float-left" title="List of Anchors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
