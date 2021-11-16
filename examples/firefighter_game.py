@@ -1,5 +1,6 @@
 from designer import *
 import random
+from designer.objects.image import Image
 
 WATER_DROP_SPEED = 5
 PLANE_SPEED = 5
@@ -17,9 +18,8 @@ World = {
 
 def create_world():
     plane = create_plane()
-    plane['hspeed'] = PLANE_SPEED
     return {
-        'fires': [create_fire(), create_fire(), create_fire()],
+        'fires': [],
         'drops': [],
         'plane': plane,
         'score': 0,
@@ -34,33 +34,41 @@ def create_water_drop() -> DesignerObject:
 def create_plane() -> DesignerObject:
     plane = image("airplane.png")
     plane['scale'] = .25
+    plane['hspeed'] = PLANE_SPEED
     return plane
 
 
-def create_fire() -> DesignerObject:
+def create_fire(size=.1) -> DesignerObject:
     fire = image('fire.png', anchor="midbottom", scale=.1)
     fire['x'] = random.randint(0, get_width())
-    fire['y'] = get_height() - fire['height']
+    fire['y'] = get_height()
+    fire['scale_y'] = size
     return fire
+
+
+def go_right(plane):
+    plane['hspeed'] = PLANE_SPEED
+    plane['flip_x'] = False
+
+
+def go_left(plane):
+    plane['hspeed'] = -PLANE_SPEED
+    plane['flip_x'] = True
 
 
 def move_plane(world):
     world['plane']['x'] += world['plane']['hspeed']
     if world['plane']['x'] < 0:
-        world['plane']['hspeed'] = PLANE_SPEED
-        world['plane']['flip_x'] = False
+        go_right(world['plane'])
     elif world['plane']['x'] > get_width():
-        world['plane']['hspeed'] = -PLANE_SPEED
-        world['plane']['flip_x'] = True
+        go_left(world['plane'])
 
 
 def flip_plane(world, key):
     if key == 'left':
-        world['plane']['hspeed'] = -PLANE_SPEED
-        world['plane']['flip_x'] = True
+        go_left(world['plane'])
     elif key == 'right':
-        world['plane']['hspeed'] = PLANE_SPEED
-        world['plane']['flip_x'] = False
+        go_right(world['plane'])
 
 
 def drop_water(world, key):
@@ -71,8 +79,8 @@ def drop_water(world, key):
 
 
 def move_below(bottom, top):
-    bottom['y'] = top['y'] + top['height']
-    bottom['x'] = top['x'] + top['width'] / 2 - bottom['width'] / 2
+    bottom['y'] = top['y'] + top['height']/2
+    bottom['x'] = top['x']
 
 
 def drop_waters(world):
@@ -105,6 +113,7 @@ def collide_water_fire(world):
                     world['score'] += 1
     world['drops'] = filter_from(world['drops'], destroyed_drops)
     world['fires'] = filter_from(world['fires'], destroyed_fires)
+
 
 
 def update_counter(world):
