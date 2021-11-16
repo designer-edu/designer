@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+# Version 0.1.2
+
+* Fix `image` not keeping its size up-to-date
+* Fix `image` not loading filename attribute changes correctly
+* Remove memory leak from initial game state
+
 # Version 0.1.1
 
 * Event handlers now accept positionally-specified arguments instead of requiring a specific name
