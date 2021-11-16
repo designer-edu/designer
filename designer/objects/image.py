@@ -47,7 +47,7 @@ class Image(DesignerObject):
 
         self._pos = center
         self._anchor = anchor
-        # Circle specific data
+        # Image specific data
         self._filename = path
         #: Internal field holding the original version of the image
         self._internal_image: Optional[InternalImage] = None
@@ -60,6 +60,7 @@ class Image(DesignerObject):
 
         # And draw!
         self._redraw_internal_image()
+        self._recalculate_offset()
 
     def _load_image(self):
         if self._filename in self._GIF_CACHE:
@@ -95,8 +96,9 @@ class Image(DesignerObject):
                         self._internal_image = InternalImage(filename=self._filename, fileobj=image_file)
                         self._IMAGE_CACHE[self._filename] = self._internal_image
             except:
-                print(f"Unexpected error while loading image: {self._filename}\n", sys.exc_info()[0])
-                raise
+                if self._filename.startswith('https://') or self._filename.startswith('http://'):
+                    raise ValueError(f"Unexpected error while loading url: {self._filename!r}")
+                raise ValueError(f"Unexpected error while loading image from filename: {self._filename!r}")
 
     def _recalculate_offset(self):
         """
@@ -107,6 +109,7 @@ class Image(DesignerObject):
             return
         size = self._scale * self._internal_image.size
         offset = _anchor_offset(self._anchor, size[0], size[1])
+        self._size = size
         self._offset = Vec2D(offset) - self._transform_offset
 
     def _redraw_internal_image(self):
@@ -149,7 +152,7 @@ class Image(DesignerObject):
         if value == self._filename:
             return
         self._filename = value
-        self._internal_image = InternalImage(filename=value)
+        self._load_image()
         self._redraw_internal_image()
         self._recalculate_offset()
         self._expire_static()
