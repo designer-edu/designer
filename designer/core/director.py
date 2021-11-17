@@ -13,7 +13,8 @@ from designer.core.window import Window
 from designer.core.event import handle, Event, _pygame_to_spyral, GameEndException, register
 from designer.keyboard import KeyboardModule
 from designer.mouse import MouseModule
-
+from designer.music import MusicModule
+from designer.sfx import SfxModule
 
 DEFAULT_WINDOW_TITLE = "Designer Game"
 
@@ -49,6 +50,8 @@ class Director:
 
         self.keyboard = KeyboardModule()
         self.mouse = MouseModule()
+        self.music = MusicModule()
+        self.sfx = SfxModule()
 
     def _setup_initial_window(self):
         new_window = Window(self._window_size, self._fps)

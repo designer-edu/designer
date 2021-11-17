@@ -59,5 +59,11 @@ class MouseModule:
 def get_mouse_position():
     return pygame.mouse.get_pos()
 
-def set_mouse_position(position):
-    pygame.mouse.set_pos(position)
+def set_mouse_position(x, y):
+    pygame.mouse.set_pos((x, y))
+
+def get_mouse_x():
+    return get_mouse_position()[0]
+
+def get_mouse_y():
+    return get_mouse_position()[1]

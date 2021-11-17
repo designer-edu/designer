@@ -195,6 +195,63 @@ def set_keyboard_repeat(value):
     designer.GLOBAL_DIRECTOR.keyboard.repeat = value
 
 
+def background_music(filename, volume=1.0, loop=True):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.filename = filename
+    designer.GLOBAL_DIRECTOR.music.play(loop=-1 if loop is True else loop)
+    designer.GLOBAL_DIRECTOR.music.volume = volume
+
+
+def play_music(filename, volume=1.0, loop=True):
+    return background_music(filename, volume, loop)
+
+
+def pause_music():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.pause()
+
+
+def set_music_volume(volume):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.volume = volume
+
+def is_music_playing():
+    check_initialized()
+    return designer.GLOBAL_DIRECTOR.music.playing
+
+def get_music_volume():
+    check_initialized()
+    return designer.GLOBAL_DIRECTOR.music.volume
+
+def play_sound(path, volume=1.0):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.sfx.play(path, volume)
+
+def stop_music():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.stop()
+
+
+def rewind_music():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.rewind()
+
+
+def continue_music():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.unpause()
+
+
+def set_music_position(time):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.music.set_time_position(time)
+
+
+def get_music_position():
+    check_initialized()
+    return designer.GLOBAL_DIRECTOR.music.get_time_position()
+
+
 def when(event: Union[str, callable], *funcs):
     check_initialized()
     if callable(event):
