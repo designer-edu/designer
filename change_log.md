@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.1.3
+
+* Added support for `background_music` and `play_sound`
+
 # Version 0.1.2
 
 * Fix `image` not keeping its size up-to-date
