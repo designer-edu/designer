@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.1.4
+
+* Fix bug in events for scrolling/touch
+* Add in `disable_keyboard_repeating` and `enable_keyboard_repeating`
+
 # Version 0.1.3
 
 * Added support for `background_music` and `play_sound`
