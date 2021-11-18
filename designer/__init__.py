@@ -48,6 +48,7 @@ __all__ = [
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',
     'get_keyboard_interval', 'set_keyboard_interval',
+    'enable_keyboard_repeating', 'disable_keyboard_repeating',
     # Mouse stuff
     'get_mouse_cursor', 'set_mouse_cursor',
     'get_mouse_visible', 'set_mouse_visible',

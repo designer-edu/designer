@@ -202,6 +202,18 @@ def set_keyboard_repeat(value):
     designer.GLOBAL_DIRECTOR.keyboard.repeat = value
 
 
+def enable_keyboard_repeating():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.keyboard.repeat = True
+    designer.GLOBAL_DIRECTOR.keyboard.delay = 1
+
+
+def disable_keyboard_repeating():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.keyboard.repeat = designer.GLOBAL_DIRECTOR.keyboard.DEFAULT_REPEAT
+    designer.GLOBAL_DIRECTOR.keyboard.delay = designer.GLOBAL_DIRECTOR.keyboard.DEFAULT_DELAY
+
+
 def background_music(filename, volume=1.0, loop=True):
     check_initialized()
     designer.GLOBAL_DIRECTOR.music.filename = filename
