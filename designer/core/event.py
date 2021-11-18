@@ -104,7 +104,11 @@ COMMON_EVENT_NAMES = {
     'updating': 'director.update',
     'quitting': 'system.quit',
     'typing': 'input.keyboard.down',
+    'done typing': 'input.keyboard.up',
+    'scrolling': 'input.mouse.wheel',
+    'tapping': 'input.touch.gesture',
     'clicking': 'input.mouse.down',
+    'done clicking': 'input.mouse.down',
     'mouse motion': 'input.mouse.motion',
 }
 
@@ -126,7 +130,7 @@ _TYPE_TO_TYPE = {
     pygame.FINGERDOWN: 'input.finger.down',
     pygame.FINGERUP: 'input.finger.up',
     pygame.MOUSEWHEEL: 'input.mouse.wheel',
-    pygame.MULTIGESTURE: 'input.mouse.gesture',
+    pygame.MULTIGESTURE: 'input.touch.gesture',
     pygame.TEXTEDITING: 'input.text.editing',
     pygame.TEXTINPUT: 'input.text.input',
 }
@@ -262,14 +266,18 @@ def _pygame_to_spyral(event, **kwargs):
         e.character = event.unicode
     if event_type.startswith('input.mouse.motion'):
         e.left, e.middle, e.right = map(bool, event.buttons)
-    elif event_type.startswith('input.mouse'):
+    elif event_type.startswith('input.mouse.up') or event_type.startswith('input.mouse.down'):
         try:
             m = MOUSE_MAP[event.button - 1]
             setattr(e, "button", m)
         except IndexError:
             m = str(event.button)
         event_type += '.' + m
-    if event_type.startswith('input.mouse'):
+    if event_type.startswith('input.mouse.wheel'):
+        e.pos = designer.utilities.Vec2D(e.x, e.y) / designer.GLOBAL_DIRECTOR.current_window._scale
+        e.x = e.pos[0]
+        e.y = e.pos[1]
+    elif event_type.startswith('input.mouse') or event_type.startswith('input.touch'):
         e.pos = designer.utilities.Vec2D(e.pos) / designer.GLOBAL_DIRECTOR.current_window._scale
         e.x = e.pos[0]
         e.y = e.pos[1]
