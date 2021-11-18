@@ -4,6 +4,7 @@ Change Log
 # Version 0.1.3
 
 * Added support for `background_music` and `play_sound`
+* Added support for `get_mouse_x` and `get_mouse_y`
 
 # Version 0.1.2
 
