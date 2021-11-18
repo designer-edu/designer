@@ -156,39 +156,46 @@ def get_mouse_cursor():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.mouse.cursor
 
+
 def set_mouse_cursor(value):
     check_initialized()
     designer.GLOBAL_DIRECTOR.mouse.cursor = value
 
+
 def get_mouse_visible():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.mouse.visible
+
 
 def set_mouse_visible(value):
     check_initialized()
     designer.GLOBAL_DIRECTOR.mouse.visible = value
 
 
-
 def get_keyboard_delay():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.keyboard.delay
+
 
 def set_keyboard_delay(value):
     check_initialized()
     designer.GLOBAL_DIRECTOR.keyboard.delay = value
 
+
 def get_keyboard_interval():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.keyboard.interval
+
 
 def set_keyboard_interval(value):
     check_initialized()
     designer.GLOBAL_DIRECTOR.keyboard.interval = value
 
+
 def get_keyboard_repeat():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.keyboard.repeat
+
 
 def set_keyboard_repeat(value):
     check_initialized()
@@ -215,17 +222,21 @@ def set_music_volume(volume):
     check_initialized()
     designer.GLOBAL_DIRECTOR.music.volume = volume
 
+
 def is_music_playing():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.music.playing
+
 
 def get_music_volume():
     check_initialized()
     return designer.GLOBAL_DIRECTOR.music.volume
 
+
 def play_sound(path, volume=1.0):
     check_initialized()
     designer.GLOBAL_DIRECTOR.sfx.play(path, volume)
+
 
 def stop_music():
     check_initialized()
@@ -257,18 +268,23 @@ def when(event: Union[str, callable], *funcs):
     if callable(event):
         event_function = event
         event = 'updating'
+
         def _dynamic_event(func):
             def _inner_dynamic_event(event, world):
                 if event_function(world):
-                    designer.GLOBAL_DIRECTOR.current_window._send_event_to_handler(event, 'updating', func, None, None, None, None)
+                    window = designer.GLOBAL_DIRECTOR.current_window
+                    window._send_event_to_handler(event, 'updating', func, None, None, None, None)
+
             return _inner_dynamic_event
+
         funcs = [_dynamic_event(f) for f in funcs]
     if event not in KNOWN_EVENTS and not any(e.startswith(event) for e in KNOWN_EVENTS):
         suggestions = make_suggestions(event, KNOWN_EVENTS)
         if suggestions:
             raise ValueError(f"Unrecognized event {event!r}. Perhaps you meant one of: {suggestions}")
         else:
-            raise ValueError(f"Unrecognized event {event!r}. Check the documentation to see possible events (like 'updating' and 'starting').")
+            raise ValueError(
+                f"Unrecognized event {event!r}. Check the documentation to see possible events (like 'updating' and 'starting').")
     for func in funcs:
         register(event, func)
 
