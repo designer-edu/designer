@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.1.6
+
+* Fix bug in __neg__ of Vec2D
+
 # Version 0.1.5
 
 * Fix issue where static blits were not being finalized in a timely fashion
