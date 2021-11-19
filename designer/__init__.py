@@ -48,10 +48,12 @@ __all__ = [
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',
     'get_keyboard_interval', 'set_keyboard_interval',
+    'enable_keyboard_repeating', 'disable_keyboard_repeating',
     # Mouse stuff
     'get_mouse_cursor', 'set_mouse_cursor',
     'get_mouse_visible', 'set_mouse_visible',
     'get_mouse_position', 'set_mouse_position',
+    'get_mouse_x', 'get_mouse_y',
     # Animations
     'Animation', 'linear_animation', 'sequence_animation',
     'glide_around',
@@ -62,5 +64,9 @@ __all__ = [
     'glide_in_degrees',
     'spin',
     # Easings
-    'Linear', 'Iterate'
+    'Linear', 'Iterate',
+    # Music
+    'play_sound',
+    'play_music', 'background_music', 'pause_music', 'set_music_volume', 'is_music_playing',
+    'get_music_volume', 'stop_music', 'rewind_music', 'continue_music', 'set_music_position', 'get_music_position'
 ]

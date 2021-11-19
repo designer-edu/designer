@@ -13,7 +13,8 @@ from designer.core.window import Window
 from designer.core.event import handle, Event, _pygame_to_spyral, GameEndException, register
 from designer.keyboard import KeyboardModule
 from designer.mouse import MouseModule
-
+from designer.music import MusicModule
+from designer.sfx import SfxModule
 
 DEFAULT_WINDOW_TITLE = "Designer Game"
 
@@ -49,6 +50,8 @@ class Director:
 
         self.keyboard = KeyboardModule()
         self.mouse = MouseModule()
+        self.music = MusicModule()
+        self.sfx = SfxModule()
 
     def _setup_initial_window(self):
         new_window = Window(self._window_size, self._fps)
@@ -189,12 +192,13 @@ class Director:
         clock = window.clock
         stack = self._windows
         # Load up initial game state
-        new_game_state = window._handle_event('director.start')
+        new_game_state = window._handle_event('director.start', Event(window=self))
         if new_game_state is not None:
             self._game_state = new_game_state
         else:
             self._game_state = initial_game_state
         del new_game_state
+        del initial_game_state
         # Hide any unused references
         from designer.utilities.search import _detect_objects_recursively
         kept_objects = _detect_objects_recursively(self._game_state)
@@ -218,10 +222,9 @@ class Director:
                         rendering-related events to be fired.
                         """
                         window._handle_event("director.pre_render")
-                        new_graphics = window._handle_event("director.render", Event(world=self._game_state), collect_results=True)
+                        window._handle_event("director.render", Event(world=self._game_state))
                         window._draw()
                         window._handle_event("director.post_render")
-                        del new_graphics
 
                     def update_callback(delta):
                         """

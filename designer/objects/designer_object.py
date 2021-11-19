@@ -112,6 +112,10 @@ class DesignerObject:
         self._make_static = True
         self._static = True
 
+    def __del__(self):
+        if self._static:
+            self._window()._remove_static_blit(self)
+
     def _expire_static(self):
         """
         Force this class to no longer be static; it will be redrawn for a few

@@ -19,6 +19,10 @@ import pygame
 
 
 class KeyboardModule:
+    DEFAULT_DELAY = 600
+    DEFAULT_REPEAT = False
+    DEFAULT_INTERVAL = 100
+
     def __init__(self):
         self._repeat = False
         self._delay = 600

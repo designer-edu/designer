@@ -542,11 +542,26 @@ Settings
 .. py:function:: set_window_height(message)
                  set_window_height(None)
 
-    Changes the caption displayed at the top of the window. If you set the mesage to
-    be None instead, then it will render internal debug information about the
+    Changes the caption displayed at the top of the window. If you set the message to
+    be `None` instead, then it will render internal debug information about the
     number of static and non-static objects being drawn on the screen.
 
     :param message: The text to render in the screen.
+    :param type: str
+
+
+.. py:function:: set_window_color(color)
+
+    Changes the background color of the window to whatever :ref:`color<color>` you specify.
+    Defaults to `'white'`.
+
+    .. code-block:: python
+
+        from designer import *
+        # Black text that reads "Hello world!"
+        set_window_color('blue')
+
+    :param color: The :ref:`color<color>` to set the background to.
     :param type: str
 
 Events
