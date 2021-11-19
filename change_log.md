@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.1.5
+
+* Fix issue where static blits were not being finalized in a timely fashion
+
 # Version 0.1.4
 
 * Fix bug in events for scrolling/touch
