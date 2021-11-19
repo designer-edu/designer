@@ -142,7 +142,7 @@ class Vec2D:
     __truediv__ = __div__
 
     def __neg__(self):
-        return -Vec2D(self.x, -self.y)
+        return Vec2D(-self.x, -self.y)
 
     def __pos__(self):
         return self
