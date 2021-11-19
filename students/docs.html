@@ -106,6 +106,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Designer Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">More Help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/sparkles.html">Sparkles</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/colors.html">List of Colors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/anchors.html">List of Anchors</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/events.html">List of Events</a></li>
@@ -860,13 +861,33 @@ to simplify problems with paths. Never use absolute file locations like
 <span class="sig-name descname"><span class="pre">set_window_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.set_window_height" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">set_window_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">None</span></em><span class="sig-paren">)</span></dt>
-<dd><p>Changes the caption displayed at the top of the window. If you set the mesage to
-be None instead, then it will render internal debug information about the
+<dd><p>Changes the caption displayed at the top of the window. If you set the message to
+be <cite>None</cite> instead, then it will render internal debug information about the
 number of static and non-static objects being drawn on the screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> – The text to render in the screen.</p></li>
+<li><p><strong>type</strong> – str</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.animation.set_window_color">
+<span class="sig-name descname"><span class="pre">set_window_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.set_window_color" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the background color of the window to whatever <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> you specify.
+Defaults to <cite>‘white’</cite>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black text that reads &quot;Hello world!&quot;</span>
+<span class="n">set_window_color</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> to set the background to.</p></li>
 <li><p><strong>type</strong> – str</p></li>
 </ul>
 </dd>

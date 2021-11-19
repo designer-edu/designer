@@ -1,0 +1,314 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Sparkles &mdash; Designer 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="List of Colors" href="../reference/colors.html" />
+    <link rel="prev" title="More Help" href="../students/help.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Designer
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/world.html">Designer Worlds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/troubleshoot.html">Designer Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sparkles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/colors.html">List of Colors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/anchors.html">List of Anchors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/events.html">List of Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/keys.html">List of Keys</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Designer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Sparkles</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/sparkles.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sparkles">
+<h1>Sparkles<a class="headerlink" href="#sparkles" title="Permalink to this headline">¶</a></h1>
+<p>This game demonstrates how to have objects that:</p>
+<ul class="simple">
+<li><p>Have a velocity and deceleration</p></li>
+<li><p>Move at an angle using sine and cosine</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Determines how fast the sparkles slow down</span>
+<span class="n">DECELERATION</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="c1"># Determines how big the spark is</span>
+<span class="n">SPARK_SIZE</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Sparks are little circles with an angle and velocity</span>
+<span class="n">Spark</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span> <span class="s1">&#39;velocity&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">}</span>
+
+<span class="c1"># The world is composed of sparks</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sparks&#39;</span><span class="p">:</span> <span class="p">[</span><span class="n">Spark</span><span class="p">]}</span>
+
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Creates a world without any sparks &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s1">&#39;sparks&#39;</span><span class="p">:</span> <span class="p">[]</span>
+    <span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">create_spark</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Spark</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a single spark of a rainbow color &quot;&quot;&quot;</span>
+    <span class="c1"># Pick a random color from among choices</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">])</span>
+    <span class="n">spark</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">SPARK_SIZE</span><span class="p">)</span>
+    <span class="c1"># Partially transparent</span>
+    <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
+    <span class="c1"># Rotate randomly 360 degrees</span>
+    <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="c1"># Move to the mouse location</span>
+    <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="c1"># Random velocity between 7 and 10</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># Actually make the Spark</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;image&#39;</span><span class="p">:</span> <span class="n">spark</span><span class="p">,</span> <span class="s1">&#39;velocity&#39;</span><span class="p">:</span> <span class="n">velocity</span><span class="p">}</span>
+
+
+<span class="k">def</span> <span class="nf">make_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Make a new spark where ever the mouse is &quot;&quot;&quot;</span>
+    <span class="c1"># Get the current mouse x/y</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">get_mouse_x</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">get_mouse_y</span><span class="p">()</span>
+    <span class="c1"># Create spark at that location</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;sparks&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_spark</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">move_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move each spark according to its velocity and angle &quot;&quot;&quot;</span>
+    <span class="c1"># For each spark</span>
+    <span class="k">for</span> <span class="n">spark</span> <span class="ow">in</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;sparks&#39;</span><span class="p">]:</span>
+        <span class="c1"># Get the velocity</span>
+        <span class="n">velocity</span> <span class="o">=</span> <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span>
+        <span class="c1"># Calculate their angle in radians (0 to 2pi)</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">spark</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">])</span>
+        <span class="c1"># Increase X by cosine of the angle times velocity</span>
+        <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">velocity</span>
+        <span class="c1"># Decrease Y by sine of the angle times velocity</span>
+        <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;image&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">velocity</span>
+        <span class="c1"># Decrease velocity by the deceleration amount</span>
+        <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="n">DECELERATION</span>
+
+
+<span class="k">def</span> <span class="nf">delete_stopped_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Filter out all sparks that aren&#39;t moving &quot;&quot;&quot;</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Go through all the sparks</span>
+    <span class="k">for</span> <span class="n">spark</span> <span class="ow">in</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;sparks&#39;</span><span class="p">]:</span>
+        <span class="c1"># Is the spark still moving?</span>
+        <span class="k">if</span> <span class="n">spark</span><span class="p">[</span><span class="s1">&#39;velocity&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Keep this spark</span>
+            <span class="n">kept</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spark</span><span class="p">)</span>
+    <span class="c1"># Update sparks list with our kept list</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;sparks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kept</span>
+
+<span class="c1"># Bind the events</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting&#39;</span><span class="p">,</span> <span class="n">create_world</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">make_sparks</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">move_sparks</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">delete_stopped_sparks</span><span class="p">)</span>
+<span class="c1"># Start the animation!</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../reference/colors.html" class="btn btn-neutral float-right" title="List of Colors" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../students/help.html" class="btn btn-neutral float-left" title="More Help" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, acbart, krishols.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
