@@ -301,6 +301,8 @@ def when(event: Union[str, callable], *funcs):
         register(event, func)
 
 
+# TODO: would_be_colliding function to test a hypothetical move
+
 def colliding(*args):
     # TODO: Could use collide_circle and collide_mask for improved collisions
     check_initialized()

@@ -2,6 +2,7 @@ import math
 from designer import *
 import random
 
+set_window_title(None)
 
 def warp(obj):
     obj['x'] = random.randint(0, get_width())

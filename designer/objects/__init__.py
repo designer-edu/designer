@@ -12,3 +12,4 @@ from designer.objects.line import line
 from designer.objects.rectangle import rectangle
 from designer.objects.shape import shape, lines
 from designer.objects.text import text
+from designer.objects.emoji import emoji

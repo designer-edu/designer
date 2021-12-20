@@ -23,7 +23,7 @@ __all__ = [
     'text',
     'shape', 'lines',
     'background_image',
-    'image',
+    'image', 'emoji',
     'group',
     'draw',
     'set_window_color',
