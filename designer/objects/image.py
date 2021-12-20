@@ -138,6 +138,8 @@ class Image(DesignerObject):
             source = pygame.transform.rotate(source, angle).convert_alpha()
             new = source.get_rect().center
             self._transform_offset = old - new
+        else:
+            self._transform_offset = Vec2D(0, 0)
         # Finish updates
         self._transform_image = source
         self._recalculate_offset()
