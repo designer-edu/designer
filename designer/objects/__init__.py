@@ -10,5 +10,5 @@ from designer.objects.group import group
 from designer.objects.image import image
 from designer.objects.line import line
 from designer.objects.rectangle import rectangle
-from designer.objects.shape import shape
+from designer.objects.shape import shape, lines
 from designer.objects.text import text

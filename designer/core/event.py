@@ -232,6 +232,9 @@ class KeyboardKey:
     def __init__(self, value):
         self._value = value
 
+    def __hash__(self):
+        return hash(pygame.key.name(self._value))
+
     def __eq__(self, other):
         if isinstance(other, KeyboardKey):
             return self._value == other._value

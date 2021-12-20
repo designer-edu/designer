@@ -2,11 +2,10 @@ from typing import List
 
 import designer
 import sys
-import weakref
 import inspect
 from pprint import pprint
 import pygame
-from weakref import ref as _wref, WeakSet
+from weakref import WeakSet
 
 from designer.colors import _process_color
 from designer.core.window import Window

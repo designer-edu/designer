@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+# Version 0.1.7
+
+* Add in `lines` to replace old `shape` behavior
+* Allow keyboard keys to be hashable
+* Fix `shape` to work correctly
+* Fix bug in handling image rotation
+
 # Version 0.1.6
 
 * Fix bug in __neg__ of Vec2D

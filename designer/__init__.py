@@ -17,13 +17,11 @@ from designer.mouse import *
 GLOBAL_DIRECTOR: Director = None
 
 __all__ = [
-    'circle',
-    'ellipse',
-    'arc',
-    'line',
+    'circle', 'ellipse',
+    'arc', 'line',
     'rectangle',
     'text',
-    'shape',
+    'shape', 'lines',
     'background_image',
     'image',
     'group',
