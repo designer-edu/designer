@@ -491,9 +491,19 @@ Specific DesignerObjects
 
 .. function:: shape(color, points)
 
-    Function to create a shape of at least three points.
+    Function to create a shape of at least three points. The points should be relative to each other.
+    The resulting image will be centered in the middle of the window, which can be adjusted by using `x` and `y`.
+    If you want to absolutely position the image instead, then use `lines`.
 
-    TODO: Unfinished!
+    :param color: color of shape.
+    :type color: str
+    :param points: coordinates of points of shape
+    :type points: List[Tuple] in (x, y), (x, y) format of points to be connected of shape
+    :return: Shape object created
+
+.. function:: lines(color, points)
+
+    Function to create a shape of at least three points. The points will be absolutely positioned in the window.
 
     :param color: color of shape.
     :type color: str
