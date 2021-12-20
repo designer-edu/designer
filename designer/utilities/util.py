@@ -225,9 +225,10 @@ def rect_from_points(points):
     """
     if not points:
         return designer.utilities.rect.Rect(0, 0, 1, 1)
+    left = min(point[0] for point in points)
+    top = min(point[1] for point in points)
     return designer.utilities.rect.Rect(
-        min(point[0] for point in points),
-        min(point[1] for point in points),
-        max(point[0] for point in points),
-        max(point[1] for point in points)
+        left, top,
+        max(point[0] for point in points) - left,
+        max(point[1] for point in points) - top
     )
