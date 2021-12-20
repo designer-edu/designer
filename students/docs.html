@@ -694,8 +694,26 @@ to simplify problems with paths. Never use absolute file locations like
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.shape">
 <span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a shape of at least three points.</p>
-<p>TODO: Unfinished!</p>
+<dd><p>Function to create a shape of at least three points. The points should be relative to each other.
+The resulting image will be centered in the middle of the window, which can be adjusted by using <cite>x</cite> and <cite>y</cite>.
+If you want to absolutely position the image instead, then use <cite>lines</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
+<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shape object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.lines">
+<span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function to create a shape of at least three points. The points will be absolutely positioned in the window.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
