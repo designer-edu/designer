@@ -297,8 +297,29 @@ def when(event: Union[str, callable], *funcs):
         else:
             raise ValueError(
                 f"Unrecognized event {event!r}. Check the documentation to see possible events (like 'updating' and 'starting').")
-    for func in funcs:
-        register(event, func)
+    if funcs:
+        for func in funcs:
+            register(event, func)
+    else:
+        def decorated(function):
+            register(event, function)
+        return decorated
+
+
+def starting(*funcs):
+    return when('starting', *funcs)
+
+
+def updating(*funcs):
+    return when('updating', *funcs)
+
+
+def typing(*funcs):
+    return when('typing', *funcs)
+
+
+def clicking(*funcs):
+    return when('clicking', *funcs)
 
 
 # TODO: would_be_colliding function to test a hypothetical move
