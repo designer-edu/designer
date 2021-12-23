@@ -505,11 +505,9 @@ class Window:
         screen_rect = screen.get_rect()
         drawn_static = 0
 
-        blit_flags_available = pygame.version.vernum < (1, 8)
-
         for blit in blits:
             blit_rect = blit.rect
-            blit_flags = blit.flags if blit_flags_available else 0
+            blit_flags = blit.flags
             # If a blit is entirely off screen, we can ignore it altogether
             if not screen_rect.contains(blit_rect) and not screen_rect.colliderect(blit_rect):
                 continue
