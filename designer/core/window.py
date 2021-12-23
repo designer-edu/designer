@@ -1,4 +1,3 @@
-import weakref
 from typing import Optional
 
 import pygame
@@ -14,8 +13,6 @@ from designer.core.event import COMMON_EVENT_NAME_LOOKUP, get_positional_event_p
 from designer.core.internal_image import InternalImage
 from designer.utilities.layer_tree import _LayerTree
 from collections import defaultdict
-from weakref import ref as _wref, WeakSet, WeakKeyDictionary, WeakMethod
-from designer.utilities.weak_method import WeakMethodBound, DeadFunctionError
 from designer.core.clock import GameClock
 
 
@@ -83,18 +80,18 @@ class Window:
         self._clear_this_frame = []
         self._clear_next_frame = []
         self._soft_clear = []
-        self._static_blits = WeakKeyDictionary()
+        self._static_blits = {}
         self._invalidating_views = {}
-        self._collision_boxes = WeakKeyDictionary()
+        self._collision_boxes = {}
         self._rect = self._surface.get_rect()
 
         self._layers = []
         self._child_views = []
         self._layer_tree = _LayerTree(self)
-        self._objects = WeakSet()
+        self._objects = set()
 
         # View interface
-        self._window = _wref(self)
+        self._window = self
         self._views = []
 
         self._events_activated = False
@@ -221,10 +218,7 @@ class Window:
                                        in self._get_namespaces(event_type))
         result = [] if collect_results else None
         for handler_info in handlers:
-            try:
-                new_result = self._send_event_to_handler(event, event_type, *handler_info)
-            except DeadFunctionError:
-                new_result = None
+            new_result = self._send_event_to_handler(event, event_type, *handler_info)
             if new_result is not None:
                 if collect_results:
                     result.append(new_result)
@@ -250,8 +244,7 @@ class Window:
     def _unregister_object_events(self, object):
         for name, handlers in self._handlers.items():
             self._handlers[name] = [h for h in handlers
-                                    if (not isinstance(h[0], WeakMethod)
-                                        or h[0].weak_object_ref() is not object)]
+                                    if not hasattr(h[0], '__self__') or h[0].__self__ is not object]
             if not self._handlers[name]:
                 del self._handlers[name]
 
@@ -269,10 +262,10 @@ class Window:
             event_namespace = event_namespace[:-2]
         self._handlers[event_namespace] = [h for h
                                            in self._handlers[event_namespace]
-                                           if ((not isinstance(h[0], WeakMethod) and handler != h[0])
-                                               or (isinstance(h[0], WeakMethod)
-                                                   and ((h[0].func is not handler.__func__)
-                                                        or (h[0].weak_object_ref() is not handler.__self__))))]
+                                           if ((not hasattr(h[0], '__self__') and handler != h[0])
+                                               or hasattr(h[0], '__self__')
+                                                   and ((h[0].__func__ is not handler.__func__)
+                                                        or (h[0].__self__ is not handler.__self__)))]
         if not self._handlers[event_namespace]:
             del self._handlers[event_namespace]
 
@@ -354,14 +347,14 @@ class Window:
         """
         Returns this window. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def parent(self):
         """
         Returns this window. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def background(self):
@@ -391,7 +384,7 @@ class Window:
         """
         self._objects.add(object)
         # Add the view and its parents to the invalidating_views for the object
-        parent_view = object._parent()
+        parent_view = object._parent
         while parent_view != self:
             if parent_view not in self._invalidating_views:
                 self._invalidating_views[parent_view] = set()

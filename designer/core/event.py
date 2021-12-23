@@ -30,15 +30,6 @@ import random
 import base64
 
 import designer
-from weakref import WeakMethod
-from designer.utilities.weak_method import WeakMethod as _wm
-
-
-def WeakMethod(func):
-    try:
-        return _wm(func)
-    except TypeError:
-        return func
 
 
 class GameEndException(Exception):
@@ -202,7 +193,7 @@ def register(event_namespace, handler,
                          other event handlers registered.
     """
     event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
-    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (WeakMethod(handler),),
+    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (handler,),
                                                           args, kwargs, priority, False)
 
 
@@ -215,6 +206,7 @@ def unregister(event_namespace, handler):
     :param handler: The handler to unregister.
     :type handler: a function or string.
     """
+    event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
     designer.GLOBAL_DIRECTOR.current_window._unregister(event_namespace, handler)
 
 

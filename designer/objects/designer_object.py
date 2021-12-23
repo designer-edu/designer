@@ -4,10 +4,9 @@ import pygame
 import designer
 import math
 from typing import List, Optional, Dict
-from weakref import ref as _wref, ReferenceType
 
 from designer.core.window import Window
-from designer.core.event import Event, register
+from designer.core.event import Event, register, unregister
 from designer.utilities.vector import Vec2D
 from designer.core.internal_image import InternalImage, DesignerSurface
 from designer.utilities.rect import Rect
@@ -35,7 +34,6 @@ class DesignerObject:
 
     def __init__(self, parent=None):
         designer.check_initialized()
-        designer.GLOBAL_DIRECTOR._track_object(self)
 
         if parent is None:
             parent = designer.GLOBAL_DIRECTOR.current_window
@@ -59,6 +57,7 @@ class DesignerObject:
         self._angle = 0
         self._flip_x = False
         self._flip_y = False
+        self._active = False
         # TODO: Finish setting up cropping
         self._crop: Optional[Rect] = None
         self._mask: Optional[Rect] = None
@@ -75,14 +74,12 @@ class DesignerObject:
         self._progress: Dict[Animation, float] = {}
 
         # Internal references to parents
-        self._parent = _wref(parent)
-        self._window: ReferenceType[Window] = _wref(parent.window)
+        self._parent = parent
+        self._window: Window = parent.window
 
-        # Establish backreferences
-        parent._add_child(self)
-        self._window()._register_object(self)
-
-        register('director.render', self._draw)
+        # Add it to the world
+        if designer.GLOBAL_DIRECTOR.running:
+            self._reactivate()
 
         self.FIELDS = set(self.FIELDS)
 
@@ -424,11 +421,27 @@ class DesignerObject:
         self._expire_static()
 
     @property
+    def active(self) -> bool:
+        """
+        A boolean indicating whether the object is *active*, aka it should be drawn and have collisions, animations,
+        and other events handled. An object is active when it is first created while the game is running, but inactive
+        if it is created before the game is started.
+        """
+        return self._active
+
+    @active.setter
+    def active(self, value):
+        if value:
+            self.reactivate()
+        else:
+            self.destroy()
+
+    @property
     def window(self):
         """
         The top-level window that this object belongs to. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def parent(self):
@@ -436,7 +449,7 @@ class DesignerObject:
         The parent of this object, either a :class:`View <designer.objects.view.View>` or a
         :class:`Window <desinger.objects.view.View>`. Read-only.
         """
-        return self._parent()
+        return self._parent
 
     @property
     def mask(self):
@@ -475,9 +488,9 @@ class DesignerObject:
             b.static = True
             self._make_static = False
             self._static = True
-            self._parent()._static_blit(self, b)
+            self._parent._static_blit(self, b)
             return
-        self._parent()._blit(b)
+        self._parent._blit(b)
         self._age += 1
 
     def _set_collision_box(self):
@@ -491,8 +504,8 @@ class DesignerObject:
         else:
             area = self._mask
         c = _CollisionBox(self._pos - self._offset, area)
-        warped_box = self._parent()._warp_collision_box(c)
-        self._window()._set_collision_box(self, warped_box.rect)
+        warped_box = self._parent._warp_collision_box(c)
+        self._window._set_collision_box(self, warped_box.rect)
 
     def destroy(self):
         """
@@ -501,10 +514,28 @@ class DesignerObject:
         memory if there are other references to it; if you need to do that,
         remember to ``del`` the reference to it.
         """
-        self._window()._unregister_object(self)
-        self._window()._remove_static_blit(self)
-        self._parent()._remove_child(self)
+        self._active = False
+        designer.GLOBAL_DIRECTOR._untrack_object(self)
+        self._window._unregister_object(self)
+        self._window._remove_static_blit(self)
+        self._parent._remove_child(self)
+        unregister('director.render', self._draw)
 
+
+    def _reactivate(self):
+        """
+        Internal method for making an Object active again.
+        Not a preferred mechanism, may have undefined behavior.
+
+        TODO: Finish this so that it can actually work if people want this.
+        """
+        self._active = True
+        designer.GLOBAL_DIRECTOR._track_object(self)
+        self.parent._add_child(self)
+        self._window._register_object(self)
+        self._age = 0
+        self._static = False
+        register('director.render', self._draw)
 
     def _evaluate(self, animation, progress):
         """
@@ -602,7 +633,7 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   other object.
         """
-        return self._window().collide_objects(self, other)
+        return self._window.collide_objects(self, other)
 
     def collide_point(self, point):
         """
@@ -614,7 +645,7 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   position.
         """
-        return self._window().collide_point(self, *point)
+        return self._window.collide_point(self, *point)
 
     def collide_rect(self, rect):
         """
@@ -626,4 +657,4 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   rect.
         """
-        return self._window().collide_rect(self, rect)
+        return self._window.collide_rect(self, rect)
