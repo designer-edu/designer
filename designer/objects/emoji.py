@@ -24,6 +24,7 @@ _THIS_DIRECTORY = path.abspath(path.dirname(__file__))
 
 OTHER_KNOWN_EMOJI = {
     "Kiss (dark skin tone person, medium-dark skin tone person)": "1f9d1-1f3ff-200d-2764-fe0f-200d-1f48b-200d-1f9d1-1f3fe"
+    # TODO: Finish this list!
 }
 
 
@@ -148,7 +149,6 @@ class Emoji(DesignerObject):
         self._expire_static()
 
 
-
 def emoji(name, x=None, y=None, anchor='center', **kwargs):
     """
     Function to create an image from the emoji with the given name.
@@ -160,5 +160,6 @@ def emoji(name, x=None, y=None, anchor='center', **kwargs):
     :return: Image object
     """
     if x is not None and y is None:
-        x, y = x
+        if isinstance(x, (list, tuple)):
+            x, y = x
     return Emoji((x, y), name, anchor, **kwargs)
