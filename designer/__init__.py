@@ -30,7 +30,7 @@ __all__ = [
     'set_window_size',
     'get_height',
     'get_width',
-    'when',
+    'when', 'starting', 'updating', 'typing', 'clicking',
     'start',
     'stop',
     'pause',
