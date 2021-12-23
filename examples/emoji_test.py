@@ -1,9 +1,10 @@
 from designer import *
+from random import randint
 
 pinhole = circle('black', 3)
 
-dragon = emoji("ghost")
-dragon2 = emoji("dragon")
+dragon = emoji("😻")
+dragon2 = emoji("T-Rex")
 dragon2['x'] += 200
 dragon2['angle'] += 45
 dragon2['scale'] = 2
@@ -24,4 +25,7 @@ pinhole3 = circle('black', 3)
 pinhole3['x'] -= 300
 spin(pinhole3)
 
-draw(dragon, dragon2, dragon3, dog, pinhole, pinhole2, pinhole3)
+others = [emoji(character, x=randint(18, get_width()-18), y=randint(18, get_height()-18))
+          for character in "👻❤🚀⌛☕⚡⛄⭐🌻🚐"]
+
+draw(dragon, dragon2, dragon3, dog, pinhole, pinhole2, pinhole3, others)
