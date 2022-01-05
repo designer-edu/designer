@@ -132,7 +132,7 @@ class Window:
         for handler in handlers:
             self._handlers[namespace].append((handler, args, kwargs,
                                               priority, dynamic))
-        self._handlers[namespace].sort(key=operator.itemgetter(3))
+        self._handlers[namespace].sort(key=lambda item: item[3]) # operator.itemgetter(3))
 
     def _get_namespaces(self, namespace):
         """
@@ -154,7 +154,6 @@ class Window:
             elif hasattr(event, arg):
                 return getattr(event, arg)
             else:
-                #print("MISSING?", event, arg, default, fillval, type, dir(event))
                 if default != inspect.Parameter.empty:
                     return default
                 positional_parameters = get_positional_event_parameters(event_type, event)
@@ -186,9 +185,10 @@ class Window:
             try:
                 signature = inspect.signature(funct)
             except Exception as e:
-                raise Exception(("Unfortunate Python Problem! "
-                                 f"{handler} isn't supported by Python's "
-                                 "inspect module! Oops."))
+                return handler()
+                #raise Exception(("Unfortunate Python Problem! "
+                #                 f"{handler} isn't supported by Python's "
+                #                 "inspect module! Oops."))
             # TODO: Handle all parameters elegantly
             h_args = [p.name for p in signature.parameters.values()]
             h_defaults = [p.default for p in signature.parameters.values()] or tuple()
@@ -480,7 +480,7 @@ class Window:
         static_blits = len(self._static_blits)
         dynamic_blits = len(self._blits)
         blits = list(self._static_blits.values()) + self._blits
-        blits.sort(key=operator.attrgetter('layer'))
+        blits.sort(key=lambda l: l.layer)
 
         # Clear this is a list of things which need to be cleared
         # on this frame and marked dirty on the next
