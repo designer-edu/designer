@@ -14,7 +14,7 @@ DEFAULT_WINDOW_TITLE = "Designer Game"
 
 
 class Director:
-    def __init__(self, width=800, height=600, background_color=(255, 255, 255), fps=30):
+    def __init__(self, width=800, height=600, background_color=(255, 255, 255, 255), fps=30):
         """
         Initializes the Director that will control the game state.
 
