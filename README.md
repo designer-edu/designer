@@ -22,3 +22,12 @@ Find the documentation for Designer [here](https://krishols.github.io/designer/)
   * Code licensed under the MIT License: http://opensource.org/licenses/MIT
   * Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
 * Designer is obviously built on Pygame
+
+# Future
+
+* Make `group` use the Spyral `View` mechanims. Provide a "frozen group" and a "dynamic group".
+* Support for `turtle` style graphics, using animations
+* More basic shapes like `triangle`, `star`, ...?
+* Handle *potential* collision checks "if the object were placed here", circular, etc.
+* Update documentation to explain the `destroy` function
+* Improve the error handling in as many situations as possible
