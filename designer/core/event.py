@@ -27,7 +27,8 @@ import pygame
 import json
 import os
 import random
-import base64
+# TODO: Reenable support for base64 after skulpt supports it
+#import base64
 
 import designer
 
@@ -344,9 +345,10 @@ class LiveEventHandler(EventHandler):
         if self._save:
             self._file = open(output_file, 'w')
             seed = os.urandom(4)
-            info = {'random_seed': base64.encodestring(seed)}
-            random.seed(seed)
-            self._file.write(json.dumps(info) + "\n")
+            # TODO: Reenable base64 support
+            #info = {'random_seed': base64.encodestring(seed)}
+            #random.seed(seed)
+            #self._file.write(json.dumps(info) + "\n")
 
     def tick(self):
         mouse = pygame.mouse.get_pos()
@@ -372,7 +374,8 @@ class ReplayEventHandler(EventHandler):
         EventHandler.__init__(self)
         self._file = open(input_file)
         info = json.loads(self._file.readline())
-        random.seed(base64.decodestring(info['random_seed']))
+        # TODO: Reenable base64 support
+        # random.seed(base64.decodestring(info['random_seed']))
         self.paused = False
 
     def pause(self):
