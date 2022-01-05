@@ -1,8 +1,6 @@
 import difflib
 
-import pygame
 import designer
-import math
 from typing import List, Optional, Dict
 
 from designer.core.window import Window
@@ -111,7 +109,7 @@ class DesignerObject:
 
     def __del__(self):
         if self._static:
-            self._window()._remove_static_blit(self)
+            self._window._remove_static_blit(self)
 
     def _expire_static(self):
         """
@@ -125,7 +123,7 @@ class DesignerObject:
         # Expire static is part of the private API which must
         # be implemented by Sprites that wish to be static.
         if self._static:
-            self._window()._remove_static_blit(self)
+            self._window._remove_static_blit(self)
         self._static = False
         self._age = 0
         self._set_collision_box()
