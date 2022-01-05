@@ -1,9 +1,5 @@
-import math
-from typing import List
-
 import pygame
 
-import designer
 from designer.core.internal_image import DesignerSurface, InternalImage
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
@@ -28,7 +24,7 @@ class Shape(DesignerObject):
         self._anchor = anchor
         # Polygon specific data
         self._border = border
-        self._points: List[Vec2D] = [Vec2D(p) for p in points]
+        self._points = [Vec2D(p) for p in points]
         self._bounds = self._get_bounds()
         self._size = self._bounds.size
         self._color = color

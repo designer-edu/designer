@@ -1,8 +1,8 @@
 import pygame
 import copy
-import imghdr
 import math
 
+from pygame import Rect as pygame_rect
 from designer.utilities.vector import Vec2D
 from designer.utilities.rect import Rect
 from designer.utilities.util import scale_surface
@@ -195,8 +195,8 @@ class InternalImage(object):
         else:
             rect = Rect(position, size)
         offset = self._calculate_offset(anchor, rect.size)
-        pygame.draw.rect(self._surf, color,
-                             (rect.pos + offset, rect.size), border_width)
+        target = pygame_rect(rect.pos + offset, rect.size)
+        pygame.draw.rect(self._surf, color, target, border_width)
         self._version += 1
         scale_surface.clear(self._surf)
         return self
@@ -243,7 +243,7 @@ class InternalImage(object):
         :returns: This internal_image.
         """
         offset = self._calculate_offset(anchor)
-        pygame.draw.circle(self._surf, color, (position + offset).floor(),
+        pygame.draw.circle(self._surf, color, tuple((Vec2D(position) + Vec2D(offset)).floor()),
                            radius, width)
         self._version += 1
         scale_surface.clear(self._surf)
@@ -276,7 +276,7 @@ class InternalImage(object):
             rect = Rect(position, size)
         offset = self._calculate_offset(anchor, rect.size)
         pygame.draw.ellipse(self._surf, color,
-                            (rect.pos + offset, rect.size), border_width)
+                            pygame_rect(rect.pos + offset, rect.size), border_width)
         self._version += 1
         scale_surface.clear(self._surf)
         return self
@@ -328,7 +328,7 @@ class InternalImage(object):
         else:
             rect = Rect(position, size)
         offset = self._calculate_offset(anchor, rect.size)
-        pygame.draw.arc(self._surf, color, (rect.pos + offset, rect.size),
+        pygame.draw.arc(self._surf, color, pygame_rect(rect.pos + offset, rect.size),
                         start_angle, end_angle, border_width)
         self._version += 1
         scale_surface.clear(self._surf)
@@ -393,8 +393,7 @@ class InternalImage(object):
         :type size: :class:`Vec2D <spyral.Vec2D>`
         :returns: This internal_image.
         """
-        self._surf = pygame.transform.smoothscale(self._surf,
-                                                  size).convert_alpha()
+        self._surf = pygame.transform.smoothscale(self._surf, tuple(size)).convert_alpha()
         self._version += 1
         return self
 

@@ -172,9 +172,10 @@ class _Blit(object):
         rect.
         """
         self.surface = scale_surface(self.surface, self.final_size)
-        self.surface = self.surface.subsurface(self.area._to_pygame())
-        self.rect = pygame.Rect((self.position[0], self.position[1]),
-                                self.surface.get_size())
+        area = self.area._to_pygame()
+        self.surface = self.surface.subsurface(area)
+        position = tuple(self.position)
+        self.rect = pygame.Rect(position, self.surface.get_size())
 
 
 class _CollisionBox(object):

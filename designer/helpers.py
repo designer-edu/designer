@@ -1,9 +1,7 @@
-import imghdr
-from typing import Optional, Union
+from typing import Union
 
 from urllib.request import urlopen, Request
 import pygame
-import math
 import sys
 import os
 import io
@@ -125,7 +123,7 @@ def set_window_size(width, height):
     :return: None
     """
     if not check_initialized(width=width, height=height):
-        designer.GLOBAL_DIRECTOR.screen = pygame.display.set_mode(size=(width, height))
+        designer.GLOBAL_DIRECTOR.screen = pygame.display.set_mode((width, height))
     designer.GLOBAL_DIRECTOR.window_size = width, height
 
 

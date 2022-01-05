@@ -22,12 +22,15 @@
 """
 import pygame
 
-cursors = {"arrow": pygame.cursors.arrow,
-           "diamond": pygame.cursors.diamond,
-           "x": pygame.cursors.broken_x,
-           "left": pygame.cursors.tri_left,
-           "right": pygame.cursors.tri_right}
-
+try:
+    cursors = {"arrow": pygame.cursors.arrow,
+               "diamond": pygame.cursors.diamond,
+               "x": pygame.cursors.broken_x,
+               "left": pygame.cursors.tri_left,
+               "right": pygame.cursors.tri_right}
+except AttributeError:
+    # TODO: Support cursors in pygame4skulpt
+    cursors = {}
 
 class MouseModule:
     def __init__(self):
