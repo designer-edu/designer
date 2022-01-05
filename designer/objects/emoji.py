@@ -1,4 +1,3 @@
-import imghdr
 from typing import Optional
 
 from urllib.request import urlopen, Request
@@ -7,9 +6,6 @@ import math
 import sys
 import os
 import io
-from os import path
-import unicodedata
-from zipfile import ZipFile
 
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
@@ -19,7 +15,15 @@ from designer.utilities import Vec2D
 from designer.utilities.util import _anchor_offset
 from designer.utilities.gif_image import GifImage
 
-_THIS_DIRECTORY = path.abspath(path.dirname(__file__))
+try:
+    import unicodedata
+    from zipfile import ZipFile
+    from os import path
+    _THIS_DIRECTORY = path.abspath(path.dirname(__file__))
+    _EMOJI_DATABASE = path.join(_THIS_DIRECTORY, '../data/emojis.zip')
+except:
+    # TODO: Emoji support limited in Skuplt
+    pass
 
 
 OTHER_KNOWN_EMOJI = {
@@ -30,7 +34,6 @@ OTHER_KNOWN_EMOJI = {
 
 class Emoji(DesignerObject):
     FIELDS = (*DesignerObject.FIELDS, 'name')
-    _EMOJI_DATABASE = path.join(_THIS_DIRECTORY, '../data/emojis.zip')
     DEFAULT_EMOJI_SIZE = 36
     _EMOJI_CACHE = {}
 
@@ -89,7 +92,7 @@ class Emoji(DesignerObject):
         except TypeError:
             target = OTHER_KNOWN_EMOJI.get(character, character)
         try:
-            emoji_database = ZipFile(self._EMOJI_DATABASE)
+            emoji_database = ZipFile(_EMOJI_DATABASE)
             with emoji_database.open(target) as svg_file:
                 self._svg = svg_file.read()
             self._EMOJI_CACHE[self._name] = self._svg
