@@ -12,4 +12,4 @@ Install from the command line:
 Or install from [this repository](https://github.com/krishols/designer).
 
 # Documentation
-Find the documentation for Designer [here](https://krishols.github.io/designer/).
+Find the documentation for Designer [here](https://designer-edu.github.io/designer/).
