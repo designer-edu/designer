@@ -11,12 +11,13 @@ REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
 
 setuptools.setup(
     name='designer',
-    version='0.2.0',
+    version='0.2.1',
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core'],
     package_data={
-        'designer': ['data/colors.json', 'data/default_key_mappings.txt', 'data/unicode_names.json']
+        'designer': ['data/colors.json', 'data/default_key_mappings.txt',
+                     'data/unicode_names.json', 'data/emojis.zip']
     },
     author_email='kris@udel.edu',
     description='Student-friendly and evidence-based visual graphics library.',
@@ -24,7 +25,7 @@ setuptools.setup(
     license='MIT',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/krishols/designer',
+    url='https://github.com/designer-edu/designer',
     classifiers=[
         'Development Status :: 3 - Alpha',
 

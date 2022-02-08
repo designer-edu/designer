@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.2.1
+
+* Bugfix release with missing emoji datafiles
+
 # Version 0.2.0
 
 * Removed all use of `weakref` for compatibility with BlockPy
