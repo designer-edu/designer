@@ -4,7 +4,7 @@ from random import randint
 pinhole = circle('black', 3)
 
 dragon = emoji("😻")
-dragon2 = emoji("T-Rex")
+dragon2 = emoji("🦖")
 dragon2['x'] += 200
 dragon2['angle'] += 45
 dragon2['scale'] = 2

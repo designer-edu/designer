@@ -3,7 +3,7 @@ from designer import *
 
 @starting
 def create_car():
-    return emoji("automobile", flip_x=True, x=64, scale=3)
+    return emoji("car", flip_x=True, x=64, scale=3)
 
 
 @updating
@@ -16,6 +16,6 @@ def move_car(car):
         car['x'] += 10
     else:
         car['x'] -= 10
-
+    car['angle'] += 10
 
 start()

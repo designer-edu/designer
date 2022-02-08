@@ -18,6 +18,7 @@ from designer.utilities.gif_image import GifImage
 try:
     import imghdr
     ALT_MODE = False
+    FileNotFoundError
 except:
     FileNotFoundError = Exception
     ALT_MODE = True
@@ -96,7 +97,6 @@ class Image(DesignerObject):
                 raise FileNotFoundError(fixed_paths)
         except FileNotFoundError as err:
             try:
-                # TODO: Add back in headers once skulpt supports this
                 req = Request(self._filename, headers={'User-Agent': self._USER_AGENT})
                 with urlopen(req) as opened_image:
                     image_str = opened_image.read()
@@ -214,6 +214,7 @@ def image(path, x=None, y=None, anchor='center', **kwargs):
     if x is not None and y is None:
         x, y = x
     return Image((x, y), path, anchor, **kwargs)
+
 
 if ALT_MODE:
     Image._load_image = Image._load_image_url_only

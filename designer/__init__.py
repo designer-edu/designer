@@ -13,6 +13,7 @@ from designer.colors import *
 from designer.positioning import *
 from designer.keyboard import *
 from designer.mouse import *
+from designer.movement import *
 
 GLOBAL_DIRECTOR: Director = None
 
@@ -21,15 +22,17 @@ __all__ = [
     'arc', 'line',
     'rectangle',
     'text',
-    'shape', 'lines',
+    'shape', 'lines', 'pen',
     'background_image',
     'image', 'emoji',
     'group',
     'draw',
-    'set_window_color',
+    # Window information
+    'set_window_color', 'get_window_color',
     'set_window_size',
     'get_height',
     'get_width',
+    # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
     'start',
     'stop',
@@ -37,6 +40,7 @@ __all__ = [
     'colliding',
     'destroy',
     'DesignerObject',
+    # Positioning
     'above', 'below',
     # Director stuff
     'get_director',
@@ -66,5 +70,13 @@ __all__ = [
     # Music
     'play_sound',
     'play_music', 'background_music', 'pause_music', 'set_music_volume', 'is_music_playing',
-    'get_music_volume', 'stop_music', 'rewind_music', 'continue_music', 'set_music_position', 'get_music_position'
+    'get_music_volume', 'stop_music', 'rewind_music', 'continue_music', 'set_music_position', 'get_music_position',
+    # Movement
+    'move_forward', 'move_backward', 'turn_left', 'turn_right', 'go_to', 'go_to_xy', 'go_to_mouse',
+    'point_towards', 'point_towards_mouse', 'point_in_direction', 'change_x', 'change_y', 'set_x', 'set_y',
+    'get_angle', 'get_x', 'get_y',
+    'flip_x', 'flip_y', 'set_flip_x', 'set_flip_y', 'set_scale', 'set_scale_x', 'set_scale_y', 'set_background_image',
+    'get_scale', 'get_scale_x', 'get_scale_y', 'get_visible', 'get_flip_x', 'get_flip_y', 'show', 'hide',
+    'grow', 'grow_x', 'grow_y',
+    'move_to_x', 'move_to_y', 'move_to', 'move_to_mouse', 'move_to_xy'
 ]

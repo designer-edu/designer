@@ -3,7 +3,8 @@ import json
 
 data_files = {
     'colors.json',
-    'default_key_mappings.txt'
+    'default_key_mappings.txt',
+    'unicode_names.json'
 }
 
 

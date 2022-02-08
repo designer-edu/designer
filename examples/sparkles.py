@@ -60,6 +60,8 @@ def delete_stopped_sparks(world: World):
         if spark['velocity'] > 0:
             # Keep this spark
             kept.append(spark)
+        else:
+            destroy(spark['image'])
     # Update sparks list
     world['sparks'] = kept
 

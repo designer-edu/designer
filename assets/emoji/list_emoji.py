@@ -1,36 +1,41 @@
-# Download the latest build of twemoji: https://github.com/twitter/twemoji/releases
-# Run this script to generate the archive
-# python build_emoji.py path/to/twemoji.zip
+"""
+Use this script to build up the JSON mapping names to their code point
 
-from zipfile import ZipFile, ZIP_DEFLATED
-import pathlib
-import sys
-import re
-import unicodedata
+Potentially could decrease file by removing letters that aren't likely to be used... But you never know, maybe someone
+wants to write their name using this? Perhaps the `text` object could support unicode if we are sneaky enough...
+"""
+import string
+import json
 
-try:
-    from tqdm import tqdm
-except ImportError:
-    tqmd = list
+emojis = {}
 
-if len(sys.argv) <= 1:
-    raise Exception("Need to pass in path to twemoji archive")
+# Start with the official names
+with open('UnicodeData.txt') as unicode_file:
+    for line in unicode_file:
+        code, name, rest = line.split(";", maxsplit=2)
+        emojis[name.lower()] = code
 
-# Input
-twemoji = ZipFile(sys.argv[1])
-base = pathlib.Path(sys.argv[1]).name
+# Add in some additional ones
+emojis["kiss (dark skin tone person, medium-dark skin tone person)"] = "1f9d1-1f3ff-200d-2764-fe0f-200d-1f48b-200d-1f9d1-1f3fe"
+emojis["car"] = "1F697"
 
-ns = "http://www.w3.org/2000/svg"
+# Provide all faces as just their names
+for code, name in list(emojis.items()):
+    if code.endswith(" face"):
+        without_face = code[:-len(" face")]
+        if without_face not in emojis:
+            emojis[without_face] = name
 
-# Output
-db = {}
 
-with ZipFile('emojis.zip', 'w', compression=ZIP_DEFLATED) as dumped_zip:
-    for path in twemoji.namelist():
-        match = re.match(r"twemoji.*/assets/svg/(.*)\.svg", path)
-        if match:
-            with twemoji.open(path) as svg_file:
-                unicode_name = match.group(1)
-                hexed = int(unicode_name, 16)
-                print(unicodedata.name(chr(hexed)))
+# Normalize names
+def normalize(text):
+    """ Remove all punctuation for now """
+    return ''.join('' if c in string.punctuation else c for c in text)
 
+
+emojis = {normalize(key): value
+          for key, value in emojis.items()}
+
+# Dump file
+with open('unicode_names.json', 'w') as output_file:
+    json.dump(emojis, output_file, indent=2)

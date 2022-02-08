@@ -18,7 +18,7 @@ WIDTH = len(LEVEL_DATA[0])
 HEIGHT = len(LEVEL_DATA)
 
 def create_dinosaur():
-    dino = emoji("T-rex")
+    dino = emoji("dragon")
     return {
         'image': dino,
         'v': 0,

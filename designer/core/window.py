@@ -189,7 +189,6 @@ class Window:
                 #raise Exception(("Unfortunate Python Problem! "
                 #                 f"{handler} isn't supported by Python's "
                 #                 "inspect module! Oops."))
-            # TODO: Handle all parameters elegantly
             h_args = [p.name for p in signature.parameters.values()]
             h_defaults = [p.default for p in signature.parameters.values()] or tuple()
             if len(h_args) > 0 and 'self' == h_args[0]:

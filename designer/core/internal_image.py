@@ -92,6 +92,7 @@ def from_conglomerate(sequence):
         new.draw_internal_image(image, (x, y))
     return new
 
+
 class InternalImage(object):
     """
     The InternalImage is the basic drawable item in designer. They can be created

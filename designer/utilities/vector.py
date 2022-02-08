@@ -203,7 +203,7 @@ class Vec2D:
 
     def angle(self, other):
         """
-        Returns the angle between this point and another point.
+        Returns the angle between this point and another point, in radians.
 
         :param other: the other point
         :type other: 2-tuple or :class:`Vec2D <designer.utilities.vector.Vec2D>`

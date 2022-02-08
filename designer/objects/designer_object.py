@@ -30,7 +30,7 @@ class DesignerObject:
         "alpha"
     )
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, **kwargs):
         designer.check_initialized()
 
         if parent is None:
@@ -44,18 +44,22 @@ class DesignerObject:
 
         # Independent Fields
         self._independent_fields = ('_pos', '_size', '_anchor', '_scale', '_angle', '_flip_x', '_flip_y')
-        self._layer: Optional[str] = None
+        self._layer: Optional[str] = kwargs.get('layer', None)
         self._blend_flags = 0
-        self._alpha = 1.0
-        self._visible = True
-        self._pos = Vec2D(0, 0)
-        self._size = Vec2D(1, 1)
-        self._anchor = 'topleft'
-        self._scale = Vec2D(1.0, 1.0)
-        self._angle = 0
-        self._flip_x = False
-        self._flip_y = False
-        self._active = False
+        self._alpha = kwargs.get('alpha', 1.0)
+        self._visible = kwargs.get('visible', True)
+        self._pos = Vec2D(kwargs.get('pos')) if 'pos' in kwargs else Vec2D(kwargs.get('x', 0), kwargs.get('y', 0))
+        self._size = Vec2D(kwargs.get('size')) if 'pos' in kwargs else Vec2D(kwargs.get('width', 1), kwargs.get('height', 1))
+        self._anchor = kwargs.get('anchor', 'topleft')
+        if 'scale' in kwargs and kwargs['scale'] != None:
+            s = kwargs.get('scale')
+            self._scale = Vec2D((s, s) if isinstance(s, (int, float)) else s)
+        else:
+            self._scale = Vec2D(kwargs.get('scale_x', 1.0), kwargs.get('scale_y', 1.0))
+        self._angle = kwargs.get('angle', 0)
+        self._flip_x = kwargs.get('flip_x', False)
+        self._flip_y = kwargs.get('flip_y', False)
+        self._active = kwargs.get('active', False)
         # TODO: Finish setting up cropping
         self._crop: Optional[Rect] = None
         self._mask: Optional[Rect] = None
@@ -87,7 +91,8 @@ class DesignerObject:
             if suggestions:
                 raise KeyError(f"Key {item!r} not found. Perhaps you meant one of these? {suggestions}")
             else:
-                raise KeyError(f"Key {item!r} not found. I didn't recognize that key, you should check the documentation!")
+                raise KeyError(
+                    f"Key {item!r} not found. I didn't recognize that key, you should check the documentation!")
 
     def __getitem__(self, item):
         """ Allow this object to be treated like a dictionary. """
@@ -150,10 +155,10 @@ class DesignerObject:
         # Rotate
         if self._angle != 0:
             angle = self._angle % 360
-            #old = Vec2D(target.rect.center)
+            # old = Vec2D(target.rect.center)
             target.rotate(angle)
-            #new = target.rect.center
-            #self._transform_offset = old - new
+            # new = target.rect.center
+            # self._transform_offset = old - new
         # Finish updates
         self._transform_image = target._surf
         self._recalculate_offset()
@@ -476,7 +481,7 @@ class DesignerObject:
             return
 
         # TODO: Make sure this is sufficient
-        self._transform_image.set_alpha(int(self._alpha*255))
+        self._transform_image.set_alpha(int(self._alpha * 255))
 
         area = Rect(self._transform_image.get_rect())
         b = _Blit(self._transform_image, self._pos - self._offset,
@@ -519,7 +524,6 @@ class DesignerObject:
         self._parent._remove_child(self)
         unregister('director.render', self._draw)
 
-
     def _reactivate(self):
         """
         Internal method for making an Object active again.
@@ -534,6 +538,8 @@ class DesignerObject:
         self._age = 0
         self._static = False
         register('director.render', self._draw)
+
+    # Animation Methods
 
     def _evaluate(self, animation, progress):
         """
@@ -570,7 +576,6 @@ class DesignerObject:
         # Stop all completed animations
         for animation in completed:
             self.stop_animation(animation)
-
 
     def animate(self, animation):
         """
