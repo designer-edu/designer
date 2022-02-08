@@ -72,7 +72,8 @@ def delete_old_flakes(w: World):
         if top_y <= get_height():
             new_flakes.append(flake)  # THEN this flake is still visible
         else:
-            print("DELETE", flake['image']['y'], top_y, flake['image']['height'])
+            #print("DELETE", flake['image']['y'], top_y, flake['image']['height'])
+            destroy(flake['image'])
     w["flakes"] = new_flakes
 
 

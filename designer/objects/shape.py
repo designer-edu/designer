@@ -1,9 +1,5 @@
-import math
-from typing import List
-
 import pygame
 
-import designer
 from designer.core.internal_image import DesignerSurface, InternalImage
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
@@ -11,6 +7,7 @@ from designer.objects.designer_object import DesignerObject
 from designer.utilities.vector import Vec2D
 from designer.utilities.util import rect_from_points, _anchor_offset
 from designer.utilities.argument_checks import is_non_empty_iterable_of_points, at_least_three, are_numbers
+from designer.utilities.rect import Rect
 
 
 class Shape(DesignerObject):
@@ -28,7 +25,7 @@ class Shape(DesignerObject):
         self._anchor = anchor
         # Polygon specific data
         self._border = border
-        self._points: List[Vec2D] = [Vec2D(p) for p in points]
+        self._points = [Vec2D(p) for p in points]
         self._bounds = self._get_bounds()
         self._size = self._bounds.size
         self._color = color
@@ -41,9 +38,8 @@ class Shape(DesignerObject):
 
     def _get_bounds(self):
         if not self._points:
-            return Vec2D(1, 1)
+            return Rect(self.x, self.y, 1, 1)
         bounds = rect_from_points(self._points)
-        print(bounds.size)
         # TODO: Refine this calculation of border expansion
         if self._border > 1:
             bounds.inflate_ip(self._border*2, self._border*2)
@@ -135,6 +131,7 @@ def shape(color, *points, x=None, y=None, anchor='center', border=None, filled=T
     elif border is None:
         border = Shape.DEFAULT_BORDER_WIDTH
     return Shape((x, y), points, anchor, color, border, absolute)
+
 
 def lines(color, *points, anchor='center', border=None, filled=True):
     return shape(color, *points, anchor=anchor, border=border, filled=filled, absolute=True)

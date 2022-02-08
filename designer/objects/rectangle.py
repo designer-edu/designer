@@ -47,7 +47,8 @@ class Rectangle(DesignerObject):
         self._redraw_internal_image()
 
     def __repr__(self):
-        return f"<rectangle({self._color!r}, {self._size[0]}, {self._size[1]})>"
+        activated = "" if self._active else "INACTIVE "
+        return f"<{activated}rectangle({self._color!r}, {self._size[0]}, {self._size[1]})>"
 
     def _recalculate_offset(self):
         size = self._size * self._scale

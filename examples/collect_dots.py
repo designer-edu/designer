@@ -32,6 +32,7 @@ def grab_dots(world, x, y):
     for dot in world['dots']:
         if colliding(dot, x, y):
             world['score'] += 1
+            destroy(dot)
         else:
             kept_dots.append(dot)
     world['dots'] = kept_dots

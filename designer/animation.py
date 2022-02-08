@@ -89,6 +89,7 @@ def glide_in_degrees(obj, direction, speed):
     """
     raise NotImplementedError("This function is not ready yet!")
 
+
 def spin(obj, duration=5, angle_limit=360):
     """
     Rotates object in place for a given number of degrees

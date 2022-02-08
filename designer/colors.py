@@ -1,16 +1,12 @@
-import difflib
-import importlib
 import json
-import os
 import re
 from os import path
 
 from designer.utilities.argument_checks import make_suggestions
 
 this_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'data/colors.json'), encoding='utf-8') as f:
+with open(path.join(this_directory, 'data/colors.json')) as f:
     colors = json.load(f)
-    f.close()
 
 
 def hex_to_rgb(hx, hsl=False):

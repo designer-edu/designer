@@ -16,8 +16,6 @@ Important concepts:
         integer (or long, possibly)
 """
 
-from weakref import ref as _wref
-
 class _LayerTree:
     """
     Starts keeping track of the entity as a child of this view.
@@ -30,11 +28,11 @@ class _LayerTree:
     #: should eventually be possible to change it.
     MAX_LAYERS = 40
     def __init__(self, scene):
-        self.layers = {_wref(scene) : []}
-        self.child_views = {_wref(scene) : []}
-        self.layer_location = {_wref(scene) : [0]}
-        self.scene = _wref(scene)
-        self.tree_height = {_wref(scene) : 1}
+        self.layers = {scene : []}
+        self.child_views = {scene : []}
+        self.layer_location = {scene : [0]}
+        self.scene = scene
+        self.tree_height = {scene : 1}
         self._precompute_positions()
         self.maximum_height = 1
 
@@ -46,7 +44,6 @@ class _LayerTree:
         :param view: the View to remove
         :type view: View (not a weakref)
         """
-        view = _wref(view)
         del self.tree_height[view]
         del self.layers[view]
         self.child_views[view()._parent].remove(view)
@@ -61,7 +58,6 @@ class _LayerTree:
         :type view: View (not a weakref)
         """
         parent = view._parent
-        view = _wref(view)
         self.layers[view] = []
         self.child_views[view] = []
         self.child_views[parent].append(view)
@@ -96,7 +92,7 @@ class _LayerTree:
         :param layers: the name of the layer on the parent
         :type layers: a list of strings
         """
-        self.layers[_wref(view)] = list(layers)
+        self.layers[view] = list(layers)
         self._precompute_positions()
 
     def _compute_positional_chain(self, chain):
@@ -162,7 +158,6 @@ class _LayerTree:
         :type layer: string
         :returns: A `float` representing where this layer is relative to others.
         """
-        parent = _wref(parent)
         s = layer.split(':')
         layer = s[0]
         offset = 0

@@ -1,4 +1,3 @@
-import imghdr
 from typing import Optional
 
 from urllib.request import urlopen, Request
@@ -16,6 +15,20 @@ from designer.utilities import Vec2D
 from designer.utilities.util import _anchor_offset
 from designer.utilities.gif_image import GifImage
 
+try:
+    import imghdr
+    ALT_MODE = False
+    FileNotFoundError
+except:
+    FileNotFoundError = Exception
+    ALT_MODE = True
+    # TODO: Figure out how to do imghdr's gif stuff in skulpt
+    class imghdr:
+        def what(self, path, data):
+            if isinstance(path, str):
+                return path.endswith('.gif')
+            else:
+                return False
 
 class Image(DesignerObject):
     _USER_AGENT = "Designer Game Library for Python"
@@ -99,6 +112,9 @@ class Image(DesignerObject):
                 if self._filename.startswith('https://') or self._filename.startswith('http://'):
                     raise ValueError(f"Unexpected error while loading url: {self._filename!r}")
                 raise ValueError(f"Unexpected error while loading image from filename: {self._filename!r}")
+
+    def _load_image_url_only(self):
+        self._internal_image = InternalImage(filename=self._filename)
 
     def _recalculate_offset(self):
         """
@@ -199,3 +215,6 @@ def image(path, x=None, y=None, anchor='center', **kwargs):
         x, y = x
     return Image((x, y), path, anchor, **kwargs)
 
+
+if ALT_MODE:
+    Image._load_image = Image._load_image_url_only

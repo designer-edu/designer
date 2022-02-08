@@ -2,7 +2,7 @@
 from designer import *
 
 # Load a background image
-background_fox = image('https://i.imgur.com/5S2Bi4Y.png')
+set_background_image('https://i.imgur.com/5S2Bi4Y.png')
 
 # Construct the house
 wall = rectangle('firebrick', 200, 200, 0, 300, )
@@ -23,4 +23,4 @@ title = text('green', "Goodnight Moon", 30, 150, 50)
 moon = circle('lightgray', 75, 500, 100)
 
 # Comparable to `print`, make images appear
-draw(background_fox, house, title, moon)
+draw(house, title, moon)

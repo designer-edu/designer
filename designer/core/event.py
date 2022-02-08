@@ -27,18 +27,10 @@ import pygame
 import json
 import os
 import random
-import base64
+# TODO: Reenable support for base64 after skulpt supports it
+#import base64
 
 import designer
-from weakref import WeakMethod
-from designer.utilities.weak_method import WeakMethod as _wm
-
-
-def WeakMethod(func):
-    try:
-        return _wm(func)
-    except TypeError:
-        return func
 
 
 class GameEndException(Exception):
@@ -202,7 +194,7 @@ def register(event_namespace, handler,
                          other event handlers registered.
     """
     event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
-    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (WeakMethod(handler),),
+    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (handler,),
                                                           args, kwargs, priority, False)
 
 
@@ -215,6 +207,7 @@ def unregister(event_namespace, handler):
     :param handler: The handler to unregister.
     :type handler: a function or string.
     """
+    event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
     designer.GLOBAL_DIRECTOR.current_window._unregister(event_namespace, handler)
 
 
@@ -352,9 +345,10 @@ class LiveEventHandler(EventHandler):
         if self._save:
             self._file = open(output_file, 'w')
             seed = os.urandom(4)
-            info = {'random_seed': base64.encodestring(seed)}
-            random.seed(seed)
-            self._file.write(json.dumps(info) + "\n")
+            # TODO: Reenable base64 support
+            #info = {'random_seed': base64.encodestring(seed)}
+            #random.seed(seed)
+            #self._file.write(json.dumps(info) + "\n")
 
     def tick(self):
         mouse = pygame.mouse.get_pos()
@@ -380,7 +374,8 @@ class ReplayEventHandler(EventHandler):
         EventHandler.__init__(self)
         self._file = open(input_file)
         info = json.loads(self._file.readline())
-        random.seed(base64.decodestring(info['random_seed']))
+        # TODO: Reenable base64 support
+        # random.seed(base64.decodestring(info['random_seed']))
         self.paused = False
 
     def pause(self):

@@ -6,4 +6,4 @@ middle = text('black', '(400, 300)', 50, anchor='center')
 
 bottom_right = text('black', '(800, 600)', 50, 800, 600, anchor='bottomright')
 
-draw(left_top)
+draw(left_top, middle, bottom_right)

@@ -42,6 +42,10 @@ class Circle(DesignerObject):
         # And draw!
         self._redraw_internal_image()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        return f"<{activated}circle({self._color!r}, {self._radius})>"
+
     def _recalculate_offset(self):
         size = 2 * self._radius * self.scale[0]
         offset = _anchor_offset(self._anchor, size, size)

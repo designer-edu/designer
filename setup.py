@@ -11,12 +11,12 @@ REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
 
 setuptools.setup(
     name='designer',
-    version='0.1.7',
+    version='0.2.0',
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core'],
     package_data={
-        'designer': ['data/colors.json', 'data/default_key_mappings.txt']
+        'designer': ['data/colors.json', 'data/default_key_mappings.txt', 'data/unicode_names.json']
     },
     author_email='kris@udel.edu',
     description='Student-friendly and evidence-based visual graphics library.',

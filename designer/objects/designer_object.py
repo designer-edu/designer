@@ -1,13 +1,10 @@
 import difflib
 
-import pygame
 import designer
-import math
 from typing import List, Optional, Dict
-from weakref import ref as _wref, ReferenceType
 
 from designer.core.window import Window
-from designer.core.event import Event, register
+from designer.core.event import Event, register, unregister
 from designer.utilities.vector import Vec2D
 from designer.core.internal_image import InternalImage, DesignerSurface
 from designer.utilities.rect import Rect
@@ -33,9 +30,8 @@ class DesignerObject:
         "alpha"
     )
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, **kwargs):
         designer.check_initialized()
-        designer.GLOBAL_DIRECTOR._track_object(self)
 
         if parent is None:
             parent = designer.GLOBAL_DIRECTOR.current_window
@@ -48,17 +44,22 @@ class DesignerObject:
 
         # Independent Fields
         self._independent_fields = ('_pos', '_size', '_anchor', '_scale', '_angle', '_flip_x', '_flip_y')
-        self._layer: Optional[str] = None
+        self._layer: Optional[str] = kwargs.get('layer', None)
         self._blend_flags = 0
-        self._alpha = 1.0
-        self._visible = True
-        self._pos = Vec2D(0, 0)
-        self._size = Vec2D(1, 1)
-        self._anchor = 'topleft'
-        self._scale = Vec2D(1.0, 1.0)
-        self._angle = 0
-        self._flip_x = False
-        self._flip_y = False
+        self._alpha = kwargs.get('alpha', 1.0)
+        self._visible = kwargs.get('visible', True)
+        self._pos = Vec2D(kwargs.get('pos')) if 'pos' in kwargs else Vec2D(kwargs.get('x', 0), kwargs.get('y', 0))
+        self._size = Vec2D(kwargs.get('size')) if 'pos' in kwargs else Vec2D(kwargs.get('width', 1), kwargs.get('height', 1))
+        self._anchor = kwargs.get('anchor', 'topleft')
+        if 'scale' in kwargs and kwargs['scale'] != None:
+            s = kwargs.get('scale')
+            self._scale = Vec2D((s, s) if isinstance(s, (int, float)) else s)
+        else:
+            self._scale = Vec2D(kwargs.get('scale_x', 1.0), kwargs.get('scale_y', 1.0))
+        self._angle = kwargs.get('angle', 0)
+        self._flip_x = kwargs.get('flip_x', False)
+        self._flip_y = kwargs.get('flip_y', False)
+        self._active = kwargs.get('active', False)
         # TODO: Finish setting up cropping
         self._crop: Optional[Rect] = None
         self._mask: Optional[Rect] = None
@@ -75,14 +76,12 @@ class DesignerObject:
         self._progress: Dict[Animation, float] = {}
 
         # Internal references to parents
-        self._parent = _wref(parent)
-        self._window: ReferenceType[Window] = _wref(parent.window)
+        self._parent = parent
+        self._window: Window = parent.window
 
-        # Establish backreferences
-        parent._add_child(self)
-        self._window()._register_object(self)
-
-        register('director.render', self._draw)
+        # Add it to the world
+        if designer.GLOBAL_DIRECTOR.running:
+            self._reactivate()
 
         self.FIELDS = set(self.FIELDS)
 
@@ -92,7 +91,8 @@ class DesignerObject:
             if suggestions:
                 raise KeyError(f"Key {item!r} not found. Perhaps you meant one of these? {suggestions}")
             else:
-                raise KeyError(f"Key {item!r} not found. I didn't recognize that key, you should check the documentation!")
+                raise KeyError(
+                    f"Key {item!r} not found. I didn't recognize that key, you should check the documentation!")
 
     def __getitem__(self, item):
         """ Allow this object to be treated like a dictionary. """
@@ -114,7 +114,7 @@ class DesignerObject:
 
     def __del__(self):
         if self._static:
-            self._window()._remove_static_blit(self)
+            self._window._remove_static_blit(self)
 
     def _expire_static(self):
         """
@@ -128,7 +128,7 @@ class DesignerObject:
         # Expire static is part of the private API which must
         # be implemented by Sprites that wish to be static.
         if self._static:
-            self._window()._remove_static_blit(self)
+            self._window._remove_static_blit(self)
         self._static = False
         self._age = 0
         self._set_collision_box()
@@ -155,10 +155,10 @@ class DesignerObject:
         # Rotate
         if self._angle != 0:
             angle = self._angle % 360
-            #old = Vec2D(target.rect.center)
+            # old = Vec2D(target.rect.center)
             target.rotate(angle)
-            #new = target.rect.center
-            #self._transform_offset = old - new
+            # new = target.rect.center
+            # self._transform_offset = old - new
         # Finish updates
         self._transform_image = target._surf
         self._recalculate_offset()
@@ -424,11 +424,27 @@ class DesignerObject:
         self._expire_static()
 
     @property
+    def active(self) -> bool:
+        """
+        A boolean indicating whether the object is *active*, aka it should be drawn and have collisions, animations,
+        and other events handled. An object is active when it is first created while the game is running, but inactive
+        if it is created before the game is started.
+        """
+        return self._active
+
+    @active.setter
+    def active(self, value):
+        if value:
+            self.reactivate()
+        else:
+            self.destroy()
+
+    @property
     def window(self):
         """
         The top-level window that this object belongs to. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def parent(self):
@@ -436,7 +452,7 @@ class DesignerObject:
         The parent of this object, either a :class:`View <designer.objects.view.View>` or a
         :class:`Window <desinger.objects.view.View>`. Read-only.
         """
-        return self._parent()
+        return self._parent
 
     @property
     def mask(self):
@@ -465,7 +481,7 @@ class DesignerObject:
             return
 
         # TODO: Make sure this is sufficient
-        self._transform_image.set_alpha(int(self._alpha*255))
+        self._transform_image.set_alpha(int(self._alpha * 255))
 
         area = Rect(self._transform_image.get_rect())
         b = _Blit(self._transform_image, self._pos - self._offset,
@@ -475,9 +491,9 @@ class DesignerObject:
             b.static = True
             self._make_static = False
             self._static = True
-            self._parent()._static_blit(self, b)
+            self._parent._static_blit(self, b)
             return
-        self._parent()._blit(b)
+        self._parent._blit(b)
         self._age += 1
 
     def _set_collision_box(self):
@@ -491,8 +507,8 @@ class DesignerObject:
         else:
             area = self._mask
         c = _CollisionBox(self._pos - self._offset, area)
-        warped_box = self._parent()._warp_collision_box(c)
-        self._window()._set_collision_box(self, warped_box.rect)
+        warped_box = self._parent._warp_collision_box(c)
+        self._window._set_collision_box(self, warped_box.rect)
 
     def destroy(self):
         """
@@ -501,10 +517,29 @@ class DesignerObject:
         memory if there are other references to it; if you need to do that,
         remember to ``del`` the reference to it.
         """
-        self._window()._unregister_object(self)
-        self._window()._remove_static_blit(self)
-        self._parent()._remove_child(self)
+        self._active = False
+        designer.GLOBAL_DIRECTOR._untrack_object(self)
+        self._window._unregister_object(self)
+        self._window._remove_static_blit(self)
+        self._parent._remove_child(self)
+        unregister('director.render', self._draw)
 
+    def _reactivate(self):
+        """
+        Internal method for making an Object active again.
+        Not a preferred mechanism, may have undefined behavior.
+
+        TODO: Finish this so that it can actually work if people want this.
+        """
+        self._active = True
+        designer.GLOBAL_DIRECTOR._track_object(self)
+        self.parent._add_child(self)
+        self._window._register_object(self)
+        self._age = 0
+        self._static = False
+        register('director.render', self._draw)
+
+    # Animation Methods
 
     def _evaluate(self, animation, progress):
         """
@@ -541,7 +576,6 @@ class DesignerObject:
         # Stop all completed animations
         for animation in completed:
             self.stop_animation(animation)
-
 
     def animate(self, animation):
         """
@@ -602,7 +636,7 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   other object.
         """
-        return self._window().collide_objects(self, other)
+        return self._window.collide_objects(self, other)
 
     def collide_point(self, point):
         """
@@ -614,7 +648,7 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   position.
         """
-        return self._window().collide_point(self, *point)
+        return self._window.collide_point(self, *point)
 
     def collide_rect(self, rect):
         """
@@ -626,4 +660,4 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   rect.
         """
-        return self._window().collide_rect(self, rect)
+        return self._window.collide_rect(self, rect)

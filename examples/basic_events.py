@@ -2,6 +2,7 @@ import math
 from designer import *
 import random
 
+set_window_title(None)
 
 def warp(obj):
     obj['x'] = random.randint(0, get_width())
@@ -32,12 +33,25 @@ def spin_the_ada(world):
 
 COLORS = ['red', 'green', 'purple']
 
+hidden_box1 = warp(rectangle('green', 30, 50))
+
+# hidden_box2
+warp(rectangle('blue', 30, 50))
+
+@when('input.keyboard.u')
+def activate_hidden_box(world):
+    if hidden_box1.active:
+        destroy(hidden_box1)
+    else:
+        hidden_box1._reactivate()
+    print({n: [h0[0].__self__ for h0 in h if hasattr(h0[0], '__self__')] for n, h in get_director().current_window._handlers.items()})
+
 
 def create_the_world():
     # This will not persist, it was not saved in the world!
     text("black", "Creating the world", 30)
     return {
-        'orbs': [make_orb() for i in range(100)],
+        'orbs': [make_orb() for i in range(5)],
         'ada': make_ada(),
         'box': warp(rectangle('orange', 30, 50))
     }
@@ -114,13 +128,15 @@ def eat_the_orbs(world):
     for orb in world['orbs']:
         if orb['scale'][0] >= .5:
             kept_orbs.append(orb)
+        else:
+            destroy(orb)
     world['orbs'] = kept_orbs
 
 
 def destroy_latest_orb(world, key):
     if key == 'd':
         if world['orbs']:
-            world['orbs'].pop()
+            world['orbs'].pop().destroy()
         else:
             world['orbs'].append(make_orb())
 
@@ -128,4 +144,4 @@ when('starting', create_the_world)
 when('updating', jiggle_the_ada, spin_the_ada, step_orbs, eat_the_orbs)
 when('clicking', warp_the_orbs)
 when('typing', recolor_the_orbs, destroy_latest_orb)
-draw()
+start()

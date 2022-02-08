@@ -109,7 +109,6 @@ GameClock.schedule_interval.
 """
 
 import time
-from functools import reduce
 
 
 class _IntervalItem(object):
@@ -359,7 +358,7 @@ class GameClock:
             ]
             if sched_due != 0:
                 upcoming_events.append(sched_due)
-            next = reduce(min, upcoming_events)
+            next = min(upcoming_events)
             ticks = self.get_ticks()
             time_to_sleep = next - ticks
             if time_to_sleep >= 0.002:

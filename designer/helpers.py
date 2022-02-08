@@ -1,9 +1,7 @@
-import imghdr
-from typing import Optional, Union
+from typing import Union
 
 from urllib.request import urlopen, Request
 import pygame
-import math
 import sys
 import os
 import io
@@ -15,6 +13,12 @@ from designer.core.internal_image import InternalImage
 from designer.utilities.vector import Vec2D
 from designer.utilities.argument_checks import make_suggestions
 
+try:
+    import imghdr
+    ALT_MODE = False
+except:
+    FileNotFoundError = Exception
+    ALT_MODE = True
 
 def check_initialized(**kwargs):
     """
@@ -40,6 +44,10 @@ def draw(*objs):
     :return: None
     """
     check_initialized()
+    if len(objs) == 1:
+        objs = objs[0]
+    else:
+        objs = list(objs)
     designer.GLOBAL_DIRECTOR.start(objs)
 
 
@@ -125,7 +133,7 @@ def set_window_size(width, height):
     :return: None
     """
     if not check_initialized(width=width, height=height):
-        designer.GLOBAL_DIRECTOR.screen = pygame.display.set_mode(size=(width, height))
+        designer.GLOBAL_DIRECTOR.screen = pygame.display.set_mode((width, height))
     designer.GLOBAL_DIRECTOR.window_size = width, height
 
 
@@ -297,9 +305,32 @@ def when(event: Union[str, callable], *funcs):
         else:
             raise ValueError(
                 f"Unrecognized event {event!r}. Check the documentation to see possible events (like 'updating' and 'starting').")
-    for func in funcs:
-        register(event, func)
+    if funcs:
+        for func in funcs:
+            register(event, func)
+    else:
+        def decorated(function):
+            register(event, function)
+        return decorated
 
+
+def starting(*funcs):
+    return when('starting', *funcs)
+
+
+def updating(*funcs):
+    return when('updating', *funcs)
+
+
+def typing(*funcs):
+    return when('typing', *funcs)
+
+
+def clicking(*funcs):
+    return when('clicking', *funcs)
+
+
+# TODO: would_be_colliding function to test a hypothetical move
 
 def colliding(*args):
     # TODO: Could use collide_circle and collide_mask for improved collisions
@@ -330,23 +361,29 @@ _USER_AGENT = "Designer Game Library for Python"
 
 def background_image(path):
     check_initialized()
-    try:
-        path_strs = path.split('/')
-        fixed_paths = os.path.join(*path_strs)
-        if os.path.exists(fixed_paths):
-            designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(fixed_paths)
-        else:
-            raise FileNotFoundError(fixed_paths)
-    except FileNotFoundError as err:
+    if ALT_MODE:
+        designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(filename=path)
+    else:
         try:
-            req = Request(path, headers={'User-Agent': _USER_AGENT})
-            with urlopen(req) as opened_image:
-                image_str = opened_image.read()
-                image_file = io.BytesIO(image_str)
-                designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(filename=path, fileobj=image_file)
-        except:
-            print(f"Unexpected error while loading background image: {path}\n", sys.exc_info()[0])
-            raise
+            path_strs = path.split('/')
+            fixed_paths = os.path.join(*path_strs)
+            if os.path.exists(fixed_paths):
+                designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(fixed_paths)
+            else:
+                raise FileNotFoundError(fixed_paths)
+        except FileNotFoundError as err:
+            try:
+                req = Request(path, headers={'User-Agent': _USER_AGENT})
+                with urlopen(req) as opened_image:
+                    image_str = opened_image.read()
+                    image_file = io.BytesIO(image_str)
+                    designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(filename=path, fileobj=image_file)
+            except:
+                print(f"Unexpected error while loading background image: {path}\n", sys.exc_info()[0])
+                raise
+
+
+set_background_image = background_image
 
 
 def get_director():

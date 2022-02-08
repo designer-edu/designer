@@ -20,9 +20,9 @@ class Animation:
     Animations can be appended one after another with the `+`
     operator, and can be run in parallel with the `&` operator.
 
-    >>> from designer.utilties import Animation, easing
-    >>> first  = Animation('x', easing.Linear(0, 100), 2.0)
-    >>> second = Animation('y', easing.Linear(0, 100), 2.0)
+    >>> from designer import Animation, Linear
+    >>> first  = Animation('x', Linear(0, 100), 2.0)
+    >>> second = Animation('y', Linear(0, 100), 2.0)
     # Sequential animations
     >>> right_angle = first + second
     # Parallel animations
@@ -60,7 +60,7 @@ class Animation:
         self.easing = easing
         self.duration = duration
         self.loop = loop
-        self.properties = set((property,))
+        self.properties = {property}
         self._shift = shift
 
     def evaluate(self, object, progress):
@@ -167,9 +167,9 @@ class SequentialAnimation(Animation):
     the entire SequentialAnimation. If loop is set to true, the
     entire SequentialAnimation will loop indefinitely.
     """
-    def __init__(self, *animations, **kwargs):
+    def __init__(self, *animations: Animation, **kwargs):
         self.properties = set()
-        self._animations = animations
+        self._animations = list(animations)
         self.duration = 0
         self.absolute = True
         self.loop = kwargs.get('loop', False)
@@ -183,24 +183,36 @@ class SequentialAnimation(Animation):
             if animation.loop and animation is not animations[-1]:
                 raise ValueError("Looping animation in the middle of a "
                                  "sequence is not allowed.")
-        if animations[-1].loop is True:
+        if animations and animations[-1].loop is True:
             self.loop = self.duration - animations[-1].duration
 
     def evaluate(self, object, progress):
         res = {}
+        # We have no animations
+        if not self._animations:
+            return res
+        # We reached the end
         if progress == self.duration:
             res.update(self._animations[-1].evaluate(object,
                        self._animations[-1].duration))
             return res
+        # Progress through all the animations till we reach our current
         i = 0
         while progress > self._animations[i].duration:
             progress -= self._animations[i].duration
             i += 1
+        # As long as we reached one, let's evaluate the previous?
         if i > 0:
-            res.update(self._animations[i - 1].evaluate(object,
-                       self._animations[i - 1].duration))
+            res.update(self._animations[i - 1].evaluate(object, self._animations[i - 1].duration))
         res.update(self._animations[i].evaluate(object, progress))
         return res
+
+    def append(self, another):
+        self.properties.update(another.properties)
+        self.duration += another.duration
+        if another.loop is True and (not self._animations or self._animations[-1].loop is False):
+            self.loop = self.duration - another.duration
+        self._animations.append(another)
 
 
 class DelayAnimation(Animation):

@@ -2,9 +2,6 @@
 
 from PIL import Image
 import pygame
-from pygame.locals import *
-
-import time
 
 from designer.utilities.animation import Animation
 from designer.utilities.easings import Iterate
@@ -91,7 +88,7 @@ class GifImage(Animation):
                 #pi.set_palette(palette)
                 if "transparency" in image.info:
                     pi.set_colorkey(image.info["transparency"])
-                pi2 = pygame.Surface(image.size, SRCALPHA)
+                pi2 = pygame.Surface(image.size, pygame.SRCALPHA)
                 if cons:
                     for i in self.frames:
                         pi2.blit(i[0], (0,0))

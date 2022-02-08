@@ -89,6 +89,8 @@ def drop_waters(world):
         drop['y'] += WATER_DROP_SPEED
         if drop['y'] < get_height():
             kept.append(drop)
+        else:
+            destroy(drop)
     world['drops'] = kept
 
 
@@ -108,12 +110,13 @@ def collide_water_fire(world):
             if colliding(drop, fire):
                 if drop not in destroyed_drops:
                     destroyed_drops.append(drop)
+                    destroy(drop)
                 if fire not in destroyed_fires:
                     destroyed_fires.append(fire)
+                    destroy(fire)
                     world['score'] += 1
     world['drops'] = filter_from(world['drops'], destroyed_drops)
     world['fires'] = filter_from(world['fires'], destroyed_fires)
-
 
 
 def update_counter(world):

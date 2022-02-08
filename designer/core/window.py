@@ -1,4 +1,3 @@
-import weakref
 from typing import Optional
 
 import pygame
@@ -14,8 +13,6 @@ from designer.core.event import COMMON_EVENT_NAME_LOOKUP, get_positional_event_p
 from designer.core.internal_image import InternalImage
 from designer.utilities.layer_tree import _LayerTree
 from collections import defaultdict
-from weakref import ref as _wref, WeakSet, WeakKeyDictionary, WeakMethod
-from designer.utilities.weak_method import WeakMethodBound, DeadFunctionError
 from designer.core.clock import GameClock
 
 
@@ -83,18 +80,18 @@ class Window:
         self._clear_this_frame = []
         self._clear_next_frame = []
         self._soft_clear = []
-        self._static_blits = WeakKeyDictionary()
+        self._static_blits = {}
         self._invalidating_views = {}
-        self._collision_boxes = WeakKeyDictionary()
+        self._collision_boxes = {}
         self._rect = self._surface.get_rect()
 
         self._layers = []
         self._child_views = []
         self._layer_tree = _LayerTree(self)
-        self._objects = WeakSet()
+        self._objects = set()
 
         # View interface
-        self._window = _wref(self)
+        self._window = self
         self._views = []
 
         self._events_activated = False
@@ -135,7 +132,7 @@ class Window:
         for handler in handlers:
             self._handlers[namespace].append((handler, args, kwargs,
                                               priority, dynamic))
-        self._handlers[namespace].sort(key=operator.itemgetter(3))
+        self._handlers[namespace].sort(key=lambda item: item[3]) # operator.itemgetter(3))
 
     def _get_namespaces(self, namespace):
         """
@@ -157,7 +154,6 @@ class Window:
             elif hasattr(event, arg):
                 return getattr(event, arg)
             else:
-                #print("MISSING?", event, arg, default, fillval, type, dir(event))
                 if default != inspect.Parameter.empty:
                     return default
                 positional_parameters = get_positional_event_parameters(event_type, event)
@@ -189,10 +185,10 @@ class Window:
             try:
                 signature = inspect.signature(funct)
             except Exception as e:
-                raise Exception(("Unfortunate Python Problem! "
-                                 f"{handler} isn't supported by Python's "
-                                 "inspect module! Oops."))
-            # TODO: Handle all parameters elegantly
+                return handler()
+                #raise Exception(("Unfortunate Python Problem! "
+                #                 f"{handler} isn't supported by Python's "
+                #                 "inspect module! Oops."))
             h_args = [p.name for p in signature.parameters.values()]
             h_defaults = [p.default for p in signature.parameters.values()] or tuple()
             if len(h_args) > 0 and 'self' == h_args[0]:
@@ -221,10 +217,7 @@ class Window:
                                        in self._get_namespaces(event_type))
         result = [] if collect_results else None
         for handler_info in handlers:
-            try:
-                new_result = self._send_event_to_handler(event, event_type, *handler_info)
-            except DeadFunctionError:
-                new_result = None
+            new_result = self._send_event_to_handler(event, event_type, *handler_info)
             if new_result is not None:
                 if collect_results:
                     result.append(new_result)
@@ -250,8 +243,7 @@ class Window:
     def _unregister_object_events(self, object):
         for name, handlers in self._handlers.items():
             self._handlers[name] = [h for h in handlers
-                                    if (not isinstance(h[0], WeakMethod)
-                                        or h[0].weak_object_ref() is not object)]
+                                    if not hasattr(h[0], '__self__') or h[0].__self__ is not object]
             if not self._handlers[name]:
                 del self._handlers[name]
 
@@ -269,10 +261,10 @@ class Window:
             event_namespace = event_namespace[:-2]
         self._handlers[event_namespace] = [h for h
                                            in self._handlers[event_namespace]
-                                           if ((not isinstance(h[0], WeakMethod) and handler != h[0])
-                                               or (isinstance(h[0], WeakMethod)
-                                                   and ((h[0].func is not handler.__func__)
-                                                        or (h[0].weak_object_ref() is not handler.__self__))))]
+                                           if ((not hasattr(h[0], '__self__') and handler != h[0])
+                                               or hasattr(h[0], '__self__')
+                                                   and ((h[0].__func__ is not handler.__func__)
+                                                        or (h[0].__self__ is not handler.__self__)))]
         if not self._handlers[event_namespace]:
             del self._handlers[event_namespace]
 
@@ -354,14 +346,14 @@ class Window:
         """
         Returns this window. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def parent(self):
         """
         Returns this window. Read-only.
         """
-        return self._window()
+        return self._window
 
     @property
     def background(self):
@@ -391,7 +383,7 @@ class Window:
         """
         self._objects.add(object)
         # Add the view and its parents to the invalidating_views for the object
-        parent_view = object._parent()
+        parent_view = object._parent
         while parent_view != self:
             if parent_view not in self._invalidating_views:
                 self._invalidating_views[parent_view] = set()
@@ -487,7 +479,7 @@ class Window:
         static_blits = len(self._static_blits)
         dynamic_blits = len(self._blits)
         blits = list(self._static_blits.values()) + self._blits
-        blits.sort(key=operator.attrgetter('layer'))
+        blits.sort(key=lambda l: l.layer)
 
         # Clear this is a list of things which need to be cleared
         # on this frame and marked dirty on the next
@@ -505,11 +497,9 @@ class Window:
         screen_rect = screen.get_rect()
         drawn_static = 0
 
-        blit_flags_available = pygame.version.vernum < (1, 8)
-
         for blit in blits:
             blit_rect = blit.rect
-            blit_flags = blit.flags if blit_flags_available else 0
+            blit_flags = blit.flags
             # If a blit is entirely off screen, we can ignore it altogether
             if not screen_rect.contains(blit_rect) and not screen_rect.colliderect(blit_rect):
                 continue

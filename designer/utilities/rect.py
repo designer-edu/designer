@@ -338,7 +338,7 @@ class Rect:
 
         :returns: A :class:`pygame.Rect`
         """
-        return pygame.Rect(((self.left, self.top), (self.width, self.height)))
+        return pygame.Rect((self.left, self.top), (self.width, self.height))
 
     def __str__(self):
         return ''.join(['<rect(',

@@ -12,6 +12,7 @@ build/
 sphinx/
 develop-eggs/
 dist/
+dist-js/
 downloads/
 eggs/
 .eggs/

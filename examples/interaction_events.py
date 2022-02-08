@@ -36,7 +36,7 @@ def score_the_frog(world):
     for target in world['targets']:
         if colliding(world['frog'], target):
             world['score'] += 1
-            destroy(target)  # <-- This is unexpected! But how else do we tell Designer that it's dead?
+            destroy(target)
         else:
             remaining_targets.append(target)
     world['targets'] = remaining_targets

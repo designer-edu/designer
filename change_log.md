@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+# Version 0.2.0
+
+* Removed all use of `weakref` for compatibility with BlockPy
+* Added `emoji` function
+* Added `pen` function
+* Created all the Movement functions to manipulate attributes with functions
+
 # Version 0.1.7
 
 * Add in `lines` to replace old `shape` behavior
