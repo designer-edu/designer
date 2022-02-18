@@ -20,12 +20,12 @@ def move_backward(object, amount, angle=None):
 
 
 def turn_right(object, amount):
-    object.angle += amount
+    object.angle -= amount
     return object
 
 
 def turn_left(object, amount):
-    object.angle -= amount
+    object.angle += amount
     return object
 
 
@@ -109,6 +109,11 @@ def grow(object, amount):
     return object
 
 
+def shrink(object, amount):
+    object.scale -= amount
+    return object
+
+
 def get_scale(object):
     return object.scale
 
@@ -148,6 +153,11 @@ def show(object):
 
 def hide(object):
     object.visible = False
+    return object
+
+
+def set_visible(object, status):
+    object.visible = status
     return object
 
 
