@@ -4,6 +4,8 @@ Change Log
 # Version 0.2.2
 
 * Bugfix for turn_right and turn_left, added in a few missing functions
+* Bugfix for point_towards functions, math was incorrect
+* Added `emoji_clicker` example
 
 # Version 0.2.1
 
