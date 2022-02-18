@@ -30,7 +30,7 @@ class DesignerGroup(DesignerObject):
         super().__init__()
 
         boxes = [
-            Rect(object._pos, object._transform_image.get_size())
+            Rect(object._pos - object._offset, object._transform_image.get_size())
             for object in objects
         ]
         if boxes:
@@ -44,6 +44,8 @@ class DesignerGroup(DesignerObject):
             center = get_width(), get_height()
             size = 1, 1
             topleft = center
+        print(center, topleft, size)
+        print(boxes)
 
         self._pos = center
         self._anchor = 'center'
@@ -53,7 +55,7 @@ class DesignerGroup(DesignerObject):
         self._internal_image_version: Optional[int] = None
 
         for object in objects:
-            self._internal_image._surf.blit(object._transform_image, object.pos - topleft)
+            self._internal_image._surf.blit(object._transform_image, object.pos - topleft  - object._offset)
             self._internal_image_version = 1
 
         # And draw!
