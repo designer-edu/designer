@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.2.2
+
+* Bugfix for turn_right and turn_left, added in a few missing functions
+
 # Version 0.2.1
 
 * Bugfix release with missing emoji datafiles
