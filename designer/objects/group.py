@@ -44,8 +44,6 @@ class DesignerGroup(DesignerObject):
             center = get_width(), get_height()
             size = 1, 1
             topleft = center
-        print(center, topleft, size)
-        print(boxes)
 
         self._pos = center
         self._anchor = 'center'
