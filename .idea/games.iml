@@ -5,7 +5,6 @@
       <sourceFolder url="file://$MODULE_DIR$/designer" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/srcdoc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/docsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/dist" />
       <excludeFolder url="file://$MODULE_DIR$/designer.egg-info" />
