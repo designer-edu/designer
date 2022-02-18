@@ -7,6 +7,7 @@ import os
 import io
 
 import designer
+from designer.mouse import get_mouse_position
 from designer.core.event import register, KNOWN_EVENTS
 from designer.core.director import Director
 from designer.core.internal_image import InternalImage
@@ -347,6 +348,10 @@ def colliding(*args):
         else:
             raise ValueError(f"Could not recognize the type of the arguments: {args!r}")
         return obj.collide_point(Vec2D(x, y))
+
+
+def colliding_with_mouse(object):
+    return object.collide_point(get_mouse_position())
 
 
 def destroy(*gobjects):

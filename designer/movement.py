@@ -1,5 +1,6 @@
 import math
 
+from designer.utilities.vector import Vec2D
 from designer.mouse import get_mouse_position
 
 
@@ -57,13 +58,35 @@ def point_in_direction(object, angle):
     return object
 
 
+def angle_between(p1, p2):
+    # https://stackoverflow.com/a/64807404/1718155
+    d1 = p2[0] - p1[0]
+    d2 = p2[1] - p1[1]
+    if d1 == 0:
+        if d2 == 0:  # same points?
+            deg = 0
+        else:
+            deg = 90 if p1[1] > p2[1] else 270
+    elif d2 == 0:
+        deg = 0 if p1[0] < p2[0] else 180
+    else:
+        deg = math.atan(d2 / d1) / math.pi * 180
+        lowering = p1[1] < p2[1]
+        if (lowering and deg < 0) or (not lowering and deg > 0):
+            deg += 180
+        else:
+            deg += 0
+    return deg
+
+
 def point_towards(object, other_object):
-    object.angle = math.degrees(object.pos.angle(other_object.pos))
+    object.angle = angle_between(object.pos, other_object.pos)
     return object
 
 
 def point_towards_mouse(object):
-    object.angle = math.degrees(object.pos.angle(get_mouse_position()))
+    object.angle = angle_between(object.pos, get_mouse_position())
+    print(object.angle)
     return object
 
 
