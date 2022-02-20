@@ -41,7 +41,7 @@
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Designer Object Function Quick List" href="functions.html" />
+    <link rel="next" title="Designer Functions Quick List" href="functions.html" />
     <link rel="prev" title="Designer Worlds" href="world.html" /> 
 </head>
 
@@ -93,10 +93,9 @@
 <li class="toctree-l1"><a class="reference internal" href="quickstart.html">Designer Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="world.html">Designer Worlds</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Designer Documentation for Students</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-designer.DesignerObject">Designer Objects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#specific-designerobjects">Specific DesignerObjects</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-designerobjects">Creating DesignerObjects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-designer.DesignerObject">Designer Objects Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#designer-object-functions">Designer Object Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-designer.animation">Animation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#events">Events</a></li>
@@ -104,7 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#game-control">Game Control</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Designer Object Function Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Designer Functions Quick List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Designer Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">More Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/sparkles.html">Sparkles</a></li>
@@ -181,9 +180,427 @@
            <div itemprop="articleBody">
             
   <div class="section" id="designer-documentation-for-students">
-<h1>Designer Documentation for Students<a class="headerlink" href="#designer-documentation-for-students" title="Permalink to this headline">¶</a></h1>
+<span id="fulldocs"></span><h1>Designer Documentation for Students<a class="headerlink" href="#designer-documentation-for-students" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="creating-designerobjects">
+<h2>Creating DesignerObjects<a class="headerlink" href="#creating-designerobjects" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="image"></span><dl class="py function">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create an image from the given <cite>path</cite>. The <cite>path</cite> given
+can be a local file or a URL to a remote image. Keep in mind that
+loading large URLs can take a little while.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># A random corgi picture from a website</span>
+<span class="n">image</span><span class="p">(</span><span class="s2">&quot;http://placecorgi.com/260/180&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We recommend always storing images as local files in adjacent folders,
+to simplify problems with paths. Never use absolute file locations like
+<cite>C:/Users/acbart…</cite> or <cite>/usr/acbart/</cite>, but instead use relative paths.</p>
+<p>Most popular image formats are supported: <cite>png</cite>, <cite>gif</cite>, <cite>bmp</cite>, <cite>jpeg</cite>.</p>
+<p>Animated gifs are partially supported, although many suffer from corruption.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to use</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – horizontal location to draw the image</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – vertical location to draw the image</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Image object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="emoji"></span><dl class="py function">
+<dt class="sig sig-object py" id="id1">
+<span class="sig-name descname"><span class="pre">emoji</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">emoji</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create an emoji of the given <cite>name</cite>. You can also provide the actual unicode character.
+Not every unicode emoji is supported. You can find a <a class="reference external" href="https://emojis.wiki/">searchable emoji list here</a>. Copy
+paste the emoji as a string literal as the <cite>name</cite> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Either of these will create a picture of a dog on your screen</span>
+<span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog&quot;</span><span class="p">)</span>
+<span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;🐕&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The unicode name of the emoji, or the unicode character of the emoji.</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – horizontal location to draw the emoji</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – vertical location to draw the emoji</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Emoji image object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="text"></span><dl class="py function">
+<dt class="sig sig-object py" id="id2">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Arial'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create text on the screen with the given color.
+Not all unicode characters are supported!</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black text that reads &quot;Hello world!&quot;</span>
+<span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the text</p></li>
+<li><p><strong>message</strong> (<em>str</em>) – text to appear on window</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Font size of the text</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of text</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of text</p></li>
+<li><p><strong>font_name</strong> (<em>str</em>) – The name of the font to use. Defaults to ‘Arial’.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Text object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="rectangle"></span><dl class="py function">
+<dt class="sig sig-object py" id="id3">
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create a rectangle object. You must specify the color, width, and height
+of the rectangle. Optionally, you can also position it at a specific x/y coordinate,
+although it will default to the center of the Window.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black rectangle of size 100x100</span>
+<span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Red rectangle of size 50x50 in topleft corner</span>
+<span class="c1"># Part of the rectangle will be caught off since its drawn from the center</span>
+<span class="n">red_box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Once created, you can manipulate the border and other properties</span>
+<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>You can also control the border of the rectangle in order to make the shape not be
+filled, but instead just a bordered rectangle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue rectangle of size 75x100, not filled</span>
+<span class="n">empty</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
+object relative to its position.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50x50 rectangle drawn from the topleft corner, at position 0,0</span>
+<span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the rectangle</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the rectangle</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the rectangle</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>border</strong> (<em>int</em>) – If given, the rectangle is not filled; instead, the center of the rectangle is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
+<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Rectangle designer object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="circle"></span><dl class="py function">
+<dt class="sig sig-object py" id="id4">
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id4" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create a circle with the given <cite>radius</cite>. Defaults to
+being drawn at the center of the screen, from the center of the
+circle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black circle of radius 100</span>
+<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Red circle of radius 50 in topleft corner</span>
+<span class="c1"># Part of the circle will be caught off since its drawn from the center</span>
+<span class="n">red_circle</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Once created, you can manipulate the border and other properties</span>
+<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>You can also control the border of the circle in order to make the shape not be
+filled, but instead just a bordered circle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue circle of size 75, not filled</span>
+<span class="n">empty</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
+object relative to its position.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50-radius circle drawn from the topleft corner, at position 0,0</span>
+<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the circle</p></li>
+<li><p><strong>radius</strong> (<em>int</em>) – radius of circle in pixels</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>border</strong> (<em>int</em>) – If given, the circle is not filled; instead, the center of the circle is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
+<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Circle object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="ellipse"></span><dl class="py function">
+<dt class="sig sig-object py" id="id5">
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id5" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create an ellipse object. You must specify the color, width, and height
+of the ellipse. Optionally, you can also position it at a specific x/y coordinate,
+although it will default to the center of the Window.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black ellipse of size 100x100</span>
+<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Red ellipse of size 50x50 in topleft corner</span>
+<span class="c1"># Part of the rectangle will be caught off since its drawn from the center</span>
+<span class="n">red_ellipse</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Once created, you can manipulate the border and other properties</span>
+<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
+</pre></div>
+</div>
+<p>You can also control the border of the ellipse in order to make the shape not be
+filled, but instead just a bordered ellipse.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue ellipse of size 75x100, not filled</span>
+<span class="n">empty</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
+</pre></div>
+</div>
+<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
+object relative to its position.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50x50 ellipse drawn from the topleft corner, at position 0,0</span>
+<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the ellipse</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the ellipse</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the ellipse</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
+<li><p><strong>border</strong> (<em>int</em>) – If given, the ellipse is not filled; instead, the center of the ellipse is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
+<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Ellipse designer object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="line"></span><dl class="py function">
+<dt class="sig sig-object py" id="id6">
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id6" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create a line, beginning at the coordinates given by
+<cite>(start_x, start_y)</cite> and ending at the coordinates given by
+<cite>(end_x, end_y)</cite>. These coordinates are given as absolute values,
+and must be provided.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue line stretching from 0,0, to 50, 100</span>
+<span class="n">line</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thick Red line stretching from the middle to the bottom right</span>
+<span class="n">line</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the line</p></li>
+<li><p><strong>start_x</strong> (<em>int</em>) – x-coordinate at which to start line</p></li>
+<li><p><strong>start_y</strong> (<em>int</em>) – y-coordinate at which to start line</p></li>
+<li><p><strong>end_x</strong> (<em>int</em>) – x-coordinate at which to end line</p></li>
+<li><p><strong>end_y</strong> (<em>int</em>) – y-coordinate at which to end line</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Line designer object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="arc"></span><dl class="py function">
+<dt class="sig sig-object py" id="id7">
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id7" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to make an arc, as if it were part of an ellipse. Think of the
+arc as being part of the border of an ellipse with the given width/height;
+then the <cite>start_angle</cite> and <cite>stop_angle</cite> are the slice (in degrees) of the
+border that will actually be drawn. This is a line, not a polygon, so there
+is no option to fill in the arc.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c1"># Black arc of size 100x100, from 0 to 90 degrees (quarter circle)</span>
+<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Black arc of size 100x100, from 135 to 270 degrees (2/3 circle)</span>
+<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+
+<span class="c1"># Red U of size 50x50 in topleft corner</span>
+<span class="c1"># Part will be cut off unless you change the anchor!</span>
+<span class="n">red_U</span> <span class="o">=</span> <span class="n">arc</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Once created, you can manipulate the thickness and other properties</span>
+<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;topleft&#39;</span>
+<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the arc</p></li>
+<li><p><strong>start_angle</strong> (<em>int</em>) – angle in degrees to start drawing arc at</p></li>
+<li><p><strong>stop_angle</strong> (<em>int</em>) – angle in degrees to stop drawing arc at</p></li>
+<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the arc, as if it were a complete ellipse</p></li>
+<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the arc, as if it were a complete ellipse</p></li>
+<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of arc</p></li>
+<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of arc</p></li>
+<li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Arc object created</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DesignerObject</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="shape"></span><dl class="py function">
+<dt class="sig sig-object py" id="id8">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">color</span></em>, <em class="sig-param"><span class="pre">x1</span></em>, <em class="sig-param"><span class="pre">y1</span></em>, <em class="sig-param"><span class="pre">x2</span></em>, <em class="sig-param"><span class="pre">y2</span></em>, <em class="sig-param"><span class="pre">x3</span></em>, <em class="sig-param"><span class="pre">y3</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id8" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create a shape of at least three points. The points should be relative to each other.
+The resulting image will be centered in the middle of the window, which can be adjusted by using <cite>x</cite> and <cite>y</cite>.
+If you want to absolutely position the image instead, then use <cite>lines</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
+<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shape object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="lines"></span><dl class="py function">
+<dt class="sig sig-object py" id="id9">
+<span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">color</span></em>, <em class="sig-param"><span class="pre">x1</span></em>, <em class="sig-param"><span class="pre">y1</span></em>, <em class="sig-param"><span class="pre">x2</span></em>, <em class="sig-param"><span class="pre">y2</span></em>, <em class="sig-param"><span class="pre">x3</span></em>, <em class="sig-param"><span class="pre">y3</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id9" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to create a shape of at least three points. The points will be absolutely positioned in the window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
+<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Shape object created</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="group"></span><dl class="py function">
+<dt class="sig sig-object py" id="id10">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">object1</span></em>, <em class="sig-param"><span class="pre">...</span></em><span class="sig-paren">)</span><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Function to group any number of Designer <cite>objects</cite> together. They will produce one single picture when they are done.
+The advantage of grouping together a bunch of objects is that they become easier to rotate and scale together.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Created Designer Group object</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="module-designer.DesignerObject">
-<span id="designer-objects"></span><h2>Designer Objects<a class="headerlink" href="#module-designer.DesignerObject" title="Permalink to this headline">¶</a></h2>
+<span id="designer-objects-attributes"></span><h2>Designer Objects Attributes<a class="headerlink" href="#module-designer.DesignerObject" title="Permalink to this headline">¶</a></h2>
 <p>DesignerObjects are how images and shapes are positioned and drawn onto the screen.
 They aggregate together information such as where to be drawn, their size, and their color.
 Each type of DesignerObject has its own specific kinds of attributes, but all DesignerObjects
@@ -364,58 +781,42 @@ both properties at the same time.</p>
 <dd><p>The position of the object on the screen, as a list of two values.</p>
 </dd></dl>
 
-<div class="section" id="specific-designerobjects">
-<h3>Specific DesignerObjects<a class="headerlink" href="#specific-designerobjects" title="Permalink to this headline">¶</a></h3>
-<span class="target" id="rectangle"></span><dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.rectangle">
-<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.rectangle" title="Permalink to this definition">¶</a></dt>
+</div>
+<div class="section" id="designer-object-functions">
+<h2>Designer Object Functions<a class="headerlink" href="#designer-object-functions" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="move-forward"></span><dl class="py function">
+<dt class="sig sig-object py" id="designer.DesignerObject.move_forward">
+<span class="sig-name descname"><span class="pre">move_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.move_forward" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">rectangle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a rectangle object. You must specify the color, width, and height
-of the rectangle. Optionally, you can also position it at a specific x/y coordinate,
-although it will default to the center of the Window.</p>
+<span class="sig-name descname"><span class="pre">move_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span></dt>
+<dd><p>Move the given <cite>object</cite> forward by <cite>amount</cite>, either in its current rotation
+<cite>angle</cite> attribute or the given <cite>angle</cite>. This changes the <cite>x</cite> and <cite>y</cite> attribute
+of the Designer Object, in addition to returning the value.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Black rectangle of size 100x100</span>
-<span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="c1"># Defaults to angle=0 (pointing to the right)</span>
+<span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
 
-<span class="c1"># Red rectangle of size 50x50 in topleft corner</span>
-<span class="c1"># Part of the rectangle will be caught off since its drawn from the center</span>
-<span class="n">red_box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># Move the box to the right 50 pixels</span>
+<span class="n">move_forward</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 
-<span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-</pre></div>
-</div>
-<p>You can also control the border of the rectangle in order to make the shape not be
-filled, but instead just a bordered rectangle.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue rectangle of size 75x100, not filled</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-</pre></div>
-</div>
-<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
-object relative to its position.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50x50 rectangle drawn from the topleft corner, at position 0,0</span>
-<span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
+<span class="c1"># Move the box upwards 20 pixels</span>
+<span class="n">move_forward</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">90</span><span class="p">)</span>
+
+<span class="c1"># Move the box down and left, both 10 pixels, by chaining</span>
+<span class="n">move_forward</span><span class="p">(</span><span class="n">move_forward</span><span class="p">(</span><span class="n">box</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">270</span><span class="p">),</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the rectangle</p></li>
-<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the rectangle</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the rectangle</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>border</strong> (<em>int</em>) – If given, the rectangle is not filled; instead, the center of the rectangle is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
-<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
+<li><p><strong>object</strong> (<em>DesignerObject</em>) – A Designer Object</p></li>
+<li><p><strong>amount</strong> (<em>int</em>) – The number of pixels to move</p></li>
+<li><p><strong>angle</strong> (<em>int</em>) – The direction (in degrees) to move in; defaults to the object’s current <cite>angle</cite> attribute (which defaults to 0).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Rectangle designer object created</p>
+<dd class="field-even"><p>The Designer Object that was passed in.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
@@ -423,327 +824,6 @@ object relative to its position.</p>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.line">
-<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.line" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a line, beginning at the coordinates given by
-<cite>(start_x, start_y)</cite> and ending at the coordinates given by
-<cite>(end_x, end_y)</cite>. These coordinates are given as absolute values,
-and must be provided.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue line stretching from 0,0, to 50, 100</span>
-<span class="n">line</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Thick Red line stretching from the middle to the bottom right</span>
-<span class="n">line</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="n">thickness</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the line</p></li>
-<li><p><strong>start_x</strong> (<em>int</em>) – x-coordinate at which to start line</p></li>
-<li><p><strong>start_y</strong> (<em>int</em>) – y-coordinate at which to start line</p></li>
-<li><p><strong>end_x</strong> (<em>int</em>) – x-coordinate at which to end line</p></li>
-<li><p><strong>end_y</strong> (<em>int</em>) – y-coordinate at which to end line</p></li>
-<li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Line designer object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.circle">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.circle" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a circle with the given <cite>radius</cite>. Defaults to
-being drawn at the center of the screen, from the center of the
-circle.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black circle of radius 100</span>
-<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red circle of radius 50 in topleft corner</span>
-<span class="c1"># Part of the circle will be caught off since its drawn from the center</span>
-<span class="n">red_circle</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-</pre></div>
-</div>
-<p>You can also control the border of the circle in order to make the shape not be
-filled, but instead just a bordered circle.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue circle of size 75, not filled</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-</pre></div>
-</div>
-<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
-object relative to its position.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50-radius circle drawn from the topleft corner, at position 0,0</span>
-<span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the circle</p></li>
-<li><p><strong>radius</strong> (<em>int</em>) – radius of circle in pixels</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>border</strong> (<em>int</em>) – If given, the circle is not filled; instead, the center of the circle is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
-<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Circle object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.ellipse">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.ellipse" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ellipse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an ellipse object. You must specify the color, width, and height
-of the ellipse. Optionally, you can also position it at a specific x/y coordinate,
-although it will default to the center of the Window.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black ellipse of size 100x100</span>
-<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red ellipse of size 50x50 in topleft corner</span>
-<span class="c1"># Part of the rectangle will be caught off since its drawn from the center</span>
-<span class="n">red_ellipse</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
-</pre></div>
-</div>
-<p>You can also control the border of the ellipse in order to make the shape not be
-filled, but instead just a bordered ellipse.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue ellipse of size 75x100, not filled</span>
-<span class="n">empty</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
-</pre></div>
-</div>
-<p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
-object relative to its position.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue 50x50 ellipse drawn from the topleft corner, at position 0,0</span>
-<span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">anchor</span><span class="o">=</span><span class="s1">&#39;topleft&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the ellipse</p></li>
-<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the ellipse</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the ellipse</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – The horizontal position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – The vertical position in the Window. If not specified, defaults to the center of the window.</p></li>
-<li><p><strong>border</strong> (<em>int</em>) – If given, the ellipse is not filled; instead, the center of the ellipse is empty and only a border is shown. The thickness of the border is given by this value.</p></li>
-<li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Ellipse designer object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.arc">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.arc" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to make an arc, as if it were part of an ellipse. Think of the
-arc as being part of the border of an ellipse with the given width/height;
-then the <cite>start_angle</cite> and <cite>stop_angle</cite> are the slice (in degrees) of the
-border that will actually be drawn. This is a line, not a polygon, so there
-is no option to fill in the arc.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black arc of size 100x100, from 0 to 90 degrees (quarter circle)</span>
-<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="c1"># Black arc of size 100x100, from 135 to 270 degrees (2/3 circle)</span>
-<span class="n">arc</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Red U of size 50x50 in topleft corner</span>
-<span class="c1"># Part will be cut off unless you change the anchor!</span>
-<span class="n">red_U</span> <span class="o">=</span> <span class="n">arc</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-
-<span class="c1"># Once created, you can manipulate the thickness and other properties</span>
-<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;topleft&#39;</span>
-<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the arc</p></li>
-<li><p><strong>start_angle</strong> (<em>int</em>) – angle in degrees to start drawing arc at</p></li>
-<li><p><strong>stop_angle</strong> (<em>int</em>) – angle in degrees to stop drawing arc at</p></li>
-<li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the arc, as if it were a complete ellipse</p></li>
-<li><p><strong>height</strong> (<em>int</em>) – The vertical height of the arc, as if it were a complete ellipse</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of arc</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of arc</p></li>
-<li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Arc object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.text">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.text" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Arial'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create text on the screen with the given color.
-Not all unicode characters are supported!</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># Black text that reads &quot;Hello world!&quot;</span>
-<span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello world!&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the text</p></li>
-<li><p><strong>message</strong> (<em>str</em>) – text to appear on window</p></li>
-<li><p><strong>size</strong> (<em>int</em>) – Font size of the text</p></li>
-<li><p><strong>x</strong> (<em>int</em>) – left most x-coordinate of text</p></li>
-<li><p><strong>y</strong> (<em>int</em>) – top most y-coordinate of text</p></li>
-<li><p><strong>font_name</strong> (<em>str</em>) – The name of the font to use. Defaults to ‘Arial’.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Text object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.image">
-<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.image" title="Permalink to this definition">¶</a></dt>
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an image from the given <cite>path</cite>. The <cite>path</cite> given
-can be a local file or a URL to a remote image. Keep in mind that
-loading large URLs can take a little while.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c1"># A random corgi picture from a website</span>
-<span class="n">image</span><span class="p">(</span><span class="s2">&quot;http://placecorgi.com/260/180&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>We recommend always storing images as local files in adjacent folders,
-to simplify problems with paths. Never use absolute file locations like
-<cite>C:/Users/acbart…</cite> or <cite>/usr/acbart/</cite>, but instead use relative paths.</p>
-<p>Most popular image formats are supported: <cite>png</cite>, <cite>gif</cite>, <cite>bmp</cite>, <cite>jpeg</cite>.</p>
-<p>Animated gifs are partially supported, although many suffer from corruption.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to use</p></li>
-<li><p><strong>x</strong> – left most x-coordinate of image</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Image object created</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>DesignerObject</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.shape">
-<span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.shape" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a shape of at least three points. The points should be relative to each other.
-The resulting image will be centered in the middle of the window, which can be adjusted by using <cite>x</cite> and <cite>y</cite>.
-If you want to absolutely position the image instead, then use <cite>lines</cite>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
-<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Shape object created</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.lines">
-<span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to create a shape of at least three points. The points will be absolutely positioned in the window.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
-<li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Shape object created</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.DesignerObject.group">
-<span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.group" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function to group multiple objects together. They will produce one single picture when they are done.</p>
-<p>TODO: Unfinished!</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Created Designer Group object</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 </div>
 <div class="section" id="module-designer.animation">
 <span id="animation"></span><h2>Animation<a class="headerlink" href="#module-designer.animation" title="Permalink to this headline">¶</a></h2>
@@ -922,6 +1002,14 @@ Defaults to <cite>‘white’</cite>.</p>
 <span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_handler</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.when" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">predicate_function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_handler</span></span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">'starting'</span></em>, <em class="sig-param"><span class="pre">event_handler</span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">'updating'</span></em>, <em class="sig-param"><span class="pre">event_handler</span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">'typing'</span></em>, <em class="sig-param"><span class="pre">event_handler</span></em><span class="sig-paren">)</span></dt>
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">'clicking'</span></em>, <em class="sig-param"><span class="pre">event_handler</span></em><span class="sig-paren">)</span></dt>
 <dd><p>Binds the function given by <cite>event_handler</cite> to the <cite>event_name</cite>.</p>
 </dd></dl>
 
@@ -974,7 +1062,7 @@ However, no further events will be processed (besides the <cite>‘quitting’</
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="functions.html" class="btn btn-neutral float-right" title="Designer Object Function Quick List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="functions.html" class="btn btn-neutral float-right" title="Designer Functions Quick List" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
         <a href="world.html" class="btn btn-neutral float-left" title="Designer Worlds" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 

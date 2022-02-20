@@ -1,5 +1,96 @@
-Designer Object Function Quick List
-###################################
+.. _quicklist:
+
+Designer Functions Quick List
+#############################
+
+Creating objects
+----------------
+
+====================================================================== =================================================
+ :ref:`Images<image>`
+====================================================================== =================================================
+ `image(path)`
+ `image(path, x, y)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Built-in Emojis<emoji>`
+====================================================================== =================================================
+ `emoji(name)`
+ `emoji(name, x, y)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Text<text>`
+====================================================================== =================================================
+ `text(color, text)`
+ `text(color, text, size)`
+ `text(color, text, size, x, y)`
+ `text(color, text, size, x, y, font_name="Arial")`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Rectangles<rectangle>`
+====================================================================== =================================================
+ `rectangle(color, width, height)`
+ `rectangle(color, width, height, x, y)`
+ `rectangle(color, width, height, x, y, border, anchor)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Circles<circle>`
+====================================================================== =================================================
+ `circle(color, radius)`
+ `circle(color, radius, x, y)`
+ `circle(color, radius, x, y, border, anchor)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Ellipses<ellipse>`
+====================================================================== =================================================
+ `ellipse(color, width, height)`
+ `ellipse(color, width, height, x, y)`
+ `ellipse(color, width, height, x, y, border, anchor)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Line between two points<line>`
+====================================================================== =================================================
+ `line(color, start_x, start_y, end_x, end_y)`
+ `line(color, start_x, start_y, end_x, end_y, thickness)`
+====================================================================== =================================================
+
+========================================================================================== =================================================
+ :ref:`Arc between two points<arc>`
+========================================================================================== =================================================
+ `arc(color, start_angle, stop_angle, width, height)`
+ `arc(color, start_angle, stop_angle, width, height, x, y)`
+ `arc(color, start_angle, stop_angle, width, height, x, y, thickness=1, anchor='center')`
+========================================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Shape<shape>`
+====================================================================== =================================================
+ `shape(color, x1, y1, x2, y2, x3, y3, ...)`
+ `shape(color, points)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Connected Lines<lines>`
+====================================================================== =================================================
+ `lines(color, x1, y1, x2, y2, x3, y3, ...)`
+ `lines(color, points)`
+====================================================================== =================================================
+
+====================================================================== =================================================
+ :ref:`Frozen Group of Objects<group>`
+====================================================================== =================================================
+ `group(object1, ...)`
+ `group(objects)`
+====================================================================== =================================================
+
+Moving and Positioning Objects
+------------------------------
 
 ========================================= ==============================================================================
   Position
@@ -11,6 +102,7 @@ Designer Object Function Quick List
  `move_to_xy(object, x, y)`                Set the object's `x` and `y` to the given pixel locations
  `move_to(object, other_object)`           Set the first object's `x` and `y` to the other object's location
  `move_to_mouse(object)`                   Set the object's `x` and `y` to the current mouse position
+ `change_xy(object, x_amount, y_amount)`   Increase the object's `x` and `y` location by the two amounts
  `change_x(object, amount)`                Increase the object's `x` location by the `amount`
  `change_y(object, amount)`                Increase the object's `y` location by the `amount`
  `set_x(object, new_x)`                    Set the object's `x` coordinate to be `new_x`
@@ -18,6 +110,9 @@ Designer Object Function Quick List
  `get_x(object)`                           Get the object's `x` coordinate
  `get_y(object)`                           Get the object's `y` coordinate
 ========================================= ==============================================================================
+
+Rotating Objects
+----------------
 
 ========================================= ==============================================================================
  Angle
@@ -30,12 +125,16 @@ Designer Object Function Quick List
  `get_angle(object)`                       Get the object's `angle` in degrees that it is oriented towards
 ========================================= ==============================================================================
 
-========================================= ==============================================================================
+Scaling and Size of Objects
+---------------------------
+
+========================================= ===================================================================================
  Size
-========================================= ==============================================================================
+========================================= ===================================================================================
  `set_scale(object, scale)`               Set the object's `scale` to a float relative to `1.0`
- `grow(object, amount)`                   Increase the object's `scale` by the decimal `amount`
- `shrink(object, amount)`                 Decrease the object's `scale` by the decimal `amount`
+ `change_scale(object, amount)`           Increase the object's scale by the decimal `amount`
+ `grow(object, times)`                    Make the object bigger by `times`, setting its scale to that value
+ `shrink(object, times)`                  Make the object smaller by `times`, setting its scale to the inverse of that value
  `grow_x(object, amount)`                 Increase the object's horizontal `scale_x` by the decimal `amount`
  `grow_y(object, amount)`                 Increase the object's vertical `scale_y` by the decimal `amount`
  `set_scale_x(object, new_scale_x)`       Set the object's horizontal `scale_x` to the `new_scale_x`
@@ -43,7 +142,12 @@ Designer Object Function Quick List
  `get_scale(object)`                      Get the object's `scale`
  `get_scale_x(object)`                    Get the object's horizontal `scale_x`
  `get_scale_y(object)`                    Get the object's vertical `scale_y`
-========================================= ==============================================================================
+ `get_width(object)`                      Get the object's horizontal width in pixels before scaling
+ `get_height(object)`                     Get the object's vertical height in pixels before scaling
+========================================= ===================================================================================
+
+Visibility of Objects
+---------------------
 
 ========================================= ==============================================================================
  Visibility
@@ -53,6 +157,9 @@ Designer Object Function Quick List
  `set_visible(object, status)`            Sets the object to be `visible` or not based on `status`
  `get_visible(object)`                    Get whether or not the object is `visible`
 ========================================= ==============================================================================
+
+Flipping Objects
+----------------
 
 ========================================= ==============================================================================
  Flipping
@@ -66,41 +173,3 @@ Designer Object Function Quick List
 ========================================= ==============================================================================
 
 
-
-Full Function Reference
------------------------
-
-.. _move_forward:
-
-.. py:function:: move_forward(object, amount)
-                 move_forward(object, amount, angle)
-
-    Move the given `object` forward by `amount`, either in its current rotation
-    `angle` attribute or the given `angle`. This changes the `x` and `y` attribute
-    of the Designer Object, in addition to returning the value.
-
-    .. code-block:: python
-
-        from designer import *
-        # Black rectangle of size 100x100
-        # Defaults to angle=0 (pointing to the right)
-        box = rectangle("black", 100, 100)
-
-        # Move the box to the right 50 pixels
-        move_forward(box, 50)
-
-        # Move the box upwards 20 pixels
-        move_forward(box, 20, 90)
-
-        # Move the box down and left, both 10 pixels, by chaining
-        move_forward(move_forward(box, 10, 270), 10, 180)
-
-    :param object: A Designer Object
-    :type object: DesignerObject
-    :param amount: The number of pixels to move
-    :type amount: int
-    :param angle: The direction (in degrees) to move in; defaults to the object's current `angle` attribute (which defaults to 0).
-    :type angle: int
-
-    :return: The Designer Object that was passed in.
-    :rtype: DesignerObject

@@ -91,18 +91,20 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">How to Install Designer</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Designer Quick Start Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#what-are-our-options">What are our options?</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#shapes">1. Shapes!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#images">2. Images!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#text">3. Text!</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#make-a-designerobject-move">4. Make a DesignerObject move!</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#overview">0. Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shapes">1. Shapes!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#images">2. Images!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#text">3. Text!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scaling">4. Scaling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#moving">5. Moving</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rotating">6. Rotating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#grouping-objects">7. Grouping Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#read-on">8. Read on!</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="world.html">Designer Worlds</a></li>
 <li class="toctree-l1"><a class="reference internal" href="docs.html">Designer Documentation for Students</a></li>
-<li class="toctree-l1"><a class="reference internal" href="functions.html">Designer Object Function Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="functions.html">Designer Functions Quick List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshoot.html">Designer Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">More Help</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/sparkles.html">Sparkles</a></li>
@@ -186,13 +188,14 @@ basic animations.</p>
 <p>Let’s look at some code to get us started.</p>
 <p>Once you’ve installed Designer, you only need two lines of code to get started:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
 <span class="n">draw</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>These two lines of code create an external blank white window to appear. You will generally always need
 these two lines of code for Designer to function. Let’s fill in some code in between.</p>
-<div class="section" id="what-are-our-options">
-<h2>What are our options?<a class="headerlink" href="#what-are-our-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="overview">
+<h2>0. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>We can add visual elements, called DesignerObjects, to personalize our output.
 A DesignerObject is any graphic representation to add to the window.</p>
 <p>For example:</p>
@@ -204,78 +207,195 @@ A DesignerObject is any graphic representation to add to the window.</p>
 <p>You can use and pass around DesignerObjects as arguments to the <code class="docutils literal notranslate"><span class="pre">draw()</span></code> function to add the DesignerObjects
 you make to the window.</p>
 <p>What are some DesignerObjects?</p>
+</div>
 <div class="section" id="shapes">
-<h3>1. Shapes!<a class="headerlink" href="#shapes" title="Permalink to this headline">¶</a></h3>
+<h2>1. Shapes!<a class="headerlink" href="#shapes" title="Permalink to this headline">¶</a></h2>
 <p>You can make lines, circles, rectangles, ellipses, arcs, or any general polygons with at least three sides.</p>
 <p>Let’s look at the code and output for making a rectangle:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">green_rect</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span>
-<span class="n">draw</span><span class="p">(</span><span class="n">green_rect</span><span class="p">)</span>
+<span class="n">green_box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="n">draw</span><span class="p">(</span><span class="n">green_box</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s unpack <code class="docutils literal notranslate"><span class="pre">rectangle('green',</span> <span class="pre">0,</span> <span class="pre">0,</span> <span class="pre">400,</span> <span class="pre">600)</span></code>
-The function, <code class="docutils literal notranslate"><span class="pre">rectangle</span></code>, creates and returns a rectangle DesignerObject. It’s arguments:</p>
+<p>Let’s take a closer look at that <code class="docutils literal notranslate"><span class="pre">rectangle('green',</span> <span class="pre">400,</span> <span class="pre">500)</span></code> part.
+The function, <code class="docutils literal notranslate"><span class="pre">rectangle</span></code>, creates and returns a rectangle “Designer Object” when called.
+The call has three <em>arguments</em>:</p>
 <ul class="simple">
-<li><p>“green”, is the color the rectangle will be.</p></li>
-<li><p>The next two arguments, “0, 0”, represent the left (0) top (0) corner of the rectangle.</p></li>
-<li><p>The window operates on an x, y plane, where (0, 0), is the top left of the window. Moving to the right on the window increases the x value and moving down on the window increases the y value.</p></li>
-<li><p>The final two arguments, “400, 300”, represent the width (400 pixels) and height (600 pixels) of the rectangle to be drawn.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;green&quot;</span></code>, is the color the rectangle will be</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">400</span></code> is the width of the rectangle in pixels</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">600</span></code> is the height of the rectangle in pixels</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/green_rect.png"><img alt="computer window with left half of the window a green rectangle and right half of the window white." src="../_images/green_rect.png" style="width: 700px;" /></a>
+<p>The window operates on an x, y plane, where (0, 0), is the top left of the window.
+Moving to the right on the window increases the x value and moving down on the window increases the y value.
+By default, Designer places images in the center of the window.</p>
+<a class="reference internal image-reference" href="../_images/simple_green_box.png"><img alt="computer window with green rectangle in the middle, surrounded by whitespace" src="../_images/simple_green_box.png" style="width: 700px;" /></a>
 </div>
 <div class="section" id="images">
-<h3>2. Images!<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h3>
-<p>You can add images in two different ways:
-#. The file path to an image
-#. The link to an image</p>
-<p>Let’s use the link to this <a class="reference external" href="https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png">frog image</a>.</p>
+<h2>2. Images!<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>You can add your own images in two different ways:
+#. The file path to an image on your computer
+#. The URL (or link) to an image on a website</p>
+<p>Let’s use the link to this <a class="reference external" href="https://i.imgur.com/HRB9pqu.png">frog image</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">frog</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png&#39;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">frog</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s2">&quot;https://i.imgur.com/HRB9pqu.png&quot;</span><span class="p">)</span>
 <span class="n">draw</span><span class="p">(</span><span class="n">frog</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Noticing a trend yet? The function, <code class="docutils literal notranslate"><span class="pre">image</span></code>, creates and returns an image DesignerObject.</p>
-<ul class="simple">
-<li><p>The first argument of <code class="docutils literal notranslate"><span class="pre">image</span></code> can be a string representing a url to an image, such as in this example. Or, it can be a string of a file path to an image.</p></li>
-<li><p>The next two arguments, “100, 100”, are again the left (100) top (100) corner of the image.</p></li>
-</ul>
-<a class="reference internal image-reference" href="../_images/frog.png"><img alt="computer window with left half of the window an image of a cartoon frog and right half of the window white." src="../_images/frog.png" style="width: 700px;" /></a>
+<p>Just like before, the <code class="docutils literal notranslate"><span class="pre">image</span></code> function creates and returns an image DesignerObject that we can then <cite>draw</cite>.
+The first argument of <code class="docutils literal notranslate"><span class="pre">image</span></code> can be a string representing a url to an image, such as in this example.
+Or, it can be a string of a file path to an image - but then that file must be on your computer!</p>
+<a class="reference internal image-reference" href="../_images/frog.png"><img alt="computer window with with a cute cartoon frog in the middle surrounded by whitespace" src="../_images/frog.png" style="width: 700px;" /></a>
+<p>If you don’t have your own image, then you can also use the <code class="docutils literal notranslate"><span class="pre">emoji</span></code> function to load a built-in image from our library.
+These images are just like the emojis that you send in other messages. You can either use the emoji itself (<code class="docutils literal notranslate"><span class="pre">&quot;🐸&quot;</span></code>) or, if you
+know its name, you can use that instead (<code class="docutils literal notranslate"><span class="pre">&quot;frog&quot;</span></code>).
+There are websites where you can easily find big lists of emojis, like <a class="reference external" href="https://emojis.wiki/">this</a></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">frog</span> <span class="o">=</span> <span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;frog&quot;</span><span class="p">)</span>
+<span class="c1"># Alternatively:</span>
+<span class="c1"># frog = emoji(&quot;🐸&quot;)</span>
+<span class="n">draw</span><span class="p">(</span><span class="n">frog</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Don’t worry if the emoji seems small, we’ll learn how to make it bigger in just a bit!</p>
+<a class="reference internal image-reference" href="../_images/emoji.png"><img alt="computer window with with a cute cartoon frog emoji in the middle surrounded by whitespace" src="../_images/emoji.png" style="width: 700px;" /></a>
 </div>
 <div class="section" id="text">
-<h3>3. Text!<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h3>
+<h2>3. Text!<a class="headerlink" href="#text" title="Permalink to this headline">¶</a></h2>
 <p>You can add any string to the window.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">hello</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="n">hello</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="s2">&quot;Hello World!&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
 <span class="n">draw</span><span class="p">(</span><span class="n">hello</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>The function, <code class="docutils literal notranslate"><span class="pre">text</span></code>, creates and returns a text DesignerObject.</p>
 <ul class="simple">
-<li><p>The first argument, “Hello World!”, is the text to add to the window.</p></li>
-<li><p>The next argument, “blue”, is the color the text will be.</p></li>
-<li><p>The last argument, “40”, is the size of the text’s font.</p></li>
+<li><p>The first argument, <code class="docutils literal notranslate"><span class="pre">&quot;blue&quot;</span></code>, is the color the text will be.</p></li>
+<li><p>The second argument, <code class="docutils literal notranslate"><span class="pre">&quot;Hello</span> <span class="pre">World!&quot;</span></code>, is the text to add to the window.</p></li>
+<li><p>The last argument, <code class="docutils literal notranslate"><span class="pre">40</span></code>, is the size of the text’s font.</p></li>
 </ul>
-<a class="reference internal image-reference" href="../_images/hello_world.png"><img alt="blank white computer window with words &quot;Hello World!&quot; on top left of the window." src="../_images/hello_world.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../_images/hello_world.png"><img alt="blank white computer window with blue words &quot;Hello World!&quot; on top left of the window." src="../_images/hello_world.png" style="width: 700px;" /></a>
 </div>
-<div class="section" id="make-a-designerobject-move">
-<h3>4. Make a DesignerObject move!<a class="headerlink" href="#make-a-designerobject-move" title="Permalink to this headline">¶</a></h3>
-<p>Let’s go back to our frog image code. What if we want it to glide across the window?</p>
-<p>Easy, let’s add one function call!</p>
+<div class="section" id="scaling">
+<h2>4. Scaling<a class="headerlink" href="#scaling" title="Permalink to this headline">¶</a></h2>
+<p>We mentioned before that we could make objects bigger. Let’s make the frog emoji from earlier 5x as big!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">frog</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;https://cdn.pixabay.com/photo/2017/08/15/15/44/frog-2644410_960_720.png&#39;</span><span class="p">)</span>
-<span class="n">glide_right</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">frog</span> <span class="o">=</span> <span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;frog&quot;</span><span class="p">)</span>
+<span class="n">grow</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
 <span class="n">draw</span><span class="p">(</span><span class="n">frog</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>See that we’ve added the function <code class="docutils literal notranslate"><span class="pre">glide_right</span></code>. By passing a DesignerObject, in this case our frog image,
-to the function as the first parameter, we can set it to glide to the right of the window.</p>
-<p>The second parameter, “10”, is the speed of the frog gliding. The higher the speed, the quicker the DesignerObject moves.</p>
-<p>Check out the <a class="reference external" href="https://krishols.github.io/designer/students/docs.html#module-designer.DesignerObject">documentation of DesignerObjects</a> to see all that you can add to your output!</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">grow</span></code> function takes in two arguments in order to adjust the <em>scale</em> of an object, which stretches
+or shrinks the image on screen.</p>
+<ul class="simple">
+<li><p>The first argument, <cite>frog</cite>, is the Designer Object we created previously.</p></li>
+<li><p>The second argument, <cite>5</cite>, is the number of times that we want to grow the image.</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/big_frog.png"><img alt="The frog emoji shown before, but now five times bigger" src="../_images/big_frog.png" style="width: 700px;" /></a>
 </div>
+<div class="section" id="moving">
+<h2>5. Moving<a class="headerlink" href="#moving" title="Permalink to this headline">¶</a></h2>
+<p>What if you don’t want the image right in the middle of the window? Well, you can create the object in a different
+starting place by specifying the <cite>x</cite> and <cite>y</cite> parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">green_box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">300</span><span class="p">)</span>
+<span class="n">draw</span><span class="p">(</span><span class="n">green_box</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We have drawn the green box again, but this time we added two additional arguments:</p>
+<ul class="simple">
+<li><p>The <cite>250</cite> represents the starting X coordinate of the box, the distance from the left side of the window</p></li>
+<li><p>The <cite>300</cite> represents the starting Y coordinate of the box, the distance from the top side of the window</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/moved_green_box.png"><img alt="The green box shown before, but now on the left side of the screen" src="../_images/moved_green_box.png" style="width: 700px;" /></a>
+<p>But what if we wanted to move the box AFTER creating it? Or if we wanted to move the box relative to the starting
+position of the screen? Another choice is to use the <code class="docutils literal notranslate"><span class="pre">change_x(object,</span> <span class="pre">amount)</span></code> and <code class="docutils literal notranslate"><span class="pre">change_y(object,</span> <span class="pre">amount)</span></code>
+functions, which move the object by a relative amount in the given direction.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">frog</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s2">&quot;https://i.imgur.com/HRB9pqu.png&quot;</span><span class="p">)</span>
+<span class="n">change_x</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">draw</span><span class="p">(</span><span class="n">frog</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The frog is now <code class="docutils literal notranslate"><span class="pre">200</span></code> pixels to the right of where it was before.</p>
+<a class="reference internal image-reference" href="../_images/moved_frog_image.png"><img alt="The frog image shown before, but now moved to the right" src="../_images/moved_frog_image.png" style="width: 700px;" /></a>
+</div>
+<div class="section" id="rotating">
+<h2>6. Rotating<a class="headerlink" href="#rotating" title="Permalink to this headline">¶</a></h2>
+<p>There are many other ways to change the way a Designer object looks. For example, we can spin and rotate
+images just as easily as we move and scale them.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">frog</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s2">&quot;https://i.imgur.com/HRB9pqu.png&quot;</span><span class="p">)</span>
+<span class="c1"># Make the frog half as big</span>
+<span class="n">grow</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># Rotate the frog 45 degrees upwards</span>
+<span class="n">turn_left</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">45</span><span class="p">)</span>
+<span class="c1"># Move the frog in its current direction 200 pixels</span>
+<span class="n">move_forward</span><span class="p">(</span><span class="n">frog</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="n">draw</span><span class="p">(</span><span class="n">frog</span><span class="p">)</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="../_images/rotated_frog_image.png"><img alt="The frog image shown before, but smaller, rotated, and moved" src="../_images/rotated_frog_image.png" style="width: 700px;" /></a>
+</div>
+<div class="section" id="grouping-objects">
+<h2>7. Grouping Objects<a class="headerlink" href="#grouping-objects" title="Permalink to this headline">¶</a></h2>
+<p>There are many other functions for moving, rotating, and otherwise changing objects. There are also many other
+functions for creating Designer Objects. You can find a convenient list of all these functions on this <a class="reference internal" href="functions.html#quicklist"><span class="std std-ref">Quick List page</span></a>.</p>
+<p>When you have a bunch of objects that you want to treat as a single image, you can use the <cite>group</cite> function to combine them together.
+Let’s make our own frog by using some of the other Designer functions.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Put the other two frogs on either side for reference</span>
+<span class="n">frog_image</span> <span class="o">=</span> <span class="n">change_x</span><span class="p">(</span><span class="n">image</span><span class="p">(</span><span class="s2">&quot;https://i.imgur.com/HRB9pqu.png&quot;</span><span class="p">),</span> <span class="o">-</span><span class="mi">300</span><span class="p">)</span>
+<span class="n">frog_emoji</span> <span class="o">=</span> <span class="n">change_x</span><span class="p">(</span><span class="n">grow</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;frog&quot;</span><span class="p">),</span> <span class="mi">5</span><span class="p">),</span> <span class="mi">300</span><span class="p">)</span>
+
+<span class="c1"># Make the head of the frog</span>
+<span class="n">frog_head</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="c1"># Two forestgreen eyes, on either side</span>
+<span class="n">left_eye</span> <span class="o">=</span> <span class="n">change_xy</span><span class="p">(</span><span class="n">circle</span><span class="p">(</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">right_eye</span> <span class="o">=</span> <span class="n">change_xy</span><span class="p">(</span><span class="n">circle</span><span class="p">(</span><span class="s2">&quot;forestgreen&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1"># Little black irises, on top of each eye</span>
+<span class="n">left_eye_iris</span> <span class="o">=</span> <span class="n">change_xy</span><span class="p">(</span><span class="n">circle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">right_eye_iris</span> <span class="o">=</span> <span class="n">change_xy</span><span class="p">(</span><span class="n">circle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="mi">50</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1"># A big, wide pink mouth</span>
+<span class="n">mouth</span> <span class="o">=</span> <span class="n">change_y</span><span class="p">(</span><span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;pink&quot;</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># Combine all the pieces of the frog into a single group</span>
+<span class="n">my_frog</span> <span class="o">=</span> <span class="n">group</span><span class="p">(</span><span class="n">frog_head</span><span class="p">,</span> <span class="n">mouth</span><span class="p">,</span> <span class="n">left_eye</span><span class="p">,</span> <span class="n">right_eye</span><span class="p">,</span> <span class="n">left_eye_iris</span><span class="p">,</span> <span class="n">right_eye_iris</span><span class="p">)</span>
+<span class="c1"># Move the frog upward 150 pixels</span>
+<span class="n">change_y</span><span class="p">(</span><span class="n">my_frog</span><span class="p">,</span> <span class="o">-</span><span class="mi">150</span><span class="p">)</span>
+
+<span class="c1"># Write the word &quot;Frogs!&quot; in the middle</span>
+<span class="n">message</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Frogs!&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+
+<span class="c1"># Have to call draw with all the things we want to draw</span>
+<span class="n">draw</span><span class="p">(</span><span class="n">frog_image</span><span class="p">,</span> <span class="n">frog_emoji</span><span class="p">,</span> <span class="n">my_frog</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We’re doing a lot in this example, but we added explanations to each line.</p>
+<ol class="arabic simple">
+<li><p>First, we put the old emoji and image we had before on either side of the window, so we have a reference.</p></li>
+<li><p>Then, we combine a bunch of different <code class="docutils literal notranslate"><span class="pre">circle</span></code> and <code class="docutils literal notranslate"><span class="pre">ellipse</span></code> calls along with <code class="docutils literal notranslate"><span class="pre">change_xy</span></code> to make the pieces of the frog head.</p></li>
+<li><p>Next we <code class="docutils literal notranslate"><span class="pre">group</span></code> all those pieces together into a single <code class="docutils literal notranslate"><span class="pre">my_frog</span></code> object, which we can then move in bulk upwards 150 pixels.</p></li>
+<li><p>After that, we write the word “Frogs!” in the middle of the window.</p></li>
+<li><p>Finally, we draw all four of our designer objects so we can see them.</p></li>
+</ol>
+<p>As you try making your own drawings, keep in mind that every object you want to appear on the screen MUST be passed as an argument
+to the <code class="docutils literal notranslate"><span class="pre">draw</span></code> function. Otherwise, the object won’t be visible!</p>
+<a class="reference internal image-reference" href="../_images/grouped_images.png"><img alt="A picture of three frogs, one that we drew ourselves, and the word &quot;Frogs!&quot;" src="../_images/grouped_images.png" style="width: 700px;" /></a>
+</div>
+<div class="section" id="read-on">
+<h2>8. Read on!<a class="headerlink" href="#read-on" title="Permalink to this headline">¶</a></h2>
+<p>Check out the <a class="reference internal" href="docs.html#fulldocs"><span class="std std-ref">documentation of DesignerObjects</span></a> to see all that you can add to your output! What
+will you design?</p>
 </div>
 </div>
 
