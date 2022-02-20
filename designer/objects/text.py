@@ -113,14 +113,14 @@ class Text(DesignerObject):
 def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
          x=None, y=None, anchor='center', font_name=Text.DEFAULT_FONT_NAME):
     '''
-       Function to create text.
+    Function to create text.
 
-       :param text: text to appear on window
-       :type text: str
-       :param color: color of text
-       :type color: str or List[str]
-       :return: Text object created
-       '''
+    :param text: text to appear on window
+    :type text: str
+    :param color: color of text
+    :type color: str or List[str]
+    :return: Text object created
+    '''
     if x is not None and y is None:
         try:
             x, y = x
