@@ -100,6 +100,12 @@ def change_y(object, amount):
     return object
 
 
+def change_xy(object, x_amount, y_amount):
+    object.x += x_amount
+    object.y += y_amount
+    return object
+
+
 def set_x(object, new_x):
     object.x = new_x
     return new_x
@@ -127,13 +133,18 @@ def set_scale(object, scale):
     return object
 
 
-def grow(object, amount):
-    object.scale += amount
+def grow(object, times):
+    object.scale = times
     return object
 
 
-def shrink(object, amount):
-    object.scale -= amount
+def shrink(object, times):
+    object.scale = 1/times
+    return object
+
+
+def change_scale(object, amount):
+    object.scale += amount
     return object
 
 
