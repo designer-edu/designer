@@ -7,6 +7,7 @@ Change Log
 * Bugfix for point_towards functions, math was incorrect
 * Added `emoji_clicker` example
 * Fixed `group` to respect offsets
+* Added `get_window_width`/`get_window_height`; make `get_width`/`get_height` work for windows AND objects
 
 # Version 0.2.1
 
