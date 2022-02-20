@@ -30,8 +30,8 @@ __all__ = [
     # Window information
     'set_window_color', 'get_window_color',
     'set_window_size',
-    'get_height',
-    'get_width',
+    'get_height', 'get_window_height',
+    'get_width', 'get_window_width',
     # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
     'start',
@@ -73,7 +73,7 @@ __all__ = [
     'get_music_volume', 'stop_music', 'rewind_music', 'continue_music', 'set_music_position', 'get_music_position',
     # Movement
     'move_forward', 'move_backward', 'turn_left', 'turn_right', 'go_to', 'go_to_xy', 'go_to_mouse',
-    'point_towards', 'point_towards_mouse', 'point_in_direction', 'change_x', 'change_y', 'set_x', 'set_y',
+    'point_towards', 'point_towards_mouse', 'point_in_direction', 'change_xy', 'change_x', 'change_y', 'set_x', 'set_y',
     'get_angle', 'get_x', 'get_y',
     'flip_x', 'flip_y', 'set_flip_x', 'set_flip_y', 'set_scale', 'set_scale_x', 'set_scale_y', 'set_background_image',
     'get_scale', 'get_scale_x', 'get_scale_y', 'get_visible', 'get_flip_x', 'get_flip_y', 'show', 'hide',
