@@ -138,27 +138,38 @@ def set_window_size(width, height):
     designer.GLOBAL_DIRECTOR.window_size = width, height
 
 
-def get_width():
+def get_width(object=None):
+    check_initialized()
+    if object is None:
+        return designer.GLOBAL_DIRECTOR.window_size[0]
+    return object.width
+
+
+def get_height(object=None):
+    check_initialized()
+    if object is None:
+        return designer.GLOBAL_DIRECTOR.window_size[1]
+    return object.height
+
+
+def get_window_width():
     """
     Get the width of the window.
 
     :return: pixels of horizontal width of window
     :rtype: int
     """
-    check_initialized()
-    return designer.GLOBAL_DIRECTOR.window_size[0]
+    return get_width()
 
 
-def get_height():
+def get_window_height():
     """
     Get the height of the window.
 
     :return: pixels of vertical height of window
     :rtype: int
     """
-
-    check_initialized()
-    return designer.GLOBAL_DIRECTOR.window_size[1]
+    return get_height()
 
 
 def get_mouse_cursor():
