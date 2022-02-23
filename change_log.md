@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.2.3
+
+* Layering now respects creation order within a layer
+* Ignore capitalization for emojis
+
 # Version 0.2.2
 
 * Bugfix for turn_right and turn_left, added in a few missing functions
