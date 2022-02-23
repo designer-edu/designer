@@ -7,7 +7,7 @@ def chase_mouse(picture: DesignerObject):
 
 
 def grow_emoji(picture: DesignerObject):
-    grow(picture, .05)
+    grow(picture, get_scale(picture)+.01)
 
 
 def shrink_if_clicked(picture: DesignerObject):

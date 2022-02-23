@@ -36,7 +36,7 @@ def lookup_unicode(name):
     if not _UNICODE_LOOKUP:
         with open(_UNICODE_LIST_PATH) as unicode_list_file:
             _UNICODE_LOOKUP.update(json.load(unicode_list_file))
-    return _UNICODE_LOOKUP[name].lower()
+    return _UNICODE_LOOKUP[name.lower()].lower()
 
 
 class Emoji(DesignerObject):
