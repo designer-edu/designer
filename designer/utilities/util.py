@@ -89,7 +89,7 @@ def scale_surface(s, target_size):
     return t
 
 
-class _Blit(object):
+class _Blit:
     """
     An internal class to represent a drawable `surface` with additional data
     (e.g. `rect` representing its location on screen, whether it's `static`).
@@ -130,15 +130,16 @@ class _Blit(object):
 
     """
     __slots__ = ['surface', 'position', 'rect', 'area', 'layer',
-                 'flags', 'static', 'clipping', 'final_size']
+                 'flags', 'static', 'clipping', 'final_size', 'id']
 
-    def __init__(self, surface, position, area, layer, flags, static):
+    def __init__(self, surface, position, area, layer, flags, static, id):
         self.surface = surface  # pygame surface
         self.position = position  # coordinates to draw at
         self.area = area  # portion of the surface to be drawn to screen
         self.layer = layer  # layer in scene
         self.flags = flags  # any drawing flags (currently unusued)
         self.static = static  # static blits haven't changed
+        self.id = id
 
         # Final size of the surface, the scaling will happen late
         self.final_size = designer.utilities.vector.Vec2D(surface.get_size())

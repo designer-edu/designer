@@ -29,12 +29,17 @@ class DesignerObject:
         "parent", "mask",
         "alpha"
     )
+    _ID = 0
 
     def __init__(self, parent=None, **kwargs):
         designer.check_initialized()
 
         if parent is None:
             parent = designer.GLOBAL_DIRECTOR.current_window
+
+        # Unique ID for this object
+        self._id = DesignerObject._ID
+        DesignerObject._ID += 1
 
         #: Internal field about how long this DesignerObject has existed
         self._age: int = 0
@@ -485,7 +490,8 @@ class DesignerObject:
 
         area = Rect(self._transform_image.get_rect())
         b = _Blit(self._transform_image, self._pos - self._offset,
-                  area, self._computed_layer, self._blend_flags, False)
+                  area, self._computed_layer, self._blend_flags, False,
+                  self._id)
 
         if self._make_static or self._age > 4:
             b.static = True

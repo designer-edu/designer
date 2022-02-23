@@ -479,7 +479,7 @@ class Window:
         static_blits = len(self._static_blits)
         dynamic_blits = len(self._blits)
         blits = list(self._static_blits.values()) + self._blits
-        blits.sort(key=lambda l: l.layer)
+        blits.sort(key=lambda l: (l.layer, l.id))
 
         # Clear this is a list of things which need to be cleared
         # on this frame and marked dirty on the next
