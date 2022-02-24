@@ -129,11 +129,10 @@ class Emoji(DesignerObject):
         image. In order: flipping, scaling, and rotation.
         """
         # Transform the SVG
-        #  viewBox="0 0 36 36"
-        l, r = self._size
+        l, r = self._size * self._scale
         flip_x, flip_y = "-" if self._flip_x else "", "-" if self._flip_y else ""
         transforms = f"rotate({self._angle})\nscale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]})"
-        image_data = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {self._size[0]} {self._size[1]}">'
+        image_data = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {l} {r}">'
                       f'<g transform="{transforms}">{self._svg}'
                       f'</g></svg>'.encode())
         image_file = io.BytesIO(image_data)
