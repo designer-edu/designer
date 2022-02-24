@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+# Version 0.2.4
+
+* Fix cropping issue for `emoji` on mac due to SVG viewBox
+* Remove unnecessary `print`
+* Moved dev dependencies to `requirements_dev.txt`
+
 # Version 0.2.3
 
 * Layering now respects creation order within a layer
