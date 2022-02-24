@@ -86,7 +86,6 @@ def point_towards(object, other_object):
 
 def point_towards_mouse(object):
     object.angle = angle_between(object.pos, get_mouse_position())
-    print(object.angle)
     return object
 
 
