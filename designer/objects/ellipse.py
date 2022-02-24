@@ -71,10 +71,9 @@ class Ellipse(DesignerObject):
         new_image.draw_ellipse(color, (0, 0), size, self._border or 0)
         # Rotation
         if self._angle != 0:
-            angle = self._angle % 360
             old = Vec2D(new_image.rect.center)
-            source = pygame.transform.rotate(new_image._surf, angle).convert_alpha()
-            new = source.rect.center
+            new_image.rotate(self._angle % 360)
+            new = new_image.rect.center
             self._transform_offset = old - new
         self._transform_image = new_image._surf
         self._recalculate_offset()

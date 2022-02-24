@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.2.5
+
+* Fixed rotation for ellipses
+
 # Version 0.2.4
 
 * Fix cropping issue for `emoji` on mac due to SVG viewBox
