@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.2.6
+
+* Alias `set_background_image` to `set_window_image` for consistent vocabulary usage!
+* Export `set_visible` correctly
+
 # Version 0.2.5
 
 * Fixed rotation for ellipses
