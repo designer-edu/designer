@@ -400,6 +400,7 @@ def background_image(path):
 
 
 set_background_image = background_image
+set_window_image = set_background_image
 
 
 def get_director():

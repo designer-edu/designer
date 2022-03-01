@@ -45,7 +45,7 @@ __all__ = [
     # Director stuff
     'get_director',
     # Window stuff
-    'set_window_title', 'get_window_title',
+    'set_window_title', 'get_window_title', 'set_window_image',
     # Keyboard stuff
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',
@@ -78,5 +78,6 @@ __all__ = [
     'flip_x', 'flip_y', 'set_flip_x', 'set_flip_y', 'set_scale', 'set_scale_x', 'set_scale_y', 'set_background_image',
     'get_scale', 'get_scale_x', 'get_scale_y', 'get_visible', 'get_flip_x', 'get_flip_y', 'show', 'hide',
     'grow', 'grow_x', 'grow_y', 'shrink',
-    'move_to_x', 'move_to_y', 'move_to', 'move_to_mouse', 'move_to_xy'
+    'move_to_x', 'move_to_y', 'move_to', 'move_to_mouse', 'move_to_xy',
+    'set_visible'
 ]
