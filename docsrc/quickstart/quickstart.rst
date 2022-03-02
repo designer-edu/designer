@@ -65,7 +65,7 @@ The window operates on an x, y plane, where (0, 0), is the top left of the windo
 Moving to the right on the window increases the x value and moving down on the window increases the y value.
 By default, Designer places images in the center of the window.
 
-.. image:: images/quickstart/simple_green_box.png
+.. image:: simple_green_box.png
    :width: 700
    :alt: computer window with green rectangle in the middle, surrounded by whitespace
 
@@ -90,7 +90,7 @@ Just like before, the ``image`` function creates and returns an image DesignerOb
 The first argument of ``image`` can be a string representing a url to an image, such as in this example.
 Or, it can be a string of a file path to an image - but then that file must be on your computer!
 
-.. image:: images/quickstart/frog.png
+.. image:: frog.png
    :width: 700
    :alt: computer window with with a cute cartoon frog in the middle surrounded by whitespace
 
@@ -110,7 +110,7 @@ There are websites where you can easily find big lists of emojis, like `this <ht
 
 Don't worry if the emoji seems small, we'll learn how to make it bigger in just a bit!
 
-.. image:: images/quickstart/emoji.png
+.. image:: emoji.png
    :width: 700
    :alt: computer window with with a cute cartoon frog emoji in the middle surrounded by whitespace
 
@@ -132,7 +132,7 @@ The function, ``text``, creates and returns a text DesignerObject.
 * The second argument, ``"Hello World!"``, is the text to add to the window.
 * The last argument, ``40``, is the size of the text's font.
 
-.. image:: images/quickstart/hello_world.png
+.. image:: hello_world.png
    :width: 700
    :alt: blank white computer window with blue words "Hello World!" on top left of the window.
 
@@ -156,7 +156,7 @@ or shrinks the image on screen.
 * The first argument, `frog`, is the Designer Object we created previously.
 * The second argument, `5`, is the number of times that we want to grow the image.
 
-.. image:: images/quickstart/big_frog.png
+.. image:: big_frog.png
    :width: 700
    :alt: The frog emoji shown before, but now five times bigger
 
@@ -179,7 +179,7 @@ We have drawn the green box again, but this time we added two additional argumen
 * The `250` represents the starting X coordinate of the box, the distance from the left side of the window
 * The `300` represents the starting Y coordinate of the box, the distance from the top side of the window
 
-.. image:: images/quickstart/moved_green_box.png
+.. image:: moved_green_box.png
    :width: 700
    :alt: The green box shown before, but now on the left side of the screen
 
@@ -197,7 +197,7 @@ functions, which move the object by a relative amount in the given direction.
 
 The frog is now ``200`` pixels to the right of where it was before.
 
-.. image:: images/quickstart/moved_frog_image.png
+.. image:: moved_frog_image.png
    :width: 700
    :alt: The frog image shown before, but now moved to the right
 
@@ -223,7 +223,7 @@ images just as easily as we move and scale them.
     draw(frog)
 
 
-.. image:: images/quickstart/rotated_frog_image.png
+.. image:: rotated_frog_image.png
     :width: 700
     :alt: The frog image shown before, but smaller, rotated, and moved
 
@@ -279,7 +279,7 @@ As you try making your own drawings, keep in mind that every object you want to 
 to the ``draw`` function. Otherwise, the object won't be visible!
 
 
-.. image:: images/quickstart/grouped_images.png
+.. image:: grouped_images.png
     :width: 700
     :alt: A picture of three frogs, one that we drew ourselves, and the word "Frogs!"
 

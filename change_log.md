@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.2.7
+
+* Export `change_scale` correctly
+* Expose `get_emoji_name` and `set_emoji_name` to avoid attributes!
+
 # Version 0.2.6
 
 * Alias `set_background_image` to `set_window_image` for consistent vocabulary usage!

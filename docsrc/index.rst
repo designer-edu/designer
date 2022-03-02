@@ -12,18 +12,12 @@ Designer is a classroom tool that allows you to create visual output as you lear
    :caption: Contents:
 
    students/installation
-   students/quickstart
-   students/world
+   quickstart/quickstart
+   examples/examples
    students/docs
    students/functions
-   students/troubleshoot
+   reference/reference
    students/help
-   examples/sparkles
-   examples/arrows
-   reference/colors
-   reference/anchors
-   reference/events
-   reference/keys
    
 
 

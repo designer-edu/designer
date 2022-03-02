@@ -27,7 +27,7 @@ The :code:`start()` command goes at the very end of all of your other code. Once
 :code:`start` your game, no other code will run: the game enters an infinite loop and continues forever.
 Let's see what kind of code we can put before then.
 
-.. image:: images/world_0.png
+.. image:: images/world/world_0.png
    :width: 700
    :alt: A window with nothing in it.
 
@@ -85,7 +85,7 @@ Our World is quite simple: a dictionary with the key `"box"` mapped to a :ref:`r
 We created the rectangle to be black and have a width of 200 and a height of 100.
 Because the rectangle is stored in the dictionary that we return, it will be drawn in the world.
 
-.. image:: images/world_1.png
+.. image:: images/world/world_1.png
    :width: 700
    :alt: A window with a black rectangle in the middle.
 
@@ -144,7 +144,7 @@ to describe a very small, incremental change to our world.
 This idea of defining functions that make small changes in the world, and then binding them with
 the :ref:`when<when>` function is at the heart of Designer games. We call this "Event Handling".
 
-.. image:: images/world_2.gif
+.. image:: images/world/world_2.gif
    :width: 700
    :alt: A window with a black ROTATING rectangle in the middle.
 
@@ -204,7 +204,7 @@ These X and Y values are then assigned to the boxes X and Y fields, updating its
 The only other thing to do is to bind the function to the event. Again, the name matters here: a typo would
 prevent the event from being bound correctly, and the function would not be called.
 
-.. image:: images/world_3.gif
+.. image:: images/world/world_3.gif
    :width: 700
    :alt: A window with a black ROTATING rectangle in the middle. A mouse clicks on random positions and the rectangle's jumps to that spot.
 
@@ -274,7 +274,7 @@ randomly chosen value between 0 and 9 (including 9 itself) is equal to 0. Since 
 so we can anticipate this happening only about 3 times a second. Notice that we are still calling the function every
 update; we just don't execute the body of its `if` statement every update!
 
-.. image:: images/world_4.gif
+.. image:: images/world/world_4.gif
    :width: 700
    :alt: A window with a black ROTATING rectangle. The rectangle is jumping around the screen quite fast.
 
@@ -352,7 +352,7 @@ how we extract data from the World (specifically, the current `"score"`) and use
 object we created before. In order to prefix the score with the text `"Score:"`, we had to convert the integer score to
 a string representation.
 
-.. image:: images/world_5.gif
+.. image:: images/world/world_5.gif
    :width: 700
    :alt: A window with a teleporting, rotating, black rectangle. The words "Score: 0" are in the middle of the window.
 
@@ -439,7 +439,7 @@ Actually clicking the box is a little tricky! For testing purposes, you might wa
 decrease the probability that it will teleport on a given update. Regardless, you can see from the video below that
 clicking on the rectangle gives you a point.
 
-.. image:: images/world_6.gif
+.. image:: images/world/world_6.gif
    :width: 700
    :alt: A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time.
 
@@ -552,7 +552,7 @@ Finally, the :ref:`pause<pause>` function (another Designer built-in) is used to
 Window (if you wanted to do that, then you could use the :ref:`stop<stop>` function instead. Whatever was drawn last
 will still be rendered, but no further events are detected.
 
-.. image:: images/world_7.gif
+.. image:: images/world/world_7.gif
    :width: 700
    :alt: A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends.
 
