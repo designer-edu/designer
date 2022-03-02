@@ -4,7 +4,9 @@ Change Log
 # Version 0.2.7
 
 * Export `change_scale` correctly
-* Expose `get_emoji_name` and `set_emoji_name` to avoid attributes!
+* Expose `get_emoji_name` and `set_emoji_name` to avoid attributes
+* Reorganized documentation
+* Added Emoji Clicker tutorial
 
 # Version 0.2.6
 
