@@ -1,5 +1,7 @@
+.. _arrows:
+
 Arrows
-========
+======
 
 This game demonstrates how to have objects that:
 

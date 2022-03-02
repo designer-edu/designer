@@ -1,0 +1,443 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Emoji Clicker &mdash; Designer 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Designer Worlds" href="world.html" />
+    <link rel="prev" title="Longer Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Designer
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Longer Examples</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Emoji Clicker</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#drawing-an-emoji">1. Drawing an Emoji</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#growing-the-emoji">2. Growing the Emoji</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#picture-grows-too-big">3. Picture Grows Too Big</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#shrinking-the-emoji">4. Shrinking the Emoji</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#changing-the-emoji">5. Changing the Emoji</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#varying-growth-rates">Varying Growth Rates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#going-beyond">Going Beyond</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="world.html">Designer Worlds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sparkles.html">Sparkles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrows.html">Arrows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Designer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="examples.html">Longer Examples</a> &raquo;</li>
+        
+      <li>Emoji Clicker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/emoji_clicker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="emoji-clicker">
+<span id="id1"></span><h1>Emoji Clicker<a class="headerlink" href="#emoji-clicker" title="Permalink to this headline">¶</a></h1>
+<p>In 2013, the web-based “Cookie Clicker” game took the world by storm. The game was exceedingly simple: players clicked
+on a giant cookie in order to earn points. Although the game had a lot of other bells and whistles, the simplicity
+of the core concept was a major selling point.</p>
+<p>You are going to make your own Cookie Clicker type of game, called “Emoji Clicker”. Instead of earning points,
+your game will feature an emoji slowly growing bigger and bigger until it gets too big. However, you can also click
+the emoji to make the emoji get smaller.</p>
+<p>In order to make this game, we’ll need to learn about Designer’s Events, along with knowing how to define functions
+and write <cite>if</cite> statements.</p>
+<div class="section" id="drawing-an-emoji">
+<h2>1. Drawing an Emoji<a class="headerlink" href="#drawing-an-emoji" title="Permalink to this headline">¶</a></h2>
+<p>We need to start by just drawing the emoji on the screen. We can use what we learned before to
+call the <code class="docutils literal notranslate"><span class="pre">emoji</span></code> function, passing in a string value; then we pass the result of the <code class="docutils literal notranslate"><span class="pre">emoji</span></code> function into
+the <code class="docutils literal notranslate"><span class="pre">draw</span></code> function. When you run this code, a window should appear with an emoji in the middle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Problem 1:</strong> Change the string value so that a different emoji is drawn. You can find
+emojis <a class="reference external" href="https://emojis.wiki/">here</a>; you can use either the formal name of the
+emoji (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;dog</span> <span class="pre">face&quot;</span></code>) or the emoji itself (<code class="docutils literal notranslate"><span class="pre">&quot;🐶&quot;</span></code>).</p>
+<div class="section" id="growing-the-emoji">
+<h3>2. Growing the Emoji<a class="headerlink" href="#growing-the-emoji" title="Permalink to this headline">¶</a></h3>
+<p>On its own, we have not made a very exciting game. Nothing happens when we run it!
+Let’s change that by <em>binding</em> a <em>function</em> to an <em>event</em>. Specifically, we are going to make
+the emoji grow (increase scale) every <em>update</em> of the game. Let’s look at the new code, and
+then we’ll explain what we are seeing.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">grow_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+</span><span class="hll">    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
+</span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The new function <code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> consumes a <code class="docutils literal notranslate"><span class="pre">picture</span></code> and then calls the <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> function
+using it and the value <code class="docutils literal notranslate"><span class="pre">.5</span></code>. The function does not return anything; instead, it just makes a
+<em>tiny little</em> change to the <code class="docutils literal notranslate"><span class="pre">picture</span></code> it was given.</p>
+<p>On its own, defining the <code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> function does not do anything. We also cannot call the
+function on our own - that would simply make the emoji a tiny bit bigger, and what argument
+would we use for <code class="docutils literal notranslate"><span class="pre">picture</span></code> anyway? We can’t just make a new <code class="docutils literal notranslate"><span class="pre">emoji(&quot;dog</span> <span class="pre">face&quot;)</span></code> each time, or it won’t keep growing.</p>
+<p>Instead we have to bind the <code class="docutils literal notranslate"><span class="pre">&quot;updating&quot;</span></code> event to our <code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> function using
+the <code class="docutils literal notranslate"><span class="pre">when</span></code> built-in function. The result almost reads like a sentence: “When the game is updating,
+grow the picture.” This is why it is necessary to only grow the picture a tiny amount:
+the game updates many times a second (usually 30 times, in fact), so we only have to describe a very
+small, incremental change to our world.</p>
+<p>Notice that the <code class="docutils literal notranslate"><span class="pre">when</span></code> function takes a string representing the event (<code class="docutils literal notranslate"><span class="pre">&quot;updating&quot;</span></code>) and
+the <em>name</em> of a function (<code class="docutils literal notranslate"><span class="pre">grow_picture</span></code>). Critically, we are NOT calling the
+function <code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> on that line - we don’t ever call the function ourselves!
+Instead, we are handing the function to Designer and politely asking Designer to call it on our behalf,
+every update of the game. In return, Designer provides us the same <code class="docutils literal notranslate"><span class="pre">picture</span></code> that we originally passed as an argument
+to <code class="docutils literal notranslate"><span class="pre">draw</span></code>.
+This idea of defining functions that make small changes in the world, and
+then binding them with the <code class="docutils literal notranslate"><span class="pre">when</span></code> function is at the heart of Designer games. We call this “Event Handling”.</p>
+<p><strong>Problem 2:</strong> Change the second argument of <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> to be a much smaller decimal, so that the picture
+does not grow as fast.</p>
+</div>
+</div>
+<div class="section" id="picture-grows-too-big">
+<h2>3. Picture Grows Too Big<a class="headerlink" href="#picture-grows-too-big" title="Permalink to this headline">¶</a></h2>
+<p>When the emoji gets too big, the game should stop. We need to add some logic to the game to check the current <em>scale</em>
+of the <code class="docutils literal notranslate"><span class="pre">picture</span></code>; when the horizontal scale gets too big, we will <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game. Since this could happen at any
+update, we will add another <code class="docutils literal notranslate"><span class="pre">when(&quot;updating&quot;,</span> <span class="pre">...)</span></code> to our program, this time binding a function <code class="docutils literal notranslate"><span class="pre">check_emoji</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">grow_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">check_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">get_scale_x</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">pause</span><span class="p">()</span>
+</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
+<span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_picture</span><span class="p">)</span>
+</span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">check_picture</span></code> function uses the <code class="docutils literal notranslate"><span class="pre">get_scale_x</span></code> function to check the current horizontal scale of the <code class="docutils literal notranslate"><span class="pre">picture</span></code>. If
+the scale has exceeded 8 (aka is now 8 times bigger than the original size), we <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game. We <code class="docutils literal notranslate"><span class="pre">pause</span></code> instead of
+<code class="docutils literal notranslate"><span class="pre">stop</span></code> so that the window stays open afterwards (<code class="docutils literal notranslate"><span class="pre">stop</span></code> will completely end the game).</p>
+<p>Why do we check the horizontal scale specifically, instead of the vertical? It doesn’t actually matter - since we are
+using <code class="docutils literal notranslate"><span class="pre">change_scale</span></code>, both the horizontal and vertical scales will be change at the same time, and we could check either
+one.</p>
+<p><strong>Problem 3:</strong> Add a new line to the <code class="docutils literal notranslate"><span class="pre">if</span></code> statement’s body to change the <code class="docutils literal notranslate"><span class="pre">picture</span></code> using the <code class="docutils literal notranslate"><span class="pre">set_emoji_name</span></code> function.
+The <code class="docutils literal notranslate"><span class="pre">set_emoji_name(object,</span> <span class="pre">new_name)</span></code> function consumes a Designer Object (i.e., <code class="docutils literal notranslate"><span class="pre">picture</span></code>) and a string value
+representing the new emoji name to use. You are free to use whatever emoji you want, such as a Cross Mark or an
+Explosion or a Frowny Face. Remember, <code class="docutils literal notranslate"><span class="pre">if</span></code> statements can have multiple lines of code in their body, but each
+line INSIDE the body is indented the same amount!</p>
+</div>
+<div class="section" id="shrinking-the-emoji">
+<h2>4. Shrinking the Emoji<a class="headerlink" href="#shrinking-the-emoji" title="Permalink to this headline">¶</a></h2>
+<p>It’s not really a game if all you can do is watch the Emoji get bigger and bigger until you lose. Next we’ll add
+some interactivity. Specifically, when the user clicks on the emoji, the picture should get a little bit smaller.
+Making the picture smaller can be done by passing a negative value to the <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> function. But to make the
+emoji shrink only when we click the mouse instead of every update, we need to bind the <code class="docutils literal notranslate"><span class="pre">&quot;clicking&quot;</span></code> event to our new
+<code class="docutils literal notranslate"><span class="pre">shrink_picture</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">grow_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">get_scale_x</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">pause</span><span class="p">()</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">shrink_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+</span><span class="hll">    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">)</span>
+</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_emoji</span><span class="p">)</span>
+<span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_emoji</span><span class="p">)</span>
+</span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The event <code class="docutils literal notranslate"><span class="pre">&quot;clicking&quot;</span></code> only activates when the user clicks the mouse button anywhere on the screen. Once again,
+Designer will provide us with the current <code class="docutils literal notranslate"><span class="pre">picture</span></code>, so we can use that as the argument to <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> along with
+the negative value. However, we actually want the emoji to shrink only IF the player clicks on the Emoji (as opposed
+to anywhere else on the screen).</p>
+<p><strong>Problem 4:</strong> Use the <code class="docutils literal notranslate"><span class="pre">colliding_with_mouse</span></code> and <code class="docutils literal notranslate"><span class="pre">if</span></code> statement to make the <code class="docutils literal notranslate"><span class="pre">picture</span></code> shrink ONLY if the
+user actually clicks on the emoji. The <code class="docutils literal notranslate"><span class="pre">colliding_with_mouse(object)</span></code> function consumes a Designer Object, and produces
+a boolean indicating whether or not the mouse is currently on top of the given object. Hint: you will <em>not</em> need
+any <code class="docutils literal notranslate"><span class="pre">==</span></code> operators because the <code class="docutils literal notranslate"><span class="pre">colliding_with_mouse</span></code> function already returns a boolean.</p>
+</div>
+<div class="section" id="changing-the-emoji">
+<h2>5. Changing the Emoji<a class="headerlink" href="#changing-the-emoji" title="Permalink to this headline">¶</a></h2>
+<p>At this point, our game is technically playable and could be shown to other people. But we have some cute features
+to add before that. The first new feature is the ability to switch what emoji is currently active. When the player
+presses the right arrow on their keyboard, the emoji’s picture should cycle through a few different images. Using
+<code class="docutils literal notranslate"><span class="pre">when</span></code>, we can bind a <code class="docutils literal notranslate"><span class="pre">&quot;typing&quot;</span></code> event to our new <code class="docutils literal notranslate"><span class="pre">change_picture</span></code> function. However, that function will be a little
+more complicated since it will depend on another new function <code class="docutils literal notranslate"><span class="pre">next_picture</span></code>. Let us look at the new code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">grow_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="mf">.5</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">check_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">get_scale_x</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">pause</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">shrink_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">)</span>
+
+<span class="hll"><span class="k">def</span> <span class="nf">change_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">next_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span>
+</span><span class="hll">
+</span><span class="hll"><span class="k">def</span> <span class="nf">next_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">get_picture_name</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;___&quot;</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">set_emoji_name</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="s2">&quot;___&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">elif</span> <span class="n">get_picture_name</span><span class="p">(</span><span class="n">picture</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;___&quot;</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">set_emoji_name</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="s2">&quot;___&quot;</span><span class="p">)</span>
+</span><span class="hll">    <span class="k">else</span><span class="p">:</span>
+</span><span class="hll">        <span class="n">set_emoji_name</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="s2">&quot;___&quot;</span><span class="p">)</span>
+</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_emoji</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_emoji</span><span class="p">)</span>
+<span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;typing&quot;</span><span class="p">,</span> <span class="n">change_picture</span><span class="p">)</span>
+</span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">change_picture</span></code> function is unusual compared to the other Event Handling functions, since in addition to the
+<code class="docutils literal notranslate"><span class="pre">picture</span></code> parameter there is also a <code class="docutils literal notranslate"><span class="pre">key</span></code> parameter. The <code class="docutils literal notranslate"><span class="pre">key</span></code> is a string value representing what keyboard key the user
+pressed. The <code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;up&quot;</span></code>, and <code class="docutils literal notranslate"><span class="pre">&quot;down&quot;</span></code> keys are often very useful for making games, but there are many
+other options. In our <code class="docutils literal notranslate"><span class="pre">change_picture</span></code> function, we check if the user typed the <code class="docutils literal notranslate"><span class="pre">&quot;right&quot;</span></code> arrow key; if so, then we
+call our <code class="docutils literal notranslate"><span class="pre">next_picture</span></code> function passing in our <code class="docutils literal notranslate"><span class="pre">picture</span></code> as the argument.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">next_picture</span></code> function consumes the current <code class="docutils literal notranslate"><span class="pre">picture</span></code> and uses a chain of <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">elif</span></code>, and <code class="docutils literal notranslate"><span class="pre">else</span></code> statements
+to update the emoji based on the current emoji’s name. Remember, these conditional statements are “mutually exclusive”
+to each other - the first one that is triggered (has a <code class="docutils literal notranslate"><span class="pre">True</span></code> condition) means the rest are skipped. We’ve left
+the string values to compare against the current <code class="docutils literal notranslate"><span class="pre">picture</span></code> name AND the string values to use as the argument for
+<code class="docutils literal notranslate"><span class="pre">set_emoji_name</span></code> to be blanks (<code class="docutils literal notranslate"><span class="pre">&quot;___&quot;</span></code>), since the choice of which emojis to use is up to you.</p>
+<p><strong>Problem 5.a</strong>: Fill in the blanks of the <code class="docutils literal notranslate"><span class="pre">next_picture</span></code> function so that the Emoji advances through three
+different pictures. You can choose which pictures to use. Let’s think carefully about an example of the logic:
+Let us say that if the current picture is <code class="docutils literal notranslate"><span class="pre">&quot;Dog</span> <span class="pre">Face&quot;</span></code>, then the next picture should be <code class="docutils literal notranslate"><span class="pre">&quot;Cat</span> <span class="pre">Face&quot;</span></code>. Then the <code class="docutils literal notranslate"><span class="pre">if</span></code>
+statement should ask whether the current picture is <code class="docutils literal notranslate"><span class="pre">&quot;Dog</span> <span class="pre">Face&quot;</span></code> and if so then its body should call <code class="docutils literal notranslate"><span class="pre">set_emoji_name</span></code>
+with <code class="docutils literal notranslate"><span class="pre">&quot;Cat</span> <span class="pre">Face&quot;</span></code>. Then the <code class="docutils literal notranslate"><span class="pre">elif</span></code> checks if the current emoji is <code class="docutils literal notranslate"><span class="pre">&quot;Cat</span> <span class="pre">Face&quot;</span></code>, and if so changes it to something else.
+The final <code class="docutils literal notranslate"><span class="pre">else</span></code> condition should always set the Emoji back to the original one (in this case <code class="docutils literal notranslate"><span class="pre">&quot;Dog</span> <span class="pre">Face&quot;</span></code>).</p>
+<p>Once you have the logic figured out, you should be able to press the right arrow key to cycle through all the emojis
+you’ve selected. But what if we want to also cycle backwards?</p>
+<p><strong>Problem 5.b</strong>: Define a new function <code class="docutils literal notranslate"><span class="pre">previous_picture</span></code> that performs the inverse of the <code class="docutils literal notranslate"><span class="pre">next_picture</span></code> function.
+Like the other function, the <code class="docutils literal notranslate"><span class="pre">previous_picture</span></code> function should consume a <code class="docutils literal notranslate"><span class="pre">picture</span></code> and produce nothing, instead
+calling the <code class="docutils literal notranslate"><span class="pre">set_emoji_name</span></code> function. The logic should be reversed. Call the <code class="docutils literal notranslate"><span class="pre">previous_picture</span></code> function correctly
+inside of the <code class="docutils literal notranslate"><span class="pre">change_picture</span></code> function IF the player types the <code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code> arrow key.</p>
+</div>
+<div class="section" id="varying-growth-rates">
+<h2>Varying Growth Rates<a class="headerlink" href="#varying-growth-rates" title="Permalink to this headline">¶</a></h2>
+<p>We are almost done, we just have one more feature to add. Since we have different emojis, we will make them
+grow at different rates, essentially having different difficulty levels.</p>
+<p><strong>Problem 6</strong>: Define a new function named <code class="docutils literal notranslate"><span class="pre">get_growth_rate</span></code> that consumes a <code class="docutils literal notranslate"><span class="pre">picture</span></code> and produces a
+float value indicating how much that emoji should grow in one step. Then, call that function in your existing
+<code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> function so that the <code class="docutils literal notranslate"><span class="pre">picture</span></code> grows at the varying rate instead of the constant rate.</p>
+</div>
+<div class="section" id="going-beyond">
+<h2>Going Beyond<a class="headerlink" href="#going-beyond" title="Permalink to this headline">¶</a></h2>
+<p>At this point, you have achieved all of the features you need for your game! Show it to someone else and see what
+they think! Here are some other ways to extend the game.</p>
+<ul class="simple">
+<li><p>If you’re not happy with your game having no way to win, you are free to add another condition to
+<code class="docutils literal notranslate"><span class="pre">check_picture</span></code> that determines if the Emoji has shrunk down small enough, and then end the game the same way.</p></li>
+<li><p>Change the background image (<code class="docutils literal notranslate"><span class="pre">set_window_image(path)</span></code>) and window size (<code class="docutils literal notranslate"><span class="pre">set_window_size(width,</span> <span class="pre">height)</span></code>)
+to be something more thematically appropriate to your game.</p></li>
+<li><p>Look up the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function, which allows you to make random integers. Use this function to have the emoji
+move around the screen at random times and to random positions.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="world.html" class="btn btn-neutral float-right" title="Designer Worlds" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-left" title="Longer Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, acbart, krishols.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

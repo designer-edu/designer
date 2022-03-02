@@ -1,0 +1,724 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Designer Worlds &mdash; Designer 0.0.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sparkles" href="sparkles.html" />
+    <link rel="prev" title="Emoji Clicker" href="emoji_clicker.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Designer
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Longer Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="emoji_clicker.html">Emoji Clicker</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Designer Worlds</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-world">The World</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#updating-the-world">Updating the World</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#interacting-with-the-world">Interacting with the World</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-touch-of-randomness">A Touch of Randomness</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#keeping-score">Keeping Score</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#responding-to-clicks">Responding to Clicks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ending-the-game">Ending the Game</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparkles.html">Sparkles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrows.html">Arrows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Designer</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="examples.html">Longer Examples</a> &raquo;</li>
+        
+      <li>Designer Worlds</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/examples/world.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="designer-worlds">
+<span id="world"></span><h1>Designer Worlds<a class="headerlink" href="#designer-worlds" title="Permalink to this headline">¶</a></h1>
+<p>Graphics are great, but wouldn’t it be cool to make stuff move and bounce and jump?
+To click your mouse and collect a coin, or strike a key and make a heart wiggle?
+In this guide, we’ll talk about how you can use Designer to make a game, animation, or interactive
+visualization.</p>
+<p>We begin with the absolute minimum Designer program:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The first line of code imports all of Designer’s commands, making them available to be used.
+The second line (<code class="code docutils literal notranslate"><span class="pre">start()</span></code>) causes an external blank white window to appear.
+You will generally always need these two lines of code for Designer to function.
+The <code class="code docutils literal notranslate"><span class="pre">start</span></code> command works just like the <cite>draw</cite> command, but helps us to understand that we are
+“starting” a game rather than just drawing some simple objects.</p>
+<p>The <code class="code docutils literal notranslate"><span class="pre">start()</span></code> command goes at the very end of all of your other code. Once you
+<code class="code docutils literal notranslate"><span class="pre">start</span></code> your game, no other code will run: the game enters an infinite loop and continues forever.
+Let’s see what kind of code we can put before then.</p>
+<a class="reference internal image-reference" href="../_images/world_0.png"><img alt="A window with nothing in it." src="../_images/world_0.png" style="width: 700px;" /></a>
+<div class="section" id="the-world">
+<h2>The World<a class="headerlink" href="#the-world" title="Permalink to this headline">¶</a></h2>
+<p>A central concept in Designer games is the World. The state (or “model”) of the World controls
+what you see in the Window (or “View”). If something does not exist in the World, then it does
+not exist in the Window. Technically speaking, the state of the World can be any type of data,
+but by convention we make it a dictionary containing references to Designer Objects.</p>
+<p>Let’s make a simple World with just a box in the center of the screen.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>To properly define a World, we create a definition on line 4 using the typed dictionary
+syntax. We say that a World is any dictionary that has a key named <code class="code docutils literal notranslate"><span class="pre">&quot;box&quot;</span></code> and a value
+that maps to a value of type <code class="code docutils literal notranslate"><span class="pre">DesignerObject</span></code>. The <code class="code docutils literal notranslate"><span class="pre">DesignerObject</span></code> is a fundamental
+concept in Designer, representing the actual drawable shapes and images on the screen.</p>
+<p>Line 4 only describes the shape of the World; no actual World has been created yet.
+Instead, that is the responsibility of the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function.
+This is a “nullary function” (it takes no parameters) that returns a World.
+You might also call it a “constructor” for Worlds. Every time we call that function,
+we get a fresh new copy of the default, initial World. However, we do not call that function
+ourselves.</p>
+<p>Instead, line 16 uses the name of the function (without parentheses!) to tell Designer
+what to do when the game is starting. Formally, we are binding the <code class="code docutils literal notranslate"><span class="pre">&quot;starting&quot;</span></code> event
+to our event handler function <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code>. Informally, we can say that now
+the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function will be called on the game’s start, in order to create
+the World.</p>
+<p>Our World is quite simple: a dictionary with the key <cite>“box”</cite> mapped to a <a class="reference internal" href="../students/docs.html#rectangle"><span class="std std-ref">rectangle</span></a>.
+We created the rectangle to be black and have a width of 200 and a height of 100.
+Because the rectangle is stored in the dictionary that we return, it will be drawn in the world.</p>
+<a class="reference internal image-reference" href="../_images/world_1.png"><img alt="A window with a black rectangle in the middle." src="../_images/world_1.png" style="width: 700px;" /></a>
+</div>
+<div class="section" id="updating-the-world">
+<h2>Updating the World<a class="headerlink" href="#updating-the-world" title="Permalink to this headline">¶</a></h2>
+<p>We’ve created a rectangle, but it’s not doing anything yet. Let’s create
+a function that will tell Designer how to manipulate our rectangle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="hll"><span class="c1"># Define a function that spins the box</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll">    <span class="c1"># Increase the boxes angle by one degree</span>
+</span><span class="hll">    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+</span><span class="hll"><span class="c1"># There are usually 30 updates per second!</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The new function, <cite>spin_the_box</cite> consumes a World and changes the value in one of its fields.
+Specifically, it accesses the <cite>‘box’</cite> key to get access to our previously-created rectangle,
+and then increments its <cite>angle</cite> key’s value by 1. This means to “rotate the box by one degree.”</p>
+<p>On its own, defining the <cite>spin_the_box</cite> function does not do anything. We also cannot call
+the function on our own - that would simply rotate the box by only one degree, and where
+would we get a World from anyway?</p>
+<p>Instead we have to bind the <cite>“updating”</cite> event to our <cite>spin_the_box</cite> function using the
+<a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> built-in function. The result almost reads like a sentence: “When the
+game is updating, spin the box.” This is why it is necessary to only rotate the box a single
+degree: the game updates many times a second (usually 30 times, in fact), so we only have
+to describe a very small, incremental change to our world.</p>
+<p>This idea of defining functions that make small changes in the world, and then binding them with
+the <a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> function is at the heart of Designer games. We call this “Event Handling”.</p>
+<a class="reference internal image-reference" href="../_images/world_2.gif"><img alt="A window with a black ROTATING rectangle in the middle." src="../_images/world_2.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="interacting-with-the-world">
+<h2>Interacting with the World<a class="headerlink" href="#interacting-with-the-world" title="Permalink to this headline">¶</a></h2>
+<p>It’s not a game if there isn’t any interaction, so let’s now add the ability to move the
+rectangle by clicking on the screen. We’ll use another event type, <cite>“clicking”</cite>, which
+provides some additional parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define a function that spins the box</span>
+<span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Increase the boxes angle by one degree</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="hll"><span class="c1"># Move the box to the given position</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">move_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span class="hll">    <span class="c1"># Adjust the X and Y positions of the box</span>
+</span><span class="hll">    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+</span><span class="hll">    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="c1"># There are usually 30 updates per second!</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to call our move_the_box function every click.</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">move_the_box</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The new function <cite>move_the_box</cite> takes in two parameters, which are carefully named <cite>x</cite> and <cite>y</cite>.
+The names matter here, because Designer will actually look at them and expect those names!
+If you chose other names, then an error message would appear. But because we chose the right names,
+when we click the mouse, Designer will call the <cite>move_the_box</cite> function, passing in not only the current world
+but also the X and Y of the mouse.
+These X and Y values are then assigned to the boxes X and Y fields, updating its position on the screen.</p>
+<p>The only other thing to do is to bind the function to the event. Again, the name matters here: a typo would
+prevent the event from being bound correctly, and the function would not be called.</p>
+<a class="reference internal image-reference" href="../_images/world_3.gif"><img alt="A window with a black ROTATING rectangle in the middle. A mouse clicks on random positions and the rectangle's jumps to that spot." src="../_images/world_3.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="a-touch-of-randomness">
+<h2>A Touch of Randomness<a class="headerlink" href="#a-touch-of-randomness" title="Permalink to this headline">¶</a></h2>
+<p>A game has an objective, and since our game doesn’t, it’s actually more of a visualization. Let’s change things up so
+that we have a goal: to click on the spinning box as it jumps around the screen randomly. Let’s focus on making
+the box jump around randomly first.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span> <span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define a function that spins the box</span>
+<span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Increase the boxes angle by one degree</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="hll"><span class="c1"># Move the box to a random position</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll">    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span><span class="hll">        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+</span><span class="hll">        <span class="c1"># window, given by get_width() and get_height()</span>
+</span><span class="hll">        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+</span><span class="hll">        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="c1"># There are usually 30 updates per second!</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We’ve made a number of changes to our previous function. First, it’s no longer bound to the
+<cite>‘clicking’</cite> event, but bound to the <cite>‘updating’</cite> event. Designer let’s you bind any number of functions
+to the same event, with no limitation. You can also pass in multiple functions to the same event, if you want.</p>
+<p>The <cite>move_the_box</cite> function has become <cite>teleport_the_box</cite>, and it no longer consumes an <cite>x</cite> and a <cite>y</cite> (since those
+were only available in the <cite>clicking</cite> event). Instead, we now set the boxes <cite>x</cite> and <cite>y</cite> fields to be a randomly chosen
+value between 0 and either the width of the window (from <a class="reference internal" href="../students/docs.html#get-width"><span class="std std-ref">get_width</span></a>) or the height of the window (from
+<a class="reference internal" href="../students/docs.html#get-height"><span class="std std-ref">get_height</span></a>). The <cite>randint</cite> function is available in the built-in <cite>random</cite> module, and produces an
+integer between the two values given as parameters.</p>
+<p>If we teleported the box every step, the box would move very, very fast. To make things a little fairer, we only
+teleport the box on 1 in 10 updates. To achieve this, we guard the update with an <cite>if</cite> statement that checks if a
+randomly chosen value between 0 and 9 (including 9 itself) is equal to 0. Since this will happen about 10% of the time,
+so we can anticipate this happening only about 3 times a second. Notice that we are still calling the function every
+update; we just don’t execute the body of its <cite>if</cite> statement every update!</p>
+<a class="reference internal image-reference" href="../_images/world_4.gif"><img alt="A window with a black ROTATING rectangle. The rectangle is jumping around the screen quite fast." src="../_images/world_4.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="keeping-score">
+<h2>Keeping Score<a class="headerlink" href="#keeping-score" title="Permalink to this headline">¶</a></h2>
+<p>We’re going to earn points by clicking on the rectangle, but how do we know if we were successful?
+A simple solution is to keep score and show the user how many times they have clicked the rectangle.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+<span class="hll">    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+</span><span class="hll">    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="c1"># The message to show the user</span>
+        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
+        <span class="c1"># The player&#39;s current score</span>
+        <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define a function that spins the box</span>
+<span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Increase the boxes angle by one degree</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Move the box to a random position</span>
+<span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+        <span class="c1"># window, given by get_width() and get_height()</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+
+<span class="hll"><span class="c1"># Keep the message in sync with the current score</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll">    <span class="c1"># Get the current score</span>
+</span><span class="hll">    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+</span><span class="hll">    <span class="c1"># Update the message&#39;s text based on the score</span>
+</span><span class="hll">    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="c1"># There are usually 30 updates per second!</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to call track_the_score every update.</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This isn’t a terribly exciting update in terms of new functionality, since all that appears on the screen is the
+text <cite>“Score: 0”</cite>. Without a way to increase the score, we don’t see very much. However, this demonstrates how we
+can have state besides DesignerObjects (the <cite>“score”</cite>, an integer) and also display text on the screen. In order to keep
+the text in sync with the score, we’ve defined a function named <cite>track_the_score</cite> that gets called every update. Notice
+how we extract data from the World (specifically, the current <cite>“score”</cite>) and use that to update the field of the text
+object we created before. In order to prefix the score with the text <cite>“Score:”</cite>, we had to convert the integer score to
+a string representation.</p>
+<a class="reference internal image-reference" href="../_images/world_5.gif"><img alt="A window with a teleporting, rotating, black rectangle. The words &quot;Score: 0&quot; are in the middle of the window." src="../_images/world_5.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="responding-to-clicks">
+<h2>Responding to Clicks<a class="headerlink" href="#responding-to-clicks" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="c1"># The message to show the user</span>
+        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
+        <span class="c1"># The player&#39;s current score</span>
+        <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define a function that spins the box</span>
+<span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Increase the boxes angle by one degree</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Move the box to a random position</span>
+<span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+        <span class="c1"># window, given by get_width() and get_height()</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+
+<span class="c1"># Keep the message in sync with the current score</span>
+<span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Get the current score</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+    <span class="c1"># Update the message&#39;s text based on the score</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
+<span class="hll"><span class="c1"># Check if the box has been clicked and increase the score</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span class="hll">    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
+</span><span class="hll">    <span class="c1"># an object and a point are colliding.</span>
+</span><span class="hll">    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span><span class="hll">        <span class="c1"># Update the score on a successful click</span>
+</span><span class="hll">        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="c1"># There are usually 30 updates per second!</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call track_the_score every update.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>We haven’t added much new code - mostly just a new event handler named <cite>check_box_clicked</cite>. This function
+is bound to the <cite>“clicking”</cite> event that we saw before. However, the function uses a new feature we haven’t
+yet seen: the handy <a class="reference internal" href="../students/docs.html#colliding"><span class="std std-ref">colliding</span></a> function. This function can take in either two objects, or an object
+and an x/y pair. The function returns True if they overlap, or otherwise False if they do not. We use the function
+here to detect if the box was clicked.</p>
+<p>Actually clicking the box is a little tricky! For testing purposes, you might want to disable the teleportation or
+decrease the probability that it will teleport on a given update. Regardless, you can see from the video below that
+clicking on the rectangle gives you a point.</p>
+<a class="reference internal image-reference" href="../_images/world_6.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time." src="../_images/world_6.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="ending-the-game">
+<h2>Ending the Game<a class="headerlink" href="#ending-the-game" title="Permalink to this headline">¶</a></h2>
+<p>Our game is almost complete. All that we have to do now is establish some criteria for when the game is over, and
+then stop the game. For that, we’ll take advantage of a custom event check and the Designer <cite>pause</cite> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Define the shape of the World</span>
+<span class="n">World</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
+    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="hll"><span class="c1"># The score you need to win the game</span>
+</span><span class="hll"><span class="n">WIN_THRESHOLD</span> <span class="o">=</span> <span class="mi">5</span>
+</span>
+<span class="c1"># Create a function that creates new worlds</span>
+<span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="c1"># Actually create an initial World instance</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+        <span class="c1"># The message to show the user</span>
+        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
+        <span class="c1"># The player&#39;s current score</span>
+        <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">}</span>
+
+<span class="c1"># Define a function that spins the box</span>
+<span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Increase the boxes angle by one degree</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="c1"># Move the box to a random position</span>
+<span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+        <span class="c1"># window, given by get_width() and get_height()</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+
+<span class="c1"># Keep the message in sync with the current score</span>
+<span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="c1"># Get the current score</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+    <span class="c1"># Update the message&#39;s text based on the score</span>
+    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+
+<span class="c1"># Check if the box has been clicked and increase the score</span>
+<span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
+    <span class="c1"># an object and a point are colliding.</span>
+    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="c1"># Update the score on a successful click</span>
+        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="hll"><span class="c1"># Check if the score is above the threshold</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">the_score_is_high_enough</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll">    <span class="k">return</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">WIN_THRESHOLD</span>
+</span><span class="hll">
+</span><span class="hll"><span class="c1"># Flash a game over message</span>
+</span><span class="hll"><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll">    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Game over, you won!&quot;</span>
+</span>
+<span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="c1"># There are usually 30 updates per second!</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call track_the_score every update.</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
+<span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
+<span class="hll"><span class="c1"># Tell Designer to check if the game is over, then flash our message</span>
+</span><span class="hll"><span class="c1"># and pause on that screen</span>
+</span><span class="hll"><span class="n">when</span><span class="p">(</span><span class="n">the_score_is_high_enough</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
+</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The first function we created (<cite>the_score_is_high_enough</cite>) is a custom event: in order to satisfy that purpose,
+we have to define the function to be a <em>predicate</em> (i.e., a function that reutrns a boolean value). Designer
+will call the function every update and when it is True, it will call all the subsequent functions one after the
+other.</p>
+<p>In this case, the predicate <cite>the_score_is_high_enough</cite> checks the current value stored in the World’s <cite>score</cite> and
+compares it to a global constant we created named <cite>WIN_THRESHOLD</cite>. Rather than embedding that value in the function,
+we created a constant at the top of our program. This makes it much easier for anyone wanting to extend our game
+to see what that value represents, since it’s a more meaningful name than just the value 5.</p>
+<p>We defined a second function <cite>flash_game_over</cite> that changes the <cite>“message”</cite>’s <cite>“text”</cite> field to be a friendly game
+over message. This takes advantage of the fact that after the game is paused, the Update event no longer triggers,
+meaning that the <cite>track_the_score</cite> function will not overwrite our message’s text.</p>
+<p>Finally, the <a class="reference internal" href="../students/docs.html#pause"><span class="std std-ref">pause</span></a> function (another Designer built-in) is used to hang the game without closing the
+Window (if you wanted to do that, then you could use the <a class="reference internal" href="../students/docs.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
+will still be rendered, but no further events are detected.</p>
+<a class="reference internal image-reference" href="../_images/world_7.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends." src="../_images/world_7.gif" style="width: 700px;" /></a>
+</div>
+<div class="section" id="wrapping-up">
+<h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this headline">¶</a></h2>
+<p>So there you have a simple “click the teleporting, spinning rectangle” game. We’ve incorporated event handling,
+collision detection, and several other Designer features all into one code file.</p>
+<p>Try making some of these changes to the game:</p>
+<ul class="simple">
+<li><p>Swap out the rectangle for an image of your choice.</p></li>
+<li><p>Instead of having the rectangle move randomly, choose a spot that is far away from the mouse.</p></li>
+<li><p>Whenever the mouse clicks on the rectangle, immediately have it jump away.</p></li>
+<li><p>Create a timer field that increments every update; instead of teleporting at random intevals, have the rectangle teleport every 60 updates.</p></li>
+<li><p>Modify the message to also show the current timer.</p></li>
+<li><p>Have the rectangle spin forward and then BACKWARD. You’ll need an additional field to keep track of its current direction!</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="sparkles.html" class="btn btn-neutral float-right" title="Sparkles" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="emoji_clicker.html" class="btn btn-neutral float-left" title="Emoji Clicker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, acbart, krishols.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
