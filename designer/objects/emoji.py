@@ -222,3 +222,12 @@ def emoji(name, x=None, y=None, anchor='center', **kwargs):
 if ALT_MODE:
     Emoji._load_image = Emoji._alt_load_image
     Emoji._redraw_internal_image = Emoji._alt_redraw_internal_image
+
+
+def get_emoji_name(an_emoji: Emoji) -> str:
+    return an_emoji.name
+
+
+def set_emoji_name(an_emoji: Emoji, new_name: str):
+    an_emoji.name = new_name
+

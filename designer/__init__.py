@@ -79,5 +79,7 @@ __all__ = [
     'get_scale', 'get_scale_x', 'get_scale_y', 'get_visible', 'get_flip_x', 'get_flip_y', 'show', 'hide',
     'grow', 'grow_x', 'grow_y', 'shrink',
     'move_to_x', 'move_to_y', 'move_to', 'move_to_mouse', 'move_to_xy',
-    'set_visible'
+    'set_visible', 'change_scale',
+    # Emoji specific
+    'get_emoji_name', 'set_emoji_name'
 ]
