@@ -32,4 +32,4 @@ Join our Github `Discussions`_ to get in touch and contribute to Designer.
 .. _Data: https://designer-edu.github.io/research/sigcse22-notebook.html
 .. _browser: https://blockpy.cis.udel.edu/assignments/load?assignment_group_id=138
 .. _Discussions: https://github.com/designer-edu/designer/discussions
-.. _paper: https://doi.org/10.1145/3478431.3499363`
+.. _paper: https://doi.org/10.1145/3478431.3499363
