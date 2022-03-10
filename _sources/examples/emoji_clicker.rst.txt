@@ -79,6 +79,7 @@ then binding them with the ``when`` function is at the heart of Designer games. 
 **Problem 2:** Change the second argument of ``change_scale`` to be a much smaller decimal, so that the picture
 does not grow as fast.
 
+========================
 3. Picture Grows Too Big
 ========================
 
@@ -116,6 +117,7 @@ representing the new emoji name to use. You are free to use whatever emoji you w
 Explosion or a Frowny Face. Remember, ``if`` statements can have multiple lines of code in their body, but each
 line INSIDE the body is indented the same amount!
 
+======================
 4. Shrinking the Emoji
 ======================
 
@@ -155,6 +157,7 @@ user actually clicks on the emoji. The ``colliding_with_mouse(object)`` function
 a boolean indicating whether or not the mouse is currently on top of the given object. Hint: you will *not* need
 any ``==`` operators because the ``colliding_with_mouse`` function already returns a boolean.
 
+=====================
 5. Changing the Emoji
 =====================
 
@@ -224,6 +227,7 @@ Like the other function, the ``previous_picture`` function should consume a ``pi
 calling the ``set_emoji_name`` function. The logic should be reversed. Call the ``previous_picture`` function correctly
 inside of the ``change_picture`` function IF the player types the ``"left"`` arrow key.
 
+=======================
 6. Varying Growth Rates
 =======================
 
@@ -234,6 +238,7 @@ grow at different rates, essentially having different difficulty levels.
 float value indicating how much that emoji should grow in one step. Then, call that function in your existing
 ``grow_picture`` function so that the ``picture`` grows at the varying rate instead of the constant rate.
 
+===============
 7. Going Beyond
 ===============
 
