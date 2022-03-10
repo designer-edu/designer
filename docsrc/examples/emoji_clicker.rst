@@ -187,9 +187,9 @@ more complicated since it will depend on another new function ``next_picture``. 
             next_picture(picture)
 
     def next_picture(picture: DesignerObject):
-        if get_picture_name(picture) == "___":
+        if get_emoji_name(picture) == "___":
             set_emoji_name(picture, "___")
-        elif get_picture_name(picture) == "___":
+        elif get_emoji_name(picture) == "___":
             set_emoji_name(picture, "___")
         else:
             set_emoji_name(picture, "___")
