@@ -11,7 +11,7 @@ REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
 
 setuptools.setup(
     name='designer',
-    version='0.2.7',
+    version='0.2.8',
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core'],

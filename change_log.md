@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.2.8
+
+* Fix scaling of emojis on Mac *again*, this time to handle repeated scaling moving the image
+
 # Version 0.2.7
 
 * Export `change_scale` correctly
