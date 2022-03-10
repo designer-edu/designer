@@ -83,7 +83,7 @@ does not grow as fast.
 
 When the emoji gets too big, the game should stop. We need to add some logic to the game to check the current *scale*
 of the ``picture``; when the horizontal scale gets too big, we will ``pause`` the game. Since this could happen at any
-update, we will add another ``when("updating", ...)`` to our program, this time binding a function ``check_emoji``.
+update, we will add another ``when("updating", ...)`` to our program, this time binding a function ``check_picture``.
 
 .. code-block:: python
     :emphasize-lines: 6-8, 11
@@ -140,8 +140,8 @@ emoji shrink only when we click the mouse instead of every update, we need to bi
         change_scale(picture, -.5)
 
     when("updating", grow_picture)
-    when("updating", check_emoji)
-    when("clicking", shrink_emoji)
+    when("updating", check_picture)
+    when("clicking", shrink_picture)
     draw(emoji("dog face"))
 
 The event ``"clicking"`` only activates when the user clicks the mouse button anywhere on the screen. Once again,
@@ -191,8 +191,8 @@ more complicated since it will depend on another new function ``next_picture``. 
             set_emoji_name(picture, "___")
 
     when("updating", grow_picture)
-    when("updating", check_emoji)
-    when("clicking", shrink_emoji)
+    when("updating", check_picture)
+    when("clicking", shrink_picture)
     when("typing", change_picture)
     draw(emoji("dog face"))
 

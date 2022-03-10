@@ -248,7 +248,7 @@ does not grow as fast.</p>
 <h2>3. Picture Grows Too Big<a class="headerlink" href="#picture-grows-too-big" title="Permalink to this headline">¶</a></h2>
 <p>When the emoji gets too big, the game should stop. We need to add some logic to the game to check the current <em>scale</em>
 of the <code class="docutils literal notranslate"><span class="pre">picture</span></code>; when the horizontal scale gets too big, we will <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game. Since this could happen at any
-update, we will add another <code class="docutils literal notranslate"><span class="pre">when(&quot;updating&quot;,</span> <span class="pre">...)</span></code> to our program, this time binding a function <code class="docutils literal notranslate"><span class="pre">check_emoji</span></code>.</p>
+update, we will add another <code class="docutils literal notranslate"><span class="pre">when(&quot;updating&quot;,</span> <span class="pre">...)</span></code> to our program, this time binding a function <code class="docutils literal notranslate"><span class="pre">check_picture</span></code>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 
 <span class="k">def</span> <span class="nf">grow_picture</span><span class="p">(</span><span class="n">picture</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
@@ -295,8 +295,8 @@ emoji shrink only when we click the mouse instead of every update, we need to bi
 </span><span class="hll">    <span class="n">change_scale</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="o">-</span><span class="mf">.5</span><span class="p">)</span>
 </span>
 <span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
-<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_emoji</span><span class="p">)</span>
-<span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_emoji</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_picture</span><span class="p">)</span>
+<span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_picture</span><span class="p">)</span>
 </span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
 </pre></div>
 </div>
@@ -341,8 +341,8 @@ more complicated since it will depend on another new function <code class="docut
 </span><span class="hll">        <span class="n">set_emoji_name</span><span class="p">(</span><span class="n">picture</span><span class="p">,</span> <span class="s2">&quot;___&quot;</span><span class="p">)</span>
 </span>
 <span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_picture</span><span class="p">)</span>
-<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_emoji</span><span class="p">)</span>
-<span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_emoji</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">check_picture</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;clicking&quot;</span><span class="p">,</span> <span class="n">shrink_picture</span><span class="p">)</span>
 <span class="hll"><span class="n">when</span><span class="p">(</span><span class="s2">&quot;typing&quot;</span><span class="p">,</span> <span class="n">change_picture</span><span class="p">)</span>
 </span><span class="n">draw</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog face&quot;</span><span class="p">))</span>
 </pre></div>
