@@ -94,15 +94,15 @@
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="examples.html">Longer Examples</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Emoji Clicker</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#drawing-an-emoji">1. Drawing an Emoji</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#growing-the-emoji">2. Growing the Emoji</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#drawing-an-emoji">1. Drawing an Emoji</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#growing-the-emoji">2. Growing the Emoji</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#picture-grows-too-big">3. Picture Grows Too Big</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shrinking-the-emoji">4. Shrinking the Emoji</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#changing-the-emoji">5. Changing the Emoji</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#varying-growth-rates">6. Varying Growth Rates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#going-beyond">7. Going Beyond</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#picture-grows-too-big">3. Picture Grows Too Big</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#shrinking-the-emoji">4. Shrinking the Emoji</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#changing-the-emoji">5. Changing the Emoji</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#varying-growth-rates">Varying Growth Rates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#going-beyond">Going Beyond</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="world.html">Designer Worlds</a></li>
@@ -206,8 +206,9 @@ the <code class="docutils literal notranslate"><span class="pre">draw</span></co
 <p><strong>Problem 1:</strong> Change the string value so that a different emoji is drawn. You can find
 emojis <a class="reference external" href="https://emojis.wiki/">here</a>; you can use either the formal name of the
 emoji (e.g., <code class="docutils literal notranslate"><span class="pre">&quot;dog</span> <span class="pre">face&quot;</span></code>) or the emoji itself (<code class="docutils literal notranslate"><span class="pre">&quot;🐶&quot;</span></code>).</p>
+</div>
 <div class="section" id="growing-the-emoji">
-<h3>2. Growing the Emoji<a class="headerlink" href="#growing-the-emoji" title="Permalink to this headline">¶</a></h3>
+<h2>2. Growing the Emoji<a class="headerlink" href="#growing-the-emoji" title="Permalink to this headline">¶</a></h2>
 <p>On its own, we have not made a very exciting game. Nothing happens when we run it!
 Let’s change that by <em>binding</em> a <em>function</em> to an <em>event</em>. Specifically, we are going to make
 the emoji grow (increase scale) every <em>update</em> of the game. Let’s look at the new code, and
@@ -242,10 +243,8 @@ This idea of defining functions that make small changes in the world, and
 then binding them with the <code class="docutils literal notranslate"><span class="pre">when</span></code> function is at the heart of Designer games. We call this “Event Handling”.</p>
 <p><strong>Problem 2:</strong> Change the second argument of <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> to be a much smaller decimal, so that the picture
 does not grow as fast.</p>
-</div>
-</div>
 <div class="section" id="picture-grows-too-big">
-<h2>3. Picture Grows Too Big<a class="headerlink" href="#picture-grows-too-big" title="Permalink to this headline">¶</a></h2>
+<h3>3. Picture Grows Too Big<a class="headerlink" href="#picture-grows-too-big" title="Permalink to this headline">¶</a></h3>
 <p>When the emoji gets too big, the game should stop. We need to add some logic to the game to check the current <em>scale</em>
 of the <code class="docutils literal notranslate"><span class="pre">picture</span></code>; when the horizontal scale gets too big, we will <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game. Since this could happen at any
 update, we will add another <code class="docutils literal notranslate"><span class="pre">when(&quot;updating&quot;,</span> <span class="pre">...)</span></code> to our program, this time binding a function <code class="docutils literal notranslate"><span class="pre">check_picture</span></code>.</p>
@@ -276,7 +275,7 @@ Explosion or a Frowny Face. Remember, <code class="docutils literal notranslate"
 line INSIDE the body is indented the same amount!</p>
 </div>
 <div class="section" id="shrinking-the-emoji">
-<h2>4. Shrinking the Emoji<a class="headerlink" href="#shrinking-the-emoji" title="Permalink to this headline">¶</a></h2>
+<h3>4. Shrinking the Emoji<a class="headerlink" href="#shrinking-the-emoji" title="Permalink to this headline">¶</a></h3>
 <p>It’s not really a game if all you can do is watch the Emoji get bigger and bigger until you lose. Next we’ll add
 some interactivity. Specifically, when the user clicks on the emoji, the picture should get a little bit smaller.
 Making the picture smaller can be done by passing a negative value to the <code class="docutils literal notranslate"><span class="pre">change_scale</span></code> function. But to make the
@@ -310,7 +309,7 @@ a boolean indicating whether or not the mouse is currently on top of the given o
 any <code class="docutils literal notranslate"><span class="pre">==</span></code> operators because the <code class="docutils literal notranslate"><span class="pre">colliding_with_mouse</span></code> function already returns a boolean.</p>
 </div>
 <div class="section" id="changing-the-emoji">
-<h2>5. Changing the Emoji<a class="headerlink" href="#changing-the-emoji" title="Permalink to this headline">¶</a></h2>
+<h3>5. Changing the Emoji<a class="headerlink" href="#changing-the-emoji" title="Permalink to this headline">¶</a></h3>
 <p>At this point, our game is technically playable and could be shown to other people. But we have some cute features
 to add before that. The first new feature is the ability to switch what emoji is currently active. When the player
 presses the right arrow on their keyboard, the emoji’s picture should cycle through a few different images. Using
@@ -371,7 +370,7 @@ calling the <code class="docutils literal notranslate"><span class="pre">set_emo
 inside of the <code class="docutils literal notranslate"><span class="pre">change_picture</span></code> function IF the player types the <code class="docutils literal notranslate"><span class="pre">&quot;left&quot;</span></code> arrow key.</p>
 </div>
 <div class="section" id="varying-growth-rates">
-<h2>Varying Growth Rates<a class="headerlink" href="#varying-growth-rates" title="Permalink to this headline">¶</a></h2>
+<h3>6. Varying Growth Rates<a class="headerlink" href="#varying-growth-rates" title="Permalink to this headline">¶</a></h3>
 <p>We are almost done, we just have one more feature to add. Since we have different emojis, we will make them
 grow at different rates, essentially having different difficulty levels.</p>
 <p><strong>Problem 6</strong>: Define a new function named <code class="docutils literal notranslate"><span class="pre">get_growth_rate</span></code> that consumes a <code class="docutils literal notranslate"><span class="pre">picture</span></code> and produces a
@@ -379,7 +378,7 @@ float value indicating how much that emoji should grow in one step. Then, call t
 <code class="docutils literal notranslate"><span class="pre">grow_picture</span></code> function so that the <code class="docutils literal notranslate"><span class="pre">picture</span></code> grows at the varying rate instead of the constant rate.</p>
 </div>
 <div class="section" id="going-beyond">
-<h2>Going Beyond<a class="headerlink" href="#going-beyond" title="Permalink to this headline">¶</a></h2>
+<h3>7. Going Beyond<a class="headerlink" href="#going-beyond" title="Permalink to this headline">¶</a></h3>
 <p>At this point, you have achieved all of the features you need for your game! Show it to someone else and see what
 they think! Here are some other ways to extend the game.</p>
 <ul class="simple">
@@ -390,6 +389,7 @@ to be something more thematically appropriate to your game.</p></li>
 <li><p>Look up the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function, which allows you to make random integers. Use this function to have the emoji
 move around the screen at random times and to random positions.</p></li>
 </ul>
+</div>
 </div>
 </div>
 

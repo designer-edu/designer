@@ -15,6 +15,7 @@ the emoji to make the emoji get smaller.
 In order to make this game, we'll need to learn about Designer's Events, along with knowing how to define functions
 and write `if` statements.
 
+===================
 1. Drawing an Emoji
 ===================
 
@@ -223,8 +224,8 @@ Like the other function, the ``previous_picture`` function should consume a ``pi
 calling the ``set_emoji_name`` function. The logic should be reversed. Call the ``previous_picture`` function correctly
 inside of the ``change_picture`` function IF the player types the ``"left"`` arrow key.
 
-Varying Growth Rates
-====================
+6. Varying Growth Rates
+=======================
 
 We are almost done, we just have one more feature to add. Since we have different emojis, we will make them
 grow at different rates, essentially having different difficulty levels.
@@ -233,8 +234,8 @@ grow at different rates, essentially having different difficulty levels.
 float value indicating how much that emoji should grow in one step. Then, call that function in your existing
 ``grow_picture`` function so that the ``picture`` grows at the varying rate instead of the constant rate.
 
-Going Beyond
-============
+7. Going Beyond
+===============
 
 At this point, you have achieved all of the features you need for your game! Show it to someone else and see what
 they think! Here are some other ways to extend the game.
