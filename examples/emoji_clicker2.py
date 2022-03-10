@@ -6,7 +6,7 @@ def grow_emoji(picture: DesignerObject):
 
 
 def get_emoji_growth(picture: DesignerObject):
-    if picture.name == "dragon":
+    if get_emoji_name(picture) == "dragon":
         return .1
     else:
         return .02
@@ -19,7 +19,7 @@ def shrink_emoji(picture: DesignerObject):
 
 def check_emoji(picture: DesignerObject):
     if get_scale_x(picture) > 8:
-        picture.name = "cross mark"
+        set_emoji_name(picture, "cross mark")
         pause()
 
 
