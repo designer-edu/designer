@@ -11,6 +11,7 @@ Designer is a classroom tool that allows you to create visual output as you lear
    :maxdepth: 2
    :caption: Contents:
 
+   research/welcome
    students/installation
    quickstart/quickstart
    examples/examples
