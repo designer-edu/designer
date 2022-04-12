@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.2.9
+
+* Support missing event attributes when converting pygame events
+* Allow more advanced Pygame versions than 2.0.1
+
 # Version 0.2.8
 
 * Fix scaling of emojis on Mac *again*, this time to handle repeated scaling moving the image
