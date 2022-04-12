@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.3.0
+
+* Minor bug fix (okay I left a `print` statement in, I'm sorry)
+
 # Version 0.2.9
 
 * Support missing event attributes when converting pygame events
