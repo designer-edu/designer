@@ -251,7 +251,10 @@ def _pygame_to_spyral(event, **kwargs):
     event_type = _TYPE_TO_TYPE.get(event.type, f'unknown.event[{event.type}]')
     e = Event(**kwargs)
     for attr in event_attrs:
-        setattr(e, attr, getattr(event, attr))
+        try:
+            setattr(e, attr, getattr(event, attr))
+        except AttributeError:
+            print("Skipping", attr, "for", event)
     if event_type.startswith("input"):
         setattr(e, "type", event_type.split(".")[-1])
     if event_type.startswith('input.keyboard'):
