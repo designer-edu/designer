@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.3.1
+
+* Bug fix for set_x/set_y to return the object and not the new position
+
 # Version 0.3.0
 
 * Minor bug fix (okay I left a `print` statement in, I'm sorry)

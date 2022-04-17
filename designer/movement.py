@@ -107,12 +107,12 @@ def change_xy(object, x_amount, y_amount):
 
 def set_x(object, new_x):
     object.x = new_x
-    return new_x
+    return object
 
 
 def set_y(object, new_y):
     object.y = new_y
-    return new_y
+    return object
 
 
 def get_x(object):
