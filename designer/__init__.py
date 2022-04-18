@@ -34,7 +34,7 @@ __all__ = [
     'get_width', 'get_window_width',
     # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
-    'start',
+    'start', 'debug',
     'stop',
     'pause',
     'colliding', 'colliding_with_mouse',

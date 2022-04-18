@@ -9,7 +9,6 @@ from designer.keyboard import KeyboardModule
 from designer.mouse import MouseModule
 from designer.music import MusicModule
 from designer.sfx import SfxModule
-from designer.tk.debug import DebugWindow
 
 DEFAULT_WINDOW_TITLE = "Designer Game"
 
@@ -183,6 +182,10 @@ class Director:
         self.debug_mode = True
         self.start(initial_game_state)
 
+    def stop_debug_mode(self):
+        self.debug_mode = False
+        self.debug_window = None
+
     def start(self, initial_game_state):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
@@ -211,6 +214,7 @@ class Director:
                 object._reactivate()
         # Set up debug window
         if self.debug_mode:
+            from designer.tk.debug import DebugWindow
             self.debug_window = DebugWindow(self)
         # Start running the game!
         self.running = True
