@@ -4,6 +4,7 @@ Change Log
 # Version 0.3.1
 
 * Bug fix for set_x/set_y to return the object and not the new position
+* New feature: "Debug Window", renders current world as a pretty-printed string
 
 # Version 0.3.0
 
