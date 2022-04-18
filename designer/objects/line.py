@@ -37,6 +37,10 @@ class Line(DesignerObject):
         # And draw!
         self._redraw_internal_image()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        return f"<{activated}line({self._color!r}, {self._start[0]}, {self._start[1]}, {self._end[0]}, {self._end[1]})>"
+
     def _calculate_positions(self, start, end, thickness):
         (x1, y1), (x2, y2) = start, end
         # Need to flip y-axis

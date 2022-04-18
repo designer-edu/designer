@@ -48,6 +48,10 @@ class Ellipse(DesignerObject):
         # And draw!
         self._redraw_internal_image()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        return f"<{activated}ellipse({self._color!r}, {self._size[0]}, {self._size[1]})>"
+
     def _recalculate_offset(self):
         size = self._size * self._scale
         offset = _anchor_offset(self._anchor, size[0], size[1])

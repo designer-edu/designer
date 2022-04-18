@@ -75,6 +75,11 @@ class Image(DesignerObject):
         self._redraw_internal_image()
         self._recalculate_offset()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        filename = self._filename if len(self._filename) < 40 else self._filename[:40-3]+"..."
+        return f"<{activated}image({filename!r})>"
+
     def _load_image(self):
         if self._filename in self._GIF_CACHE:
             # TODO: Return a copy instead?

@@ -49,6 +49,11 @@ class Text(DesignerObject):
         # Draw the actual circle image
         self._redraw_internal_image()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        text = self._text if len(self._text) < 40 else self._text[:40-3]+"..."
+        return f"<{activated}image({self._color!r}, {text!r}, {self._text_size})>"
+
     def _recalculate_offset(self):
         if self._transform_image is None:
             return

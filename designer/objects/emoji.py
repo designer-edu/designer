@@ -83,6 +83,11 @@ class Emoji(DesignerObject):
         self._redraw_internal_image()
         self._recalculate_offset()
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        name = self._name if len(self._name) < 40 else self._name[:40-3]+"..."
+        return f"<{activated}emoji({name!r})>"
+
     def _get_unicode(self, text):
         # Look up the name or character
         try:

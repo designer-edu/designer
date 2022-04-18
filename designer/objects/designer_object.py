@@ -90,6 +90,11 @@ class DesignerObject:
 
         self.FIELDS = set(self.FIELDS)
 
+    def __repr__(self):
+        activated = "" if self._active else "INACTIVE "
+        name = type(self).__name__
+        return f"<{activated}{name}()>"
+
     def check_key(self, item):
         if item not in dir(self):
             suggestions = ", ".join(map(repr, difflib.get_close_matches(repr(item), self.FIELDS)))
