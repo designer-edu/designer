@@ -47,3 +47,4 @@ class DebugWindow:
     def destroy(self):
         self.director.stop_debug_mode()
         unregister('updating', self.update_window)
+        self.root.destroy()
