@@ -61,6 +61,15 @@ def start(*objs):
     designer.GLOBAL_DIRECTOR.start(objs)
 
 
+def debug(*objs):
+    check_initialized()
+    if len(objs) == 1:
+        objs = objs[0]
+    else:
+        objs = list(objs)
+    designer.GLOBAL_DIRECTOR.debug(objs)
+
+
 def stop():
     """ Stops the game. """
     check_initialized()
