@@ -452,7 +452,7 @@ Our game is almost complete. All that we have to do now is establish some criter
 then stop the game. For that, we'll take advantage of a custom event check and the Designer `pause` function.
 
 .. code-block:: python
-    :emphasize-lines: 11-12, 55-61, 75-77
+    :emphasize-lines: 11-12, 24-27, 55-61, 75-77
 
     from designer import *
     import random
