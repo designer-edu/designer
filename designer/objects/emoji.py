@@ -1,20 +1,14 @@
 from typing import Optional, Union
 
 import json
-from urllib.request import urlopen, Request
 import pygame
-import math
-import sys
-import os
 import io
 
-from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
-from designer.core.internal_image import InternalImage, DesignerSurface
+from designer.core.internal_image import InternalImage
 from designer.utilities import Vec2D
 from designer.utilities.util import _anchor_offset
-from designer.utilities.gif_image import GifImage
 
 
 try:
@@ -134,9 +128,15 @@ class Emoji(DesignerObject):
         image. In order: flipping, scaling, and rotation.
         """
         # Transform the SVG
-        l, r = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE) * self._scale
+        size = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE) * self._scale
+        l, r = size
+        tx, ty = size/2
         flip_x, flip_y = "-" if self._flip_x else "", "-" if self._flip_y else ""
-        transforms = f"rotate({self._angle})\nscale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]})"
+        # TODO: Mac's rotate incorrectly from topleft instead of center
+        transforms = (f"translate({tx}, {ty}),"
+                      f"rotate({self._angle}),"
+                      f"translate({-tx}, {-ty}),"
+                      f"scale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]})")
         image_data = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {l} {r}">'
                       f'<g transform="{transforms}">{self._svg}'
                       f'</g></svg>'.encode())
