@@ -11,10 +11,11 @@ REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
 
 setuptools.setup(
     name='designer',
-    version='0.3.1',
+    version='0.3.3',
     python_requires='>=3.6',
     author='krishols, acbart',
-    packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core'],
+    packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core',
+              'designer.tk'],
     package_data={
         'designer': ['data/colors.json', 'data/default_key_mappings.txt',
                      'data/unicode_names.json', 'data/emojis.zip']

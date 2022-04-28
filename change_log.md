@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+# Version 0.3.3
+
+* Partial fix for rotating emojis on Mac (were partially cut off)
+
+# Version 0.3.2
+
+* Bug fix for debug window module not being included in release
+
 # Version 0.3.1
 
 * Bug fix for set_x/set_y to return the object and not the new position
