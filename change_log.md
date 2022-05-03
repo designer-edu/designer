@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.3.4
+
+* Crude fix for debug mode on Macs by preloading a Tkinter window
+
 # Version 0.3.3
 
 * Partial fix for rotating emojis on Mac (were partially cut off)
