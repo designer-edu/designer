@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.3.5
+
+* The fix from 0.3.4 was too crude - there was a bug! Should hopefully be fixed.
+
 # Version 0.3.4
 
 * Crude fix for debug mode on Macs by preloading a Tkinter window
