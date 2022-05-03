@@ -2,6 +2,11 @@ from os import environ
 
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
 
+# For `debug` support on Mac, we need to preload tkinter
+from designer.system import setup_debug_mode
+setup_debug_mode()
+
+# Actually import all dependencies
 import pygame
 from designer.core.director import *
 from designer.core.event import *
