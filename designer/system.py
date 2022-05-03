@@ -16,7 +16,7 @@ def running_on_linux() -> bool:
 def setup_debug_mode():
     if running_on_mac_os():
         try:
-            import tikinter as tk
+            import tkinter as tk
             root = tk.Tk()
             root.update()
             root.destroy()
