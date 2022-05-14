@@ -3,6 +3,7 @@ from typing import Optional, Union
 import json
 import pygame
 import io
+import math
 
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
@@ -128,16 +129,15 @@ class Emoji(DesignerObject):
         image. In order: flipping, scaling, and rotation.
         """
         # Transform the SVG
-        size = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE) * self._scale
-        l, r = size
-        tx, ty = size/2
+        default_size = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE)
+        size = default_size * self._scale
+        hx, hy = default_size/2
         flip_x, flip_y = "-" if self._flip_x else "", "-" if self._flip_y else ""
-        # TODO: Mac's rotate incorrectly from topleft instead of center
-        transforms = (f"translate({tx}, {ty}),"
-                      f"rotate({self._angle}),"
-                      f"translate({-tx}, {-ty}),"
-                      f"scale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]})")
-        image_data = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {l} {r}">'
+        fx, fy = size[0] if self._flip_x else 0, size[1] if self._flip_y else 0
+        transforms = (f"translate({fx}, {fy}),"
+                      f"scale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]}),"
+                      f"rotate({-self._angle}, {hx}, {hy}),")
+        image_data = (f'<svg xmlns="http://www.w3.org/2000/svg">'
                       f'<g transform="{transforms}">{self._svg}'
                       f'</g></svg>'.encode())
         image_file = io.BytesIO(image_data)

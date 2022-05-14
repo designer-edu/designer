@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.3.6
+
+* Fixed SVGs for macs (including previous cropping issue) for scale, rotate, and flip!
+
 # Version 0.3.5
 
 * The fix from 0.3.4 was too crude - there was a bug! Should hopefully be fixed.
