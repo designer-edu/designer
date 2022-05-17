@@ -532,6 +532,7 @@ class Window:
                     clear_next.append(r)
                 elif screen_rect.colliderect(blit_rect):
                     # Todo: See if this is ever called. Shouldn't be.
+                    # Note: I believe it's called when an object is bigger than the screen
                     x = blit.rect.clip(screen_rect)
                     y = x.move(-blit_rect.left, -blit_rect.top)
                     b = blit.surface.subsurface(y)
