@@ -71,7 +71,7 @@ class DesignerObject:
 
         # Dependent fields
         self._offset = Vec2D(0, 0)
-        self._computed_layer = 1
+        self._computed_layer = parent.window._get_layer_position(parent, self._layer)
         #: The actual image after it has been scaled/cropped/rotated/etc.
         self._transform_image: Optional[DesignerSurface] = None
         self._transform_offset = Vec2D(0, 0)

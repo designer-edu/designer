@@ -131,6 +131,20 @@ def set_window_state(new_state):
     set_game_state(new_state)
 
 
+def set_window_layers(new_layers):
+    check_initialized()
+    if designer.GLOBAL_DIRECTOR.current_window:
+        designer.GLOBAL_DIRECTOR.current_window.layers = new_layers
+
+
+def get_window_layers():
+    check_initialized()
+    if designer.GLOBAL_DIRECTOR.current_window:
+        return designer.GLOBAL_DIRECTOR.current_window.layers
+    else:
+        return []
+
+
 def set_window_size(width, height):
     """
     Set size of window in pixels.

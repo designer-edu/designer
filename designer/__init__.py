@@ -51,6 +51,7 @@ __all__ = [
     'get_director',
     # Window stuff
     'set_window_title', 'get_window_title', 'set_window_image',
+    'get_window_layers', 'set_window_layers',
     # Keyboard stuff
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',

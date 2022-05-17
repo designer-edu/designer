@@ -16,6 +16,7 @@ Important concepts:
         integer (or long, possibly)
 """
 
+
 class _LayerTree:
     """
     Starts keeping track of the entity as a child of this view.
@@ -27,6 +28,14 @@ class _LayerTree:
     #: calculations will be messed up. It is an artificially chosen number, it
     #: should eventually be possible to change it.
     MAX_LAYERS = 40
+
+    MOD_OFFSET = {
+        'top': .75,
+        'above': .5,
+        'below': -.5,
+        'bottom': -.75
+    }
+
     def __init__(self, scene):
         self.layers = {scene : []}
         self.child_views = {scene : []}
@@ -163,10 +172,7 @@ class _LayerTree:
         offset = 0
         if len(s) > 1:
             mod = s[1]
-            if mod == 'above':
-                offset = 0.5
-            if mod == 'below':
-                offset = -0.5
+            offset = self.MOD_OFFSET.get(mod, 0)
         if (parent, layer) in self.layer_location:
             position = self.layer_location[(parent, layer)]
         elif parent in self.layer_location:
