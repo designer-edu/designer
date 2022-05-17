@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+# Version 0.3.7
+
+* Fix bug with updating layer field
+* Expose set_window_layers and get_window_layers
+* Allow :top and :bottom layer modifiers
+* Fix up layering system a little to actually work!
+* Fix object destruction throwing errors when they had event handlers
+
 # Version 0.3.6
 
 * Fixed SVGs for macs (including previous cropping issue) for scale, rotate, and flip!
