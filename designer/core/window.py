@@ -241,7 +241,7 @@ class Window:
             self._pending = []
 
     def _unregister_object_events(self, object):
-        for name, handlers in self._handlers.items():
+        for name, handlers in list(self._handlers.items()):
             self._handlers[name] = [h for h in handlers
                                     if not hasattr(h[0], '__self__') or h[0].__self__ is not object]
             if not self._handlers[name]:
