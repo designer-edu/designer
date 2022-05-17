@@ -39,30 +39,32 @@ class Emoji(DesignerObject):
     DEFAULT_EMOJI_SIZE = 36
     _EMOJI_CACHE = {}
 
-    def __init__(self, center, name, anchor, **kwargs):
+    def __init__(self, name, x=None, y=None, **kwargs):
         """
-        Creates Image Designer Object on window
+        Function to create an image from the emoji with the given name.
 
-        :param center: x, y coordinates of center of circle
-        :type center: Tuple[int]
-        :param anchor: the anchor to draw the circle at
-        :type anchor: str
-        :param name: The name of the emoji
+
+        :param name: The emoji's name or the unicode symbol (e.g., "ghost" or "👻")
         :type name: str
-        :param width: width of image in pixels
-        :type width: int
-        :param height: height of image in pixels
-        :type height: int
+        :param x: The horizontal X position of the emoji (defaults to the middle of the window)
+        :type x: int
+        :param y: The vertical Y position of the emoji (defaults to the middle of the window)
+        :type y: int
+        :param anchor: Where to draw from on the image.
+        :type anchor: str
+        :return: Emoji object
         """
         super().__init__(**kwargs)
 
-        x, y = center
+        if x is not None and y is None:
+            if isinstance(x, (list, tuple, Vec2D)):
+                x, y = x
+
         x = x if x is not None else get_width() / 2
         y = y if y is not None else get_height() / 2
         center = x, y
 
         self._pos = center
-        self._anchor = anchor
         # Image specific data
         self._size = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE)
         self._name = name
@@ -208,20 +210,7 @@ class Emoji(DesignerObject):
         self._expire_static()
 
 
-def emoji(name, x=None, y=None, anchor='center', **kwargs):
-    """
-    Function to create an image from the emoji with the given name.
-
-    :param name: The emoji's name
-    :type name: str
-    :param args: left top corner of image and width and height of image
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Image object
-    """
-    if x is not None and y is None:
-        if isinstance(x, (list, tuple)):
-            x, y = x
-    return Emoji((x, y), name, anchor, **kwargs)
+emoji = Emoji
 
 
 if ALT_MODE:

@@ -1,10 +1,7 @@
-import pygame
-import math
-
 from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
-from designer.core.internal_image import InternalImage, DesignerSurface
+from designer.core.internal_image import InternalImage
 from designer.utilities.vector import Vec2D
 from designer.utilities.util import _anchor_offset
 
@@ -12,7 +9,7 @@ from designer.utilities.util import _anchor_offset
 class Rectangle(DesignerObject):
     FIELDS = (*DesignerObject.FIELDS, 'color', 'border')
 
-    def __init__(self, center, anchor, width, height, color, border):
+    def __init__(self, color, width, height=None, x=None, y=None, border=None, **kwargs):
         """
         Creates Rectangle Designer Object on window.
 
@@ -29,15 +26,20 @@ class Rectangle(DesignerObject):
         :param border: the width of the circle's line (0 is used for a filled circle)
         :type border: int
         """
-        super().__init__()
+        super().__init__(**kwargs)
 
-        x, y = center
+        if x is not None and y is None and isinstance(x, (list, tuple, Vec2D)):
+            x, y = x
+        elif x is None and y is None and height is not None and not isinstance(height, (int, float)):
+            x, y = height
+            width, height = width
+        elif height is None:
+            width, height = width
+
         x = x if x is not None else get_width() / 2
         y = y if y is not None else get_height() / 2
-        center = x, y
 
-        self._pos = center
-        self._anchor = anchor
+        self._pos = x, y
         # Rectangle specific data
         self._size = Vec2D(width, height)
         self._color = color
@@ -47,8 +49,12 @@ class Rectangle(DesignerObject):
         self._redraw_internal_image()
 
     def __repr__(self):
-        activated = "" if self._active else "INACTIVE "
-        return f"<{activated}rectangle({self._color!r}, {self._size[0]}, {self._size[1]})>"
+        return (f"<{self._active_status()}rectangle("
+                f"color={self._color!r}, x={self.x}, y={self.y}, "
+                f"width={self._size[0]}, height={self._size[1]})>")
+
+    def __str__(self):
+        return f"<{self._active_status()}rectangle({self._color!r}, {self._size[0]}, {self._size[1]})>"
 
     def _recalculate_offset(self):
         size = self._size * self._scale
@@ -99,22 +105,4 @@ class Rectangle(DesignerObject):
         self._redraw_internal_image()
 
 
-def rectangle(color, width, height=None, x=None, y=None, anchor='center', border=None):
-    '''
-    Function to create a rectangle.
-
-    :param color: color of rectangle
-    :type color: str or List[str]
-    :param args: left top corner of image and width and height of rectangle
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Rectangle object created
-    '''
-    if x is not None and y is None:
-        x, y = x
-    elif x is None and y is None and height is not None:
-        if not isinstance(height, (int, float)):
-            x, y = height
-            width, height = width
-    elif height is None:
-        width, height = width
-    return Rectangle((x, y), anchor, width, height, color, border)
+rectangle = Rectangle

@@ -55,7 +55,7 @@ class DesignerObject:
         self._visible = kwargs.get('visible', True)
         self._pos = Vec2D(kwargs.get('pos')) if 'pos' in kwargs else Vec2D(kwargs.get('x', 0), kwargs.get('y', 0))
         self._size = Vec2D(kwargs.get('size')) if 'pos' in kwargs else Vec2D(kwargs.get('width', 1), kwargs.get('height', 1))
-        self._anchor = kwargs.get('anchor', 'topleft')
+        self._anchor = kwargs.get('anchor', 'center')
         if 'scale' in kwargs and kwargs['scale'] != None:
             s = kwargs.get('scale')
             self._scale = Vec2D((s, s) if isinstance(s, (int, float)) else s)
@@ -94,6 +94,9 @@ class DesignerObject:
         activated = "" if self._active else "INACTIVE "
         name = type(self).__name__
         return f"<{activated}{name}()>"
+
+    def _active_status(self):
+        return "" if self._visible else "HIDDEN " if self._active else "INACTIVE "
 
     def check_key(self, item):
         if item not in dir(self):

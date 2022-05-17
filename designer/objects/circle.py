@@ -7,33 +7,38 @@ from designer.utilities.util import _anchor_offset
 
 
 class Circle(DesignerObject):
-    DEFAULT_BORDER_WIDTH = 1
     FIELDS = (*DesignerObject.FIELDS, 'radius', 'color', 'border')
 
-    def __init__(self, center, anchor, radius, color, border):
+    def __init__(self, color, radius, x=None, y=None, border=None, **kwargs):
         """
-        Creates a circle object on the window.
+        Function to create a circle.
 
-        :param center: x, y coordinates of center of circle
-        :type center: Tuple[int]
-        :param anchor: the anchor to draw the circle at
-        :type anchor: str
-        :param radius: The radius of the circle
-        :type radius: int
-        :param color: color of circle
-        :type color: str or List[str]
-        :param border: the width of the circle's line (0 is used for a filled circle)
-        :type border: int
+        >>> centered_circle = circle('red', 10)
+        >>> positioned_circle = circle('blue', 20, 0, 0, anchor='topleft')
+        >>> empty_circle = circle('black', 10, border=1)
+
+        :param color: The color of the circle
+        :param radius: The radius of the circle in pixels
+        :param x: Defaults to center of screen if not given
+        :param y: Defaults to center of screen if not given
+        :param border:
+        :return: Circle
         """
-        super().__init__()
+        super().__init__(**kwargs)
 
-        x, y = center
+        if not isinstance(radius, (int, float)):
+            raise ValueError(
+                f"The parameter radius was given the value {radius!r} but that parameter must be either an integer or a float.")
+
+        # Allow `x` as a tuple of positions
+        if x is not None and y is None:
+            if isinstance(x, (list, tuple, Vec2D)):
+                x, y = x
+
         x = x if x is not None else get_width()/2
         y = y if y is not None else get_height()/2
-        center = x, y
 
-        self._pos = center
-        self._anchor = anchor
+        self._pos = x, y
         # Circle specific data
         self._radius = radius
         self._color = color
@@ -43,8 +48,10 @@ class Circle(DesignerObject):
         self._redraw_internal_image()
 
     def __repr__(self):
-        activated = "" if self._active else "INACTIVE "
-        return f"<{activated}circle({self._color!r}, {self._radius})>"
+        return f"<{self._active_status()}circle(color={self._color!r}, radius={self._radius}, x={self.x}, y={self.y})>"
+
+    def __str__(self):
+        return f"<{self._active_status()}circle({self._color!r}, {self._radius})>"
 
     def _recalculate_offset(self):
         size = 2 * self._radius * self.scale[0]
@@ -125,25 +132,4 @@ class Circle(DesignerObject):
         self._redraw_internal_image()
 
 
-def circle(color, radius, x=None, y=None, anchor='center', border=None):
-    """
-    Function to create a circle.
-
-    >>> centered_circle = circle('red', 10)
-    >>> positioned_circle = circle('blue', 20, 0, 0, 'topleft')
-    >>> empty_circle = circle('black', 10, filled=False)
-
-    :param x:
-    :param y:
-    :param filled:
-    :param border:
-    :param anchor:
-    :param color: color of circle
-    :param radius: int, radius of circle in pixels
-    :return: Circle object created
-    """
-    if not isinstance(radius, (int, float)):
-        raise ValueError(f"The parameter radius was given the value {radius!r} but that parameter must be either an integer or a float.")
-    if x is not None and y is None:
-        x, y = x
-    return Circle((x, y), anchor, radius, color, border)
+circle = Circle
