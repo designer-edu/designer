@@ -242,7 +242,7 @@ class DesignerObject:
         if value == self._layer:
             return
         self._layer = value
-        self._computed_layer = self._window()._get_layer_position(self._parent(), value)
+        self._computed_layer = self._window._get_layer_position(self._parent, value)
         self._expire_static()
 
     @property
