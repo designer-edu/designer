@@ -167,6 +167,8 @@ class _LayerTree:
         :type layer: string
         :returns: A `float` representing where this layer is relative to others.
         """
+        if not layer:
+            layer = ""
         s = layer.split(':')
         layer = s[0]
         offset = 0
