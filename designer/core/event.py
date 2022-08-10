@@ -234,12 +234,19 @@ class KeyboardKey:
         elif isinstance(other, int):
             return self._value == other
         elif isinstance(other, str):
-            return self._value == pygame.key.key_code(other)
+            return self._value == get_key_code(other)
         else:
             raise TypeError(f"You attempted to compare a string Key ({self!r}) with the value {other!r}, but those types were not compatible.")
 
     def __repr__(self):
         return pygame.key.name(self._value)
+
+
+def get_key_code(key_name):
+    if key_name == 'enter':
+        return pygame.K_RETURN
+    else:
+        return pygame.key.key_code(key_name)
 
 
 def _pygame_to_spyral(event, **kwargs):
