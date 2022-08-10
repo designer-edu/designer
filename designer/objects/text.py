@@ -75,6 +75,15 @@ class Text(DesignerObject):
 
     def _update_font(self):
         self._font = self._get_font(self._font_name, self._text_size)
+        self._update_size()
+
+    def _update_size(self):
+        width, height = self._font.size(self._text)
+        self.size = Vec2D(width, height)
+
+    def estimate_size(self, text):
+        width, height = self._font.size(text)
+        return Vec2D(width, height)
 
     @property
     def text_size(self):
@@ -112,6 +121,7 @@ class Text(DesignerObject):
     @text.setter
     def text(self, value):
         self._text = value
+        self._update_size()
         self._redraw_internal_image()
 
 

@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.3.9
+
+* Fix bug with textbox width not updating
+* Text input box example
+
 # Version 0.3.8
 
 * "Run Once" mode for director, activated by `draw` command in some environments (e.g., blockpy)
