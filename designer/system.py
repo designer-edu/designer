@@ -13,6 +13,10 @@ def running_on_linux() -> bool:
     return sys.platform == "linux"
 
 
+def running_on_skulpt() -> bool:
+    return sys.platform == 'skulpt'
+
+
 def setup_debug_mode():
     if running_on_mac_os():
         try:

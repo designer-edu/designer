@@ -73,6 +73,8 @@ __all__ = [
     'spin',
     # Easings
     'Linear', 'Iterate',
+    # Pixels
+    'get_pixels', 'get_pixels2d',
     # Music
     'play_sound',
     'play_music', 'background_music', 'pause_music', 'set_music_volume', 'is_music_playing',

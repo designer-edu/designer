@@ -1,7 +1,9 @@
 import tkinter as Tkinter
 from tkinter import font
 from designer.core.event import register, unregister
-from pprint import pformat
+#from pprint import pformat
+from designer.tk.dcpprint import dcppformat as pformat
+
 
 class DebugWindow:
     def __init__(self, director):

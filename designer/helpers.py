@@ -13,6 +13,7 @@ from designer.core.director import Director
 from designer.core.internal_image import InternalImage
 from designer.utilities.vector import Vec2D
 from designer.utilities.argument_checks import make_suggestions
+from designer.system import running_on_skulpt
 
 try:
     import imghdr
@@ -49,7 +50,7 @@ def draw(*objs):
         objs = objs[0]
     else:
         objs = list(objs)
-    designer.GLOBAL_DIRECTOR.start(objs)
+    designer.GLOBAL_DIRECTOR.start(objs, running_on_skulpt())
 
 
 def start(*objs):

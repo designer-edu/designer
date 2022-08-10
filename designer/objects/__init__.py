@@ -14,3 +14,4 @@ from designer.objects.shape import shape, lines
 from designer.objects.text import text
 from designer.objects.emoji import emoji, get_emoji_name, set_emoji_name
 from designer.objects.pen import pen
+from designer.objects.pixels import get_pixels, get_pixels2d

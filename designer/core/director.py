@@ -186,7 +186,7 @@ class Director:
         self.debug_mode = False
         self.debug_window = None
 
-    def start(self, initial_game_state):
+    def start(self, initial_game_state, run_once=False):
         """
         Starts Pygame main game loop. Checks for events and DirtySprite updates. Handles animations.
 
@@ -263,6 +263,9 @@ class Director:
                     clock.frame_callback = frame_callback
                     clock.update_callback = update_callback
                 clock.tick()
+                if run_once:
+                    frame_callback(0)
+                    self.running = False
         except GameEndException:
             pass
 

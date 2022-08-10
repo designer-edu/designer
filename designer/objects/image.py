@@ -7,13 +7,13 @@ import sys
 import os
 import io
 
-from designer.colors import _process_color
 from designer.helpers import get_width, get_height
 from designer.objects.designer_object import DesignerObject
 from designer.core.internal_image import InternalImage, DesignerSurface
 from designer.utilities import Vec2D
 from designer.utilities.util import _anchor_offset
 from designer.utilities.gif_image import GifImage
+from designer.objects.pixels import PixelsList
 
 try:
     import imghdr
@@ -30,43 +30,49 @@ except:
             else:
                 return False
 
+
 class Image(DesignerObject):
     _USER_AGENT = "Designer Game Library for Python"
     FIELDS = (*DesignerObject.FIELDS, 'filename', 'image')
     _IMAGE_CACHE = {}
     _GIF_CACHE = {}
 
-    def __init__(self, center, path, anchor, **kwargs):
+    def __init__(self, path, x=None, y=None, **kwargs):
         """
         Creates Image Designer Object on window
 
-        :param center: x, y coordinates of center of circle
-        :type center: Tuple[int]
-        :param anchor: the anchor to draw the circle at
-        :type anchor: str
         :param path: either url or local file path to image to load on screen
         :type path: str
+        :param x: x coordinate of image to draw on the screen
+        :type x: int
+        :param y: y coordinate of image to draw on the screen
+        :type y: int
         :param width: width of image in pixels
         :type width: int
         :param height: height of image in pixels
         :type height: int
         """
-        super().__init__()
+        super().__init__(**kwargs)
 
-        x, y = center
+        if x is not None and y is None:
+            if isinstance(x, (list, tuple, Vec2D)):
+                x, y = x
+
         x = x if x is not None else get_width() / 2
         y = y if y is not None else get_height() / 2
-        center = x, y
 
-        self._pos = center
-        self._anchor = anchor
-        # Image specific data
-        self._filename = path
+        self._pos = x, y
         #: Internal field holding the original version of the image
         self._internal_image: Optional[InternalImage] = None
         self._internal_image_version: Optional[int] = None
 
-        self._load_image()
+        # Image specific data
+        self._raw = not isinstance(path, str)
+        self._filename = "<raw>" if self._raw else path
+        if self._raw:
+            self._load_image_from_list(path)
+        else:
+            self._load_image()
 
         for key, value in kwargs.items():
             self[key] = value
@@ -120,6 +126,24 @@ class Image(DesignerObject):
 
     def _load_image_url_only(self):
         self._internal_image = InternalImage(filename=self._filename)
+
+    def _load_image_from_list(self, pixels):
+        if isinstance(pixels, PixelsList):
+            w, h = pixels.width, pixels.height
+            image = InternalImage(size=(w, h))
+            image._surf.fill((0, 255, 255))
+            for i, color in enumerate(pixels):
+                x, y = i % w, i // w
+                image._surf.set_at((x, y), color)
+            self._internal_image = image
+        elif isinstance(pixels, list) and pixels:
+            # TODO: 2d list?
+            w, h = len(pixels[0]), len(pixels)
+            image = InternalImage(size=(w, h))
+            for y, row in enumerate(pixels):
+                for x, color in enumerate(row):
+                    image._surf.set_at((x, y), color)
+            self._internal_image = image
 
     def _recalculate_offset(self):
         """
@@ -195,6 +219,8 @@ class Image(DesignerObject):
             return
         if isinstance(value, pygame.Surface):
             value = InternalImage.from_surface(value)
+            value._name = "<raw>"
+            self._raw = True
         if not isinstance(value, InternalImage):
             return
         if value == self._internal_image and self._internal_image._version == value._version:
@@ -206,19 +232,7 @@ class Image(DesignerObject):
         self._expire_static()
 
 
-def image(path, x=None, y=None, anchor='center', **kwargs):
-    """
-    Function to create an image.
-
-    :param path: local file path or url of image to upload
-    :type path: str
-    :param args: left top corner of image and width and height of image
-    :type args: two Tuples (left, top), (width, height) or four ints left, top, width, height
-    :return: Image object
-    """
-    if x is not None and y is None:
-        x, y = x
-    return Image((x, y), path, anchor, **kwargs)
+image = Image
 
 
 if ALT_MODE:

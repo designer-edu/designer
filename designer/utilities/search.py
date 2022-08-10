@@ -18,4 +18,14 @@ def _detect_objects_recursively(data):
     elif isinstance(data, DesignerObject):
         return {data}
     else:
-        return set()
+        result = set()
+        try:
+            for key, value in vars(data).items():
+                result.update(_detect_objects_recursively(value))
+        except TypeError:
+            try:
+                for key in data.__slots__:
+                    result.update(_detect_objects_recursively(getattr(data, key)))
+            except AttributeError:
+                pass
+        return result

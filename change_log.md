@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+# Version 0.3.8
+
+* "Run Once" mode for director, activated by `draw` command in some environments (e.g., blockpy)
+* Dataclass support, new example created
+* First stab at pixel manipulation code (get_pixels function, creating images from pixels)
+* Debug mode for dataclasses, pretty printing current state
+
 # Version 0.3.7
 
 * Fix bug with updating layer field
