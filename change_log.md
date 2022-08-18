@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.4.0
+
+* Added in `beside` function, `get_text`, and `set_text` function
+* New logo! Made with OpenAI's Dalle2 :)
+
 # Version 0.3.9
 
 * Fix bug with textbox width not updating
