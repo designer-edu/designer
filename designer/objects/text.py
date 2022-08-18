@@ -142,3 +142,11 @@ def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
         except TypeError as e:
             pass
     return Text((x, y), anchor, text, text_size, color, font_name, **kwargs)
+
+
+def get_text(target: DesignerObject) -> str:
+    return target.text
+
+def set_text(target: DesignerObject, value: str) -> DesignerObject:
+    target.text = value
+    return target

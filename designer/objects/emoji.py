@@ -224,4 +224,5 @@ def get_emoji_name(an_emoji: Emoji) -> str:
 
 def set_emoji_name(an_emoji: Emoji, new_name: str):
     an_emoji.name = new_name
+    return an_emoji
 

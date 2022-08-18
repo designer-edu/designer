@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 import pygame
@@ -10,11 +11,14 @@ from designer.mouse import MouseModule
 from designer.music import MusicModule
 from designer.sfx import SfxModule
 
-DEFAULT_WINDOW_TITLE = "Designer Game"
+DEFAULT_WINDOW_TITLE = os.environ.get('DESIGNER_WINDOW_TITLE', "Designer Game")
+DEFAULT_WINDOW_WIDTH = os.environ.get('DESIGNER_WINDOW_WIDTH', 800)
+DEFAULT_WINDOW_HEIGHT = os.environ.get('DESIGNER_WINDOW_HEIGHT', 600)
 
 
 class Director:
-    def __init__(self, width=800, height=600, background_color=(255, 255, 255, 255), fps=30):
+    def __init__(self, width=DEFAULT_WINDOW_WIDTH, height=DEFAULT_WINDOW_HEIGHT,
+                 background_color=(255, 255, 255, 255), fps=30):
         """
         Initializes the Director that will control the game state.
 

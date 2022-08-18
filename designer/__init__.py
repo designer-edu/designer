@@ -46,7 +46,7 @@ __all__ = [
     'destroy',
     'DesignerObject',
     # Positioning
-    'above', 'below',
+    'above', 'below', 'beside',
     # Director stuff
     'get_director',
     # Window stuff
@@ -89,5 +89,6 @@ __all__ = [
     'move_to_x', 'move_to_y', 'move_to', 'move_to_mouse', 'move_to_xy',
     'set_visible', 'change_scale',
     # Emoji specific
-    'get_emoji_name', 'set_emoji_name'
+    'get_emoji_name', 'set_emoji_name',
+    'get_text', 'set_text',
 ]
