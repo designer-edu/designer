@@ -85,7 +85,7 @@ def scale_surface(s, target_size):
     if new_size == s.get_size():
         return s
     t = pygame.transform.smoothscale(s, new_size,
-                                     designer.utilities.surfaces.DesignerSurface(new_size))
+                                     designer.core.internal_image.DesignerSurface(new_size))
     return t
 
 

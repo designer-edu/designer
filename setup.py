@@ -8,10 +8,11 @@ with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 REQUIREMENTS = [i.strip() for i in open("requirements.txt").readlines()]
 
+from designer import __version__
 
 setuptools.setup(
     name='designer',
-    version='0.4.0',
+    version=__version__,
     python_requires='>=3.6',
     author='krishols, acbart',
     packages=['designer', 'designer.objects', 'designer.utilities', 'designer.core',

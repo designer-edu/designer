@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+# Version 0.4.1
+
+* Change sphinx theme to `cloud`
+* Start porting some of the doc pages to have both dataclass and dictionary versions (arrows, worlds)
+* Track version `__init__.py` so it is properly output in built docs
+* Fix small bug in scaling surfaces' import
+
 # Version 0.4.0
 
 * Added in `beside` function, `get_text`, and `set_text` function

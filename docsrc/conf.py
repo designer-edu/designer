@@ -13,7 +13,7 @@
 import os
 import sys
 sys.path.insert(0, os.path.abspath('..'))
-
+from designer import __version__
 
 # -- Project information -----------------------------------------------------
 
@@ -22,7 +22,8 @@ copyright = '2021, acbart, krishols'
 author = 'acbart, krishols'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.1'
+release = __version__
+#release = '0.0.1'
 
 
 # -- General configuration ---------------------------------------------------
@@ -32,7 +33,8 @@ release = '0.0.1'
 # ones.
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.githubpages',
-             'sphinxjp.themes.basicstrap'
+              'sphinxjp.themes.basicstrap',
+              'sphinx_tabs.tabs',
 ]
 
 autoclass_content = 'both'
@@ -51,11 +53,15 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'cloud'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ['_static', '_static/custom.css']
+
+html_css_files = [
+    'custom.css',
+]
 
 add_module_names = False
