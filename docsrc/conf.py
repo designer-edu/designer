@@ -34,6 +34,7 @@ release = __version__
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.githubpages',
               'sphinxjp.themes.basicstrap',
+              'sphinxcontrib.fulltoc',
               'sphinx_tabs.tabs',
 ]
 
@@ -41,6 +42,9 @@ autoclass_content = 'both'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
+
+# The master toctree document.
+master_doc = 'contents'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -54,6 +58,10 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # a list of builtin themes.
 #
 html_theme = 'cloud'
+
+html_theme_options = {
+
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
