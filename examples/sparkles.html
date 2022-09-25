@@ -20,6 +20,7 @@
     <script src="../_static/underscore.js"></script>
     <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/tabs.js"></script>
 
     
     
@@ -81,7 +82,106 @@
 <li><p>Have a velocity and deceleration</p></li>
 <li><p>Move at an angle using sine and cosine</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-RGF0YWNsYXNzZXM=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tab" tabindex="0">Dataclasses</button><button aria-controls="panel-0-RGljdGlvbmFyaWVz" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-RGljdGlvbmFyaWVz" name="RGljdGlvbmFyaWVz" role="tab" tabindex="-1">Dictionaries</button></div><div aria-labelledby="tab-0-RGF0YWNsYXNzZXM=" class="sphinx-tabs-panel group-tab" id="panel-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="c1"># Determines how fast the sparkles slow down</span>
+<span class="n">DECELERATION</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="c1"># Determines how big the spark is</span>
+<span class="n">SPARK_SIZE</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Spark</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sparks are little circles with an angle and velocity</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">velocity</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The world is composed of just sparks. We could have used</span>
+<span class="sd">    a list directly as our World, but its conventional to always</span>
+<span class="sd">    have a World class, in case you want to add more things</span>
+<span class="sd">    to your world later in development!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sparks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Spark</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Creates a world without any sparks &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">([])</span>
+
+
+<span class="k">def</span> <span class="nf">create_spark</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Spark</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a single spark of a rainbow color &quot;&quot;&quot;</span>
+    <span class="c1"># Pick a random color from among choices</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;yellow&#39;</span><span class="p">,</span> <span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;purple&#39;</span><span class="p">])</span>
+    <span class="n">spark_image</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">SPARK_SIZE</span><span class="p">)</span>
+    <span class="c1"># Partially transparent</span>
+    <span class="n">spark_image</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span>
+    <span class="c1"># Rotate randomly 360 degrees</span>
+    <span class="n">spark_image</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+    <span class="c1"># Move to the mouse location</span>
+    <span class="n">spark_image</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">spark_image</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="c1"># Random velocity between 7 and 10</span>
+    <span class="n">velocity</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="c1"># Actually make the Spark</span>
+    <span class="k">return</span> <span class="n">Spark</span><span class="p">(</span><span class="n">spark_image</span><span class="p">,</span> <span class="n">velocity</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">make_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Make a new spark where ever the mouse is &quot;&quot;&quot;</span>
+    <span class="c1"># Get the current mouse x/y</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">get_mouse_x</span><span class="p">()</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">get_mouse_y</span><span class="p">()</span>
+    <span class="c1"># Create spark at that location</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">sparks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_spark</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">move_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move each spark according to its velocity and angle &quot;&quot;&quot;</span>
+    <span class="c1"># For each spark</span>
+    <span class="k">for</span> <span class="n">spark</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">sparks</span><span class="p">:</span>
+        <span class="c1"># Get the velocity</span>
+        <span class="n">velocity</span> <span class="o">=</span> <span class="n">spark</span><span class="o">.</span><span class="n">velocity</span>
+        <span class="c1"># Calculate their angle in radians (0 to 2pi)</span>
+        <span class="n">angle</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">spark</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">angle</span><span class="p">)</span>
+        <span class="c1"># Increase X by cosine of the angle times velocity</span>
+        <span class="n">spark</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">velocity</span>
+        <span class="c1"># Decrease Y by sine of the angle times velocity</span>
+        <span class="n">spark</span><span class="o">.</span><span class="n">image</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span> <span class="o">*</span> <span class="n">velocity</span>
+        <span class="c1"># Decrease velocity by the deceleration amount</span>
+        <span class="n">spark</span><span class="o">.</span><span class="n">velocity</span> <span class="o">-=</span> <span class="n">DECELERATION</span>
+
+
+<span class="k">def</span> <span class="nf">delete_stopped_sparks</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Filter out all sparks that aren&#39;t moving &quot;&quot;&quot;</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Go through all the sparks</span>
+    <span class="k">for</span> <span class="n">spark</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">sparks</span><span class="p">:</span>
+        <span class="c1"># Is the spark still moving?</span>
+        <span class="k">if</span> <span class="n">spark</span><span class="o">.</span><span class="n">velocity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Keep this spark</span>
+            <span class="n">kept</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spark</span><span class="p">)</span>
+    <span class="c1"># Update sparks list with our kept list</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">sparks</span> <span class="o">=</span> <span class="n">kept</span>
+
+<span class="c1"># Bind the events</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting&#39;</span><span class="p">,</span> <span class="n">create_world</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">make_sparks</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">move_sparks</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">delete_stopped_sparks</span><span class="p">)</span>
+<span class="c1"># Start the animation!</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div><div aria-labelledby="tab-0-RGljdGlvbmFyaWVz" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-0-RGljdGlvbmFyaWVz" name="RGljdGlvbmFyaWVz" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">random</span>
 
@@ -168,6 +268,7 @@
 <span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
+</div></div>
 </section>
 
 
