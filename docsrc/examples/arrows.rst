@@ -13,10 +13,10 @@ This game demonstrates how to have objects that:
 
     .. group-tab:: Dataclasses
 
-        .. literalinclude:: ./code/arrows_dataclasses.py
+        .. literalinclude:: ./arrows/arrows_dataclasses.py
             :language: python
 
     .. group-tab:: Dictionaries
 
-        .. literalinclude:: ./code/arrows_dictionaries.py
+        .. literalinclude:: ./arrows/arrows_dictionaries.py
             :language: python
