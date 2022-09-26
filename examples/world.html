@@ -745,74 +745,88 @@ then stop the game. For that, we’ll take advantage of a custom event check and
 <span class="linenos"> 7</span>    <span class="n">box</span><span class="p">:</span> <span class="n">DesignerObject</span>
 <span class="linenos"> 8</span>    <span class="n">message</span><span class="p">:</span> <span class="n">DesignerObject</span>
 <span class="linenos"> 9</span>    <span class="n">score</span><span class="p">:</span> <span class="nb">int</span>
-<span class="linenos">10</span>
-<span class="hll"><span class="linenos">11</span><span class="c1"># The score you need to win the game</span>
-</span><span class="hll"><span class="linenos">12</span><span class="n">WIN_THRESHOLD</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span class="linenos">13</span>
-<span class="linenos">14</span><span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
-<span class="linenos">15</span>    <span class="sd">&quot;&quot;&quot;</span>
-<span class="linenos">16</span><span class="sd">    Create a new World with a 20x30 black rectangle inside, a message with default text,</span>
-<span class="linenos">17</span><span class="sd">    and a score that&#39;s initially 0.</span>
-<span class="linenos">18</span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos">19</span>    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-<span class="linenos">20</span>                 <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
-<span class="linenos">21</span>                 <span class="mi">0</span><span class="p">)</span>
-<span class="linenos">22</span>
-<span class="linenos">23</span><span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">24</span>    <span class="sd">&quot;&quot;&quot;</span>
-<span class="linenos">25</span><span class="sd">    Increase the world&#39;s box angle by one degree, spinning the box a small amount.</span>
-<span class="linenos">26</span><span class="sd">    &quot;&quot;&quot;</span>
-<span class="linenos">27</span>    <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">angle</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">28</span>
-<span class="linenos">29</span><span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">30</span>    <span class="sd">&quot;&quot;&quot; Move the box to a random position &quot;&quot;&quot;</span>
-<span class="linenos">31</span>    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
-<span class="linenos">32</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">33</span>        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
-<span class="linenos">34</span>        <span class="c1"># window, given by get_width() and get_height()</span>
-<span class="linenos">35</span>        <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
-<span class="linenos">36</span>        <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
-<span class="linenos">37</span>
-<span class="linenos">38</span><span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">39</span>    <span class="sd">&quot;&quot;&quot; Keep the message in sync with the current score &quot;&quot;&quot;</span>
-<span class="linenos">40</span>    <span class="c1"># Get the current score</span>
-<span class="linenos">41</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">score</span>
-<span class="linenos">42</span>    <span class="c1"># Update the message&#39;s text based on the score</span>
-<span class="linenos">43</span>    <span class="n">world</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-<span class="linenos">44</span>
-<span class="linenos">45</span><span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="linenos">46</span>    <span class="sd">&quot;&quot;&quot; Check if the box has been clicked and increase the score &quot;&quot;&quot;</span>
-<span class="linenos">47</span>    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
-<span class="linenos">48</span>    <span class="c1"># an object and a point are colliding.</span>
-<span class="linenos">49</span>    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="linenos">50</span>        <span class="c1"># Update the score on a successful click</span>
-<span class="linenos">51</span>        <span class="n">world</span><span class="o">.</span><span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">52</span>
-<span class="hll"><span class="linenos">53</span><span class="k">def</span> <span class="nf">the_score_is_high_enough</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-</span><span class="hll"><span class="linenos">54</span>    <span class="sd">&quot;&quot;&quot; Check if the score is above the threshold &quot;&quot;&quot;</span>
-</span><span class="hll"><span class="linenos">55</span>    <span class="k">return</span> <span class="n">world</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="n">WIN_THRESHOLD</span>
-</span><span class="hll"><span class="linenos">56</span>
-</span><span class="hll"><span class="linenos">57</span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-</span><span class="hll"><span class="linenos">58</span>    <span class="sd">&quot;&quot;&quot; Flash a game over message &quot;&quot;&quot;</span>
-</span><span class="hll"><span class="linenos">59</span>    <span class="n">world</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Game over, you won!&quot;</span>
-</span><span class="linenos">60</span>
-<span class="linenos">61</span><span class="c1"># This tells Designer to call our `create_the_world` function</span>
-<span class="linenos">62</span><span class="c1"># when the game starts, in order to setup our initial World.</span>
-<span class="linenos">63</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
-<span class="linenos">64</span><span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
-<span class="linenos">65</span><span class="c1"># There are usually 30 updates per second!</span>
-<span class="linenos">66</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
-<span class="linenos">67</span><span class="c1"># Tell Designer to call teleport_the_box every update.</span>
-<span class="linenos">68</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
-<span class="linenos">69</span><span class="c1"># Tell Designer to call track_the_score every update.</span>
-<span class="linenos">70</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
-<span class="linenos">71</span><span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
-<span class="linenos">72</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
-<span class="hll"><span class="linenos">73</span><span class="c1"># Tell Designer to check if the game is over, then flash our message</span>
-</span><span class="hll"><span class="linenos">74</span><span class="c1"># and pause on that screen</span>
-</span><span class="hll"><span class="linenos">75</span><span class="n">when</span><span class="p">(</span><span class="n">the_score_is_high_enough</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
-</span><span class="linenos">76</span>
-<span class="linenos">77</span><span class="n">start</span><span class="p">()</span>
+<span class="hll"><span class="linenos">10</span>    <span class="n">timer</span><span class="p">:</span> <span class="nb">int</span>
+</span><span class="linenos">11</span>
+<span class="hll"><span class="linenos">12</span><span class="c1"># The score you need to win the game</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">WIN_THRESHOLD</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class="hll"><span class="linenos">14</span><span class="c1"># The number of updates before the game should end</span>
+</span><span class="hll"><span class="linenos">15</span><span class="c1">#    30 updates per second, for 10 seconds</span>
+</span><span class="hll"><span class="linenos">16</span><span class="n">LENGTH_OF_GAME</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">10</span>
+</span><span class="linenos">17</span>
+<span class="linenos">18</span><span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+<span class="linenos">19</span>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">20</span><span class="sd">    Create a new World with a 20x30 black rectangle inside, a message with default text,</span>
+<span class="linenos">21</span><span class="sd">    and a score that&#39;s initially 0.</span>
+<span class="linenos">22</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">23</span>    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<span class="linenos">24</span>                 <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
+<span class="hll"><span class="linenos">25</span>                 <span class="mi">0</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos">26</span>                 <span class="mi">0</span><span class="p">)</span>
+</span><span class="linenos">27</span>
+<span class="linenos">28</span><span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">29</span>    <span class="sd">&quot;&quot;&quot;</span>
+<span class="linenos">30</span><span class="sd">    Increase the world&#39;s box angle by one degree, spinning the box a small amount.</span>
+<span class="linenos">31</span><span class="sd">    &quot;&quot;&quot;</span>
+<span class="linenos">32</span>    <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">angle</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">33</span>
+<span class="linenos">34</span><span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">35</span>    <span class="sd">&quot;&quot;&quot; Move the box to a random position &quot;&quot;&quot;</span>
+<span class="linenos">36</span>    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+<span class="linenos">37</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">38</span>        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+<span class="linenos">39</span>        <span class="c1"># window, given by get_width() and get_height()</span>
+<span class="linenos">40</span>        <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+<span class="linenos">41</span>        <span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+<span class="linenos">42</span>
+<span class="linenos">43</span><span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">44</span>    <span class="sd">&quot;&quot;&quot; Keep the message in sync with the current score &quot;&quot;&quot;</span>
+<span class="linenos">45</span>    <span class="c1"># Get the current score</span>
+<span class="linenos">46</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">score</span>
+<span class="linenos">47</span>    <span class="c1"># Update the message&#39;s text based on the score</span>
+<span class="linenos">48</span>    <span class="n">world</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="linenos">49</span>
+<span class="linenos">50</span><span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">51</span>    <span class="sd">&quot;&quot;&quot; Check if the box has been clicked and increase the score &quot;&quot;&quot;</span>
+<span class="linenos">52</span>    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
+<span class="linenos">53</span>    <span class="c1"># an object and a point are colliding.</span>
+<span class="linenos">54</span>    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">box</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="linenos">55</span>        <span class="c1"># Update the score on a successful click</span>
+<span class="linenos">56</span>        <span class="n">world</span><span class="o">.</span><span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">57</span>
+<span class="hll"><span class="linenos">58</span><span class="k">def</span> <span class="nf">advance_the_timer</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">59</span>    <span class="sd">&quot;&quot;&quot; Advance the timer by one step &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="linenos">60</span>    <span class="n">world</span><span class="o">.</span><span class="n">timer</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class="hll"><span class="linenos">61</span>
+</span><span class="hll"><span class="linenos">62</span><span class="k">def</span> <span class="nf">the_timer_runs_out</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">63</span>    <span class="sd">&quot;&quot;&quot; Check if the score is above the threshold &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="linenos">64</span>    <span class="k">return</span> <span class="n">world</span><span class="o">.</span><span class="n">timer</span> <span class="o">&gt;=</span> <span class="n">LENGTH_OF_GAME</span>
+</span><span class="hll"><span class="linenos">65</span>
+</span><span class="hll"><span class="linenos">66</span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">67</span>    <span class="sd">&quot;&quot;&quot; Flash a game over message &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="linenos">68</span>    <span class="k">if</span> <span class="n">world</span><span class="o">.</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="n">WIN_THRESHOLD</span><span class="p">:</span>
+</span><span class="hll"><span class="linenos">69</span>        <span class="n">world</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Game over, you won!&quot;</span>
+</span><span class="hll"><span class="linenos">70</span>    <span class="k">else</span><span class="p">:</span>
+</span><span class="hll"><span class="linenos">71</span>        <span class="n">world</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Game over, you lose!&quot;</span>
+</span><span class="linenos">72</span>
+<span class="linenos">73</span><span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="linenos">74</span><span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="linenos">75</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="linenos">76</span><span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="linenos">77</span><span class="c1"># There are usually 30 updates per second!</span>
+<span class="linenos">78</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="linenos">79</span><span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+<span class="linenos">80</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+<span class="linenos">81</span><span class="c1"># Tell Designer to call track_the_score every update.</span>
+<span class="linenos">82</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
+<span class="linenos">83</span><span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
+<span class="linenos">84</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
+<span class="hll"><span class="linenos">85</span><span class="c1"># Tell Designer to update the timer</span>
+</span><span class="hll"><span class="linenos">86</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">advance_the_timer</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">87</span><span class="c1"># Tell Designer to check if the game is over, then flash our message</span>
+</span><span class="hll"><span class="linenos">88</span><span class="c1"># and pause on that screen</span>
+</span><span class="hll"><span class="linenos">89</span><span class="n">when</span><span class="p">(</span><span class="n">the_timer_runs_out</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
+</span><span class="linenos">90</span>
+<span class="linenos">91</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
 </div><div aria-labelledby="tab-7-RGljdGlvbmFyaWVz" class="sphinx-tabs-panel group-tab" hidden="true" id="panel-7-RGljdGlvbmFyaWVz" name="RGljdGlvbmFyaWVz" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -822,95 +836,116 @@ then stop the game. For that, we’ll take advantage of a custom event check and
 <span class="linenos"> 5</span><span class="n">World</span> <span class="o">=</span> <span class="p">{</span>
 <span class="linenos"> 6</span>    <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
 <span class="linenos"> 7</span>    <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span>
-<span class="linenos"> 8</span>    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-<span class="linenos"> 9</span><span class="p">}</span>
-<span class="linenos">10</span>
-<span class="hll"><span class="linenos">11</span><span class="c1"># The score you need to win the game</span>
-</span><span class="hll"><span class="linenos">12</span><span class="n">WIN_THRESHOLD</span> <span class="o">=</span> <span class="mi">5</span>
-</span><span class="linenos">13</span>
-<span class="linenos">14</span><span class="c1"># Create a function that creates new worlds</span>
-<span class="linenos">15</span><span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
-<span class="linenos">16</span>    <span class="c1"># Actually create an initial World instance</span>
-<span class="linenos">17</span>    <span class="k">return</span> <span class="p">{</span>
-<span class="linenos">18</span>        <span class="c1"># The world has a 20x30 black rectangle in it</span>
-<span class="linenos">19</span>        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-<span class="linenos">20</span>        <span class="c1"># The message to show the user</span>
-<span class="linenos">21</span>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
-<span class="linenos">22</span>        <span class="c1"># The player&#39;s current score</span>
-<span class="linenos">23</span>        <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="mi">0</span>
-<span class="linenos">24</span>    <span class="p">}</span>
-<span class="linenos">25</span>
-<span class="linenos">26</span><span class="c1"># Define a function that spins the box</span>
-<span class="linenos">27</span><span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">28</span>    <span class="c1"># Increase the boxes angle by one degree</span>
-<span class="linenos">29</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">30</span>
-<span class="linenos">31</span><span class="c1"># Move the box to a random position</span>
-<span class="linenos">32</span><span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">33</span>    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
-<span class="linenos">34</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-<span class="linenos">35</span>        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
-<span class="linenos">36</span>        <span class="c1"># window, given by get_width() and get_height()</span>
-<span class="linenos">37</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
-<span class="linenos">38</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
-<span class="linenos">39</span>
-<span class="linenos">40</span><span class="c1"># Keep the message in sync with the current score</span>
-<span class="linenos">41</span><span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-<span class="linenos">42</span>    <span class="c1"># Get the current score</span>
-<span class="linenos">43</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
-<span class="linenos">44</span>    <span class="c1"># Update the message&#39;s text based on the score</span>
-<span class="linenos">45</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
-<span class="linenos">46</span>
-<span class="linenos">47</span><span class="c1"># Check if the box has been clicked and increase the score</span>
-<span class="linenos">48</span><span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-<span class="linenos">49</span>    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
-<span class="linenos">50</span>    <span class="c1"># an object and a point are colliding.</span>
-<span class="linenos">51</span>    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="linenos">52</span>        <span class="c1"># Update the score on a successful click</span>
-<span class="linenos">53</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="linenos">54</span>
-<span class="hll"><span class="linenos">55</span><span class="c1"># Check if the score is above the threshold</span>
-</span><span class="hll"><span class="linenos">56</span><span class="k">def</span> <span class="nf">the_score_is_high_enough</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-</span><span class="hll"><span class="linenos">57</span>    <span class="k">return</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">WIN_THRESHOLD</span>
-</span><span class="hll"><span class="linenos">58</span>
-</span><span class="hll"><span class="linenos">59</span><span class="c1"># Flash a game over message</span>
-</span><span class="hll"><span class="linenos">60</span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
-</span><span class="hll"><span class="linenos">61</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Game over, you won!&quot;</span>
-</span><span class="linenos">62</span>
-<span class="linenos">63</span><span class="c1"># This tells Designer to call our `create_the_world` function</span>
-<span class="linenos">64</span><span class="c1"># when the game starts, in order to setup our initial World.</span>
-<span class="linenos">65</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
-<span class="linenos">66</span><span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
-<span class="linenos">67</span><span class="c1"># There are usually 30 updates per second!</span>
-<span class="linenos">68</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
-<span class="linenos">69</span><span class="c1"># Tell Designer to call teleport_the_box every update.</span>
-<span class="linenos">70</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
-<span class="linenos">71</span><span class="c1"># Tell Designer to call track_the_score every update.</span>
-<span class="linenos">72</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
-<span class="linenos">73</span><span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
-<span class="linenos">74</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
-<span class="hll"><span class="linenos">75</span><span class="c1"># Tell Designer to check if the game is over, then flash our message</span>
-</span><span class="hll"><span class="linenos">76</span><span class="c1"># and pause on that screen</span>
-</span><span class="hll"><span class="linenos">77</span><span class="n">when</span><span class="p">(</span><span class="n">the_score_is_high_enough</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
-</span><span class="linenos">78</span>
-<span class="linenos">79</span><span class="n">start</span><span class="p">()</span>
+<span class="hll"><span class="linenos"> 8</span>    <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span class="hll"><span class="linenos"> 9</span>    <span class="s2">&quot;timer&quot;</span><span class="p">:</span> <span class="nb">int</span>
+</span><span class="linenos">10</span><span class="p">}</span>
+<span class="linenos">11</span>
+<span class="hll"><span class="linenos">12</span><span class="c1"># The score you need to win the game</span>
+</span><span class="hll"><span class="linenos">13</span><span class="n">WIN_THRESHOLD</span> <span class="o">=</span> <span class="mi">5</span>
+</span><span class="hll"><span class="linenos">14</span><span class="c1"># The number of updates before the game should end</span>
+</span><span class="hll"><span class="linenos">15</span><span class="c1">#    30 updates per second, for 10 seconds</span>
+</span><span class="hll"><span class="linenos">16</span><span class="n">LENGTH_OF_GAME</span> <span class="o">=</span> <span class="mi">30</span> <span class="o">*</span> <span class="mi">10</span>
+</span><span class="linenos">17</span>
+<span class="linenos">18</span><span class="c1"># Create a function that creates new worlds</span>
+<span class="linenos">19</span><span class="k">def</span> <span class="nf">create_the_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+<span class="linenos">20</span>    <span class="c1"># Actually create an initial World instance</span>
+<span class="linenos">21</span>    <span class="k">return</span> <span class="p">{</span>
+<span class="linenos">22</span>        <span class="c1"># The world has a 20x30 black rectangle in it</span>
+<span class="linenos">23</span>        <span class="s2">&quot;box&quot;</span><span class="p">:</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+<span class="linenos">24</span>        <span class="c1"># The message to show the user</span>
+<span class="linenos">25</span>        <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score:&quot;</span><span class="p">),</span>
+<span class="linenos">26</span>        <span class="c1"># The player&#39;s current score</span>
+<span class="linenos">27</span>        <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="hll"><span class="linenos">28</span>        <span class="c1"># The initial timer&#39;s time</span>
+</span><span class="hll"><span class="linenos">29</span>        <span class="s2">&quot;timer&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span><span class="linenos">30</span>    <span class="p">}</span>
+<span class="linenos">31</span>
+<span class="linenos">32</span><span class="c1"># Define a function that spins the box</span>
+<span class="linenos">33</span><span class="k">def</span> <span class="nf">spin_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">34</span>    <span class="c1"># Increase the boxes angle by one degree</span>
+<span class="linenos">35</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">36</span>
+<span class="linenos">37</span><span class="c1"># Move the box to a random position</span>
+<span class="linenos">38</span><span class="k">def</span> <span class="nf">teleport_the_box</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">39</span>    <span class="c1"># Have a 1 in 10 chance of jumping around</span>
+<span class="linenos">40</span>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<span class="linenos">41</span>        <span class="c1"># Set x/y to be random coordinates within the bounds of the</span>
+<span class="linenos">42</span>        <span class="c1"># window, given by get_width() and get_height()</span>
+<span class="linenos">43</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_width</span><span class="p">())</span>
+<span class="linenos">44</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">][</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">get_height</span><span class="p">())</span>
+<span class="linenos">45</span>
+<span class="linenos">46</span><span class="c1"># Keep the message in sync with the current score</span>
+<span class="linenos">47</span><span class="k">def</span> <span class="nf">track_the_score</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+<span class="linenos">48</span>    <span class="c1"># Get the current score</span>
+<span class="linenos">49</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span>
+<span class="linenos">50</span>    <span class="c1"># Update the message&#39;s text based on the score</span>
+<span class="linenos">51</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+<span class="linenos">52</span>
+<span class="linenos">53</span><span class="c1"># Check if the box has been clicked and increase the score</span>
+<span class="linenos">54</span><span class="k">def</span> <span class="nf">check_box_clicked</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+<span class="linenos">55</span>    <span class="c1"># Use the Designer function colliding to check if two objects or</span>
+<span class="linenos">56</span>    <span class="c1"># an object and a point are colliding.</span>
+<span class="linenos">57</span>    <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">world</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="linenos">58</span>        <span class="c1"># Update the score on a successful click</span>
+<span class="linenos">59</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="linenos">60</span>
+<span class="hll"><span class="linenos">61</span><span class="k">def</span> <span class="nf">advance_the_timer</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">62</span>    <span class="sd">&quot;&quot;&quot; Advance the timer by one step &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="linenos">63</span>    <span class="n">world</span><span class="p">[</span><span class="s1">&#39;timer&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span class="hll"><span class="linenos">64</span>
+</span><span class="hll"><span class="linenos">65</span><span class="k">def</span> <span class="nf">the_timer_runs_out</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">66</span>    <span class="sd">&quot;&quot;&quot; Check if the score is above the threshold &quot;&quot;&quot;</span>
+</span><span class="hll"><span class="linenos">67</span>    <span class="k">return</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;timer&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">LENGTH_OF_GAME</span>
+</span><span class="hll"><span class="linenos">68</span>
+</span><span class="hll"><span class="linenos">69</span><span class="c1"># Flash a game over message</span>
+</span><span class="hll"><span class="linenos">70</span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+</span><span class="hll"><span class="linenos">71</span>    <span class="k">if</span> <span class="n">world</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">WIN_THRESHOLD</span><span class="p">:</span>
+</span><span class="hll"><span class="linenos">72</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Game over, you won!&quot;</span>
+</span><span class="hll"><span class="linenos">73</span>    <span class="k">else</span><span class="p">:</span>
+</span><span class="hll"><span class="linenos">74</span>        <span class="n">world</span><span class="p">[</span><span class="s1">&#39;message&#39;</span><span class="p">][</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Game over, you lose!&quot;</span>
+</span><span class="linenos">75</span>
+<span class="linenos">76</span><span class="c1"># This tells Designer to call our `create_the_world` function</span>
+<span class="linenos">77</span><span class="c1"># when the game starts, in order to setup our initial World.</span>
+<span class="linenos">78</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;starting&quot;</span><span class="p">,</span> <span class="n">create_the_world</span><span class="p">)</span>
+<span class="linenos">79</span><span class="c1"># Tell Designer to call our spin_the_box function every update.</span>
+<span class="linenos">80</span><span class="c1"># There are usually 30 updates per second!</span>
+<span class="linenos">81</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">spin_the_box</span><span class="p">)</span>
+<span class="linenos">82</span><span class="c1"># Tell Designer to call teleport_the_box every update.</span>
+<span class="linenos">83</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">teleport_the_box</span><span class="p">)</span>
+<span class="linenos">84</span><span class="c1"># Tell Designer to call track_the_score every update.</span>
+<span class="linenos">85</span><span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">track_the_score</span><span class="p">)</span>
+<span class="linenos">86</span><span class="c1"># Tell Designer to call check_box_clicked when the mouse is clicked</span>
+<span class="linenos">87</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking&#39;</span><span class="p">,</span> <span class="n">check_box_clicked</span><span class="p">)</span>
+<span class="hll"><span class="linenos">88</span><span class="c1"># Tell Designer to update the timer</span>
+</span><span class="hll"><span class="linenos">89</span><span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">advance_the_timer</span><span class="p">)</span>
+</span><span class="hll"><span class="linenos">90</span><span class="c1"># Tell Designer to check if the game is over, then flash our message</span>
+</span><span class="hll"><span class="linenos">91</span><span class="c1"># and pause on that screen</span>
+</span><span class="hll"><span class="linenos">92</span><span class="n">when</span><span class="p">(</span><span class="n">the_timer_runs_out</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
+</span><span class="linenos">93</span>
+<span class="linenos">94</span><span class="n">start</span><span class="p">()</span>
 </pre></div>
 </div>
 </div></div>
-<p>The first function we created ( <code class="code docutils literal notranslate"><span class="pre">the_score_is_high_enough</span></code>) is a custom event: in order to satisfy that purpose,
+<p>We want the game to end after 10 seconds, so we need a little bit more state to hold a <code class="code docutils literal notranslate"><span class="pre">timer</span></code>. This will be
+an integer that increases by one every update of the game. Therefore, we also add a <code class="code docutils literal notranslate"><span class="pre">advance_the_timer</span></code> function
+and bind it to the <code class="code docutils literal notranslate"><span class="pre">&quot;updating&quot;</span></code> event.</p>
+<p>The next function we created ( <code class="code docutils literal notranslate"><span class="pre">the_timer_runs_out</span></code>) is a custom event: in order to satisfy that purpose,
 we have to define the function to be a <em>predicate</em> (i.e., a function that returns a boolean value). Designer
 will call the function every update and when it is True, it will call all the subsequent functions one after the
 other.</p>
-<p>In this case, the predicate  <code class="code docutils literal notranslate"><span class="pre">the_score_is_high_enough</span></code> checks the current value stored in the World’s  <code class="code docutils literal notranslate"><span class="pre">score</span></code> and
-compares it to a global constant we created named  <code class="code docutils literal notranslate"><span class="pre">WIN_THRESHOLD</span></code>. Rather than embedding that value in the function,
+<p>In this case, the predicate  <code class="code docutils literal notranslate"><span class="pre">the_timer_runs_out</span></code> checks the current value stored in the World’s  <code class="code docutils literal notranslate"><span class="pre">timer</span></code> and
+compares it to a global constant we created named  <code class="code docutils literal notranslate"><span class="pre">LENGTH_OF_GAME</span></code>. Rather than embedding that value in the function,
 we created a constant at the top of our program. This makes it much easier for anyone wanting to extend our game
-to see what that value represents, since it’s a more meaningful name than just the value 5.</p>
-<p>We defined a second function  <code class="code docutils literal notranslate"><span class="pre">flash_game_over</span></code> that changes the  <code class="code docutils literal notranslate"><span class="pre">&quot;message&quot;</span></code>’s  <code class="code docutils literal notranslate"><span class="pre">&quot;text&quot;</span></code> field to be a friendly game
-over message. This takes advantage of the fact that after the game is paused, the Update event no longer triggers,
-meaning that the  <code class="code docutils literal notranslate"><span class="pre">track_the_score</span></code> function will not overwrite our message’s text.</p>
+to see what that value represents, since it’s a more meaningful name than just the value <code class="code docutils literal notranslate"><span class="pre">300</span></code> (which represents
+10 seconds, for a game that runs at 30 frames per second).</p>
+<p>We defined a third function  <code class="code docutils literal notranslate"><span class="pre">flash_game_over</span></code> that changes the  <code class="code docutils literal notranslate"><span class="pre">&quot;message&quot;</span></code>’s <code class="code docutils literal notranslate"><span class="pre">&quot;text&quot;</span></code> field to be a
+simple game over message. This takes advantage of the fact that after the game is paused, the update event no longer triggers,
+meaning that the  <code class="code docutils literal notranslate"><span class="pre">track_the_score</span></code> function will not overwrite our message’s text. That <code class="code docutils literal notranslate"><span class="pre">flash_game_over</span></code>
+function just has to check the current <code class="code docutils literal notranslate"><span class="pre">score</span></code> and determine if it has exceeded the threshold for victory that
+we stored in the global constant <code class="code docutils literal notranslate"><span class="pre">WIN_THRESHOLD</span></code>.</p>
 <p>Finally, the <a class="reference internal" href="../students/docs.html#pause"><span class="std std-ref">pause</span></a> function (another Designer built-in) is used to hang the game without closing the
 Window (if you wanted to do that, then you could use the <a class="reference internal" href="../students/docs.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
-will still be rendered, but no further events are detected.</p>
+will still be rendered, but no further events are processed.</p>
 <a class="reference internal image-reference" href="../_images/world_7.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends." src="../_images/world_7.gif" style="width: 700px;" /></a>
 </section>
 <section id="wrapping-up">
@@ -918,14 +953,15 @@ will still be rendered, but no further events are detected.</p>
 <p>So there you have a simple “click the teleporting, spinning rectangle” game. We’ve incorporated event handling,
 collision detection, and several other Designer features all into one code file.</p>
 <p>Try making some of these changes to the game:</p>
-<ul class="simple">
+<ol class="arabic simple">
 <li><p>Swap out the rectangle for an image of your choice. Make the image change whenever you click on the rectangle.</p></li>
 <li><p>Instead of having the rectangle move randomly, choose a spot that is far away from the mouse.</p></li>
 <li><p>Whenever the mouse clicks on the rectangle, immediately have it jump away.</p></li>
-<li><p>Create a timer field that increments every update; instead of teleporting at random intervals, have the rectangle teleport every 60 updates.</p></li>
+<li><p>Instead of teleporting at random intervals, have the rectangle teleport every 60 updates (hint: use the <code class="code docutils literal notranslate"><span class="pre">%</span></code> operator).</p></li>
 <li><p>Modify the message to also show the current timer.</p></li>
 <li><p>Have the rectangle spin forward and then BACKWARD. You’ll need an additional field to keep track of its current direction!</p></li>
-</ul>
+<li><p>Use the timer to wait an additional 5 seconds after the game ends, and then have everything restart by updating the world appropriately.</p></li>
+</ol>
 </section>
 </section>
 

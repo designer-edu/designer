@@ -299,33 +299,40 @@ then stop the game. For that, we'll take advantage of a custom event check and t
 
         .. literalinclude:: ./world/world_8_dataclasses.py
             :language: python
-            :emphasize-lines: 11-12, 53-59, 73-75
+            :emphasize-lines: 10, 12-16, 25-26, 58-71, 85-89
             :linenos:
 
     .. group-tab:: Dictionaries
 
         .. literalinclude:: ./world/world_8_dictionaries.py
             :language: python
-            :emphasize-lines: 11-12, 55-61, 75-77
+            :emphasize-lines: 8-9, 12-16, 28-29, 61-74, 88-92
             :linenos:
 
-The first function we created ( :code:`the_score_is_high_enough`) is a custom event: in order to satisfy that purpose,
+We want the game to end after 10 seconds, so we need a little bit more state to hold a :code:`timer`. This will be
+an integer that increases by one every update of the game. Therefore, we also add a :code:`advance_the_timer` function
+and bind it to the :code:`"updating"` event.
+
+The next function we created ( :code:`the_timer_runs_out`) is a custom event: in order to satisfy that purpose,
 we have to define the function to be a *predicate* (i.e., a function that returns a boolean value). Designer
 will call the function every update and when it is True, it will call all the subsequent functions one after the
 other.
 
-In this case, the predicate  :code:`the_score_is_high_enough` checks the current value stored in the World's  :code:`score` and
-compares it to a global constant we created named  :code:`WIN_THRESHOLD`. Rather than embedding that value in the function,
+In this case, the predicate  :code:`the_timer_runs_out` checks the current value stored in the World's  :code:`timer` and
+compares it to a global constant we created named  :code:`LENGTH_OF_GAME`. Rather than embedding that value in the function,
 we created a constant at the top of our program. This makes it much easier for anyone wanting to extend our game
-to see what that value represents, since it's a more meaningful name than just the value 5.
+to see what that value represents, since it's a more meaningful name than just the value :code:`300` (which represents
+10 seconds, for a game that runs at 30 frames per second).
 
-We defined a second function  :code:`flash_game_over` that changes the  :code:`"message"`'s  :code:`"text"` field to be a friendly game
-over message. This takes advantage of the fact that after the game is paused, the Update event no longer triggers,
-meaning that the  :code:`track_the_score` function will not overwrite our message's text.
+We defined a third function  :code:`flash_game_over` that changes the  :code:`"message"`'s :code:`"text"` field to be a
+simple game over message. This takes advantage of the fact that after the game is paused, the update event no longer triggers,
+meaning that the  :code:`track_the_score` function will not overwrite our message's text. That :code:`flash_game_over`
+function just has to check the current :code:`score` and determine if it has exceeded the threshold for victory that
+we stored in the global constant :code:`WIN_THRESHOLD`.
 
 Finally, the :ref:`pause<pause>` function (another Designer built-in) is used to hang the game without closing the
 Window (if you wanted to do that, then you could use the :ref:`stop<stop>` function instead. Whatever was drawn last
-will still be rendered, but no further events are detected.
+will still be rendered, but no further events are processed.
 
 .. image:: images/world/world_7.gif
    :width: 700
@@ -340,9 +347,10 @@ collision detection, and several other Designer features all into one code file.
 
 Try making some of these changes to the game:
 
-* Swap out the rectangle for an image of your choice. Make the image change whenever you click on the rectangle.
-* Instead of having the rectangle move randomly, choose a spot that is far away from the mouse.
-* Whenever the mouse clicks on the rectangle, immediately have it jump away.
-* Create a timer field that increments every update; instead of teleporting at random intervals, have the rectangle teleport every 60 updates.
-* Modify the message to also show the current timer.
-* Have the rectangle spin forward and then BACKWARD. You'll need an additional field to keep track of its current direction!
+1. Swap out the rectangle for an image of your choice. Make the image change whenever you click on the rectangle.
+2. Instead of having the rectangle move randomly, choose a spot that is far away from the mouse.
+3. Whenever the mouse clicks on the rectangle, immediately have it jump away.
+4. Instead of teleporting at random intervals, have the rectangle teleport every 60 updates (hint: use the :code:`%` operator).
+5. Modify the message to also show the current timer.
+6. Have the rectangle spin forward and then BACKWARD. You'll need an additional field to keep track of its current direction!
+7. Use the timer to wait an additional 5 seconds after the game ends, and then have everything restart by updating the world appropriately.
