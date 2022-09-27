@@ -163,7 +163,7 @@ This is a “nullary function” (it takes no parameters) that returns a <code c
 You might also call it a “constructor” for Worlds. Every time we call that function,
 we get a fresh new copy of the default, initial <code class="code docutils literal notranslate"><span class="pre">World</span></code>. However, we do not call that function
 ourselves.</p>
-<p>Instead, we pass the name of the function (without parentheses!) to the code:<cite>when</cite> function, to tell Designer
+<p>Instead, we pass the name of the function (without parentheses!) to the <code class="code docutils literal notranslate"><span class="pre">when</span></code> function, to tell Designer
 what to do when the game is starting. Formally, we are binding the <code class="code docutils literal notranslate"><span class="pre">&quot;starting&quot;</span></code> event
 to our event handler function <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code>. Informally, we can say that now
 the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function will be called on the game’s start, in order to create
