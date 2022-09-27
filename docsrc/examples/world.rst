@@ -74,7 +74,7 @@ You might also call it a "constructor" for Worlds. Every time we call that funct
 we get a fresh new copy of the default, initial :code:`World`. However, we do not call that function
 ourselves.
 
-Instead, we pass the name of the function (without parentheses!) to the code:`when` function, to tell Designer
+Instead, we pass the name of the function (without parentheses!) to the :code:`when` function, to tell Designer
 what to do when the game is starting. Formally, we are binding the :code:`"starting"` event
 to our event handler function :code:`create_the_world`. Informally, we can say that now
 the :code:`create_the_world` function will be called on the game's start, in order to create
