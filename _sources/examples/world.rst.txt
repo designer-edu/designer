@@ -78,7 +78,8 @@ Instead, we pass the name of the function (without parentheses!) to the :code:`w
 what to do when the game is starting. Formally, we are binding the :code:`"starting"` event
 to our event handler function :code:`create_the_world`. Informally, we can say that now
 the :code:`create_the_world` function will be called on the game's start, in order to create
-the World.
+the World. This way, we can make more Worlds later for testing purposes and allow Designer to reset the game for us to
+the initial game state.
 
 Our World is quite simple: it only has a :code:`box` mapped to a :ref:`rectangle<rectangle>`.
 We created the rectangle to be black and have a width of 200 and a height of 100.

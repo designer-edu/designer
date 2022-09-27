@@ -167,7 +167,8 @@ ourselves.</p>
 what to do when the game is starting. Formally, we are binding the <code class="code docutils literal notranslate"><span class="pre">&quot;starting&quot;</span></code> event
 to our event handler function <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code>. Informally, we can say that now
 the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function will be called on the game’s start, in order to create
-the World.</p>
+the World. This way, we can make more Worlds later for testing purposes and allow Designer to reset the game for us to
+the initial game state.</p>
 <p>Our World is quite simple: it only has a <code class="code docutils literal notranslate"><span class="pre">box</span></code> mapped to a <a class="reference internal" href="../students/docs.html#rectangle"><span class="std std-ref">rectangle</span></a>.
 We created the rectangle to be black and have a width of 200 and a height of 100.
 Because the rectangle is stored in World that we return, it will be drawn on the screen.</p>
