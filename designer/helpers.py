@@ -83,6 +83,10 @@ def pause():
     designer.GLOBAL_DIRECTOR.pause()
 
 
+def restart():
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.restarting = True
+
 def set_window_color(color):
     """
     Changes window color to given color.

@@ -36,6 +36,7 @@ class Director:
         self._tick = 0
         self.running = False
         self.paused = False
+        self.restarting = False
         self.debug_mode = False
         self.debug_window = None
 
@@ -251,6 +252,9 @@ class Director:
                                     self.stop()
                             self._tick += 1
                             return
+                        if self.restarting:
+                            window._handle_event("director.restart")
+                            self.restart()
                         if len(pygame.event.get([pygame.VIDEOEXPOSE])) > 0:
                             window.redraw()
                             window._handle_event("director.redraw")
@@ -281,3 +285,13 @@ class Director:
 
     def pause(self, new_state=True):
         self.paused = new_state
+
+    def restart(self):
+        for object in set(self._all_sprites):
+            object.destroy()
+        window = self.current_window
+        self._game_state = window._handle_event('director.start', Event(window=self))
+        # Hide any unused references
+        from designer.utilities.search import _detect_objects_recursively
+        self._all_sprites = _detect_objects_recursively(self._game_state)
+        self.restarting = False

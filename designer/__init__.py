@@ -42,7 +42,7 @@ __all__ = [
     # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
     'start', 'debug',
-    'stop',
+    'stop', 'restart',
     'pause',
     'colliding', 'colliding_with_mouse',
     'destroy',
