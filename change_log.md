@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.4.2
+
+* The `restart` function was added to reset the game back to whatever the `starting` event sets up.
+
 # Version 0.4.1
 
 * Change sphinx theme to `cloud`
