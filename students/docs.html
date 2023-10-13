@@ -6,9 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-    <title>Designer Documentation for Students &#8212; Designer 0.4.1 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designer Documentation for Students &#8212; Designer 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -60,7 +59,7 @@
         <li class="right" >
           <a href="../examples/arrows.html" title="Arrows"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 
       </ul>
@@ -73,9 +72,9 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="designer-documentation-for-students">
+  <div class="section" id="designer-documentation-for-students">
 <span id="fulldocs"></span><h1>Designer Documentation for Students<a class="headerlink" href="#designer-documentation-for-students" title="Permalink to this heading">¶</a></h1>
-<section id="creating-designerobjects">
+<div class="section" id="creating-designerobjects">
 <h2>Creating DesignerObjects<a class="headerlink" href="#creating-designerobjects" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="image"></span><dl class="py function">
 <dt class="sig sig-object py" id="id0">
@@ -96,17 +95,17 @@ to simplify problems with paths. Never use absolute file locations like
 <p>Most popular image formats are supported: <cite>png</cite>, <cite>gif</cite>, <cite>bmp</cite>, <cite>jpeg</cite>.</p>
 <p>Animated gifs are partially supported, although many suffer from corruption.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – local file path or url of image to use</p></li>
 <li><p><strong>x</strong> (<em>int</em>) – horizontal location to draw the image</p></li>
 <li><p><strong>y</strong> (<em>int</em>) – vertical location to draw the image</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Image object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -127,17 +126,17 @@ paste the emoji as a string literal as the <cite>name</cite> argument.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The unicode name of the emoji, or the unicode character of the emoji.</p></li>
 <li><p><strong>x</strong> (<em>int</em>) – horizontal location to draw the emoji</p></li>
 <li><p><strong>y</strong> (<em>int</em>) – vertical location to draw the emoji</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Emoji image object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -160,7 +159,7 @@ Not all unicode characters are supported!</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the text</p></li>
 <li><p><strong>message</strong> (<em>str</em>) – text to appear on window</p></li>
@@ -170,10 +169,10 @@ Not all unicode characters are supported!</p>
 <li><p><strong>font_name</strong> (<em>str</em>) – The name of the font to use. Defaults to ‘Arial’.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Text object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -216,7 +215,7 @@ object relative to its position.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the rectangle</p></li>
 <li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the rectangle</p></li>
@@ -227,10 +226,10 @@ object relative to its position.</p>
 <li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Rectangle designer object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -273,7 +272,7 @@ object relative to its position.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the circle</p></li>
 <li><p><strong>radius</strong> (<em>int</em>) – radius of circle in pixels</p></li>
@@ -283,10 +282,10 @@ object relative to its position.</p>
 <li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Circle object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -329,7 +328,7 @@ object relative to its position.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the ellipse</p></li>
 <li><p><strong>width</strong> (<em>int</em>) – The horizontal width of the ellipse</p></li>
@@ -340,10 +339,10 @@ object relative to its position.</p>
 <li><p><strong>anchor</strong> (<em>str</em>) – An <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> indicating where the “pin” (or “center”) of the object should be relative to its position.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Ellipse designer object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -367,7 +366,7 @@ and must be provided.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the line</p></li>
 <li><p><strong>start_x</strong> (<em>int</em>) – x-coordinate at which to start line</p></li>
@@ -377,10 +376,10 @@ and must be provided.</p>
 <li><p><strong>thickness</strong> (<em>int</em>) – thickness of line in pixels</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Line designer object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -414,7 +413,7 @@ is no option to fill in the arc.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> of the arc</p></li>
 <li><p><strong>start_angle</strong> (<em>int</em>) – angle in degrees to start drawing arc at</p></li>
@@ -426,10 +425,10 @@ is no option to fill in the arc.</p>
 <li><p><strong>thickness</strong> (<em>int</em>) – thickness of arc in pixels</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Arc object created</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
@@ -444,13 +443,13 @@ is no option to fill in the arc.</p>
 The resulting image will be centered in the middle of the window, which can be adjusted by using <cite>x</cite> and <cite>y</cite>.
 If you want to absolutely position the image instead, then use <cite>lines</cite>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
 <li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Shape object created</p>
 </dd>
 </dl>
@@ -463,13 +462,13 @@ If you want to absolutely position the image instead, then use <cite>lines</cite
 <span class="sig-name descname"><span class="pre">lines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Function to create a shape of at least three points. The points will be absolutely positioned in the window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> (<em>str</em>) – color of shape.</p></li>
 <li><p><strong>points</strong> (<em>List</em><em>[</em><em>Tuple</em><em>] </em><em>in</em><em> (</em><em>x</em><em>, </em><em>y</em><em>)</em><em>, </em><em>(</em><em>x</em><em>, </em><em>y</em><em>) </em><em>format of points to be connected of shape</em>) – coordinates of points of shape</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Shape object created</p>
 </dd>
 </dl>
@@ -483,17 +482,17 @@ If you want to absolutely position the image instead, then use <cite>lines</cite
 <dd><p>Function to group any number of Designer <cite>objects</cite> together. They will produce one single picture when they are done.
 The advantage of grouping together a bunch of objects is that they become easier to rotate and scale together.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>objects</strong> (<em>at least one DesignerObject</em>) – collection of objects to be grouped together for collective functionality</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>Created Designer Group object</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-designer.DesignerObject">
+</div>
+<div class="section" id="module-designer.DesignerObject">
 <span id="designer-objects-attributes"></span><h2>Designer Objects Attributes<a class="headerlink" href="#module-designer.DesignerObject" title="Permalink to this heading">¶</a></h2>
 <p>DesignerObjects are how images and shapes are positioned and drawn onto the screen.
 They aggregate together information such as where to be drawn, their size, and their color.
@@ -675,8 +674,8 @@ both properties at the same time.</p>
 <dd><p>The position of the object on the screen, as a list of two values.</p>
 </dd></dl>
 
-</section>
-<section id="designer-object-functions">
+</div>
+<div class="section" id="designer-object-functions">
 <h2>Designer Object Functions<a class="headerlink" href="#designer-object-functions" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="move-forward"></span><dl class="py function">
 <dt class="sig sig-object py" id="designer.DesignerObject.move_forward">
@@ -702,37 +701,37 @@ of the Designer Object, in addition to returning the value.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>object</strong> (<em>DesignerObject</em>) – A Designer Object</p></li>
 <li><p><strong>amount</strong> (<em>int</em>) – The number of pixels to move</p></li>
 <li><p><strong>angle</strong> (<em>int</em>) – The direction (in degrees) to move in; defaults to the object’s current <cite>angle</cite> attribute (which defaults to 0).</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The Designer Object that was passed in.</p>
 </dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-designer.animation">
+</div>
+<div class="section" id="module-designer.animation">
 <span id="animation"></span><h2>Animation<a class="headerlink" href="#module-designer.animation" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="designer.animation.glide_down">
 <span class="sig-name descname"><span class="pre">glide_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_down" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves object down on the window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -743,14 +742,14 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">glide_in_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_in_degrees" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves object a given number of degrees in that direction</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
 <li><p><strong>direction</strong> (<em>int</em>) – Direction in degrees counterclockwise for object to move</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -761,13 +760,13 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">glide_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_left" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves object to the left of the window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em>) – Object to move</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -778,13 +777,13 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">glide_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_right" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves object to the right of the window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -795,13 +794,13 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">glide_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_up" title="Permalink to this definition">¶</a></dt>
 <dd><p>Moves object up on the window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
@@ -812,28 +811,28 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">spin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.spin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotates object in place for a given number of degrees</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
 <li><p><strong>angle_limit</strong> (<em>int</em>) – Degrees to rotate object</p></li>
 <li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="settings">
+</div>
+<div class="section" id="settings">
 <h2>Settings<a class="headerlink" href="#settings" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="get-width"></span><dl class="py function">
 <dt class="sig sig-object py" id="designer.animation.get_width">
 <span class="sig-name descname"><span class="pre">get_width</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.get_width" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the horizontal size of the Window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -844,7 +843,7 @@ of the Designer Object, in addition to returning the value.</p>
 <span class="sig-name descname"><span class="pre">get_height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.get_height" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the vertical size of the Window.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>int</p>
 </dd>
 </dl>
@@ -859,7 +858,7 @@ of the Designer Object, in addition to returning the value.</p>
 be <cite>None</cite> instead, then it will render internal debug information about the
 number of static and non-static objects being drawn on the screen.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> – The text to render in the screen.</p></li>
 <li><p><strong>type</strong> – str</p></li>
@@ -879,7 +878,7 @@ Defaults to <cite>‘white’</cite>.</p>
 </pre></div>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>color</strong> – The <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> to set the background to.</p></li>
 <li><p><strong>type</strong> – str</p></li>
@@ -888,8 +887,21 @@ Defaults to <cite>‘white’</cite>.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="events">
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.animation.background_image">
+<span class="sig-name descname"><span class="pre">background_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.background_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – local file path or url of image to use</p>
+</dd>
+</dl>
+<p>Changes the background of the window to the image. The <code class="docutils literal notranslate"><span class="pre">path</span></code> given
+can be a local file or a URL to a remote image. Keep in mind that
+loading large URLs can take a little while.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="events">
 <h2>Events<a class="headerlink" href="#events" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="when"></span><dl class="py function">
 <dt class="sig sig-object py" id="designer.animation.when">
@@ -907,8 +919,8 @@ Defaults to <cite>‘white’</cite>.</p>
 <dd><p>Binds the function given by <cite>event_handler</cite> to the <cite>event_name</cite>.</p>
 </dd></dl>
 
-</section>
-<section id="collisions">
+</div>
+<div class="section" id="collisions">
 <h2>Collisions<a class="headerlink" href="#collisions" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="colliding"></span><dl class="py function">
 <dt class="sig sig-object py" id="designer.animation.colliding">
@@ -917,7 +929,7 @@ Defaults to <cite>‘white’</cite>.</p>
 <span class="sig-name descname"><span class="pre">colliding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">other_object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span></dt>
 <dd><p>Tests if the object is colliding with either the point or the other object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>object</strong> (<em>DesignerObject</em>) – A DesignerObject</p></li>
 <li><p><strong>x</strong> (<em>int</em>) – The horizontal position to check.</p></li>
@@ -925,14 +937,14 @@ Defaults to <cite>‘white’</cite>.</p>
 <li><p><strong>other_object</strong> (<em>DesignerObject</em>) – Another DesignerObject to check against.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dt class="field-even">Return type</dt>
 <dd class="field-even"><p>bool</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
-<section id="game-control">
+</div>
+<div class="section" id="game-control">
 <h2>Game Control<a class="headerlink" href="#game-control" title="Permalink to this heading">¶</a></h2>
 <span class="target" id="stop"></span><dl class="py function">
 <dt class="sig sig-object py" id="designer.animation.stop">
@@ -947,8 +959,8 @@ Defaults to <cite>‘white’</cite>.</p>
 However, no further events will be processed (besides the <cite>‘quitting’</cite> event).</p>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -1045,7 +1057,7 @@ However, no further events will be processed (besides the <cite>‘quitting’</
         <li class="right" >
           <a href="../examples/arrows.html" title="Arrows"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 
       </ul>

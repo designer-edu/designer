@@ -1,0 +1,731 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fire Fighter Game &#8212; Designer 0.4.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sparkles" href="sparkles.html" />
+    <link rel="prev" title="Designer Worlds" href="world.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="sparkles.html" title="Sparkles"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="world.html" title="Designer Worlds"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Longer Examples</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fire Fighter Game</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="fire-fighter-game">
+<span id="firefighter"></span><h1>Fire Fighter Game<a class="headerlink" href="#fire-fighter-game" title="Permalink to this heading">¶</a></h1>
+<p>It’s finally time to make a more sophisticated game.
+The player will control a helicopter that flies back and forth dropping water drops on fires.
+The fires will slowly grow.</p>
+<a class="reference internal image-reference" href="../_images/firefighter_game.gif"><img alt="An older version of the firefighter game." src="../_images/firefighter_game.gif" style="width: 700px;" /></a>
+<p>Let’s start by creating the world, empty of any objects.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">()</span>
+
+
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting&#39;</span><span class="p">,</span> <span class="n">create_world</span><span class="p">)</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This world has no state inside of it, it’s just empty.
+We’re going to need to fill it up with the copter, the water drops, and the fires.
+But we’ll also fill it up with a few other things, like the score and the text.</p>
+<div class="section" id="create-the-copter">
+<h2>Create the Copter<a class="headerlink" href="#create-the-copter" title="Permalink to this heading">¶</a></h2>
+<p>Let’s start by creating the copter.
+The copter is a <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code>, specifically an <code class="docutils literal notranslate"><span class="pre">emoji</span></code> (although you could change it to be an <code class="docutils literal notranslate"><span class="pre">image</span></code> to have your own custom image).
+Therefore, we can adjust its attributes once we’ve created a new instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_copter</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DesignerObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the copter &quot;&quot;&quot;</span>
+    <span class="n">copter</span> <span class="o">=</span> <span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;helicopter&quot;</span><span class="p">)</span>
+    <span class="n">copter</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">get_height</span><span class="p">()</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">3</span><span class="p">)</span>
+    <span class="n">copter</span><span class="o">.</span><span class="n">flip_x</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">return</span> <span class="n">copter</span>
+</pre></div>
+</div>
+<p>We now modify our <code class="docutils literal notranslate"><span class="pre">World</span></code> definition to specify that the <cite>‘copter’</cite> key has a <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code> as its value.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">copter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 1:</strong> Fill in the blank above to use the function we defined before (<code class="docutils literal notranslate"><span class="pre">create_copter</span></code>) to make a copter and assign it to the field.</p>
+<div class="section" id="the-copter-flies">
+<h3>The Copter Flies<a class="headerlink" href="#the-copter-flies" title="Permalink to this heading">¶</a></h3>
+<p>The copter is supposed to move left and right across the screen.
+Let’s start with having the copter just move right.
+Notice that we are using a global constant (all capital letters) instead of using a specific value like 1 or 4.
+That’s because we want other coders to immediately understand what the value means - it’s the speed of the copter.
+This also makes it easier to adjust the speed later on.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># NOTE: Place these lines at the beginning, right after imports</span>
+<span class="c1"># Set speed of the copter</span>
+<span class="n">COPTER_SPEED</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># NOTE: Place this after your create_copter definition</span>
+<span class="k">def</span> <span class="nf">move_copter</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move the copter horizontally&quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">COPTER_SPEED</span>
+
+<span class="c1"># NOTE: Place this at the bottom, before start()</span>
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">move_copter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You might be wondering why the <code class="docutils literal notranslate"><span class="pre">move_copter</span></code> function does not have a loop.
+That’s because Designer automatically calls the <code class="docutils literal notranslate"><span class="pre">move_copter</span></code> function every time the game is updated.
+Remember, the game is updated 30 times per second.
+That means that a speed of <code class="docutils literal notranslate"><span class="pre">4</span></code> will make the copter move 120 pixels in a single second.
+Since the window is 800 pixels wide (by default), it will take about 6 seconds for the copter to fly all the way across the screen.
+Changing the speed will make the copter take more or less time.</p>
+<p><strong>Task 3</strong>: Copy these lines into your program in the appropriate places.
+Fill in the <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> with an appropriate value.
+Delete the lines that begin with <code class="docutils literal notranslate"><span class="pre">NOTE:</span></code>.</p>
+<p>Try running your game, and confirm that the copter flies all the way across the screen.</p>
+</div>
+<div class="section" id="bouncing-the-copter">
+<h3>Bouncing the Copter<a class="headerlink" href="#bouncing-the-copter" title="Permalink to this heading">¶</a></h3>
+<p>When the copter hits the right side of the window, then the copter should flip its direction and head left instead.
+What does it mean for the copter to “hit the right side of the window”?
+Basically, when its <code class="docutils literal notranslate"><span class="pre">x</span></code> position is more than the width of the window (which can be determined with <code class="docutils literal notranslate"><span class="pre">get_width()</span></code>).
+When that happens, we need to start decreasing the copter’s <code class="docutils literal notranslate"><span class="pre">x</span></code> position from then on, instead of increasing it.</p>
+<p>Similarly, when the copter hits the left side (aka its X position becomes <code class="docutils literal notranslate"><span class="pre">0</span></code> or less), then we need to make sure that we are increasing the copter’s <code class="docutils literal notranslate"><span class="pre">x</span></code> position from then on, instead of decreasing it.</p>
+<p>Previously, we defined the <code class="docutils literal notranslate"><span class="pre">move_copter</span></code> function to just increment the copter’s <code class="docutils literal notranslate"><span class="pre">x</span></code> position by <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> amount.
+But that won’t work, since we need to actually be changing the <code class="docutils literal notranslate"><span class="pre">x</span></code> position based on a <em>variable amount</em> (either <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> or <code class="docutils literal notranslate"><span class="pre">-COPTER_SPEED</span></code>), with that variable changing whenever we “hit” one of the two walls.
+In order to have this variable amount, we must introduce a new field into our World definition.
+That way, the current direction can be remembered between calls to <code class="docutils literal notranslate"><span class="pre">move_copter</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">copter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">copter_speed</span><span class="p">:</span> <span class="nb">int</span>
+</pre></div>
+</div>
+<p>Updating the <code class="docutils literal notranslate"><span class="pre">World</span></code> definition requires us to update any constructor calls, like the one in <code class="docutils literal notranslate"><span class="pre">create_world</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_copter</span><span class="p">(),</span> <span class="n">COPTER_SPEED</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have a new integer field named <code class="docutils literal notranslate"><span class="pre">copter_speed</span></code> that will be either <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> or <code class="docutils literal notranslate"><span class="pre">-COPTER_SPEED</span></code>.
+We need to modify <code class="docutils literal notranslate"><span class="pre">move_copter</span></code> to use this field’s value instead of the global constant.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">move_copter</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move the copter horizontally&quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">___</span>
+</pre></div>
+</div>
+<p><strong>Task 4</strong>: Copy this code into your file after the <code class="docutils literal notranslate"><span class="pre">create_copter</span></code> function.
+Then, fill in the blank with the appropriate expression.
+Do not put <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> in the blank - use the new field in world that we just defined!
+Make sure you’ve updated your <code class="docutils literal notranslate"><span class="pre">World</span></code> and <code class="docutils literal notranslate"><span class="pre">create_world</span></code> as described above.</p>
+<p>With <code class="docutils literal notranslate"><span class="pre">move_copter</span></code> now depending on the <code class="docutils literal notranslate"><span class="pre">copter_speed</span></code> field, we are finally prepared to write <code class="docutils literal notranslate"><span class="pre">bounce_copter</span></code>.
+This function is tricky, since it will need to check the current <code class="docutils literal notranslate"><span class="pre">x</span></code> position of the copter.</p>
+<ul class="simple">
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">x</span></code> position indicates we are past the right edge of the window, then we need to set the <code class="docutils literal notranslate"><span class="pre">copter_speed</span></code> to be <code class="docutils literal notranslate"><span class="pre">-COPTER_SPEED</span></code>.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">x</span></code> position indicates we are past the left edge of the window, then we need to set the <code class="docutils literal notranslate"><span class="pre">copter_speed</span></code> to be <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code>.</p></li>
+<li><p>Otherwise, we don’t have to do anything different. We leave everything as it is. You don’t need an <code class="docutils literal notranslate"><span class="pre">else</span></code> case!</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bounce_copter</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Handle the copter bouncing off a wall &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">get_width</span><span class="p">():</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">copter_speed</span> <span class="o">=</span> <span class="n">___</span>
+    <span class="k">elif</span> <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">___</span> <span class="o">=</span> <span class="n">___</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">bounce_copter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 5</strong>: Copy the code above, and then fill in the blanks as needed.</p>
+<p>If you run the game now, the copter SHOULD bounce back and forth between the two sides of the screen.
+However, it will look a little funny since it is not mirroring the image.
+The copter appears to be flying backwards!</p>
+</div>
+<div class="section" id="flip-the-copter">
+<h3>Flip the Copter<a class="headerlink" href="#flip-the-copter" title="Permalink to this heading">¶</a></h3>
+<p>Any Designer Object can be flipped using its <code class="docutils literal notranslate"><span class="pre">flip_x</span></code> attribute, which is a boolean value.
+If the value is <code class="docutils literal notranslate"><span class="pre">False</span></code>, then the image is drawn normally;
+else if the value is <code class="docutils literal notranslate"><span class="pre">True</span></code>, then the image is drawn mirrored.
+When we hit the right hand wall, we want to flip the copter’s image horizontally.
+When we hit the left hand wall, we want to make the copter’s image not be flipped anymore.</p>
+<p>In theory, we could add this code directly to the <code class="docutils literal notranslate"><span class="pre">bounce_copter</span></code> function that we had before.
+At the same time we set the <code class="docutils literal notranslate"><span class="pre">copter_speed`,</span> <span class="pre">we</span> <span class="pre">update</span> <span class="pre">the</span> <span class="pre">``flip_x</span></code> too.
+However, this means we’re doing a lot of work in the body of those <code class="docutils literal notranslate"><span class="pre">if</span></code> statements.
+Let’s avoid that by introducing some nice helper functions that will adjust the copter’s speed and horizontal flip in one action.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">head_left</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Make the copter start moving left &quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">copter_speed</span> <span class="o">=</span> <span class="o">-</span><span class="n">COPTER_SPEED</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">flip_x</span> <span class="o">=</span> <span class="kc">False</span>
+
+</pre></div>
+</div>
+<p><strong>Task 6</strong>: Copy the code above, and then define the <code class="docutils literal notranslate"><span class="pre">head_right</span></code> function in the same way.</p>
+<p>Once we have both the <code class="docutils literal notranslate"><span class="pre">head_right</span></code> and the <code class="docutils literal notranslate"><span class="pre">head_left</span></code> functions, we can use them in our <code class="docutils literal notranslate"><span class="pre">bounce_copter</span></code> function from before.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">bounce_copter</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Handle the copter bouncing off a wall &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">get_width</span><span class="p">():</span>
+        <span class="n">head_left</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">world</span><span class="o">.</span><span class="n">copter</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">head_right</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+
+</pre></div>
+</div>
+<p><strong>Task 7</strong>: Copy this code and try running the game - you should see the copter correctly flips when it bounces off the walls.</p>
+</div>
+<div class="section" id="control-the-copter">
+<h3>Control the Copter<a class="headerlink" href="#control-the-copter" title="Permalink to this heading">¶</a></h3>
+<p>Games require interaction, in order to be games.
+The player must make choices by using the keyboard and mouse.
+In our game, the player should be able to use the left and right keys on the keyboard to make the copter change its direction any time.
+We can use the <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> event to achieve this.
+A handler for the <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> event takes in a <code class="docutils literal notranslate"><span class="pre">key</span></code> parameter, which is a string representing the keyboard key that was typed.
+In this case, we want to respond to the <code class="docutils literal notranslate"><span class="pre">'left'</span></code> and <code class="docutils literal notranslate"><span class="pre">'right'</span></code> keys.
+When they are pressed, we change the copter to start heading left or right, respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flip_copter</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Change the direction that the copter is moving &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+        <span class="n">___</span>
+    <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+        <span class="n">___</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;___&quot;</span><span class="p">,</span> <span class="n">flip_copter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 8</strong>: When you copy the code above, make sure that you put the <code class="docutils literal notranslate"><span class="pre">when</span></code> handler down at the bottom of the file, after all of the other event handlers but before you call <code class="docutils literal notranslate"><span class="pre">start</span></code>.
+Then, fill in the missing lines of code with the appropriate function calls.</p>
+</div>
+</div>
+<div class="section" id="create-water-drops">
+<h2>Create Water Drops<a class="headerlink" href="#create-water-drops" title="Permalink to this heading">¶</a></h2>
+<p>Next, our copter needs the ability to drop water.
+These water drops will fall down the screen, until they reach the bottom (when they will be removed from the game).</p>
+<p>Let’s start by adding space in our <code class="docutils literal notranslate"><span class="pre">World</span></code> for water drops.
+We can have any number of water drops, and initially there are none.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">copter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">copter_speed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">drops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_copter</span><span class="p">(),</span> <span class="n">COPTER_SPEED</span><span class="p">,</span> <span class="p">[])</span>
+
+</pre></div>
+</div>
+<p><strong>Task 9</strong>: Modify your <code class="docutils literal notranslate"><span class="pre">World</span></code> and <code class="docutils literal notranslate"><span class="pre">create_world</span></code> definitions according to the code above.</p>
+<p>Now we need to create a function that will create a new water drop. We could make the water drops
+an emoji like “”, but instead we’ll simply make them a small blue circle instead.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_water_drop</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DesignerObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a water drop&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">___</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 10</strong>: Copy the code above, and then fill in the blank with an appropriate value.
+Refer to the documentation for <a class="reference internal" href="../students/docs.html#circle"><span class="std std-ref">circle</span></a> to see what that second parameter represents.</p>
+<p>We have not yet used the <code class="docutils literal notranslate"><span class="pre">create_water_drop</span></code> anywhere, so we can’t run our code to see what they look like.
+Let’s fix that!</p>
+<div class="section" id="drop-water">
+<h3>Drop Water<a class="headerlink" href="#drop-water" title="Permalink to this heading">¶</a></h3>
+<p>Water drops appear below the copter whenever you press the <code class="docutils literal notranslate"><span class="pre">space</span></code> key.
+We’ll need to bind a new function to the <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> event.
+In this function <code class="docutils literal notranslate"><span class="pre">drop_water</span></code>, whenever the key pressed is equal to <code class="docutils literal notranslate"><span class="pre">'space'</span></code>, we create a new water drop and append it to our world’s list of <code class="docutils literal notranslate"><span class="pre">drops</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drop_water</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Create a water drop when the space bar is pressed &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;space&#39;</span><span class="p">:</span>
+        <span class="n">new_drop</span> <span class="o">=</span> <span class="n">create_water_drop</span><span class="p">()</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">___</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;___&quot;</span><span class="p">,</span> <span class="n">flip_copter</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 11</strong>: Copy the code above, and then fill in the blank with an appropriate value.
+Put the <code class="docutils literal notranslate"><span class="pre">when('typing',</span> <span class="pre">drop_water)</span></code> handler next to the other <code class="docutils literal notranslate"><span class="pre">when('typing',</span> <span class="pre">...)</span></code> handler already in your program.</p>
+<p>Water drops will now appear when you press space, but they are not in the right location.
+Once we create the water drops, we need to move them to an appropriate starting location:
+directly below the middle of the copter.
+We can define a helper function that will take in two <a href="#id1"><span class="problematic" id="id2">``</span></a>DesignerObject``s, and change the X/Y coordinates of the first object to be directly below the second one.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">move_below</span><span class="p">(</span><span class="n">bottom</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span> <span class="n">top</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move the bottom object to be below the top object &quot;&quot;&quot;</span>
+    <span class="n">bottom</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">___</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">bottom</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">x</span>
+</pre></div>
+</div>
+<p><strong>Task 12</strong>: Fill in the blanks with the appropriate variables (either <code class="docutils literal notranslate"><span class="pre">top</span></code> or <code class="docutils literal notranslate"><span class="pre">bottom</span></code>) to calculate the new position for the <code class="docutils literal notranslate"><span class="pre">bottom</span></code>.
+Pay close attention to which variable goes in which blank!</p>
+<p>With our helper function <code class="docutils literal notranslate"><span class="pre">move_below</span></code> in hand, we are now prepared to create the water drop, move it below the copter, and then add it our list of <cite>‘drops’</cite>.
+Let’s modify the <code class="docutils literal notranslate"><span class="pre">drop_water</span></code> function accordingly.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drop_water</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Drop water from directly below the copter when space is pressed. &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;space&#39;</span><span class="p">:</span>
+        <span class="n">new_drop</span> <span class="o">=</span> <span class="n">create_water_drop</span><span class="p">()</span>
+        <span class="n">move_below</span><span class="p">(</span><span class="n">___</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">___</span><span class="p">)</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">___</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 13</strong>: Fill in the blanks with the appropriate code to move the newly created water drop to be below the world’s <code class="docutils literal notranslate"><span class="pre">copter</span></code>.</p>
+</div>
+<div class="section" id="falling-water">
+<h3>Falling Water<a class="headerlink" href="#falling-water" title="Permalink to this heading">¶</a></h3>
+<p>Water drops fall down the window every update, by increasing their <code class="docutils literal notranslate"><span class="pre">y</span></code> position.
+Keep in mind, however, that there is potentially more than one water drop in the world.
+Therefore, we need to rely on a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop to iterate through all the water drops and increase the <code class="docutils literal notranslate"><span class="pre">y</span></code> value of each one.</p>
+<p>Technically, the water drops should not fall at a constant speed - real objects accelerate as they fall down.
+For now, we’ll let our water drops fall at a constant speed since that is simpler to code.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_water_fall</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move all the water drops down &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">___</span> <span class="ow">in</span> <span class="n">___</span><span class="p">:</span>
+        <span class="n">drop</span><span class="o">.</span><span class="n">y</span> <span class="o">+=</span> <span class="n">WATER_DROP_SPEED</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">make_water_fall</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 14</strong>: Fill in the blanks with the needed code to move each <code class="docutils literal notranslate"><span class="pre">drop</span></code> down by the <code class="docutils literal notranslate"><span class="pre">WATER_DROP_SPEED</span></code> amount.
+As always, make sure the <code class="docutils literal notranslate"><span class="pre">when</span></code> handler is at the bottom of your file, with the other <code class="docutils literal notranslate"><span class="pre">updating</span></code> handlers.</p>
+<p>Run your game and confirm that drops are falling down from where ever the copter currently is.
+If you run your game for a while pressing the <cite>‘space’</cite> key, you may eventually encounter some lag since the water drops are not actually being removed from the game even when they are offscreen.</p>
+</div>
+<div class="section" id="destroy-the-waters">
+<h3>Destroy the Waters<a class="headerlink" href="#destroy-the-waters" title="Permalink to this heading">¶</a></h3>
+<p>The last phase of our water drops is the most complicated.
+When a water drops reaches the bottom of the window, we need to remove (or <em>filter</em>) the water from the list and call the <code class="docutils literal notranslate"><span class="pre">destroy</span></code> function on the water.
+Recall that the <em>Filter Pattern</em> has us create a new list based on an old list, choosing to keep only the elements from the old list that satisfy some condition.
+In this case, our condition is that a given water drop should be kept in the list <em>only</em> if it is not below the bottom of the window.
+The “bottom of the window” is really “a Y position that is greater than the height of the window” - the height of the window is given by <code class="docutils literal notranslate"><span class="pre">get_height()</span></code>.
+So we filter the list, comparing each drop’s <code class="docutils literal notranslate"><span class="pre">y</span></code> position with the height of the window, and <em>keeping</em> the ones where the drop’s <code class="docutils literal notranslate"><span class="pre">y</span></code> is less than the height.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">destroy</span></code> function is necessary to properly remove the water object from the game.
+It’s not enough to only remove the water from the World or to only <code class="docutils literal notranslate"><span class="pre">destroy</span></code> the water.
+We must <code class="docutils literal notranslate"><span class="pre">destroy</span></code> AND remove the water from the World.
+That way, Designer will not keep trying to draw it and our other code will not try to interact with destroyed waters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">destroy_waters_on_landing</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Destroy any water drops that have landed on the ground &quot;&quot;&quot;</span>
+    <span class="n">kept</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">drop</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">drops</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">___</span><span class="p">:</span>
+            <span class="n">___</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">destroy</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">drops</span> <span class="o">=</span> <span class="n">kept</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">destroy_waters_on_landing</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 15</strong>: Fill in the blanks with the needed code to keep the water drops with a Y position less than the height of the window.</p>
+<p>If all goes well, water drops should now be removed when they are off screen.
+This can be hard to confirm, so you might try having them be removed a few pixels prior to being at the bottom of the window.</p>
+</div>
+</div>
+<div class="section" id="creating-the-fires">
+<h2>Creating the Fires<a class="headerlink" href="#creating-the-fires" title="Permalink to this heading">¶</a></h2>
+<p>A key aspect of our game is the fires growing up slowly from the bottom.
+These fires determine when the game end, and their growth is inevitable.</p>
+<p>The definition of our fires will be just like our definition of the water drops.
+They are a list which is initially empty.
+The main difference is that fires will appear randomly and grow slowly over time, instead of appearing when the user types a key.
+But they still start as an empty list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">copter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">copter_speed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">drops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">fires</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_copter</span><span class="p">(),</span> <span class="n">COPTER_SPEED</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
+</pre></div>
+</div>
+<p><strong>Task 16</strong>: Modify your <code class="docutils literal notranslate"><span class="pre">World</span></code> and <code class="docutils literal notranslate"><span class="pre">create_world</span></code> definitions according to the code above.
+Make sure you put the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement at the top with the rest of the <code class="docutils literal notranslate"><span class="pre">import</span></code> statements.</p>
+<p>We need a helper function to create fires.
+The code below should help us get started.
+Fires are an <code class="docutils literal notranslate"><span class="pre">emoji</span></code> that initially start off very small (using the <code class="docutils literal notranslate"><span class="pre">scale</span></code>) attribute.
+We must also position the fire at the bottom of the screen, in a random <code class="docutils literal notranslate"><span class="pre">x</span></code> position between the left side of the window and the right side.
+Notice how we use the <code class="docutils literal notranslate"><span class="pre">anchor</span></code> attribute to make the fire get drawn from its bottom center (as opposed to the actual center of the image) upward.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_fire</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DesignerObject</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a small fire randomly on the screen &quot;&quot;&quot;</span>
+    <span class="n">fire</span> <span class="o">=</span> <span class="n">emoji</span><span class="p">(</span><span class="s1">&#39;🔥&#39;</span><span class="p">)</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">=</span> <span class="mf">.1</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">=</span> <span class="mf">.1</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="s1">&#39;midbottom&#39;</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">)</span>
+    <span class="n">fire</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">get_height</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">fire</span>
+</pre></div>
+</div>
+<p><strong>Task 17</strong>: Choose appropriate values to fill in for the blanks of <code class="docutils literal notranslate"><span class="pre">random.randint(___,</span> <span class="pre">___)</span></code>.
+Place the <code class="docutils literal notranslate"><span class="pre">create_fire</span></code> function after the water related functions, before the <code class="docutils literal notranslate"><span class="pre">when</span></code> handlers.</p>
+<div class="section" id="start-fires-randomly">
+<h3>Start Fires Randomly<a class="headerlink" href="#start-fires-randomly" title="Permalink to this heading">¶</a></h3>
+<p>Fires should appear randomly in the world.
+However, there should be a limit on how many fires are present at any given time.
+We can use the <code class="docutils literal notranslate"><span class="pre">len</span></code> function (which consumes a list and produces an integer representing its length) to calculate whether there are already enough fires.
+We’ll use the <code class="docutils literal notranslate"><span class="pre">randint</span></code> function to control how often fires appear, based on some random chance.
+When there are not too many fires and the random chance occurs, we create a new fire and append it to our list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_fires</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Create a new fire at random times, if there aren&#39;t enough fires &quot;&quot;&quot;</span>
+    <span class="n">not_too_many_fires</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">___</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">___</span>
+    <span class="n">random_chance</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">)</span> <span class="o">==</span> <span class="n">___</span>
+    <span class="k">if</span> <span class="n">not_too_many_fires</span> <span class="ow">and</span> <span class="n">random_chance</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">fires</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">create_fire</span><span class="p">())</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">make_fires</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 18</strong>: Fill in the blanks so that there can only be <code class="docutils literal notranslate"><span class="pre">10</span></code> fires in the world, and a new fire has a <code class="docutils literal notranslate"><span class="pre">1</span></code> in <code class="docutils literal notranslate"><span class="pre">10</span></code> chance of spawning.
+Be sure that you still have the <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">random</span> <span class="pre">import</span> <span class="pre">randint</span></code> at the top of your file!</p>
+</div>
+<div class="section" id="grow-fires">
+<h3>Grow Fires<a class="headerlink" href="#grow-fires" title="Permalink to this heading">¶</a></h3>
+<p>Fires grow up during each update of the game, by a tiny amount.
+This means their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_y</span></code> attributes increase by a tiny float, like <code class="docutils literal notranslate"><span class="pre">.05</span></code>.
+Similar to the water drops, we need to iterate through the fires, since we don’t know how many are in the list.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">grow_fires</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Make each fire get a little bit bigger &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">___</span> <span class="ow">in</span> <span class="n">___</span><span class="p">:</span>
+        <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">+=</span> <span class="mf">.05</span>
+        <span class="n">fire</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">+=</span> <span class="mf">.05</span>
+
+</pre></div>
+</div>
+<p><strong>Task 19</strong>: Fill in the blanks with the appropriate values to iterate through the fires.</p>
+</div>
+<div class="section" id="end-game-on-big-fires">
+<h3>End Game on Big Fires<a class="headerlink" href="#end-game-on-big-fires" title="Permalink to this heading">¶</a></h3>
+<p>Fires grow to a certain size, and if they get to their full size then we lose the game.
+We want our game to check every update whether there are any so-called “big fires” (where their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> is greater than or equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>).
+If so, we want to <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game.
+The <code class="docutils literal notranslate"><span class="pre">pause</span></code> function is a built-in Designer function that hangs the game, letting us see its final state until we close the window.</p>
+<p>In order to check each fire, we can use the <em>Boolean Accumulation Pattern</em> to iterate through all the fires and ask a question for each one, combining it with the result so far about all previously checked fires.
+Note that you do <em>not</em> need an <cite>if</cite> statement to implement this pattern!
+We combine each boolean value using the <code class="docutils literal notranslate"><span class="pre">or</span></code> operator.
+The <code class="docutils literal notranslate"><span class="pre">there_are_big_fires</span></code> function below uses this pattern to check whether there are any big fires in the world.
+That function is then used as the event instead of the <code class="docutils literal notranslate"><span class="pre">&quot;updating&quot;</span></code> event - the <code class="docutils literal notranslate"><span class="pre">pause</span></code> function will be its handler.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">there_are_big_fires</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Return True if there are any fires that are big &quot;&quot;&quot;</span>
+    <span class="n">any_big_fires_so_far</span> <span class="o">=</span> <span class="n">___</span>
+    <span class="k">for</span> <span class="n">fire</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">fires</span><span class="p">:</span>
+        <span class="n">any_big_fires_so_far</span> <span class="o">=</span> <span class="n">___</span> <span class="ow">or</span> <span class="n">___</span>
+    <span class="k">return</span> <span class="n">any_big_fires_so_far</span>
+
+<span class="n">when</span><span class="p">(</span><span class="n">there_are_big_fires</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 20</strong>: Fill in the blanks with the expressions that will check all the fires, to see if they any of them are big (their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> is greater than or equal to 1).
+Hint: to choose the initial value of <code class="docutils literal notranslate"><span class="pre">any_big_fires_so_far</span></code>, think about what this function should return when there are no fires.
+Should the game pause?</p>
+</div>
+</div>
+<div class="section" id="ending-the-game">
+<h2>Ending the Game<a class="headerlink" href="#ending-the-game" title="Permalink to this heading">¶</a></h2>
+<p>We’re getting very close to completing our game!
+All we need now is the ability to destroy fires in order to increase our score.
+The goal of the game is to put out as many fires as possible, while staying alive.
+We’ll need to add a <code class="docutils literal notranslate"><span class="pre">score</span></code> and a <code class="docutils literal notranslate"><span class="pre">counter</span></code> to our <code class="docutils literal notranslate"><span class="pre">World</span></code>, so we can keep track of the score and also display it on the screen.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">copter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">copter_speed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">drops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">fires</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">counter</span><span class="p">:</span> <span class="n">DesignerObject</span>
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create the world &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_copter</span><span class="p">(),</span> <span class="n">COPTER_SPEED</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[],</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Task 21</strong>: Choose values for the blanks that will make the text appear at the top of the screen in a large font.
+Refer to the <a class="reference internal" href="../students/docs.html#text"><span class="std std-ref">text</span></a> documentation for guidance on the missing parameters.</p>
+<div class="section" id="collide-waters-and-fires">
+<h3>Collide Waters and Fires<a class="headerlink" href="#collide-waters-and-fires" title="Permalink to this heading">¶</a></h3>
+<p>This last phase is by far the most difficult we have seen so far.
+We want to test if fires and waters are colliding.
+When any pair of fires and waters collide, we need to do the following:</p>
+<ol class="arabic simple">
+<li><p>Remove the fire and water from the game using the <code class="docutils literal notranslate"><span class="pre">destroy</span></code> function</p></li>
+<li><p>Remove the fire and water from the current state of the World</p></li>
+<li><p>Increase the score by one.</p></li>
+</ol>
+<p>But how do we know if any fires and waters are colliding with each other?
+The only way we can do so is to iterate through the <em>pairs</em> of drops and fires using a <em>nested ``for`` loop</em>.
+Read over the commented code below and seek help if you are not sure how it works.
+It’s a fairly complicated algorithm, but eventually produces two lists, one with the fires to be destroyed and one with the drops to be destroyed.
+From there, we use a helper function to remove the relevant fires and drops via a modification of the <em>Filter Pattern</em>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">collide_water_fire</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="n">destroyed_fires</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">destroyed_drops</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Compare every drop to every fire</span>
+    <span class="k">for</span> <span class="n">drop</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">drops</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">fire</span> <span class="ow">in</span> <span class="n">world</span><span class="o">.</span><span class="n">fires</span><span class="p">:</span>
+            <span class="c1"># Check if there are any collisions between each pair</span>
+            <span class="k">if</span> <span class="n">colliding</span><span class="p">(</span><span class="n">drop</span><span class="p">,</span> <span class="n">fire</span><span class="p">):</span>
+                <span class="c1"># Remember to remove this drop and fire</span>
+                <span class="n">destroyed_drops</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">drop</span><span class="p">)</span>
+                <span class="n">destroyed_fires</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fire</span><span class="p">)</span>
+                <span class="c1"># And increase our score accordingly</span>
+                <span class="n">world</span><span class="o">.</span><span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># Remove any fires/drops that were identified as colliding</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">drops</span> <span class="o">=</span> <span class="n">filter_from</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">drops</span><span class="p">,</span> <span class="n">destroyed_drops</span><span class="p">)</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">fires</span> <span class="o">=</span> <span class="n">filter_from</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">fires</span><span class="p">,</span> <span class="n">destroyed_fires</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">filter_from</span><span class="p">(</span><span class="n">old_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">],</span> <span class="n">elements_to_not_keep</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]:</span>
+    <span class="n">new_values</span> <span class="o">=</span> <span class="n">___</span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">old_list</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">___</span> <span class="ow">in</span> <span class="n">___</span><span class="p">:</span>
+            <span class="n">destroy</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">___</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">new_values</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">collide_water_fire</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 22</strong>: Fill in the missing blanks of the helper function <code class="docutils literal notranslate"><span class="pre">filter_from</span></code>.
+Remember, we want to <em>only include</em> the items that are not in the <em>elements_to_not_keep</em> list that we are given!
+This ends up being a fairly normal version of the <em>Filter Pattern</em> once you realize what the condition should be.</p>
+</div>
+<div class="section" id="game-over-screen">
+<h3>Game Over Screen<a class="headerlink" href="#game-over-screen" title="Permalink to this heading">¶</a></h3>
+<p>We are just about done the game.
+The only thing left to do is to make a Game Over screen when the fires grow too large.
+In Designer, when you <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game, it renders everything one last time.
+Therefore, we want to change the text one last time before we <code class="docutils literal notranslate"><span class="pre">pause</span></code> to show the score.
+It turns out that we can pass multiple functions in to the <code class="docutils literal notranslate"><span class="pre">when</span></code> function (even when it has a custom event function) to have them happen in a particular sequence.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Show the game over message &quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">counter</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;GAME OVER! Your score was &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+
+<span class="n">when</span><span class="p">(</span><span class="n">there_are_big_fires</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 23</strong>: Fill in the blank with the world’s score.</p>
+</div>
+</div>
+<div class="section" id="extra-challenges">
+<h2>Extra Challenges<a class="headerlink" href="#extra-challenges" title="Permalink to this heading">¶</a></h2>
+<p>We have a number of extra challenges below.
+If you decide to tackle one of them, clearly indicate what you did at the top of your file for submission.</p>
+<ul class="simple">
+<li><p>Make the fires increase their growing speed based on your score, so that the game gets harder over time.</p></li>
+<li><p>Prevent fires from appearing partially off screen by adjusting the random X position.</p></li>
+<li><p>Set a background with the <span class="xref std std-ref">background_image</span> function</p></li>
+<li><p>Have the fires dissolve when they hit the water drops, instead of disappearing instantly.</p></li>
+<li><p>The water drops should have gravity when they fall (accelerate). You’ll need to add a <a class="reference internal" href="../students/help.html#add-fields"><span class="std std-ref">new field</span></a> to the water drops to keep track of their velocity.</p></li>
+<li><p>Have the water drops splash when they hit the ground, creating a little animation.</p></li>
+<li><p>Prevent the plane from dropping more than 3 water drops at a time.</p></li>
+<li><p>Make the probability that a new fire appears be based on the number of fires already in the world.</p></li>
+<li><p>Modify the game over screen to be a more dramatic scene; perhaps the plane could come crashing down, or just fly away unharmed. Or you could have another plane come in and save your plane. Feel free to make a happy ending :)</p></li>
+</ul>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../contents.html">Page contents</a></h3>
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../research/welcome.html">What is Designer and its Research?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Longer Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="emoji_clicker.html">Emoji Clicker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world.html">Designer Worlds</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Fire Fighter Game</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-the-copter">Create the Copter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#the-copter-flies">The Copter Flies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#bouncing-the-copter">Bouncing the Copter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#flip-the-copter">Flip the Copter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#control-the-copter">Control the Copter</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-water-drops">Create Water Drops</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#drop-water">Drop Water</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#falling-water">Falling Water</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#destroy-the-waters">Destroy the Waters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#creating-the-fires">Creating the Fires</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#start-fires-randomly">Start Fires Randomly</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#grow-fires">Grow Fires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#end-game-on-big-fires">End Game on Big Fires</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ending-the-game">Ending the Game</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#collide-waters-and-fires">Collide Waters and Fires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#game-over-screen">Game Over Screen</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#extra-challenges">Extra Challenges</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sparkles.html">Sparkles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrows.html">Arrows</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="world.html"
+                          title="Previous page">&larr; Designer Worlds</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="sparkles.html"
+                          title="Next page">&rarr; Sparkles</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/firefighter.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="sparkles.html" title="Sparkles"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="world.html" title="Designer Worlds"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="examples.html" >Longer Examples</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Fire Fighter Game</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, acbart, krishols.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

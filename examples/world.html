@@ -6,9 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-    <title>Designer Worlds &#8212; Designer 0.4.1 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designer Worlds &#8212; Designer 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -40,7 +39,7 @@
 
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sparkles" href="sparkles.html" />
+    <link rel="next" title="Fire Fighter Game" href="firefighter.html" />
     <link rel="prev" title="Emoji Clicker" href="emoji_clicker.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
@@ -56,12 +55,12 @@
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="sparkles.html" title="Sparkles"
+          <a href="firefighter.html" title="Fire Fighter Game"
              accesskey="N">next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="emoji_clicker.html" title="Emoji Clicker"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Longer Examples</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Designer Worlds</a></li> 
@@ -75,7 +74,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="designer-worlds">
+  <div class="section" id="designer-worlds">
 <span id="world"></span><h1>Designer Worlds<a class="headerlink" href="#designer-worlds" title="Permalink to this heading">¶</a></h1>
 <p>Graphics are great, but wouldn’t it be cool to make stuff move and bounce and jump?
 To click your mouse and collect a coin, or strike a key and make a heart wiggle?
@@ -103,7 +102,7 @@ The <code class="code docutils literal notranslate"><span class="pre">start</spa
 <code class="code docutils literal notranslate"><span class="pre">start</span></code> your game, no other code will run: the game enters an infinite loop and continues forever.
 Let’s see what kind of code we can put before then.</p>
 <a class="reference internal image-reference" href="../_images/world_0.png"><img alt="A window with nothing in it." src="../_images/world_0.png" style="width: 700px;" /></a>
-<section id="the-world">
+<div class="section" id="the-world">
 <h2>The World<a class="headerlink" href="#the-world" title="Permalink to this heading">¶</a></h2>
 <p>A central concept in Designer games is the World. The state (or “model”) of the World controls
 what you see in the Window (or “View”). If something does not exist in the World, then it does
@@ -173,8 +172,8 @@ the initial game state.</p>
 We created the rectangle to be black and have a width of 200 and a height of 100.
 Because the rectangle is stored in World that we return, it will be drawn on the screen.</p>
 <a class="reference internal image-reference" href="../_images/world_1.png"><img alt="A window with a black rectangle in the middle." src="../_images/world_1.png" style="width: 700px;" /></a>
-</section>
-<section id="updating-the-world">
+</div>
+<div class="section" id="updating-the-world">
 <h2>Updating the World<a class="headerlink" href="#updating-the-world" title="Permalink to this heading">¶</a></h2>
 <p>We’ve created a rectangle, but it’s not doing anything yet. Let’s create
 a function that will tell Designer how to manipulate our rectangle.</p>
@@ -251,8 +250,8 @@ to describe a very small, incremental change to our world.</p>
 <p>This idea of defining functions that make small changes in the world, and then binding them with
 the <a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> function is at the heart of Designer games. We call this “Event Handling”.</p>
 <a class="reference internal image-reference" href="../_images/world_2.gif"><img alt="A window with a black ROTATING rectangle in the middle." src="../_images/world_2.gif" style="width: 700px;" /></a>
-</section>
-<section id="interacting-with-the-world">
+</div>
+<div class="section" id="interacting-with-the-world">
 <h2>Interacting with the World<a class="headerlink" href="#interacting-with-the-world" title="Permalink to this heading">¶</a></h2>
 <p>It’s not a game if there isn’t any interaction, so let’s now add the ability to move the
 rectangle by clicking on the screen. We’ll use another event type, <code class="code docutils literal notranslate"><span class="pre">&quot;clicking&quot;</span></code>, which
@@ -342,8 +341,8 @@ These X and Y values are then assigned to the boxes <code class="code docutils l
 <p>The only other thing to do is to bind the function to the event. Again, the name matters here: a typo would
 prevent the event from being bound correctly, and the function would not be called.</p>
 <a class="reference internal image-reference" href="../_images/world_3.gif"><img alt="A window with a black ROTATING rectangle in the middle. A mouse clicks on random positions and the rectangle's jumps to that spot." src="../_images/world_3.gif" style="width: 700px;" /></a>
-</section>
-<section id="a-touch-of-randomness">
+</div>
+<div class="section" id="a-touch-of-randomness">
 <h2>A Touch of Randomness<a class="headerlink" href="#a-touch-of-randomness" title="Permalink to this heading">¶</a></h2>
 <p>A game has an objective, and since our game doesn’t, it’s actually more of a visualization. Let’s change things up so
 that we have a goal: to click on the spinning box as it jumps around the screen randomly. Let’s focus on making
@@ -448,8 +447,8 @@ randomly chosen value between 0 and 9 (including 9 itself) is equal to 0. Since 
 so we can anticipate this happening only about 3 times a second (since Designer games update 30 times a second by default).
 Notice that we are still calling the function every update; we just don’t execute the body of its <code class="code docutils literal notranslate"><span class="pre">if</span></code> statement every update!</p>
 <a class="reference internal image-reference" href="../_images/world_4.gif"><img alt="A window with a black ROTATING rectangle. The rectangle is jumping around the screen quite fast." src="../_images/world_4.gif" style="width: 700px;" /></a>
-</section>
-<section id="keeping-score">
+</div>
+<div class="section" id="keeping-score">
 <h2>Keeping Score<a class="headerlink" href="#keeping-score" title="Permalink to this heading">¶</a></h2>
 <p>We’re going to earn points by clicking on the rectangle, but how do we know if we were successful?
 A simple solution is to keep score and show the user how many times they have clicked the rectangle.</p>
@@ -576,8 +575,8 @@ how we extract data from the World (specifically, the current <code class="code 
 object we created before. In order to prefix the score with the text <code class="code docutils literal notranslate"><span class="pre">&quot;Score:&quot;</span></code>, we had to convert the integer score to
 a string representation.</p>
 <a class="reference internal image-reference" href="../_images/world_5.gif"><img alt="A window with a teleporting, rotating, black rectangle. The words &quot;Score: 0&quot; are in the middle of the window." src="../_images/world_5.gif" style="width: 700px;" /></a>
-</section>
-<section id="responding-to-clicks">
+</div>
+<div class="section" id="responding-to-clicks">
 <h2>Responding to Clicks<a class="headerlink" href="#responding-to-clicks" title="Permalink to this heading">¶</a></h2>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-6-RGF0YWNsYXNzZXM=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-6-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tab" tabindex="0">Dataclasses</button><button aria-controls="panel-6-RGljdGlvbmFyaWVz" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-6-RGljdGlvbmFyaWVz" name="RGljdGlvbmFyaWVz" role="tab" tabindex="-1">Dictionaries</button></div><div aria-labelledby="tab-6-RGF0YWNsYXNzZXM=" class="sphinx-tabs-panel group-tab" id="panel-6-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -731,8 +730,8 @@ here to detect if the box was clicked.</p>
 decrease the probability that it will teleport on a given update. Regardless, you can see from the video below that
 clicking on the rectangle gives you a point.</p>
 <a class="reference internal image-reference" href="../_images/world_6.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time." src="../_images/world_6.gif" style="width: 700px;" /></a>
-</section>
-<section id="ending-the-game">
+</div>
+<div class="section" id="ending-the-game">
 <h2>Ending the Game<a class="headerlink" href="#ending-the-game" title="Permalink to this heading">¶</a></h2>
 <p>Our game is almost complete. All that we have to do now is establish some criteria for when the game is over, and
 then stop the game. For that, we’ll take advantage of a custom event check and the Designer <code class="code docutils literal notranslate"><span class="pre">pause</span></code> function.</p>
@@ -948,8 +947,8 @@ we stored in the global constant <code class="code docutils literal notranslate"
 Window (if you wanted to do that, then you could use the <a class="reference internal" href="../students/docs.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
 will still be rendered, but no further events are processed.</p>
 <a class="reference internal image-reference" href="../_images/world_7.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends." src="../_images/world_7.gif" style="width: 700px;" /></a>
-</section>
-<section id="wrapping-up">
+</div>
+<div class="section" id="wrapping-up">
 <h2>Wrapping Up<a class="headerlink" href="#wrapping-up" title="Permalink to this heading">¶</a></h2>
 <p>So there you have a simple “click the teleporting, spinning rectangle” game. We’ve incorporated event handling,
 collision detection, and several other Designer features all into one code file.</p>
@@ -963,8 +962,8 @@ collision detection, and several other Designer features all into one code file.
 <li><p>Have the rectangle spin forward and then BACKWARD. You’ll need an additional field to keep track of its current direction!</p></li>
 <li><p>Use the timer to wait an additional 5 seconds after the game ends, and then have everything restart by updating the world appropriately.</p></li>
 </ol>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -991,6 +990,7 @@ collision detection, and several other Designer features all into one code file.
 <li class="toctree-l3"><a class="reference internal" href="#wrapping-up">Wrapping Up</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="firefighter.html">Fire Fighter Game</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sparkles.html">Sparkles</a></li>
 <li class="toctree-l2"><a class="reference internal" href="arrows.html">Arrows</a></li>
 </ul>
@@ -1009,8 +1009,8 @@ collision detection, and several other Designer features all into one code file.
   </div>
   <div class="sphinxnext">
     <h4>Next page</h4>
-    <p class="topless"><a href="sparkles.html"
-                          title="Next page">&rarr; Sparkles</a></p>
+    <p class="topless"><a href="firefighter.html"
+                          title="Next page">&rarr; Fire Fighter Game</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
@@ -1062,12 +1062,12 @@ collision detection, and several other Designer features all into one code file.
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
-          <a href="sparkles.html" title="Sparkles"
+          <a href="firefighter.html" title="Fire Fighter Game"
              >next</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="emoji_clicker.html" title="Emoji Clicker"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="examples.html" >Longer Examples</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Designer Worlds</a></li> 

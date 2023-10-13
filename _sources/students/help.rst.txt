@@ -96,3 +96,31 @@ the :code:`create_the_world` function and return the resulting new world.
 Third, we can test our game more easily. Any time you want to create a World,
 you just call :code:`create_the_world` and you have a fresh instance. From there,
 you can manipulate its fields and call update functions on the World.
+
+.. _add_fields:
+
+Adding New Fields
+-----------------
+
+When you want to have an extra field for a ``DesignerObject``, you can simply inherit from the class and add the
+field. However, this means that you will need to initialize the field in the constructor as a *keyword* argument.
+
+.. code-block:: python
+
+    from designer import *
+    import math
+
+
+    class SpeedEmoji(emoji):
+        speed: int
+
+
+    @updating
+    def update_emoji(se: SpeedEmoji):
+        se.speed = (se.speed+10) % 360
+        se.x += math.sin(math.radians(se.speed))*10
+
+
+    start(SpeedEmoji("dog", speed=5))
+
+Note how we have to pass in the speed as a keyword argument to ``SpeedEmoji``.

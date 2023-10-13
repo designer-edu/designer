@@ -6,9 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-    <title>More Help &#8212; Designer 0.4.1 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>More Help &#8212; Designer 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -56,7 +55,7 @@
         <li class="right" >
           <a href="../reference/anchors.html" title="List of Anchors"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">More Help</a></li> 
       </ul>
@@ -69,16 +68,16 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="more-help">
+  <div class="section" id="more-help">
 <span id="help"></span><h1>More Help<a class="headerlink" href="#more-help" title="Permalink to this heading">¶</a></h1>
-<section id="help-my-designerobjects-aren-t-showing-up-where-i-want-them-to">
+<div class="section" id="help-my-designerobjects-aren-t-showing-up-where-i-want-them-to">
 <h2>Help! My DesignerObjects aren’t showing up where I want them to.<a class="headerlink" href="#help-my-designerobjects-aren-t-showing-up-where-i-want-them-to" title="Permalink to this heading">¶</a></h2>
 <p>The Designer window works on a x,y coordinate system where (0, 0) is the left top corner.</p>
 <p>Let’s look at an example. Say we have a window that is 800 pixels wide and 600 pixels tall (this is
 the default size of the Designer window). Look at the image to understand the coordinate system.</p>
 <a class="reference internal image-reference" href="../_images/coords.png"><img alt="computer window with &quot;(0,0)&quot; in the left top corner, &quot;(400, 300)&quot; in the middle of the window, and &quot;(800, 600)&quot; in the bottom corner." src="../_images/coords.png" style="width: 700px;" /></a>
-</section>
-<section id="actions-after-start">
+</div>
+<div class="section" id="actions-after-start">
 <h2>Actions After Start<a class="headerlink" href="#actions-after-start" title="Permalink to this heading">¶</a></h2>
 <p>Once you call the <cite>start()</cite> function, no other code will run until your game finishes.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -91,8 +90,8 @@ the default size of the Designer window). Look at the image to understand the co
 </div>
 <p>If you want to have activity in your game, you have to use the <cite>when</cite> function to add
 event handling.</p>
-</section>
-<section id="why-use-a-constructor">
+</div>
+<div class="section" id="why-use-a-constructor">
 <h2>Why Use a Constructor<a class="headerlink" href="#why-use-a-constructor" title="Permalink to this heading">¶</a></h2>
 <p>We recommend having a nullary constructor to set up your World.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -141,8 +140,31 @@ the <code class="code docutils literal notranslate"><span class="pre">create_the
 <p>Third, we can test our game more easily. Any time you want to create a World,
 you just call <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> and you have a fresh instance. From there,
 you can manipulate its fields and call update functions on the World.</p>
-</section>
-</section>
+</div>
+<div class="section" id="adding-new-fields">
+<span id="add-fields"></span><h2>Adding New Fields<a class="headerlink" href="#adding-new-fields" title="Permalink to this heading">¶</a></h2>
+<p>When you want to have an extra field for a <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code>, you can simply inherit from the class and add the
+field. However, this means that you will need to initialize the field in the constructor as a <em>keyword</em> argument.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">SpeedEmoji</span><span class="p">(</span><span class="n">emoji</span><span class="p">):</span>
+    <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@updating</span>
+<span class="k">def</span> <span class="nf">update_emoji</span><span class="p">(</span><span class="n">se</span><span class="p">:</span> <span class="n">SpeedEmoji</span><span class="p">):</span>
+    <span class="n">se</span><span class="o">.</span><span class="n">speed</span> <span class="o">=</span> <span class="p">(</span><span class="n">se</span><span class="o">.</span><span class="n">speed</span><span class="o">+</span><span class="mi">10</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+    <span class="n">se</span><span class="o">.</span><span class="n">x</span> <span class="o">+=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">se</span><span class="o">.</span><span class="n">speed</span><span class="p">))</span><span class="o">*</span><span class="mi">10</span>
+
+
+<span class="n">start</span><span class="p">(</span><span class="n">SpeedEmoji</span><span class="p">(</span><span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Note how we have to pass in the speed as a keyword argument to <code class="docutils literal notranslate"><span class="pre">SpeedEmoji</span></code>.</p>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -164,6 +186,7 @@ you can manipulate its fields and call update functions on the World.</p>
 <li class="toctree-l2"><a class="reference internal" href="#help-my-designerobjects-aren-t-showing-up-where-i-want-them-to">Help! My DesignerObjects aren’t showing up where I want them to.</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#actions-after-start">Actions After Start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#why-use-a-constructor">Why Use a Constructor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adding-new-fields">Adding New Fields</a></li>
 </ul>
 </li>
 </ul>
@@ -226,7 +249,7 @@ you can manipulate its fields and call update functions on the World.</p>
         <li class="right" >
           <a href="../reference/anchors.html" title="List of Anchors"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">More Help</a></li> 
       </ul>

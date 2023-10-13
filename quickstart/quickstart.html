@@ -6,9 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-    <title>Designer Quick Start Guide &#8212; Designer 0.4.1 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designer Quick Start Guide &#8212; Designer 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -60,7 +59,7 @@
         <li class="right" >
           <a href="../students/installation.html" title="How to Install Designer"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Quick Start Guide</a></li> 
       </ul>
@@ -73,7 +72,7 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="designer-quick-start-guide">
+  <div class="section" id="designer-quick-start-guide">
 <span id="quickstart"></span><h1>Designer Quick Start Guide<a class="headerlink" href="#designer-quick-start-guide" title="Permalink to this heading">¶</a></h1>
 <p>Designer is an educational interactive graphics Python library. What does that mean?</p>
 <p>As a student, you can use Designer to learn and practice Python by creating output of pictures and
@@ -87,7 +86,7 @@ basic animations.</p>
 </div>
 <p>These two lines of code create an external blank white window to appear. You will generally always need
 these two lines of code for Designer to function. Let’s fill in some code in between.</p>
-<section id="overview">
+<div class="section" id="overview">
 <h2>0. Overview<a class="headerlink" href="#overview" title="Permalink to this heading">¶</a></h2>
 <p>We can add visual elements, called DesignerObjects, to personalize our output.
 A DesignerObject is any graphic representation to add to the window.</p>
@@ -100,8 +99,8 @@ A DesignerObject is any graphic representation to add to the window.</p>
 <p>You can use and pass around DesignerObjects as arguments to the <code class="docutils literal notranslate"><span class="pre">draw()</span></code> function to add the DesignerObjects
 you make to the window.</p>
 <p>What are some DesignerObjects?</p>
-</section>
-<section id="shapes">
+</div>
+<div class="section" id="shapes">
 <h2>1. Shapes!<a class="headerlink" href="#shapes" title="Permalink to this heading">¶</a></h2>
 <p>You can make lines, circles, rectangles, ellipses, arcs, or any general polygons with at least three sides.</p>
 <p>Let’s look at the code and output for making a rectangle:</p>
@@ -123,8 +122,8 @@ The call has three <em>arguments</em>:</p>
 Moving to the right on the window increases the x value and moving down on the window increases the y value.
 By default, Designer places images in the center of the window.</p>
 <a class="reference internal image-reference" href="../_images/simple_green_box.png"><img alt="computer window with green rectangle in the middle, surrounded by whitespace" src="../_images/simple_green_box.png" style="width: 700px;" /></a>
-</section>
-<section id="images">
+</div>
+<div class="section" id="images">
 <h2>2. Images!<a class="headerlink" href="#images" title="Permalink to this heading">¶</a></h2>
 <p>You can add your own images in two different ways:
 #. The file path to an image on your computer
@@ -154,8 +153,8 @@ There are websites where you can easily find big lists of emojis, like <a class=
 </div>
 <p>Don’t worry if the emoji seems small, we’ll learn how to make it bigger in just a bit!</p>
 <a class="reference internal image-reference" href="../_images/emoji.png"><img alt="computer window with with a cute cartoon frog emoji in the middle surrounded by whitespace" src="../_images/emoji.png" style="width: 700px;" /></a>
-</section>
-<section id="text">
+</div>
+<div class="section" id="text">
 <h2>3. Text!<a class="headerlink" href="#text" title="Permalink to this heading">¶</a></h2>
 <p>You can add any string to the window.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -171,8 +170,8 @@ There are websites where you can easily find big lists of emojis, like <a class=
 <li><p>The last argument, <code class="docutils literal notranslate"><span class="pre">40</span></code>, is the size of the text’s font.</p></li>
 </ul>
 <a class="reference internal image-reference" href="../_images/hello_world.png"><img alt="blank white computer window with blue words &quot;Hello World!&quot; on top left of the window." src="../_images/hello_world.png" style="width: 700px;" /></a>
-</section>
-<section id="scaling">
+</div>
+<div class="section" id="scaling">
 <h2>4. Scaling<a class="headerlink" href="#scaling" title="Permalink to this heading">¶</a></h2>
 <p>We mentioned before that we could make objects bigger. Let’s make the frog emoji from earlier 5x as big!</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -189,8 +188,8 @@ or shrinks the image on screen.</p>
 <li><p>The second argument, <cite>5</cite>, is the number of times that we want to grow the image.</p></li>
 </ul>
 <a class="reference internal image-reference" href="../_images/big_frog.png"><img alt="The frog emoji shown before, but now five times bigger" src="../_images/big_frog.png" style="width: 700px;" /></a>
-</section>
-<section id="moving">
+</div>
+<div class="section" id="moving">
 <h2>5. Moving<a class="headerlink" href="#moving" title="Permalink to this heading">¶</a></h2>
 <p>What if you don’t want the image right in the middle of the window? Well, you can create the object in a different
 starting place by specifying the <cite>x</cite> and <cite>y</cite> parameters.</p>
@@ -218,8 +217,8 @@ functions, which move the object by a relative amount in the given direction.</p
 </div>
 <p>The frog is now <code class="docutils literal notranslate"><span class="pre">200</span></code> pixels to the right of where it was before.</p>
 <a class="reference internal image-reference" href="../_images/moved_frog_image.png"><img alt="The frog image shown before, but now moved to the right" src="../_images/moved_frog_image.png" style="width: 700px;" /></a>
-</section>
-<section id="rotating">
+</div>
+<div class="section" id="rotating">
 <h2>6. Rotating<a class="headerlink" href="#rotating" title="Permalink to this heading">¶</a></h2>
 <p>There are many other ways to change the way a Designer object looks. For example, we can spin and rotate
 images just as easily as we move and scale them.</p>
@@ -237,8 +236,8 @@ images just as easily as we move and scale them.</p>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="../_images/rotated_frog_image.png"><img alt="The frog image shown before, but smaller, rotated, and moved" src="../_images/rotated_frog_image.png" style="width: 700px;" /></a>
-</section>
-<section id="grouping-objects">
+</div>
+<div class="section" id="grouping-objects">
 <h2>7. Grouping Objects<a class="headerlink" href="#grouping-objects" title="Permalink to this heading">¶</a></h2>
 <p>There are many other functions for moving, rotating, and otherwise changing objects. There are also many other
 functions for creating Designer Objects. You can find a convenient list of all these functions on this <a class="reference internal" href="../students/functions.html#quicklist"><span class="std std-ref">Quick List page</span></a>.</p>
@@ -284,13 +283,13 @@ Let’s make our own frog by using some of the other Designer functions.</p>
 <p>As you try making your own drawings, keep in mind that every object you want to appear on the screen MUST be passed as an argument
 to the <code class="docutils literal notranslate"><span class="pre">draw</span></code> function. Otherwise, the object won’t be visible!</p>
 <a class="reference internal image-reference" href="../_images/grouped_images.png"><img alt="A picture of three frogs, one that we drew ourselves, and the word &quot;Frogs!&quot;" src="../_images/grouped_images.png" style="width: 700px;" /></a>
-</section>
-<section id="read-on">
+</div>
+<div class="section" id="read-on">
 <h2>8. Read on!<a class="headerlink" href="#read-on" title="Permalink to this heading">¶</a></h2>
 <p>Check out the <a class="reference internal" href="../students/docs.html#fulldocs"><span class="std std-ref">documentation of DesignerObjects</span></a> to see all that you can add to your output! What
 will you design?</p>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -388,7 +387,7 @@ will you design?</p>
         <li class="right" >
           <a href="../students/installation.html" title="How to Install Designer"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Quick Start Guide</a></li> 
       </ul>

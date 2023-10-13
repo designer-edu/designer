@@ -6,9 +6,8 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
-    <title>List of Events &#8212; Designer 0.4.1 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>List of Events &#8212; Designer 0.4.2 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -60,7 +59,7 @@
         <li class="right" >
           <a href="colors.html" title="List of Colors"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="reference.html" accesskey="U">Reference Lists</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">List of Events</a></li> 
@@ -74,10 +73,10 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <section id="list-of-events">
+  <div class="section" id="list-of-events">
 <span id="event"></span><h1>List of Events<a class="headerlink" href="#list-of-events" title="Permalink to this heading">¶</a></h1>
 <p>These are functions you can define and then bind using the <a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> function.</p>
-<section id="starting">
+<div class="section" id="starting">
 <h2><cite>starting</cite><a class="headerlink" href="#starting" title="Permalink to this heading">¶</a></h2>
 <p>The <cite>starting</cite> event occurs when the game first loads. It cannot take any parameters,
 and it must produce the game state of the world. Typically, this will be a dictionary.</p>
@@ -85,15 +84,15 @@ and it must produce the game state of the world. Typically, this will be a dicti
 <dt class="sig sig-object py" id="starting_handler">
 <span class="sig-name descname"><span class="pre">starting_handler</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#starting_handler" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>The new state of the world.</p>
 </dd>
 </dl>
 <p>The starting event.</p>
 </dd></dl>
 
-</section>
-<section id="updating">
+</div>
+<div class="section" id="updating">
 <h2><cite>updating</cite><a class="headerlink" href="#updating" title="Permalink to this heading">¶</a></h2>
 <p>The <cite>updating</cite> event is by far the most common. It happens every step of the world.</p>
 <dl class="py function">
@@ -102,7 +101,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">updating_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span></em><span class="sig-paren">)</span></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>world</strong> – The current state of the world. Initially, the value that you returned from your <a class="reference internal" href="#starting-handler"><span class="std std-ref">starting_handler</span></a>.</p></li>
 <li><p><strong>delta</strong> (<em>float</em>) – Optional parameter representing the number of seconds that has passed since the last frame. Typically only necessary in high-performance games.</p></li>
@@ -118,8 +117,8 @@ and it must produce the game state of the world. Typically, this will be a dicti
 </div>
 </dd></dl>
 
-</section>
-<section id="clicking">
+</div>
+<div class="section" id="clicking">
 <h2>‘clicking’<a class="headerlink" href="#clicking" title="Permalink to this heading">¶</a></h2>
 <p>The <cite>clicking</cite> event is when the mouse is clicked down.</p>
 <dl class="py function">
@@ -128,7 +127,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">clicking_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">button</span></span></em><span class="sig-paren">)</span></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>world</strong> – The current state of the world. Initially, the value that you returned from your <a class="reference internal" href="#starting-handler"><span class="std std-ref">starting_handler</span></a>.</p></li>
 <li><p><strong>x</strong> (<em>int</em>) – The current horizontal position of the mouse.</p></li>
@@ -146,8 +145,8 @@ and it must produce the game state of the world. Typically, this will be a dicti
 </div>
 </dd></dl>
 
-</section>
-<section id="typing">
+</div>
+<div class="section" id="typing">
 <h2>‘typing’<a class="headerlink" href="#typing" title="Permalink to this heading">¶</a></h2>
 <p>The <cite>typing</cite> event happens when you press a key on the keyboard.</p>
 <dl class="py function">
@@ -156,7 +155,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">typing_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">world</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">character</span></span></em><span class="sig-paren">)</span></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>world</strong> – The current state of the world. Initially, the value that you returned from your <a class="reference internal" href="#starting-handler"><span class="std std-ref">starting_handler</span></a>.</p></li>
 <li><p><strong>key</strong> (<em>str</em>) – A user-friendly name for whatever key was pressed, such as <cite>‘left’</cite> (for the left arrow) or <cite>‘space’</cite>. A semi-complete list can be found at <a class="reference internal" href="keys.html#keys"><span class="std std-ref">keys</span></a>.</p></li>
@@ -173,8 +172,8 @@ and it must produce the game state of the world. Typically, this will be a dicti
 </div>
 </dd></dl>
 
-</section>
-<section id="all-possible-events">
+</div>
+<div class="section" id="all-possible-events">
 <h2>All Possible Events<a class="headerlink" href="#all-possible-events" title="Permalink to this heading">¶</a></h2>
 <p>This is a list of all the events that are possible:</p>
 <ul class="simple">
@@ -182,11 +181,11 @@ and it must produce the game state of the world. Typically, this will be a dicti
 <li><p><cite>‘input.mouse.up’</cite></p></li>
 <li><p><cite>‘input.keyboard.down’</cite></p></li>
 </ul>
-</section>
-<section id="custom-event-test">
+</div>
+<div class="section" id="custom-event-test">
 <h2>Custom event test<a class="headerlink" href="#custom-event-test" title="Permalink to this heading">¶</a></h2>
-</section>
-</section>
+</div>
+</div>
 
 
             <div class="clearer"></div>
@@ -287,7 +286,7 @@ and it must produce the game state of the world. Typically, this will be a dicti
         <li class="right" >
           <a href="colors.html" title="List of Colors"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.4.1 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.4.2 documentation</a> &#187;</li>
 
           <li class="nav-item nav-item-1"><a href="reference.html" >Reference Lists</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">List of Events</a></li> 
