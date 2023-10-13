@@ -663,6 +663,15 @@ Settings
     :param color: The :ref:`color<color>` to set the background to.
     :param type: str
 
+.. py:function:: background_image(path)
+
+    :param path: local file path or url of image to use
+    :type path: str
+
+    Changes the background of the window to the image. The ``path`` given
+    can be a local file or a URL to a remote image. Keep in mind that
+    loading large URLs can take a little while.
+
 Events
 ------
 

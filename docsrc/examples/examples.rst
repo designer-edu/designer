@@ -7,6 +7,7 @@ Longer Examples
 
     emoji_clicker
     world
+    firefighter
     sparkles
     arrows
 
@@ -24,7 +25,7 @@ Build a game where a box jumps around the screen by using the more complex idea 
 * Teaches: Event binding with structured data (dictionaries)
 * Requires: ``if`` statements, calling and defining functions, dictionary access and update
 
-`Firefighter Game`_
+:ref:`Firefighter<firefighter>`
 
 Build a game where you put out fires with a plane dropping water droplets.
 
@@ -49,4 +50,3 @@ A simple gallery of web-based Designer examples using BlockPy.
 
 
 .. _BlockPy Showcase: https://blockpy.cis.udel.edu/assignments/load?&course_id=1&assignment_group_url=experiment_designer_showcase
-.. _Firefighter Game: https://blockpy.cis.udel.edu/assignments/load?&course_id=1&assignment_group_url=sneks_gamedev_firefighter

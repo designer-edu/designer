@@ -37,6 +37,12 @@ class DesignerObject:
         if parent is None:
             parent = designer.GLOBAL_DIRECTOR.current_window
 
+        for obj in [self, *type(self).mro()]:
+            if hasattr(obj, '__annotations__'):
+                for key in obj.__annotations__:
+                    if key in kwargs:
+                        setattr(self, key, kwargs.get(key))
+
         # Unique ID for this object
         self._id = DesignerObject._ID
         DesignerObject._ID += 1
