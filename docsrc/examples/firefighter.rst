@@ -351,7 +351,7 @@ Grow Fires
 **********
 
 Fires grow up during each update of the game, by a tiny amount.
-This means their ``scale_x`` and ``scale_y`` attributes increase by a tiny float, like ``.05``.
+This means their ``scale_x`` and ``scale_y`` attributes increase by a tiny float, like ``.01``.
 Similar to the water drops, we need to iterate through the fires, since we don't know how many are in the list.
 
 .. literalinclude:: ./firefighter/ff_11_dc.py
@@ -366,7 +366,7 @@ End Game on Big Fires
 *********************
 
 Fires grow to a certain size, and if they get to their full size then we lose the game.
-We want our game to check every update whether there are any so-called "big fires" (where their ``scale_x`` is greater than or equal to ``1``).
+We want our game to check every update whether there are any so-called "big fires" (where their ``scale_x`` is greater than or equal to ``5``, or some other large scale).
 If so, we want to ``pause`` the game.
 The ``pause`` function is a built-in Designer function that hangs the game, letting us see its final state until we close the window.
 
@@ -398,8 +398,9 @@ We'll need to add a ``score`` and a ``counter`` to our ``World``, so we can keep
     :language: python
     :lines: 6-14,22-25
 
-**Task 21**: Choose values for the blanks that will make the text appear at the top of the screen in a large font.
+**Task 21**: Choose values for the blanks that will make the text appear at the top-center of the screen in a large font.
 Refer to the :ref:`text<text>` documentation for guidance on the missing parameters.
+Hint: Use the ``get_width()`` function to get the width of the screen.
 
 ************************
 Collide Waters and Fires

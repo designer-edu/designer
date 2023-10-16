@@ -77,7 +77,7 @@ def drop_water(world: World, key: str):
 def move_below(bottom: DesignerObject, top: DesignerObject):
     """ Move the bottom object to be below the top object """
     bottom.y = ___.y + ___.height/2
-    bottom.y = ___.x
+    bottom.x = ___.x
 
 def make_water_fall(world: World):
     """ Move all the water drops down """

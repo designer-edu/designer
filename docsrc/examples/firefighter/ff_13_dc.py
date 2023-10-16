@@ -82,7 +82,7 @@ def drop_water(world: World, key: str):
 def move_below(bottom: DesignerObject, top: DesignerObject):
     """ Move the bottom object to be below the top object """
     bottom.y = ___.y + ___.height/2
-    bottom.y = ___.x
+    bottom.x = ___.x
 
 def make_water_fall(world: World):
     """ Move all the water drops down """
@@ -120,8 +120,8 @@ def make_fires(world: World):
 def grow_fires(world: World):
     """ Make each fire get a little bit bigger """
     for ___ in ___:
-        fire.scale_x += .05
-        fire.scale_y += .05
+        fire.scale_x += .01
+        fire.scale_y += .01
 
 
 def there_are_big_fires(world: World) -> bool:
