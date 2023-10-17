@@ -78,7 +78,7 @@
 <p>It’s finally time to make a more sophisticated game.
 The player will control a helicopter that flies back and forth dropping water drops on fires.
 The fires will slowly grow.</p>
-<a class="reference internal image-reference" href="../_images/firefighter_game.gif"><img alt="An older version of the firefighter game." src="../_images/firefighter_game.gif" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../_images/firefighter_game_v2.gif"><img alt="The game in action." src="../_images/firefighter_game_v2.gif" style="width: 700px;" /></a>
 <p>Let’s start by creating the world, empty of any objects.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -156,6 +156,7 @@ Changing the speed will make the copter take more or less time.</p>
 Fill in the <code class="docutils literal notranslate"><span class="pre">COPTER_SPEED</span></code> with an appropriate value.
 Delete the lines that begin with <code class="docutils literal notranslate"><span class="pre">NOTE:</span></code>.</p>
 <p>Try running your game, and confirm that the copter flies all the way across the screen.</p>
+<a class="reference internal image-reference" href="../_images/firefighter_game_early.gif"><img alt="An early video of the game" src="../_images/firefighter_game_early.gif" style="width: 700px;" /></a>
 </div>
 <div class="section" id="bouncing-the-copter">
 <h3>Bouncing the Copter<a class="headerlink" href="#bouncing-the-copter" title="Permalink to this heading">¶</a></h3>
@@ -320,7 +321,7 @@ We can define a helper function that will take in two <a href="#id1"><span class
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">move_below</span><span class="p">(</span><span class="n">bottom</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span> <span class="n">top</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Move the bottom object to be below the top object &quot;&quot;&quot;</span>
     <span class="n">bottom</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">___</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span>
-    <span class="n">bottom</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">x</span>
+    <span class="n">bottom</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">x</span>
 </pre></div>
 </div>
 <p><strong>Task 12</strong>: Fill in the blanks with the appropriate variables (either <code class="docutils literal notranslate"><span class="pre">top</span></code> or <code class="docutils literal notranslate"><span class="pre">bottom</span></code>) to calculate the new position for the <code class="docutils literal notranslate"><span class="pre">bottom</span></code>.
@@ -450,13 +451,13 @@ Be sure that you still have the <code class="docutils literal notranslate"><span
 <div class="section" id="grow-fires">
 <h3>Grow Fires<a class="headerlink" href="#grow-fires" title="Permalink to this heading">¶</a></h3>
 <p>Fires grow up during each update of the game, by a tiny amount.
-This means their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_y</span></code> attributes increase by a tiny float, like <code class="docutils literal notranslate"><span class="pre">.05</span></code>.
+This means their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_y</span></code> attributes increase by a tiny float, like <code class="docutils literal notranslate"><span class="pre">.01</span></code>.
 Similar to the water drops, we need to iterate through the fires, since we don’t know how many are in the list.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">grow_fires</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Make each fire get a little bit bigger &quot;&quot;&quot;</span>
     <span class="k">for</span> <span class="n">___</span> <span class="ow">in</span> <span class="n">___</span><span class="p">:</span>
-        <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">+=</span> <span class="mf">.05</span>
-        <span class="n">fire</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">+=</span> <span class="mf">.05</span>
+        <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">+=</span> <span class="mf">.01</span>
+        <span class="n">fire</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">+=</span> <span class="mf">.01</span>
 
 </pre></div>
 </div>
@@ -465,7 +466,7 @@ Similar to the water drops, we need to iterate through the fires, since we don�
 <div class="section" id="end-game-on-big-fires">
 <h3>End Game on Big Fires<a class="headerlink" href="#end-game-on-big-fires" title="Permalink to this heading">¶</a></h3>
 <p>Fires grow to a certain size, and if they get to their full size then we lose the game.
-We want our game to check every update whether there are any so-called “big fires” (where their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> is greater than or equal to <code class="docutils literal notranslate"><span class="pre">1</span></code>).
+We want our game to check every update whether there are any so-called “big fires” (where their <code class="docutils literal notranslate"><span class="pre">scale_x</span></code> is greater than or equal to <code class="docutils literal notranslate"><span class="pre">5</span></code>, or some other large scale).
 If so, we want to <code class="docutils literal notranslate"><span class="pre">pause</span></code> the game.
 The <code class="docutils literal notranslate"><span class="pre">pause</span></code> function is a built-in Designer function that hangs the game, letting us see its final state until we close the window.</p>
 <p>In order to check each fire, we can use the <em>Boolean Accumulation Pattern</em> to iterate through all the fires and ask a question for each one, combining it with the result so far about all previously checked fires.
@@ -509,8 +510,9 @@ We’ll need to add a <code class="docutils literal notranslate"><span class="pr
                  <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">,</span> <span class="n">___</span><span class="p">))</span>
 </pre></div>
 </div>
-<p><strong>Task 21</strong>: Choose values for the blanks that will make the text appear at the top of the screen in a large font.
-Refer to the <a class="reference internal" href="../students/docs.html#text"><span class="std std-ref">text</span></a> documentation for guidance on the missing parameters.</p>
+<p><strong>Task 21</strong>: Choose values for the blanks that will make the text appear at the top-center of the screen in a large font.
+Refer to the <a class="reference internal" href="../students/docs.html#text"><span class="std std-ref">text</span></a> documentation for guidance on the missing parameters.
+Hint: Use the <code class="docutils literal notranslate"><span class="pre">get_width()</span></code> function to get the width of the screen.</p>
 <div class="section" id="collide-waters-and-fires">
 <h3>Collide Waters and Fires<a class="headerlink" href="#collide-waters-and-fires" title="Permalink to this heading">¶</a></h3>
 <p>This last phase is by far the most difficult we have seen so far.
@@ -557,7 +559,7 @@ From there, we use a helper function to remove the relevant fires and drops via 
 </pre></div>
 </div>
 <p><strong>Task 22</strong>: Fill in the missing blanks of the helper function <code class="docutils literal notranslate"><span class="pre">filter_from</span></code>.
-Remember, we want to <em>only include</em> the items that are not in the <em>elements_to_not_keep</em> list that we are given!
+Remember, we want to <em>only include</em> the items that are not in the <code class="docutils literal notranslate"><span class="pre">elements_to_not_keep</span></code> list that we are given!
 This ends up being a fairly normal version of the <em>Filter Pattern</em> once you realize what the condition should be.</p>
 </div>
 <div class="section" id="game-over-screen">
@@ -588,9 +590,9 @@ If you decide to tackle one of them, clearly indicate what you did at the top of
 <li><p>Have the fires dissolve when they hit the water drops, instead of disappearing instantly.</p></li>
 <li><p>The water drops should have gravity when they fall (accelerate). You’ll need to add a <a class="reference internal" href="../students/help.html#add-fields"><span class="std std-ref">new field</span></a> to the water drops to keep track of their velocity.</p></li>
 <li><p>Have the water drops splash when they hit the ground, creating a little animation.</p></li>
-<li><p>Prevent the plane from dropping more than 3 water drops at a time.</p></li>
+<li><p>Prevent the copter from dropping more than 3 water drops at a time.</p></li>
 <li><p>Make the probability that a new fire appears be based on the number of fires already in the world.</p></li>
-<li><p>Modify the game over screen to be a more dramatic scene; perhaps the plane could come crashing down, or just fly away unharmed. Or you could have another plane come in and save your plane. Feel free to make a happy ending :)</p></li>
+<li><p>Modify the game over screen to be a more dramatic scene; perhaps the copter could come crashing down, or just fly away unharmed. Or you could have another copter come in and save your copter. Feel free to make a happy ending :)</p></li>
 </ul>
 </div>
 </div>
