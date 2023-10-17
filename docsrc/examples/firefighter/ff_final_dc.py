@@ -22,7 +22,7 @@ WATER_DROP_SPEED = 5
 def create_world() -> World:
     """ Create the world """
     return World(create_copter(), COPTER_SPEED, [], [], 0,
-                 text("black", "", 14, 0, get_width()/2))
+                 text("black", "", 14, get_width()/2))
 
 
 def create_copter() -> DesignerObject:
@@ -30,6 +30,7 @@ def create_copter() -> DesignerObject:
     copter = emoji("helicopter")
     copter.y = get_height() * (1 / 3)
     copter.flip_x = True
+    copter.scale = 2
     return copter
 
 
@@ -113,7 +114,7 @@ def create_fire() -> DesignerObject:
 def make_fires(world: World):
     """ Create a new fire at random times, if there aren't enough fires """
     not_too_many_fires = len(world.fires) < 5
-    random_chance = randint(0, 5) == 0
+    random_chance = randint(0, 30) == 0
     if not_too_many_fires and random_chance:
         world.fires.append(create_fire())
 

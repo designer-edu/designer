@@ -8,9 +8,9 @@ It's finally time to make a more sophisticated game.
 The player will control a helicopter that flies back and forth dropping water drops on fires.
 The fires will slowly grow.
 
-.. image:: firefighter/firefighter_game.gif
+.. image:: firefighter/firefighter_game_v2.gif
    :width: 700
-   :alt: An older version of the firefighter game.
+   :alt: The game in action.
 
 Let's start by creating the world, empty of any objects.
 
@@ -70,7 +70,9 @@ Delete the lines that begin with ``NOTE:``.
 
 Try running your game, and confirm that the copter flies all the way across the screen.
 
-.. TODO: Get a screen grab here
+.. image:: firefighter/firefighter_game_early.gif
+   :width: 700
+   :alt: An early video of the game
 
 *******************
 Bouncing the Copter
@@ -426,7 +428,7 @@ From there, we use a helper function to remove the relevant fires and drops via 
 
 
 **Task 22**: Fill in the missing blanks of the helper function ``filter_from``.
-Remember, we want to *only include* the items that are not in the *elements_to_not_keep* list that we are given!
+Remember, we want to *only include* the items that are not in the ``elements_to_not_keep`` list that we are given!
 This ends up being a fairly normal version of the *Filter Pattern* once you realize what the condition should be.
 
 ****************
@@ -458,6 +460,6 @@ If you decide to tackle one of them, clearly indicate what you did at the top of
 * Have the fires dissolve when they hit the water drops, instead of disappearing instantly.
 * The water drops should have gravity when they fall (accelerate). You'll need to add a :ref:`new field<add_fields>` to the water drops to keep track of their velocity.
 * Have the water drops splash when they hit the ground, creating a little animation.
-* Prevent the plane from dropping more than 3 water drops at a time.
+* Prevent the copter from dropping more than 3 water drops at a time.
 * Make the probability that a new fire appears be based on the number of fires already in the world.
-* Modify the game over screen to be a more dramatic scene; perhaps the plane could come crashing down, or just fly away unharmed. Or you could have another plane come in and save your plane. Feel free to make a happy ending :)
+* Modify the game over screen to be a more dramatic scene; perhaps the copter could come crashing down, or just fly away unharmed. Or you could have another copter come in and save your copter. Feel free to make a happy ending :)
