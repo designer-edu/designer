@@ -22,7 +22,7 @@ WATER_DROP_SPEED = 5
 def create_world() -> World:
     """ Create the world """
     return World(create_copter(), COPTER_SPEED, [], [], 0,
-                 text("black", "", 14, get_width()/2))
+                 text("black", "0", 14, get_width()/2))
 
 
 def create_copter() -> DesignerObject:

@@ -29,7 +29,7 @@ class Director:
         :param background_color: color to initially fill the window with
         """
         pygame.init()
-        self._window_size = width, height
+        self._window_size = int(width), int(height)
         self._window_title = DEFAULT_WINDOW_TITLE
         self._window_color = background_color
         self._fps = fps
