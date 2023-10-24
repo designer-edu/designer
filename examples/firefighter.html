@@ -562,6 +562,19 @@ From there, we use a helper function to remove the relevant fires and drops via 
 Remember, we want to <em>only include</em> the items that are not in the <code class="docutils literal notranslate"><span class="pre">elements_to_not_keep</span></code> list that we are given!
 This ends up being a fairly normal version of the <em>Filter Pattern</em> once you realize what the condition should be.</p>
 </div>
+<div class="section" id="show-the-points">
+<h3>Show the Points<a class="headerlink" href="#show-the-points" title="Permalink to this heading">¶</a></h3>
+<p>As the player destroys fires, their score increases.
+But how would we know that their score increases, unless we show the score?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_score</span><span class="p">(</span><span class="n">world</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Update the score &quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">counter</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">update_score</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Task 23</strong>: Fill in the blank with the world’s score.</p>
+</div>
 <div class="section" id="game-over-screen">
 <h3>Game Over Screen<a class="headerlink" href="#game-over-screen" title="Permalink to this heading">¶</a></h3>
 <p>We are just about done the game.
@@ -571,12 +584,12 @@ Therefore, we want to change the text one last time before we <code class="docut
 It turns out that we can pass multiple functions in to the <code class="docutils literal notranslate"><span class="pre">when</span></code> function (even when it has a custom event function) to have them happen in a particular sequence.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">flash_game_over</span><span class="p">(</span><span class="n">world</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Show the game over message &quot;&quot;&quot;</span>
-    <span class="n">world</span><span class="o">.</span><span class="n">counter</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;GAME OVER! Your score was &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">score</span><span class="p">)</span>
+    <span class="n">___</span> <span class="o">=</span> <span class="s2">&quot;GAME OVER! Your score was &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">___</span><span class="p">)</span>
 
 <span class="n">when</span><span class="p">(</span><span class="n">there_are_big_fires</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Task 23</strong>: Fill in the blank with the world’s score.</p>
+<p><strong>Task 24</strong>: Fill in the blanks to make the text say “Game Over” and show the score.</p>
 </div>
 </div>
 <div class="section" id="extra-challenges">
@@ -634,6 +647,7 @@ If you decide to tackle one of them, clearly indicate what you did at the top of
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#ending-the-game">Ending the Game</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#collide-waters-and-fires">Collide Waters and Fires</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#show-the-points">Show the Points</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#game-over-screen">Game Over Screen</a></li>
 </ul>
 </li>
