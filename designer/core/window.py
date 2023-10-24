@@ -652,6 +652,14 @@ class Window:
         second_box = self._collision_boxes[second]
         return first_box.collide_rect(second_box)
 
+    def collide_object_at(self, first, second, x, y):
+        if first not in self._collision_boxes or second not in self._collision_boxes:
+            return False
+        first_box = self._collision_boxes[first]
+        moved_box = first_box.move(x, y)
+        second_box = self._collision_boxes[second]
+        return moved_box.collide_rect(second_box)
+
     def collide_point(self, obj, *args):
         """
         Returns whether the object is colliding with the point.

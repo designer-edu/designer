@@ -393,6 +393,15 @@ def colliding_with_mouse(object):
     return object.collide_point(get_mouse_position())
 
 
+def would_collide(*args):
+    if len(args) == 3:
+        obj1, (new_x, new_y), obj2 = args
+    elif len(args) == 4:
+        obj1, new_x, new_y, obj2 = args
+    else:
+        raise ValueError(f"Incorrect number of arguments to would_collide - expected 3 or 4, got {len(args)}")
+    return obj1.collide_other_at(obj2, new_x, new_y)
+
 def destroy(*gobjects):
     check_initialized()
     for gobject in gobjects:

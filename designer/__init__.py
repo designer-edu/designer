@@ -44,7 +44,7 @@ __all__ = [
     'start', 'debug',
     'stop', 'restart',
     'pause',
-    'colliding', 'colliding_with_mouse',
+    'colliding', 'colliding_with_mouse', 'would_collide',
     'destroy',
     'DesignerObject',
     # Positioning

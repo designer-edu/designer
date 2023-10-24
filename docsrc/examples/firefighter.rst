@@ -431,6 +431,19 @@ From there, we use a helper function to remove the relevant fires and drops via 
 Remember, we want to *only include* the items that are not in the ``elements_to_not_keep`` list that we are given!
 This ends up being a fairly normal version of the *Filter Pattern* once you realize what the condition should be.
 
+***************
+Show the Points
+***************
+
+As the player destroys fires, their score increases.
+But how would we know that their score increases, unless we show the score?
+
+.. literalinclude:: ./firefighter/ff_13_dc.py
+    :language: python
+    :lines: 166-169,179
+
+**Task 23**: Fill in the blank with the world's score.
+
 ****************
 Game Over Screen
 ****************
@@ -443,9 +456,9 @@ It turns out that we can pass multiple functions in to the ``when`` function (ev
 
 .. literalinclude:: ./firefighter/ff_13_dc.py
     :language: python
-    :lines: 162-165,175
+    :lines: 162-165,180
 
-**Task 23**: Fill in the blank with the world's score.
+**Task 24**: Fill in the blanks to make the text say "Game Over" and show the score.
 
 ^^^^^^^^^^^^^^^^
 Extra Challenges

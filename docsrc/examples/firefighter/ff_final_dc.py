@@ -165,6 +165,11 @@ def flash_game_over(world):
     world.counter.text = "GAME OVER! Your score was " + str(world.score)
 
 
+def update_score(world):
+    """ Update the score """
+    world.counter.text = "Score: " + str(world.score)
+
+
 when("starting", create_world)
 when("updating", move_copter)
 when("updating", bounce_copter)
@@ -173,6 +178,7 @@ when("updating", destroy_waters_on_landing)
 when("updating", make_fires)
 when("updating", grow_fires)
 when('updating', collide_water_fire)
+when("updating", update_score)
 when(there_are_big_fires, flash_game_over, pause)
 when("typing", flip_copter)
 when('typing', drop_water)

@@ -22,7 +22,7 @@ WATER_DROP_SPEED = 5
 def create_world() -> World:
     """ Create the world """
     return World(create_copter(), COPTER_SPEED, [], [], 0,
-                 text("black", ___, ___, ___))
+                 text("black", "Game Starting", ___, ___))
 
 
 def create_copter() -> DesignerObject:
@@ -161,7 +161,11 @@ def filter_from(old_list: list[DesignerObject], elements_to_not_keep: list[Desig
 
 def flash_game_over(world):
     """ Show the game over message """
-    world.counter.text = "GAME OVER! Your score was " + str(world.score)
+    ___ = "GAME OVER! Your score was " + str(___)
+
+def update_score(world):
+    """ Update the score """
+    world.counter.text = "Score: " + str(___)
 
 
 when("starting", create_world)
@@ -172,11 +176,9 @@ when("updating", destroy_waters_on_landing)
 when("updating", make_fires)
 when("updating", grow_fires)
 when('updating', collide_water_fire)
+when("updating", update_score)
 when(there_are_big_fires, flash_game_over, pause)
 when("___", flip_copter)
 when('typing', drop_water)
 
-start()
-
-
-
+sta

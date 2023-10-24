@@ -658,6 +658,9 @@ class DesignerObject:
         """
         return self._window.collide_objects(self, other)
 
+    def collide_other_at(self, other, x, y):
+        return self._window.collide_object_at(self, other, x, y)
+
     def collide_point(self, point):
         """
         Returns whether this object is currently colliding with the position.
