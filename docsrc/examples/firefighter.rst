@@ -384,7 +384,7 @@ That function is then used as the event instead of the ``"updating"`` event - th
     :language: python
     :lines: 124-130,139
 
-**Task 20**: Fill in the blanks with the expressions that will check all the fires, to see if they any of them are big (their ``scale_x`` is greater than or equal to 1).
+**Task 20**: Fill in the blanks with the expressions that will check all the fires, to see if they any of them are big (their ``scale_x`` is greater than or equal to 5).
 Hint: to choose the initial value of ``any_big_fires_so_far``, think about what this function should return when there are no fires.
 Should the game pause?
 
