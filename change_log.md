@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Version 0.5.0
+
+* Allow inheritance for fields
+* Created `would_collide` function
+
 # Version 0.4.2
 
 * The `restart` function was added to reset the game back to whatever the `starting` event sets up.
