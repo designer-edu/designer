@@ -317,7 +317,8 @@ Put the <code class="docutils literal notranslate"><span class="pre">when('typin
 <p>Water drops will now appear when you press space, but they are not in the right location.
 Once we create the water drops, we need to move them to an appropriate starting location:
 directly below the middle of the copter.
-We can define a helper function that will take in two <a href="#id1"><span class="problematic" id="id2">``</span></a>DesignerObject``s, and change the X/Y coordinates of the first object to be directly below the second one.</p>
+We can define a helper function that will take in two <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code>, and change the X/Y coordinates of the first object to be directly below the second one.
+Note we say below, not at the same location; we offset the <code class="docutils literal notranslate"><span class="pre">bottom</span></code> vertical position using the <code class="docutils literal notranslate"><span class="pre">height</span></code> of the <code class="docutils literal notranslate"><span class="pre">top</span></code> object.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">move_below</span><span class="p">(</span><span class="n">bottom</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">,</span> <span class="n">top</span><span class="p">:</span> <span class="n">DesignerObject</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Move the bottom object to be below the top object &quot;&quot;&quot;</span>
     <span class="n">bottom</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">___</span><span class="o">.</span><span class="n">y</span> <span class="o">+</span> <span class="n">___</span><span class="o">.</span><span class="n">height</span><span class="o">/</span><span class="mi">2</span>
@@ -408,14 +409,15 @@ But they still start as an empty list.</p>
     <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_copter</span><span class="p">(),</span> <span class="n">COPTER_SPEED</span><span class="p">,</span> <span class="p">[],</span> <span class="p">[])</span>
 </pre></div>
 </div>
-<p><strong>Task 16</strong>: Modify your <code class="docutils literal notranslate"><span class="pre">World</span></code> and <code class="docutils literal notranslate"><span class="pre">create_world</span></code> definitions according to the code above.
-Make sure you put the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement at the top with the rest of the <code class="docutils literal notranslate"><span class="pre">import</span></code> statements.</p>
+<p><strong>Task 16</strong>: Modify your <code class="docutils literal notranslate"><span class="pre">World</span></code> and <code class="docutils literal notranslate"><span class="pre">create_world</span></code> definitions according to the code above.</p>
 <p>We need a helper function to create fires.
 The code below should help us get started.
 Fires are an <code class="docutils literal notranslate"><span class="pre">emoji</span></code> that initially start off very small (using the <code class="docutils literal notranslate"><span class="pre">scale</span></code>) attribute.
 We must also position the fire at the bottom of the screen, in a random <code class="docutils literal notranslate"><span class="pre">x</span></code> position between the left side of the window and the right side.
 Notice how we use the <code class="docutils literal notranslate"><span class="pre">anchor</span></code> attribute to make the fire get drawn from its bottom center (as opposed to the actual center of the image) upward.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">create_fire</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DesignerObject</span><span class="p">:</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+<span class="k">def</span> <span class="nf">create_fire</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">DesignerObject</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot; Create a small fire randomly on the screen &quot;&quot;&quot;</span>
     <span class="n">fire</span> <span class="o">=</span> <span class="n">emoji</span><span class="p">(</span><span class="s1">&#39;🔥&#39;</span><span class="p">)</span>
     <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">=</span> <span class="mf">.1</span>
@@ -427,7 +429,8 @@ Notice how we use the <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 <p><strong>Task 17</strong>: Choose appropriate values to fill in for the blanks of <code class="docutils literal notranslate"><span class="pre">random.randint(___,</span> <span class="pre">___)</span></code>.
-Place the <code class="docutils literal notranslate"><span class="pre">create_fire</span></code> function after the water related functions, before the <code class="docutils literal notranslate"><span class="pre">when</span></code> handlers.</p>
+Place the <code class="docutils literal notranslate"><span class="pre">create_fire</span></code> function after the water related functions, before the <code class="docutils literal notranslate"><span class="pre">when</span></code> handlers.
+Put the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement at the top with the rest of the <code class="docutils literal notranslate"><span class="pre">import</span></code> statements.</p>
 <div class="section" id="start-fires-randomly">
 <h3>Start Fires Randomly<a class="headerlink" href="#start-fires-randomly" title="Permalink to this heading">¶</a></h3>
 <p>Fires should appear randomly in the world.
@@ -445,8 +448,8 @@ When there are not too many fires and the random chance occurs, we create a new 
 <span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">make_fires</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Task 18</strong>: Fill in the blanks so that there can only be <code class="docutils literal notranslate"><span class="pre">10</span></code> fires in the world, and a new fire has a <code class="docutils literal notranslate"><span class="pre">1</span></code> in <code class="docutils literal notranslate"><span class="pre">10</span></code> chance of spawning.
-Be sure that you still have the <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">random</span> <span class="pre">import</span> <span class="pre">randint</span></code> at the top of your file!</p>
+<p><strong>Task 18</strong>: Fill in the blanks so that there can only be <code class="docutils literal notranslate"><span class="pre">10</span></code> fires in the world, and a new fire has a <code class="docutils literal notranslate"><span class="pre">1</span></code> in <code class="docutils literal notranslate"><span class="pre">100</span></code> chance of spawning.
+Be sure that you still have a <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">random</span> <span class="pre">import</span> <span class="pre">randint</span></code> at the top of your file!</p>
 </div>
 <div class="section" id="grow-fires">
 <h3>Grow Fires<a class="headerlink" href="#grow-fires" title="Permalink to this heading">¶</a></h3>
@@ -459,6 +462,7 @@ Similar to the water drops, we need to iterate through the fires, since we don�
         <span class="n">fire</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">+=</span> <span class="mf">.01</span>
         <span class="n">fire</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">+=</span> <span class="mf">.01</span>
 
+<span class="n">when</span><span class="p">(</span><span class="s2">&quot;updating&quot;</span><span class="p">,</span> <span class="n">grow_fires</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><strong>Task 19</strong>: Fill in the blanks with the appropriate values to iterate through the fires.</p>

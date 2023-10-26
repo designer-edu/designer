@@ -9,3 +9,7 @@ div.highlight pre {
 dl.object > dt, dl.data > dt, dl.function > dt, dl.method > dt, dl.attribute > dt, dl.class > dt, dl.exception > dt, dl.classmethod > dt, dl.staticmethod > dt {
     display: block;
 }
+
+.body a {
+    text-decoration: underline;
+}
