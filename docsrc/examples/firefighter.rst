@@ -230,7 +230,8 @@ Put the ``when('typing', drop_water)`` handler next to the other ``when('typing'
 Water drops will now appear when you press space, but they are not in the right location.
 Once we create the water drops, we need to move them to an appropriate starting location:
 directly below the middle of the copter.
-We can define a helper function that will take in two ``DesignerObject``s, and change the X/Y coordinates of the first object to be directly below the second one.
+We can define a helper function that will take in two ``DesignerObject``, and change the X/Y coordinates of the first object to be directly below the second one.
+Note we say below, not at the same location; we offset the ``bottom`` vertical position using the ``height`` of the ``top`` object.
 
 
 .. literalinclude:: ./firefighter/ff_6_dc.py
@@ -315,7 +316,7 @@ But they still start as an empty list.
     :lines: 6-12,20-22
 
 **Task 16**: Modify your ``World`` and ``create_world`` definitions according to the code above.
-Make sure you put the ``import`` statement at the top with the rest of the ``import`` statements.
+
 
 We need a helper function to create fires.
 The code below should help us get started.
@@ -325,10 +326,11 @@ Notice how we use the ``anchor`` attribute to make the fire get drawn from its b
 
 .. literalinclude:: ./firefighter/ff_10_dc.py
     :language: python
-    :lines: 100-108
+    :lines: 4-5,100-108
 
 **Task 17**: Choose appropriate values to fill in for the blanks of ``random.randint(___, ___)``.
 Place the ``create_fire`` function after the water related functions, before the ``when`` handlers.
+Put the ``import`` statement at the top with the rest of the ``import`` statements.
 
 ********************
 Start Fires Randomly
@@ -345,8 +347,8 @@ When there are not too many fires and the random chance occurs, we create a new 
     :language: python
     :lines: 110-116, 123
 
-**Task 18**: Fill in the blanks so that there can only be ``10`` fires in the world, and a new fire has a ``1`` in ``10`` chance of spawning.
-Be sure that you still have the ``from random import randint`` at the top of your file!
+**Task 18**: Fill in the blanks so that there can only be ``10`` fires in the world, and a new fire has a ``1`` in ``100`` chance of spawning.
+Be sure that you still have a ``from random import randint`` at the top of your file!
 
 **********
 Grow Fires
@@ -358,7 +360,7 @@ Similar to the water drops, we need to iterate through the fires, since we don't
 
 .. literalinclude:: ./firefighter/ff_11_dc.py
     :language: python
-    :lines: 117-121,130
+    :lines: 117-122,138
 
 **Task 19**: Fill in the blanks with the appropriate values to iterate through the fires.
 
