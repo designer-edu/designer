@@ -44,6 +44,12 @@ Build a simple interactive where two arrow boxes can be moved across the screen.
 
 * Demonstrates: Handling key presses with ``typing`` and ``done typing``
 
+:ref:`Inheritance<inheritance>`
+
+Build a game where you add a new field to an existing Designer object by using inheritance.
+
+* Demonstrates: Extending a Designer object with inheritance
+
 `BlockPy Showcase`_
 
 A simple gallery of web-based Designer examples using BlockPy.

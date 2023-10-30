@@ -593,7 +593,9 @@ It turns out that we can pass multiple functions in to the <code class="docutils
 <span class="n">when</span><span class="p">(</span><span class="n">there_are_big_fires</span><span class="p">,</span> <span class="n">flash_game_over</span><span class="p">,</span> <span class="n">pause</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><strong>Task 24</strong>: Fill in the blanks to make the text say “Game Over” and show the score.</p>
+<p><strong>Task 24</strong>: Fill in the blanks to make the text say “Game Over” and show the score.
+Make sure you put this <code class="docutils literal notranslate"><span class="pre">when</span></code> after the <code class="docutils literal notranslate"><span class="pre">update_score</span></code> handler, so that the score does not update after the game ends.
+The order of the <code class="docutils literal notranslate"><span class="pre">when</span></code> functions is the order that the functions will be called in.</p>
 </div>
 </div>
 <div class="section" id="extra-challenges">
