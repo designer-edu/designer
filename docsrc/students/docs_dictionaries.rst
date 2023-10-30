@@ -11,7 +11,7 @@ Creating DesignerObjects
 .. function:: image(path)
               image(path, x, y)
 
-    Function to create an image from the given ``path``. The ``path`` given
+    Function to create an image from the given `path`. The `path` given
     can be a local file or a URL to a remote image. Keep in mind that
     loading large URLs can take a little while.
 
@@ -43,9 +43,9 @@ Creating DesignerObjects
 .. function:: emoji(name)
               emoji(name, x, y)
 
-    Function to create an emoji of the given ``name``. You can also provide the actual unicode character.
+    Function to create an emoji of the given `name`. You can also provide the actual unicode character.
     Not every unicode emoji is supported. You can find a `searchable emoji list here <https://emojis.wiki/>`_. Copy
-    paste the emoji as a string literal as the ``name`` argument.
+    paste the emoji as a string literal as the `name` argument.
 
     .. code-block:: python
 
@@ -116,8 +116,8 @@ Creating DesignerObjects
         red_box = rectangle("red", 50, 50, 0, 0)
 
         # Once created, you can manipulate the border and other properties
-        red_box.color = 'purple'
-        red_box.x = 100
+        red_box['color'] = 'purple'
+        red_box['x'] = 100
 
     You can also control the border of the rectangle in order to make the shape not be
     filled, but instead just a bordered rectangle.
@@ -126,7 +126,7 @@ Creating DesignerObjects
 
         # Blue rectangle of size 75x100, not filled
         empty = rectangle("blue", 75, 100, border=1)
-        empty.border = 7
+        empty['border'] = 7
 
     And like any other shape, you can specify an :ref:`anchor<anchor>` to adjust the "pin" of the
     object relative to its position.
@@ -160,7 +160,7 @@ Creating DesignerObjects
               circle(color, radius, x, y)
               circle(color, radius, x, y, border=None, anchor='center')
 
-    Function to create a circle with the given ``radius``. Defaults to
+    Function to create a circle with the given `radius`. Defaults to
     being drawn at the center of the screen, from the center of the
     circle.
 
@@ -175,8 +175,8 @@ Creating DesignerObjects
         red_circle = circle("red", 50, 0, 0)
 
         # Once created, you can manipulate the border and other properties
-        red_circle.color = 'purple'
-        red_circle.x = 100
+        red_circle['color'] = 'purple'
+        red_circle['x'] = 100
 
     You can also control the border of the circle in order to make the shape not be
     filled, but instead just a bordered circle.
@@ -185,7 +185,7 @@ Creating DesignerObjects
 
         # Blue circle of size 75, not filled
         empty = circle("blue", 75, border=1)
-        empty.border = 7
+        empty['border'] = 7
 
     And like any other shape, you can specify an :ref:`anchor<anchor>` to adjust the "pin" of the
     object relative to its position.
@@ -231,8 +231,8 @@ Creating DesignerObjects
         red_ellipse = ellipse("red", 50, 50, 0, 0)
 
         # Once created, you can manipulate the border and other properties
-        red_ellipse.color = 'purple'
-        red_ellipse.x = 100
+        red_ellipse['color'] = 'purple'
+        red_ellipse['x'] = 100
 
     You can also control the border of the ellipse in order to make the shape not be
     filled, but instead just a bordered ellipse.
@@ -241,7 +241,7 @@ Creating DesignerObjects
 
         # Blue ellipse of size 75x100, not filled
         empty = ellipse("blue", 75, 100, border=1)
-        empty.border = 7
+        empty['border'] = 7
 
     And like any other shape, you can specify an :ref:`anchor<anchor>` to adjust the "pin" of the
     object relative to its position.
@@ -275,8 +275,8 @@ Creating DesignerObjects
               line(color, start_x, start_y, end_x, end_y, thickness=1)
 
     Function to create a line, beginning at the coordinates given by
-    ``(start_x, start_y)`` and ending at the coordinates given by
-    ``(end_x, end_y)``. These coordinates are given as absolute values,
+    `(start_x, start_y)` and ending at the coordinates given by
+    `(end_x, end_y)`. These coordinates are given as absolute values,
     and must be provided.
 
     .. code-block:: python
@@ -312,7 +312,7 @@ Creating DesignerObjects
 
     Function to make an arc, as if it were part of an ellipse. Think of the
     arc as being part of the border of an ellipse with the given width/height;
-    then the ``start_angle`` and ``stop_angle`` are the slice (in degrees) of the
+    then the `start_angle` and `stop_angle` are the slice (in degrees) of the
     border that will actually be drawn. This is a line, not a polygon, so there
     is no option to fill in the arc.
 
@@ -329,8 +329,8 @@ Creating DesignerObjects
         red_U = arc("red", 180, 360, 50, 50, 0, 0)
 
         # Once created, you can manipulate the thickness and other properties
-        red_U.anchor = 'topleft'
-        red_U.thickness = 10
+        red_U['anchor'] = 'topleft'
+        red_U['thickness'] = 10
 
     :param color: The :ref:`color<color>` of the arc
     :type color: str
@@ -357,8 +357,8 @@ Creating DesignerObjects
               shape(color, points)
 
     Function to create a shape of at least three points. The points should be relative to each other.
-    The resulting image will be centered in the middle of the window, which can be adjusted by using ``x`` and ``y``.
-    If you want to absolutely position the image instead, then use ``lines``.
+    The resulting image will be centered in the middle of the window, which can be adjusted by using `x` and `y`.
+    If you want to absolutely position the image instead, then use `lines`.
 
     :param color: color of shape.
     :type color: str
@@ -384,7 +384,7 @@ Creating DesignerObjects
 .. function:: group(object1, ...)
               group(objects)
 
-    Function to group any number of Designer ``objects`` together. They will produce one single picture when they are done.
+    Function to group any number of Designer `objects` together. They will produce one single picture when they are done.
     The advantage of grouping together a bunch of objects is that they become easier to rotate and scale together.
 
     :param objects: collection of objects to be grouped together for collective functionality
@@ -406,9 +406,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Set to be 100 pixels from the left-hand side of the window
-        box.x = 100
+        box['x'] = 100
         # Move 5 pixels left
-        box.x -= 5
+        box['x'] -= 5
 
 .. py:attribute:: y
     :type: integer
@@ -419,9 +419,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Set to be 100 pixels from the top of the window
-        box.y = 100
+        box['y'] = 100
         # Move 5 pixels up
-        box.y -= 5
+        box['y'] -= 5
 
 .. py:attribute:: width
     :type: integer
@@ -432,9 +432,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Set to be 100 pixels wide
-        box.width = 100
+        box['width'] = 100
         # Increase width by 10 pixels
-        box.width += 10
+        box['width'] += 10
 
 .. py:attribute:: height
     :type: integer
@@ -445,9 +445,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Set to be 100 pixels tall
-        box.height = 100
+        box['height'] = 100
         # Increase height by 10 pixels
-        box.height += 10
+        box['height'] += 10
 
 .. py:attribute:: scale_x
     :type: float
@@ -459,9 +459,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Will be drawn twice as wide
-        box.scale_x = 2.0
+        box['scale_x'] = 2.0
         # Will be drawn half as wide
-        box.scale_x = .5
+        box['scale_x'] = .5
 
 .. py:attribute:: scale_y
     :type: float
@@ -473,9 +473,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Will be drawn twice as tall
-        box.scale_y = 2.0
+        box['scale_y'] = 2.0
         # Will be drawn half as tall
-        box.scale_y = .5
+        box['scale_y'] = .5
 
 .. py:attribute:: angle
     :type: float
@@ -487,9 +487,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Will be drawn at a 45 degree angle
-        box.angle = 45
+        box['angle'] = 45
         # Rotates it 180 degrees around
-        box.angle += 180
+        box['angle'] += 180
 
 .. py:attribute:: flip_x
     :type: boolean
@@ -503,9 +503,9 @@ Designer Objects Attributes
 
         ada = image('ada.png', 50, 50)
         # Will be flipped horizontally
-        ada.flip_x = True
+        ada['flip_x'] = True
         # Will not be flipped horizontally
-        ada.flip_x = False
+        ada['flip_x'] = False
 
 .. py:attribute:: flip_y
     :type: boolean
@@ -519,9 +519,9 @@ Designer Objects Attributes
 
         ada = image('ada.png', 50, 50)
         # Will be flipped vertically
-        ada.flip_y = True
+        ada['flip_y'] = True
         # Will not be flipped vertically
-        ada.flip_y = False
+        ada['flip_y'] = False
 
 .. py:attribute:: visible
     :type: boolean
@@ -533,9 +533,9 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Will not be drawn
-        ada.visible = False
+        ada['visible'] = False
         # Will be drawn
-        ada.visible = True
+        ada['visible'] = True
 
 .. py:attribute:: alpha
     :type: float
@@ -547,11 +547,11 @@ Designer Objects Attributes
 
         box = rectangle('red', 50, 50)
         # Partially transparent
-        ada.alpha = .5
+        ada['alpha'] = .5
         # Fully invisible
-        ada.alpha = 0.0
+        ada['alpha'] = 0.0
         # Fully visible
-        ada.alpha = 1.0
+        ada['alpha'] = 1.0
 
 .. py:attribute:: scale
     :type: [scale_x, scale_y]
@@ -580,8 +580,8 @@ Designer Object Functions
 .. py:function:: move_forward(object, amount)
                  move_forward(object, amount, angle)
 
-    Move the given ``object`` forward by ``amount``, either in its current rotation
-    ``angle`` attribute or the given ``angle``. This changes the ``x`` and ``y`` attribute
+    Move the given `object` forward by `amount`, either in its current rotation
+    `angle` attribute or the given `angle`. This changes the `x` and `y` attribute
     of the Designer Object, in addition to returning the value.
 
     .. code-block:: python
@@ -604,7 +604,7 @@ Designer Object Functions
     :type object: DesignerObject
     :param amount: The number of pixels to move
     :type amount: int
-    :param angle: The direction (in degrees) to move in; defaults to the object's current ``angle`` attribute (which defaults to 0).
+    :param angle: The direction (in degrees) to move in; defaults to the object's current `angle` attribute (which defaults to 0).
     :type angle: int
 
     :return: The Designer Object that was passed in.
@@ -642,7 +642,7 @@ Settings
                  set_window_height(None)
 
     Changes the caption displayed at the top of the window. If you set the message to
-    be ``None`` instead, then it will render internal debug information about the
+    be `None` instead, then it will render internal debug information about the
     number of static and non-static objects being drawn on the screen.
 
     :param message: The text to render in the screen.
@@ -652,7 +652,7 @@ Settings
 .. py:function:: set_window_color(color)
 
     Changes the background color of the window to whatever :ref:`color<color>` you specify.
-    Defaults to ``'white'``.
+    Defaults to `'white'`.
 
     .. code-block:: python
 
@@ -684,7 +684,7 @@ Events
                  when('typing', event_handler)
                  when('clicking', event_handler)
 
-    Binds the function given by ``event_handler`` to the ``event_name``.
+    Binds the function given by `event_handler` to the `event_name`.
 
 Collisions
 ----------
@@ -720,4 +720,4 @@ Game Control
 .. py:function:: pause()
 
     Pauses the game, keeping the window open and whatever the last thing to draw was.
-    However, no further events will be processed (besides the ``'quitting'`` event).
+    However, no further events will be processed (besides the `'quitting'` event).
