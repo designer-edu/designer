@@ -461,6 +461,8 @@ It turns out that we can pass multiple functions in to the ``when`` function (ev
     :lines: 162-165,180
 
 **Task 24**: Fill in the blanks to make the text say "Game Over" and show the score.
+Make sure you put this ``when`` after the ``update_score`` handler, so that the score does not update after the game ends.
+The order of the ``when`` functions is the order that the functions will be called in.
 
 ^^^^^^^^^^^^^^^^
 Extra Challenges
