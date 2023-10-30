@@ -37,9 +37,7 @@
     
 
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Designer Functions Quick List" href="functions.html" />
-    <link rel="prev" title="Arrows" href="../examples/arrows.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
     <div class="relbar-top">
@@ -53,12 +51,6 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="functions.html" title="Designer Functions Quick List"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="../examples/arrows.html" title="Arrows"
-             accesskey="P">previous</a> &nbsp; &nbsp;</li>
     <li><a href="../contents.html">Designer 0.5.0 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 
@@ -81,7 +73,7 @@
 <span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an image from the given <code class="docutils literal notranslate"><span class="pre">path</span></code>. The <code class="docutils literal notranslate"><span class="pre">path</span></code> given
+<dd><p>Function to create an image from the given <cite>path</cite>. The <cite>path</cite> given
 can be a local file or a URL to a remote image. Keep in mind that
 loading large URLs can take a little while.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -116,9 +108,9 @@ to simplify problems with paths. Never use absolute file locations like
 <span class="sig-name descname"><span class="pre">emoji</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id1" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">emoji</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create an emoji of the given <code class="docutils literal notranslate"><span class="pre">name</span></code>. You can also provide the actual unicode character.
+<dd><p>Function to create an emoji of the given <cite>name</cite>. You can also provide the actual unicode character.
 Not every unicode emoji is supported. You can find a <a class="reference external" href="https://emojis.wiki/">searchable emoji list here</a>. Copy
-paste the emoji as a string literal as the <code class="docutils literal notranslate"><span class="pre">name</span></code> argument.</p>
+paste the emoji as a string literal as the <cite>name</cite> argument.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Either of these will create a picture of a dog on your screen</span>
 <span class="n">emoji</span><span class="p">(</span><span class="s2">&quot;dog&quot;</span><span class="p">)</span>
@@ -197,15 +189,15 @@ although it will default to the center of the Window.</p>
 <span class="n">red_box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_box</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_box</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_box</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 </pre></div>
 </div>
 <p>You can also control the border of the rectangle in order to make the shape not be
 filled, but instead just a bordered rectangle.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue rectangle of size 75x100, not filled</span>
 <span class="n">empty</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
 </pre></div>
 </div>
 <p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
@@ -242,7 +234,7 @@ object relative to its position.</p>
 <span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">circle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">border</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to create a circle with the given <code class="docutils literal notranslate"><span class="pre">radius</span></code>. Defaults to
+<dd><p>Function to create a circle with the given <cite>radius</cite>. Defaults to
 being drawn at the center of the screen, from the center of the
 circle.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -254,15 +246,15 @@ circle.</p>
 <span class="n">red_circle</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_circle</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_circle</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_circle</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 </pre></div>
 </div>
 <p>You can also control the border of the circle in order to make the shape not be
 filled, but instead just a bordered circle.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue circle of size 75, not filled</span>
 <span class="n">empty</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
 </pre></div>
 </div>
 <p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
@@ -310,15 +302,15 @@ although it will default to the center of the Window.</p>
 <span class="n">red_ellipse</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Once created, you can manipulate the border and other properties</span>
-<span class="n">red_ellipse</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
-<span class="n">red_ellipse</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;purple&#39;</span>
+<span class="n">red_ellipse</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 </pre></div>
 </div>
 <p>You can also control the border of the ellipse in order to make the shape not be
 filled, but instead just a bordered ellipse.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue ellipse of size 75x100, not filled</span>
 <span class="n">empty</span> <span class="o">=</span> <span class="n">ellipse</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">empty</span><span class="o">.</span><span class="n">border</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">empty</span><span class="p">[</span><span class="s1">&#39;border&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">7</span>
 </pre></div>
 </div>
 <p>And like any other shape, you can specify an <a class="reference internal" href="../reference/anchors.html#anchor"><span class="std std-ref">anchor</span></a> to adjust the “pin” of the
@@ -354,8 +346,8 @@ object relative to its position.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">line</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Function to create a line, beginning at the coordinates given by
-<code class="docutils literal notranslate"><span class="pre">(start_x,</span> <span class="pre">start_y)</span></code> and ending at the coordinates given by
-<code class="docutils literal notranslate"><span class="pre">(end_x,</span> <span class="pre">end_y)</span></code>. These coordinates are given as absolute values,
+<cite>(start_x, start_y)</cite> and ending at the coordinates given by
+<cite>(end_x, end_y)</cite>. These coordinates are given as absolute values,
 and must be provided.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Blue line stretching from 0,0, to 50, 100</span>
 <span class="n">line</span><span class="p">(</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
@@ -394,7 +386,7 @@ and must be provided.</p>
 <span class="sig-name descname"><span class="pre">arc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_angle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">width</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">height</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thickness</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">anchor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Function to make an arc, as if it were part of an ellipse. Think of the
 arc as being part of the border of an ellipse with the given width/height;
-then the <code class="docutils literal notranslate"><span class="pre">start_angle</span></code> and <code class="docutils literal notranslate"><span class="pre">stop_angle</span></code> are the slice (in degrees) of the
+then the <cite>start_angle</cite> and <cite>stop_angle</cite> are the slice (in degrees) of the
 border that will actually be drawn. This is a line, not a polygon, so there
 is no option to fill in the arc.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
@@ -408,8 +400,8 @@ is no option to fill in the arc.</p>
 <span class="n">red_U</span> <span class="o">=</span> <span class="n">arc</span><span class="p">(</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
 <span class="c1"># Once created, you can manipulate the thickness and other properties</span>
-<span class="n">red_U</span><span class="o">.</span><span class="n">anchor</span> <span class="o">=</span> <span class="s1">&#39;topleft&#39;</span>
-<span class="n">red_U</span><span class="o">.</span><span class="n">thickness</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;anchor&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;topleft&#39;</span>
+<span class="n">red_U</span><span class="p">[</span><span class="s1">&#39;thickness&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -440,8 +432,8 @@ is no option to fill in the arc.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Function to create a shape of at least three points. The points should be relative to each other.
-The resulting image will be centered in the middle of the window, which can be adjusted by using <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code>.
-If you want to absolutely position the image instead, then use <code class="docutils literal notranslate"><span class="pre">lines</span></code>.</p>
+The resulting image will be centered in the middle of the window, which can be adjusted by using <cite>x</cite> and <cite>y</cite>.
+If you want to absolutely position the image instead, then use <cite>lines</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -479,7 +471,7 @@ If you want to absolutely position the image instead, then use <code class="docu
 <span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">...</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#id10" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">group</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Function to group any number of Designer <code class="docutils literal notranslate"><span class="pre">objects</span></code> together. They will produce one single picture when they are done.
+<dd><p>Function to group any number of Designer <cite>objects</cite> together. They will produce one single picture when they are done.
 The advantage of grouping together a bunch of objects is that they become easier to rotate and scale together.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -504,9 +496,9 @@ have certain common attributes.</p>
 <dd><p>The horizontal position of the object on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Set to be 100 pixels from the left-hand side of the window</span>
-<span class="n">box</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="c1"># Move 5 pixels left</span>
-<span class="n">box</span><span class="o">.</span><span class="n">x</span> <span class="o">-=</span> <span class="mi">5</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">5</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -517,9 +509,9 @@ have certain common attributes.</p>
 <dd><p>The vertical position of the object on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Set to be 100 pixels from the top of the window</span>
-<span class="n">box</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="c1"># Move 5 pixels up</span>
-<span class="n">box</span><span class="o">.</span><span class="n">y</span> <span class="o">-=</span> <span class="mi">5</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">-=</span> <span class="mi">5</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -530,9 +522,9 @@ have certain common attributes.</p>
 <dd><p>The horizontal size of the object on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Set to be 100 pixels wide</span>
-<span class="n">box</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="c1"># Increase width by 10 pixels</span>
-<span class="n">box</span><span class="o">.</span><span class="n">width</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;width&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -543,9 +535,9 @@ have certain common attributes.</p>
 <dd><p>The vertical size of the object on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Set to be 100 pixels tall</span>
-<span class="n">box</span><span class="o">.</span><span class="n">height</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="c1"># Increase height by 10 pixels</span>
-<span class="n">box</span><span class="o">.</span><span class="n">height</span> <span class="o">+=</span> <span class="mi">10</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;height&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">10</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -557,9 +549,9 @@ have certain common attributes.</p>
 size on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will be drawn twice as wide</span>
-<span class="n">box</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="c1"># Will be drawn half as wide</span>
-<span class="n">box</span><span class="o">.</span><span class="n">scale_x</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -571,9 +563,9 @@ size on the screen.</p>
 size on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will be drawn twice as tall</span>
-<span class="n">box</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
 <span class="c1"># Will be drawn half as tall</span>
-<span class="n">box</span><span class="o">.</span><span class="n">scale_y</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;scale_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -585,9 +577,9 @@ size on the screen.</p>
 values and amounts greater than 360.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will be drawn at a 45 degree angle</span>
-<span class="n">box</span><span class="o">.</span><span class="n">angle</span> <span class="o">=</span> <span class="mi">45</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">45</span>
 <span class="c1"># Rotates it 180 degrees around</span>
-<span class="n">box</span><span class="o">.</span><span class="n">angle</span> <span class="o">+=</span> <span class="mi">180</span>
+<span class="n">box</span><span class="p">[</span><span class="s1">&#39;angle&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">180</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -601,9 +593,9 @@ if they are rotated. The order of transformations is flipping, scaling,
 and then rotating.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ada</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;ada.png&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will be flipped horizontally</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">flip_x</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># Will not be flipped horizontally</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">flip_x</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -617,9 +609,9 @@ if they are rotated. The order of transformations is flipping, scaling,
 and then rotating.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ada</span> <span class="o">=</span> <span class="n">image</span><span class="p">(</span><span class="s1">&#39;ada.png&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will be flipped vertically</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">flip_y</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># Will not be flipped vertically</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">flip_y</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;flip_y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -631,9 +623,9 @@ and then rotating.</p>
 it will be hidden. Objects that are invisible still get “update” events.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Will not be drawn</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;visible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="c1"># Will be drawn</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;visible&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -645,11 +637,11 @@ it will be hidden. Objects that are invisible still get “update” events.</p>
 this object should have when it is being drawn on the screen.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
 <span class="c1"># Partially transparent</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">.5</span>
 <span class="c1"># Fully invisible</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 <span class="c1"># Fully visible</span>
-<span class="n">ada</span><span class="o">.</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">ada</span><span class="p">[</span><span class="s1">&#39;alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -682,8 +674,8 @@ both properties at the same time.</p>
 <span class="sig-name descname"><span class="pre">move_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.DesignerObject.move_forward" title="Permalink to this definition">¶</a></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">move_forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amount</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Move the given <code class="docutils literal notranslate"><span class="pre">object</span></code> forward by <code class="docutils literal notranslate"><span class="pre">amount</span></code>, either in its current rotation
-<code class="docutils literal notranslate"><span class="pre">angle</span></code> attribute or the given <code class="docutils literal notranslate"><span class="pre">angle</span></code>. This changes the <code class="docutils literal notranslate"><span class="pre">x</span></code> and <code class="docutils literal notranslate"><span class="pre">y</span></code> attribute
+<dd><p>Move the given <cite>object</cite> forward by <cite>amount</cite>, either in its current rotation
+<cite>angle</cite> attribute or the given <cite>angle</cite>. This changes the <cite>x</cite> and <cite>y</cite> attribute
 of the Designer Object, in addition to returning the value.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Black rectangle of size 100x100</span>
@@ -705,7 +697,7 @@ of the Designer Object, in addition to returning the value.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>object</strong> (<em>DesignerObject</em>) – A Designer Object</p></li>
 <li><p><strong>amount</strong> (<em>int</em>) – The number of pixels to move</p></li>
-<li><p><strong>angle</strong> (<em>int</em>) – The direction (in degrees) to move in; defaults to the object’s current <code class="docutils literal notranslate"><span class="pre">angle</span></code> attribute (which defaults to 0).</p></li>
+<li><p><strong>angle</strong> (<em>int</em>) – The direction (in degrees) to move in; defaults to the object’s current <cite>angle</cite> attribute (which defaults to 0).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -855,7 +847,7 @@ of the Designer Object, in addition to returning the value.</p>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">set_window_height</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">None</span></span></em><span class="sig-paren">)</span></dt>
 <dd><p>Changes the caption displayed at the top of the window. If you set the message to
-be <code class="docutils literal notranslate"><span class="pre">None</span></code> instead, then it will render internal debug information about the
+be <cite>None</cite> instead, then it will render internal debug information about the
 number of static and non-static objects being drawn on the screen.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -871,7 +863,7 @@ number of static and non-static objects being drawn on the screen.</p>
 <dt class="sig sig-object py" id="designer.animation.set_window_color">
 <span class="sig-name descname"><span class="pre">set_window_color</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.set_window_color" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes the background color of the window to whatever <a class="reference internal" href="../reference/colors.html#color"><span class="std std-ref">color</span></a> you specify.
-Defaults to <code class="docutils literal notranslate"><span class="pre">'white'</span></code>.</p>
+Defaults to <cite>‘white’</cite>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="c1"># Black text that reads &quot;Hello world!&quot;</span>
 <span class="n">set_window_color</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
@@ -916,7 +908,7 @@ loading large URLs can take a little while.</p>
 <span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">'typing'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_handler</span></span></em><span class="sig-paren">)</span></dt>
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">when</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">'clicking'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_handler</span></span></em><span class="sig-paren">)</span></dt>
-<dd><p>Binds the function given by <code class="docutils literal notranslate"><span class="pre">event_handler</span></code> to the <code class="docutils literal notranslate"><span class="pre">event_name</span></code>.</p>
+<dd><p>Binds the function given by <cite>event_handler</cite> to the <cite>event_name</cite>.</p>
 </dd></dl>
 
 </div>
@@ -956,7 +948,7 @@ loading large URLs can take a little while.</p>
 <dt class="sig sig-object py" id="designer.animation.pause">
 <span class="sig-name descname"><span class="pre">pause</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.pause" title="Permalink to this definition">¶</a></dt>
 <dd><p>Pauses the game, keeping the window open and whatever the last thing to draw was.
-However, no further events will be processed (besides the <code class="docutils literal notranslate"><span class="pre">'quitting'</span></code> event).</p>
+However, no further events will be processed (besides the <cite>‘quitting’</cite> event).</p>
 </dd></dl>
 
 </div>
@@ -970,42 +962,22 @@ However, no further events will be processed (besides the <code class="docutils 
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
     <h3><a href="../contents.html">Page contents</a></h3>
-    <ul class="current">
+    <ul>
 <li class="toctree-l1"><a class="reference internal" href="../research/welcome.html">What is Designer and its Research?</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">How to Install Designer</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Longer Examples</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Designer Documentation for Students</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#creating-designerobjects">Creating DesignerObjects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-designer.DesignerObject">Designer Objects Attributes</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#designer-object-functions">Designer Object Functions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-designer.animation">Animation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#settings">Settings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#events">Events</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#collisions">Collisions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#game-control">Game Control</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="docs.html">Designer Documentation for Students</a></li>
 <li class="toctree-l1"><a class="reference internal" href="functions.html">Designer Functions Quick List</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
 <li class="toctree-l1"><a class="reference internal" href="help.html">More Help</a></li>
 </ul>
 
   </div>
-  <div class="sphinxprev">
-    <h4>Previous page</h4>
-    <p class="topless"><a href="../examples/arrows.html"
-                          title="Previous page">&larr; Arrows</a></p>
-  </div>
-  <div class="sphinxnext">
-    <h4>Next page</h4>
-    <p class="topless"><a href="functions.html"
-                          title="Next page">&rarr; Designer Functions Quick List</a></p>
-  </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="../_sources/students/docs.rst.txt"
+      <li><a href="../_sources/students/docs_dictionaries.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -1051,12 +1023,6 @@ However, no further events will be processed (besides the <code class="docutils 
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="functions.html" title="Designer Functions Quick List"
-             >next</a> &nbsp; &nbsp;</li>
-        <li class="right" >
-          <a href="../examples/arrows.html" title="Arrows"
-             >previous</a> &nbsp; &nbsp;</li>
     <li><a href="../contents.html">Designer 0.5.0 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 

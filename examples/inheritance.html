@@ -1,0 +1,213 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Extending DesignerObjects &#8212; Designer 0.5.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/tabs.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.5.0 documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Extending DesignerObjects</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="extending-designerobjects">
+<span id="inheritance"></span><h1>Extending DesignerObjects<a class="headerlink" href="#extending-designerobjects" title="Permalink to this heading">¶</a></h1>
+<p>This game demonstrates how to have:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code> that has additional extra fields using inheritance</p></li>
+</ul>
+<p>By inheriting from a constructor for a <code class="docutils literal notranslate"><span class="pre">DesignerObject</span></code>, you can add additional fields.
+One drawback is that when calling the constructor for your new class, you must pass in the field as a keyword argument.
+This just means you put the name of the field in front of the value you want to pass in.</p>
+<p>In this example, we inherit <code class="docutils literal notranslate"><span class="pre">MovingEmoji</span></code> from <code class="docutils literal notranslate"><span class="pre">Emoji</span></code> so that we can add <code class="docutils literal notranslate"><span class="pre">speed</span></code> and <code class="docutils literal notranslate"><span class="pre">direction</span></code> fields.
+Now, we can freely access <code class="docutils literal notranslate"><span class="pre">world.dragon.speed</span></code> the same way we could previously access <code class="docutils literal notranslate"><span class="pre">world.dragon.x</span></code> or
+<code class="docutils literal notranslate"><span class="pre">world.dragon.height</span></code>.</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-RGF0YWNsYXNzZXM=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tab" tabindex="0">Dataclasses</button></div><div aria-labelledby="tab-0-RGF0YWNsYXNzZXM=" class="sphinx-tabs-panel group-tab" id="panel-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+
+
+<span class="c1"># Note that we have (Emoji) after the name of the new class!</span>
+<span class="k">class</span> <span class="nc">MovingEmoji</span><span class="p">(</span><span class="n">Emoji</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; An emoji that can move in a direction at a speed &quot;&quot;&quot;</span>
+    <span class="n">speed</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">direction</span><span class="p">:</span> <span class="nb">int</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">World</span><span class="p">:</span>
+    <span class="n">dragon</span><span class="p">:</span> <span class="n">MovingEmoji</span>
+
+<span class="k">def</span> <span class="nf">create_dragon</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">MovingEmoji</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a dragon with initial speed 1, moving to the right&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">MovingEmoji</span><span class="p">(</span><span class="s1">&#39;🐉&#39;</span><span class="p">,</span> <span class="n">speed</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_world</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">World</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Create a world with a dragon in it &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">World</span><span class="p">(</span><span class="n">create_dragon</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">accelerate_dragon</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Pressing up or down increases or decreases the dragon&#39;s speed &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;up&#39;</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">speed</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;down&#39;</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">speed</span> <span class="o">-=</span> <span class="mi">1</span>
+
+<span class="k">def</span> <span class="nf">spin_dragon</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Pressing left or right increases or decreases the dragon&#39;s direction &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;left&#39;</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">direction</span> <span class="o">-=</span> <span class="mi">10</span>
+    <span class="k">elif</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;right&#39;</span><span class="p">:</span>
+        <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">direction</span> <span class="o">+=</span> <span class="mi">10</span>
+
+<span class="k">def</span> <span class="nf">move_dragon</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">World</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Move the dragon forward in its current direction based on its speed &quot;&quot;&quot;</span>
+    <span class="n">move_forward</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">speed</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span><span class="n">dragon</span><span class="o">.</span><span class="n">direction</span><span class="p">)</span>
+
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting&#39;</span><span class="p">,</span> <span class="n">create_world</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;updating&#39;</span><span class="p">,</span> <span class="n">move_dragon</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;typing&#39;</span><span class="p">,</span> <span class="n">spin_dragon</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;typing&#39;</span><span class="p">,</span> <span class="n">accelerate_dragon</span><span class="p">)</span>
+<span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../contents.html">Page contents</a></h3>
+    <ul>
+<li class="toctree-l1"><a class="reference internal" href="../research/welcome.html">What is Designer and its Research?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">Longer Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/inheritance.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.5.0 documentation</a> &#187;</li>
+
+        <li class="nav-item nav-item-this"><a href="">Extending DesignerObjects</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, acbart, krishols.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

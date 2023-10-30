@@ -168,7 +168,7 @@ to our event handler function <code class="code docutils literal notranslate"><s
 the <code class="code docutils literal notranslate"><span class="pre">create_the_world</span></code> function will be called on the game’s start, in order to create
 the World. This way, we can make more Worlds later for testing purposes and allow Designer to reset the game for us to
 the initial game state.</p>
-<p>Our World is quite simple: it only has a <code class="code docutils literal notranslate"><span class="pre">box</span></code> mapped to a <a class="reference internal" href="../students/docs.html#rectangle"><span class="std std-ref">rectangle</span></a>.
+<p>Our World is quite simple: it only has a <code class="code docutils literal notranslate"><span class="pre">box</span></code> mapped to a <a class="reference internal" href="../students/docs_dictionaries.html#rectangle"><span class="std std-ref">rectangle</span></a>.
 We created the rectangle to be black and have a width of 200 and a height of 100.
 Because the rectangle is stored in World that we return, it will be drawn on the screen.</p>
 <a class="reference internal image-reference" href="../_images/world_1.png"><img alt="A window with a black rectangle in the middle." src="../_images/world_1.png" style="width: 700px;" /></a>
@@ -243,12 +243,12 @@ and then increments its <code class="code docutils literal notranslate"><span cl
 the function on our own - that would simply rotate the box by only one degree (a tiny amount), and where
 would we get a World from anyway?</p>
 <p>Instead we have to bind the <code class="code docutils literal notranslate"><span class="pre">&quot;updating&quot;</span></code> event to our <code class="code docutils literal notranslate"><span class="pre">spin_the_box</span></code> function using the
-<a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> built-in function. The result almost reads like a sentence: “When the
+<a class="reference internal" href="../students/docs_dictionaries.html#when"><span class="std std-ref">when</span></a> built-in function. The result almost reads like a sentence: “When the
 game is updating, spin the box.” This is why it is necessary to only rotate the box a single
 degree: the game updates many times a second (usually 30 times, in fact), so we only have
 to describe a very small, incremental change to our world.</p>
 <p>This idea of defining functions that make small changes in the world, and then binding them with
-the <a class="reference internal" href="../students/docs.html#when"><span class="std std-ref">when</span></a> function is at the heart of Designer games. We call this “Event Handling”.</p>
+the <a class="reference internal" href="../students/docs_dictionaries.html#when"><span class="std std-ref">when</span></a> function is at the heart of Designer games. We call this “Event Handling”.</p>
 <a class="reference internal image-reference" href="../_images/world_2.gif"><img alt="A window with a black ROTATING rectangle in the middle." src="../_images/world_2.gif" style="width: 700px;" /></a>
 </div>
 <div class="section" id="interacting-with-the-world">
@@ -438,7 +438,7 @@ to the same event, with no limitation. You can also pass in multiple functions t
 <p>The <code class="code docutils literal notranslate"><span class="pre">move_the_box</span></code> function has become <code class="code docutils literal notranslate"><span class="pre">teleport_the_box</span></code>, and it no longer consumes an <code class="code docutils literal notranslate"><span class="pre">x</span></code> and a
 <code class="code docutils literal notranslate"><span class="pre">y</span></code> (since those were only available in the <code class="code docutils literal notranslate"><span class="pre">clicking</span></code> event). Instead, we now set the boxes
 <code class="code docutils literal notranslate"><span class="pre">x</span></code> and <code class="code docutils literal notranslate"><span class="pre">y</span></code> fields to be a randomly chosen value between 0 and either the width of the window
-(from <a class="reference internal" href="../students/docs.html#get-width"><span class="std std-ref">get_width</span></a>) or the height of the window (from <a class="reference internal" href="../students/docs.html#get-height"><span class="std std-ref">get_height</span></a>).
+(from <a class="reference internal" href="../students/docs_dictionaries.html#get-width"><span class="std std-ref">get_width</span></a>) or the height of the window (from <a class="reference internal" href="../students/docs_dictionaries.html#get-height"><span class="std std-ref">get_height</span></a>).
 The <code class="code docutils literal notranslate"><span class="pre">randint</span></code> function is available in the built-in <code class="code docutils literal notranslate"><span class="pre">random</span></code> module, and produces an
 integer between the two values given as parameters.</p>
 <p>If we teleported the box every step, the box would move very, very fast. To make things a little fairer, we only
@@ -723,7 +723,7 @@ a string representation.</p>
 </div></div>
 <p>We haven’t added much new code - mostly just a new event handler named <code class="code docutils literal notranslate"><span class="pre">check_box_clicked</span></code>. This function
 is bound to the <code class="code docutils literal notranslate"><span class="pre">&quot;clicking&quot;</span></code> event that we saw before. However, the function uses a new feature we haven’t
-yet seen: the handy <a class="reference internal" href="../students/docs.html#colliding"><span class="std std-ref">colliding</span></a> function. This function can take in either two objects, or an object
+yet seen: the handy <a class="reference internal" href="../students/docs_dictionaries.html#colliding"><span class="std std-ref">colliding</span></a> function. This function can take in either two objects, or an object
 and an x/y pair. The function returns True if they overlap, or otherwise False if they do not. We use the function
 here to detect if the box was clicked.</p>
 <p>Actually clicking the box is a little tricky! For testing purposes, you might want to disable the teleportation or
@@ -943,8 +943,8 @@ simple game over message. This takes advantage of the fact that after the game i
 meaning that the  <code class="code docutils literal notranslate"><span class="pre">track_the_score</span></code> function will not overwrite our message’s text. That <code class="code docutils literal notranslate"><span class="pre">flash_game_over</span></code>
 function just has to check the current <code class="code docutils literal notranslate"><span class="pre">score</span></code> and determine if it has exceeded the threshold for victory that
 we stored in the global constant <code class="code docutils literal notranslate"><span class="pre">WIN_THRESHOLD</span></code>.</p>
-<p>Finally, the <a class="reference internal" href="../students/docs.html#pause"><span class="std std-ref">pause</span></a> function (another Designer built-in) is used to hang the game without closing the
-Window (if you wanted to do that, then you could use the <a class="reference internal" href="../students/docs.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
+<p>Finally, the <a class="reference internal" href="../students/docs_dictionaries.html#pause"><span class="std std-ref">pause</span></a> function (another Designer built-in) is used to hang the game without closing the
+Window (if you wanted to do that, then you could use the <a class="reference internal" href="../students/docs_dictionaries.html#stop"><span class="std std-ref">stop</span></a> function instead. Whatever was drawn last
 will still be rendered, but no further events are processed.</p>
 <a class="reference internal image-reference" href="../_images/world_7.gif"><img alt="A window with a teleporting, rotating, black rectangle. The mouse clicks on the rectangle a few times, increasing the score displayed each time, until they earn 5 points and the game ends." src="../_images/world_7.gif" style="width: 700px;" /></a>
 </div>

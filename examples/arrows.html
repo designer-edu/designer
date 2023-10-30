@@ -79,10 +79,17 @@
 <p>This game demonstrates how to have objects that:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Respond to <cite>‘typing’</cite> and <cite>‘done typing’</cite> events to “keep moving” until a key is released (even when multiple keys are pressed)</p></li>
+<li><p>Respond to <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> and <code class="docutils literal notranslate"><span class="pre">'done</span> <span class="pre">typing'</span></code> events to “keep moving” until a key is released (even when multiple keys are pressed)</p></li>
 <li><p>Moving objects in sync</p></li>
 </ul>
 </div></blockquote>
+<p>The major trick is to have a field (e.g., <code class="docutils literal notranslate"><span class="pre">active</span></code>) that gets set to <code class="docutils literal notranslate"><span class="pre">True</span></code> during the <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> event
+and set to <code class="docutils literal notranslate"><span class="pre">False</span></code> during the <code class="docutils literal notranslate"><span class="pre">'done</span> <span class="pre">typing'</span></code> event. Then, in a <code class="docutils literal notranslate"><span class="pre">updating</span></code> event, you can check if the field
+is <code class="docutils literal notranslate"><span class="pre">True</span></code> and move the object accordingly.</p>
+<p>For handling left and right keys, you need two boolean fields. For all four direction keys, you would need four boolean fields.
+An alternative solution is to use a string field that gets set to <code class="docutils literal notranslate"><span class="pre">'left'</span></code>, <code class="docutils literal notranslate"><span class="pre">'right'</span></code>, <code class="docutils literal notranslate"><span class="pre">'up'</span></code>, or <code class="docutils literal notranslate"><span class="pre">'down'</span></code> during the <code class="docutils literal notranslate"><span class="pre">'typing'</span></code> event,
+and then set to <code class="docutils literal notranslate"><span class="pre">'none'</span></code> during the <code class="docutils literal notranslate"><span class="pre">'done</span> <span class="pre">typing'</span></code> event. Then, in the <code class="docutils literal notranslate"><span class="pre">updating</span></code> event, you can check the value of the field
+and move the object accordingly.</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-RGF0YWNsYXNzZXM=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tab" tabindex="0">Dataclasses</button><button aria-controls="panel-0-RGljdGlvbmFyaWVz" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-RGljdGlvbmFyaWVz" name="RGljdGlvbmFyaWVz" role="tab" tabindex="-1">Dictionaries</button></div><div aria-labelledby="tab-0-RGF0YWNsYXNzZXM=" class="sphinx-tabs-panel group-tab" id="panel-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
