@@ -175,6 +175,8 @@ class _LayerTree:
         if len(s) > 1:
             mod = s[1]
             offset = self.MOD_OFFSET.get(mod, 0)
+        elif len(s) == 1 and s[0] in self.MOD_OFFSET:
+            offset = self.MOD_OFFSET[s[0]]
         if (parent, layer) in self.layer_location:
             position = self.layer_location[(parent, layer)]
         elif parent in self.layer_location:
