@@ -53,21 +53,31 @@ def draw(*objs):
     designer.GLOBAL_DIRECTOR.start(objs, running_on_skulpt())
 
 
-def start(*objs):
+def set_first_scene(scene: str):
+    check_initialized()
+    if scene is not None:
+        designer.GLOBAL_DIRECTOR._first_scene = scene
+
+
+def start(*objs, scene=None):
     check_initialized()
     if len(objs) == 1:
         objs = objs[0]
     else:
         objs = list(objs)
+    if scene is not None:
+        designer.GLOBAL_DIRECTOR._first_scene = scene
     designer.GLOBAL_DIRECTOR.start(objs)
 
 
-def debug(*objs):
+def debug(*objs, scene=None):
     check_initialized()
     if len(objs) == 1:
         objs = objs[0]
     else:
         objs = list(objs)
+    if scene is not None:
+        designer.GLOBAL_DIRECTOR._first_scene = scene
     designer.GLOBAL_DIRECTOR.debug(objs)
 
 
@@ -338,6 +348,12 @@ def when(event: Union[str, callable], *funcs):
             return _inner_dynamic_event
 
         funcs = [_dynamic_event(f) for f in funcs]
+    # Event must be a string
+    targets = None
+    if ':' in event:
+        event, *targets = event.split(':')
+        event = event.strip()
+        targets = [t.strip() for t in targets]
     if event not in KNOWN_EVENTS and not any(e.startswith(event) for e in KNOWN_EVENTS):
         suggestions = make_suggestions(event, KNOWN_EVENTS)
         if suggestions:
@@ -347,10 +363,10 @@ def when(event: Union[str, callable], *funcs):
                 f"Unrecognized event {event!r}. Check the documentation to see possible events (like 'updating' and 'starting').")
     if funcs:
         for func in funcs:
-            register(event, func)
+            register(event, func, targets=targets)
     else:
         def decorated(function):
-            register(event, function)
+            register(event, function, targets=targets)
         return decorated
 
 
@@ -443,3 +459,8 @@ set_window_image = set_background_image
 def get_director():
     check_initialized()
     return designer.GLOBAL_DIRECTOR
+
+
+def change_scene(window_name, **kwargs):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.change_window(window_name, kwargs)

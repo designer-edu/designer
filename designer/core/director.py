@@ -40,7 +40,9 @@ class Director:
         self.debug_mode = False
         self.debug_window = None
 
+        self._first_scene = None
         self._windows: List[Window] = []
+        self._delayed_event_registrations = {}
 
         self._all_sprites = set()
         self._game_state = None
@@ -124,6 +126,53 @@ class Director:
         self.current_window.background.fill(_process_color(value))
         self.current_window.background._version += 1
 
+    def register(self, event_namespace, handlers, args, kwargs, priority, dynamic, targets):
+        if not targets:
+            self.current_window._reg_internal(event_namespace, handlers, args, kwargs, priority, dynamic)
+        else:
+            if self._first_scene is None:
+                self._first_scene = targets[0]
+            for target in targets:
+                if target not in self._delayed_event_registrations:
+                    self._delayed_event_registrations[target] = []
+                self._delayed_event_registrations[target].append((event_namespace, handlers, args, kwargs, priority, dynamic))
+
+    def register_delayed_events(self, new_window, window_name):
+        if window_name in self._delayed_event_registrations:
+            events = self._delayed_event_registrations[window_name]
+            for event in events:
+                new_window._reg_internal(*event)
+
+    def change_window(self, window_name, kwargs):
+        # Is there a starting event for this window?
+        # Is there a default starting event?
+        # Then use that to create the starting game state
+        # We need to register all the delayed events for that window
+        if self._windows:
+            handle('director.scene.exit')
+            self._windows.pop()
+            self._switch_window()
+
+        new_window = Window(self._window_size, self._fps)
+        self._windows.append(new_window)
+        register("system.quit", self.stop)
+        new_window._register_default_events(True)
+        self.register_delayed_events(new_window, window_name)
+
+        # Run new starting, if necessary
+        # TODO: Should the game state be tied to the window instead of the director?
+        new_game_state = new_window._handle_event('director.start', Event(window=new_window, **kwargs))
+        if new_game_state is not None:
+            self._game_state = new_game_state
+        del new_game_state
+
+        handle('director.scene.enter', event=Event(window=new_window))
+        # Empty all events!
+        pygame.event.get()
+
+        print(len(self._all_sprites))
+
+
     def replace(self, window):
         """
         Replace the currently running window on the stack with *window*.
@@ -203,6 +252,9 @@ class Director:
         window = self.current_window
         clock = window.clock
         stack = self._windows
+        # Finish window setup
+        if self._first_scene is not None:
+            self.register_delayed_events(window, self._first_scene)
         # Load up initial game state
         new_game_state = window._handle_event('director.start', Event(window=self))
         if new_game_state is not None:

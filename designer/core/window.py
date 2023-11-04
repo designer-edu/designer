@@ -96,8 +96,8 @@ class Window:
 
         self._events_activated = False
 
-    def _register_default_events(self):
-        if not self._events_activated:
+    def _register_default_events(self, force=False):
+        if not self._events_activated or force:
             designer.core.event.register('director.window.enter', self.redraw)
             designer.core.event.register('director.update', self._handle_events)
             designer.core.event.register('system.focus_change', self.redraw)
@@ -213,8 +213,7 @@ class Window:
         For a given event, send the event information to all registered handlers
         """
         handlers = chain.from_iterable(self._handlers[namespace]
-                                       for namespace
-                                       in self._get_namespaces(event_type))
+                                       for namespace in self._get_namespaces(event_type))
         result = [] if collect_results else None
         for handler_info in handlers:
             new_result = self._send_event_to_handler(event, event_type, *handler_info)

@@ -25,13 +25,13 @@ GLOBAL_DIRECTOR: Director = None
 
 __all__ = [
     '__version__',
-    'circle', 'ellipse',
-    'arc', 'line',
-    'rectangle',
-    'text',
-    'shape', 'lines', 'pen',
+    'circle', 'ellipse', 'Circle', 'Ellipse',
+    'arc', 'line', 'Arc', 'Line',
+    'rectangle', "Rectangle",
+    'text', "Text",
+    'shape', 'lines', 'pen', "Shape", "Pen",
     'background_image',
-    'image', 'emoji',
+    'image', 'emoji', "Image", "Emoji",
     'group',
     'draw',
     # Window information
@@ -51,6 +51,7 @@ __all__ = [
     'above', 'below', 'beside',
     # Director stuff
     'get_director',
+    'change_scene',
     # Window stuff
     'set_window_title', 'get_window_title', 'set_window_image',
     'get_window_layers', 'set_window_layers',

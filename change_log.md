@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.6.0
+
+* Allow simple layer values like 'top' and 'bottom' instead of requiring colon offsets
+
 # Version 0.5.0
 
 * Allow inheritance for fields

@@ -171,7 +171,7 @@ def handle(event_name, event=None):
 
 
 def register(event_namespace, handler,
-             args=None, kwargs=None, priority=0):
+             args=None, kwargs=None, priority=0, targets=None):
     """
     Registers an event `handler` to a namespace. Whenever an event in that
     `event_namespace` is fired, the event `handler` will execute with that
@@ -194,8 +194,7 @@ def register(event_namespace, handler,
                          other event handlers registered.
     """
     event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
-    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (handler,),
-                                                          args, kwargs, priority, False)
+    designer.GLOBAL_DIRECTOR.register(event_namespace, (handler,), args, kwargs, priority, False, targets)
 
 
 def unregister(event_namespace, handler):
