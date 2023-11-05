@@ -14,6 +14,7 @@ from designer.core.internal_image import InternalImage
 from designer.utilities.vector import Vec2D
 from designer.utilities.argument_checks import make_suggestions
 from designer.system import running_on_skulpt
+from designer.utilities.weak_functions import weak_function
 
 try:
     import imghdr
@@ -358,7 +359,7 @@ def when(event: Union[str, callable], *funcs):
             def _inner_dynamic_event(event, world):
                 if event_function(world):
                     scene = designer.GLOBAL_DIRECTOR.current_scene
-                    scene._send_event_to_handler(event, 'updating', func, None, None, None, None)
+                    scene._send_event_to_handler(event, 'updating', weak_function(func), None, None, None, None)
 
             return _inner_dynamic_event
 
