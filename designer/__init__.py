@@ -60,7 +60,7 @@ __all__ = [
     'above', 'below', 'beside',
     # Director stuff
     'get_director',
-    'change_scene',
+    'change_scene', 'push_scene', 'pop_scene',
     # Keyboard stuff
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',

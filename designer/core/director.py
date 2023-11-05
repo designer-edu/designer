@@ -179,32 +179,41 @@ class Director:
             new_scene._reg_internal(*event)
 
     def change_scene(self, scene_name, kwargs):
-        self._scene_changed = scene_name, kwargs
+        self._scene_changed = ('replace', scene_name, kwargs)
 
-    def _do_scene_change(self, scene_name, kwargs):
-        # Is there a starting event for this scene?
-        # Is there a default starting event?
-        # Then use that to create the starting game state
-        # We need to register all the delayed events for that scene
+    def push_scene(self, scene_name, kwargs):
+        self._scene_changed = ('push', scene_name, kwargs)
+
+    def pop_scene(self, kwargs):
+        self._scene_changed = ('pop', None, kwargs)
+
+    def _do_scene_change(self, change_type, scene_name, kwargs):
         if self._scenes:
-            handle('director.scene.exit')
-            self._scenes.pop()
+            old_scene = self._scenes[-1]
+            old_scene._handle_event('director.scene.exit',
+                                    Event(world=old_scene._game_state, scene=old_scene, **kwargs))
+            if change_type in ('replace', 'pop'):
+                self._scenes.pop()
             self._switch_scene()
+            del old_scene
 
-        new_scene = Scene(self._window_size, self._fps)
-        self._scenes.append(new_scene)
-        register("system.quit", self.stop)
-        new_scene._register_default_events(True)
-        self.scene_name = scene_name
-        self.register_delayed_events(new_scene, scene_name)
+        if change_type in ('replace', 'push'):
+            new_scene = Scene(self._window_size, self._fps)
+            self._scenes.append(new_scene)
+            register("system.quit", self.stop)
+            new_scene._register_default_events(True)
+            self.scene_name = scene_name
+            self.register_delayed_events(new_scene, scene_name)
 
-        # Run new starting, if necessary
-        new_game_state = new_scene._handle_event('director.start', Event(scene=new_scene, **kwargs))
-        if new_game_state is not None:
-            self.game_state = new_game_state
-        del new_game_state
+            # Run new starting, if necessary
+            new_game_state = new_scene._handle_event('director.start', Event(scene=new_scene, **kwargs))
+            if new_game_state is not None:
+                self.game_state = new_game_state
+            del new_game_state
 
-        handle('director.scene.enter', event=Event(scene=new_scene))
+        latest_scene = self._scenes[-1]
+        handle('director.scene.enter',
+               event=Event(world=latest_scene._game_state, scene=latest_scene, **kwargs))
         # Empty all events!
         pygame.event.get()
         self._scene_changed = True

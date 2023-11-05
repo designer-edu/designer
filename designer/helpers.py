@@ -490,3 +490,11 @@ def get_director():
 def change_scene(window_name, **kwargs):
     check_initialized()
     designer.GLOBAL_DIRECTOR.change_scene(window_name, kwargs)
+
+def push_scene(window_name, **kwargs):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.push_scene(window_name, kwargs)
+
+def pop_scene(**kwargs):
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.pop_scene(kwargs)

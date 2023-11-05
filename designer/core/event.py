@@ -97,6 +97,8 @@ COMMON_EVENT_NAMES = {
     'drawing': 'director.render',
     'starting': 'director.start',
     'updating': 'director.update',
+    'entering': 'director.scene.enter',
+    'exiting': 'director.scene.exit',
     'quitting': 'system.quit',
     'typing': 'input.keyboard.down',
     'done typing': 'input.keyboard.up',
@@ -143,7 +145,9 @@ def get_positional_event_parameters(event_type: str, event):
     elif event_type in ("clicking",) or event_type.startswith("input.mouse"):
         return "world", "x", "y", "button"
     elif event_type in ("starting", "director.start"):
-        return "scene"
+        return "scene",
+    elif event_type in ("director.scene.enter", "director.scene.exit"):
+        return "world", "scene",
     return [key for key in dir(event) if not key.startswith("__")]
 
 
