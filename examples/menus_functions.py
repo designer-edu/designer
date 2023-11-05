@@ -1,5 +1,6 @@
 from designer import *
 from dataclasses import dataclass
+from random import randint
 
 
 @dataclass
@@ -35,31 +36,35 @@ class SetupScreen:
     header: DesignerObject
     start_button: Button
     back_button: Button
-    cursor: DesignerObject
-    available_emoji: list[DesignerObject]
+    circles: list[DesignerObject]
+    counter: int
+    #cursor: DesignerObject
+    #available_emoji: list[DesignerObject]
     chosen_index: int
 
 
 def create_title_screen() -> TitleScreen:
     return TitleScreen(text("black", "Title", 40),
-                       make_button("Start", get_width() / 2, 400),
-                       make_button("Quit", get_width() / 2, 500))
+                       make_button("Begin Game", get_width() / 2, 400),
+                       make_button("Quit to desktop", get_width() / 2, 500))
 
 
 def create_setup_screen() -> SetupScreen:
     starting_index = 0
-    emoji_list = [
-        emoji("dog", get_width() / 3, 200),
-        emoji("cat", get_width() / 2, 200),
-        emoji("mouse", 2 * get_width() / 3, 200)
-    ]
+    #emoji_list = [
+    #    emoji("dog", get_width() / 3, 200),
+    #    emoji("cat", get_width() / 2, 200),
+    #    emoji("mouse", 2 * get_width() / 3, 200)
+    #]
     return SetupScreen(text("black", "Setup", 40),
                        make_button("Start", get_width() / 2, 400),
                        make_button("Back", get_width() / 2, 500),
-                       rectangle("black", 32, 32,
-                                 emoji_list[starting_index].x, emoji_list[starting_index].y, 1),
-                       emoji_list,
-                       starting_index)
+                       [], 0,
+                       #rectangle("black", 32, 32,
+                       #          emoji_list[starting_index].x, emoji_list[starting_index].y, 1),
+                       #emoji_list,
+                       starting_index
+    )
 
 
 def handle_title_buttons(world: TitleScreen):
@@ -74,11 +79,11 @@ def handle_setup_buttons(world: SetupScreen):
         change_scene('overworld', chosen_index=world.chosen_index)
     if colliding_with_mouse(world.back_button.background):
         change_scene('title')
-    for i, emoji in enumerate(world.available_emoji):
-        if colliding_with_mouse(emoji):
-            world.chosen_index = i
-            world.cursor.x = emoji.x
-            world.cursor.y = emoji.y
+    #for i, emoji in enumerate(world.available_emoji):
+    #    if colliding_with_mouse(emoji):
+    #        world.chosen_index = i
+    #        world.cursor.x = emoji.x
+    #        world.cursor.y = emoji.y
 
 """
         change_window('overworld', chosen_index=world.chosen_index)
@@ -93,10 +98,23 @@ def handle_setup_buttons(world: SetupScreen):
         change_window('neighbors')
 """
 
+def make_balls(world):
+    world.counter += 1
+    world.circles.append(text("red", str(world.counter), 32, randint(0, get_width()), randint(0, get_height())))
+    if len(world.circles) > 30:
+        destroy(world.circles.pop(0))
+
+def count_sprites(world):
+    print(len(get_director().all_sprites))
+    print(len({sprite._scene() for sprite in get_director().all_sprites}))
+
 when('starting: title', create_title_screen)
 when('clicking: title', handle_title_buttons)
 when('starting: setup', create_setup_screen)
 when('clicking: setup', handle_setup_buttons)
+when('updating: setup', make_balls)
+when('clicking: title', count_sprites)
+when('clicking: setup', count_sprites)
 #when('starting.overworld', create_overworld)
 #when('starting.pause', create_pause)
 #when('starting.level', create_level)

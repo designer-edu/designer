@@ -3,7 +3,12 @@ import difflib
 import designer
 from typing import List, Optional, Dict
 
-from designer.core.window import Window
+try:
+    from weakref import ref as _wref
+except ImportError:
+    _wref = lambda x: x
+
+from designer.core.scene import Scene
 from designer.core.event import Event, register, unregister
 from designer.utilities.vector import Vec2D
 from designer.core.internal_image import InternalImage, DesignerSurface
@@ -35,7 +40,7 @@ class DesignerObject:
         designer.check_initialized()
 
         if parent is None:
-            parent = designer.GLOBAL_DIRECTOR.current_window
+            parent = designer.GLOBAL_DIRECTOR.current_scene
 
         for obj in [self, *type(self).mro()]:
             if hasattr(obj, '__annotations__'):
@@ -77,7 +82,7 @@ class DesignerObject:
 
         # Dependent fields
         self._offset = Vec2D(0, 0)
-        self._computed_layer = parent.window._get_layer_position(parent, self._layer)
+        self._computed_layer = parent.scene._get_layer_position(parent, self._layer)
         #: The actual image after it has been scaled/cropped/rotated/etc.
         self._transform_image: Optional[DesignerSurface] = None
         self._transform_offset = Vec2D(0, 0)
@@ -87,8 +92,8 @@ class DesignerObject:
         self._progress: Dict[Animation, float] = {}
 
         # Internal references to parents
-        self._parent = parent
-        self._window: Window = parent.window
+        self._parent = _wref(parent)
+        self._scene: Scene = _wref(parent.scene)
 
         # Add it to the world
         if designer.GLOBAL_DIRECTOR.running:
@@ -133,7 +138,7 @@ class DesignerObject:
 
     def __del__(self):
         if self._static:
-            self._window._remove_static_blit(self)
+            self._scene()._remove_static_blit(self)
 
     def _expire_static(self):
         """
@@ -147,7 +152,7 @@ class DesignerObject:
         # Expire static is part of the private API which must
         # be implemented by Sprites that wish to be static.
         if self._static:
-            self._window._remove_static_blit(self)
+            self._scene()._remove_static_blit(self)
         self._static = False
         self._age = 0
         self._set_collision_box()
@@ -251,7 +256,7 @@ class DesignerObject:
         if value == self._layer:
             return
         self._layer = value
-        self._computed_layer = self._window._get_layer_position(self._parent, value)
+        self._computed_layer = self._scene()._get_layer_position(self._parent, value)
         self._expire_static()
 
     @property
@@ -459,19 +464,21 @@ class DesignerObject:
             self.destroy()
 
     @property
-    def window(self):
+    def scene(self):
         """
-        The top-level window that this object belongs to. Read-only.
+        The top-level scene that this object belongs to. Read-only.
         """
-        return self._window
+        return self._scene()
+
+    window = scene
 
     @property
     def parent(self):
         """
         The parent of this object, either a :class:`View <designer.objects.view.View>` or a
-        :class:`Window <desinger.objects.view.View>`. Read-only.
+        :class:`Scene <designer.core.scene.Scene>`. Read-only.
         """
-        return self._parent
+        return self._parent()
 
     @property
     def mask(self):
@@ -511,9 +518,9 @@ class DesignerObject:
             b.static = True
             self._make_static = False
             self._static = True
-            self._parent._static_blit(self, b)
+            self._parent()._static_blit(self, b)
             return
-        self._parent._blit(b)
+        self._parent()._blit(b)
         self._age += 1
 
     def _set_collision_box(self):
@@ -527,21 +534,21 @@ class DesignerObject:
         else:
             area = self._mask
         c = _CollisionBox(self._pos - self._offset, area)
-        warped_box = self._parent._warp_collision_box(c)
-        self._window._set_collision_box(self, warped_box.rect)
+        warped_box = self._parent()._warp_collision_box(c)
+        self._scene()._set_collision_box(self, warped_box.rect)
 
     def destroy(self):
         """
         When you no longer need an Object, you can call this method to have it
-        removed from the Window. This will not remove the object entirely from
+        removed from the Scene. This will not remove the object entirely from
         memory if there are other references to it; if you need to do that,
         remember to ``del`` the reference to it.
         """
         self._active = False
         designer.GLOBAL_DIRECTOR._untrack_object(self)
-        self._window._unregister_object(self)
-        self._window._remove_static_blit(self)
-        self._parent._remove_child(self)
+        self._scene()._unregister_object(self)
+        self._scene()._remove_static_blit(self)
+        self._parent()._remove_child(self)
         unregister('director.render', self._draw)
 
     def _reactivate(self):
@@ -554,10 +561,10 @@ class DesignerObject:
         self._active = True
         designer.GLOBAL_DIRECTOR._track_object(self)
         self.parent._add_child(self)
-        self._window._register_object(self)
+        self._scene()._register_object(self)
         self._age = 0
         self._static = False
-        register('director.render', self._draw)
+        self._scene().register('director.render', self._draw)
 
     # Animation Methods
 
@@ -656,31 +663,31 @@ class DesignerObject:
         :returns: ``bool`` indicating whether this object is colliding with the
                   other object.
         """
-        return self._window.collide_objects(self, other)
+        return self._scene().collide_objects(self, other)
 
     def collide_other_at(self, other, x, y):
-        return self._window.collide_object_at(self, other, x, y)
+        return self._scene().collide_object_at(self, other, x, y)
 
     def collide_point(self, point):
         """
         Returns whether this object is currently colliding with the position.
         This uses the appropriate offsetting for the object within its views.
 
-        :param point: The point (relative to the window dimensions).
+        :param point: The point (relative to the scene dimensions).
         :type point: :class:`Vec2D <designer.utilities.vector.Vec2D>`
         :returns: ``bool`` indicating whether this object is colliding with the
                   position.
         """
-        return self._window.collide_point(self, *point)
+        return self._scene().collide_point(self, *point)
 
     def collide_rect(self, rect):
         """
         Returns whether this object is currently colliding with the rect. This
         uses the appropriate offsetting for the object within its views.
 
-        :param rect: The rect (relative to the window dimensions).
+        :param rect: The rect (relative to the scene dimensions).
         :type rect: :class:`Rect <designer.utilities.rect.Rect>`
         :returns: ``bool`` indicating whether this object is colliding with the
                   rect.
         """
-        return self._window.collide_rect(self, rect)
+        return self._scene().collide_rect(self, rect)

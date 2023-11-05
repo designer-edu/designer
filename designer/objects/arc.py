@@ -16,7 +16,7 @@ class Arc(DesignerObject):
 
     def __init__(self, center, width, height, start_angle, stop_angle, anchor, color, border, **kwargs):
         """
-        Creates an Arc Designer Object on window.
+        Creates an Arc Designer Object on scene.
 
         :param color: color to draw arc
         :type color: str or List[str]

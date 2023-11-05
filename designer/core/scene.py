@@ -6,6 +6,11 @@ import operator
 import inspect
 import sys
 
+try:
+    from weakref import ref as _wref
+except ImportError:
+    _wref = lambda x: x
+
 import designer
 from itertools import chain
 
@@ -27,18 +32,18 @@ def _has_value(obj, collect):
     return False
 
 
-class Window:
+class Scene:
     """
-    Creates a new Window. When a window is not active, no events will be processed
-    for it. Windows are the basic units that are executed by Designer for your game,
+    Creates a new Scene. When a scene is not active, no events will be processed
+    for it. Scenes are the basic units that are executed by Designer for your game,
     and can be subclassed and filled in with code which is relevant to your
-    game. The :class:`Director <designer.core.designer.Director>`, is a manager for Windows,
+    game. The :class:`Director <designer.core.designer.Director>`, is a manager for Scenes,
     which maintains a stack and actually executes their code. There is always at least
-    one default window, unless the game has ended.
+    one default scene, unless the game has ended.
 
-    :param size: The `size` of the window internally (or "virtually"). This is
+    :param size: The `size` of the scene internally (or "virtually"). This is
                  the coordinate space that you place Sprites in, but it does
-                 not have to match up 1:1 to the window (which could be scaled).
+                 not have to match up 1:1 to the scene (which could be scaled).
     :type size: width, height
     :param int max_ups: Maximum updates to process per second. By default,
                         `max_ups` is pulled from the director.
@@ -90,26 +95,26 @@ class Window:
         self._layer_tree = _LayerTree(self)
         self._objects = set()
 
+        self._game_state = None
+
         # View interface
-        self._window = self
+        self._scene = _wref(self)
         self._views = []
 
         self._events_activated = False
 
     def _register_default_events(self, force=False):
         if not self._events_activated or force:
-            designer.core.event.register('director.window.enter', self.redraw)
-            designer.core.event.register('director.update', self._handle_events)
-            designer.core.event.register('system.focus_change', self.redraw)
-            designer.core.event.register('system.video_resize', self.redraw)
-            designer.core.event.register('system.video_expose', self.redraw)
-            designer.core.event.register('designer.internal.view.changed', self._invalidate_views)
+            for redraw_event in ['director.scene.enter', 'system.video_resize', 'system.video_expose', 'system.focus_change']:
+                self.register(redraw_event, self.redraw)
+            self.register('director.update', self._handle_events)
+            self.register('designer.internal.view.changed', self._invalidate_views)
             self._events_activated = True
 
     # Event Handling
     def _queue_event(self, event_name, event=None):
         """
-        Internal method to add a new `event` to be handled by this window.
+        Internal method to add a new `event` to be handled by this scene.
 
         :param str event_name: The name of the event to queue
         :param event: Metadata about this event.
@@ -119,6 +124,20 @@ class Window:
             self._pending.append((event_name, event))
         else:
             self._events.append((event_name, event))
+
+    def register(self, event_namespace, handler, *args, **kwargs):
+        """
+        Registers a new handler for a given namespace. For more information, see
+        `Event Namespaces`_.
+
+        :param str event_namespace: An event namespace
+        :param handler: The handler to register.
+        :type handler: a function or string.
+        :param args: The arguments to pass to the handler.
+        :param kwargs: The keyword arguments to pass to the handler.
+        """
+        self._reg_internal(event_namespace, (handler,), args,
+                           kwargs, 0, False)
 
     def _reg_internal(self, namespace, handlers, args,
                       kwargs, priority, dynamic):
@@ -282,7 +301,7 @@ class Window:
 
     def _clear_all_events(self):
         """
-        Completely clear all registered events for this window. This is a very
+        Completely clear all registered events for this scene. This is a very
         dangerous function, and should almost never be used.
         """
         self._handlers.clear()
@@ -304,8 +323,8 @@ class Window:
     def size(self):
         """
         Read-only property that returns a :class:`Vec2D <designer.utilities.vector.Vec2D>` of the
-        width and height of the Window's size.  This is the coordinate space that
-        you place Sprites in, but it does not have to match up 1:1 to the window
+        width and height of the scene's size.  This is the coordinate space that
+        you place Sprites in, but it does not have to match up 1:1 to the scene
         (which could be scaled). This property can only be set once.
         """
         return self._size
@@ -321,14 +340,14 @@ class Window:
     @property
     def width(self):
         """
-        The width of this window. Read-only number.
+        The width of this scene. Read-only number.
         """
         return self.size[0]
 
     @property
     def height(self):
         """
-        The height of this window. Read-only number.
+        The height of this scene. Read-only number.
         """
         return self.size[1]
 
@@ -336,29 +355,29 @@ class Window:
     def rect(self):
         """
         Returns a :class:`Rect <spyral.Rect>` representing the position (0, 0)
-        and size of this Window.
+        and size of this scene.
         """
         return designer.utilities.rect.Rect((0, 0), self.size)
 
     @property
-    def window(self):
+    def scene(self):
         """
-        Returns this window. Read-only.
+        Returns this scene. Read-only.
         """
-        return self._window
+        return self._scene()
 
     @property
     def parent(self):
         """
-        Returns this window. Read-only.
+        Returns this scene. Read-only.
         """
-        return self._window
+        return self._scene()
 
     @property
     def background(self):
         """
-        The background of this window. The given :class:`InternalImage <designer.core.internal_image.InternalImage>`
-        must be the same size as the Window. A background will be handled
+        The background of this scene. The given :class:`InternalImage <designer.core.internal_image.InternalImage>`
+        must be the same size as the scene. A background will be handled
         intelligently by Spyral; it knows to only redraw portions of it rather
         than the whole thing, unlike a Sprite.
         """
@@ -378,11 +397,11 @@ class Window:
 
     def _register_object(self, object):
         """
-        Internal method to add this object to the window
+        Internal method to add this object to the scene
         """
         self._objects.add(object)
         # Add the view and its parents to the invalidating_views for the object
-        parent_view = object._parent
+        parent_view = object._parent()
         while parent_view != self:
             if parent_view not in self._invalidating_views:
                 self._invalidating_views[parent_view] = set()
@@ -391,7 +410,7 @@ class Window:
 
     def _unregister_object(self, object):
         """
-        Internal method to remove this object from the window
+        Internal method to remove this object from the scene
         """
         if object in self._objects:
             self._objects.remove(object)
@@ -403,7 +422,7 @@ class Window:
 
     def _destroy_view(self, view):
         """
-        Remove all references to the view from within this Window.
+        Remove all references to the view from within this scene.
         """
         if view in self._invalidating_views:
             del self._invalidating_views[view]
@@ -413,8 +432,8 @@ class Window:
 
     def _blit(self, blit):
         """
-        Apply any scaling associated with the Window to the Blit, then finalize
-        it. Note that Window's don't apply cropping.
+        Apply any scaling associated with the scene to the Blit, then finalize
+        it. Note that scene's don't apply cropping.
         """
         blit.apply_scale(self._scale)
         blit.finalize()
@@ -552,7 +571,7 @@ class Window:
 
     def redraw(self):
         """
-        Force the entire visible window to be completely redrawn.
+        Force the entire visible scene to be completely redrawn.
         """
         self._clear_this_frame.append(pygame.Rect(self._rect))
 
@@ -576,7 +595,7 @@ class Window:
 
     def _add_view(self, view):
         """
-        Register the given view within this window.
+        Register the given view within this scene.
         """
         self._layer_tree.add_view(view)
 
@@ -584,7 +603,7 @@ class Window:
     def layers(self):
         """
         A list of strings representing the layers that are available for this
-        window. The first layer is at the bottom, and the last is at the top.
+        scene. The first layer is at the bottom, and the last is at the top.
 
         Note that the layers can only be set once.
         """
@@ -602,18 +621,18 @@ class Window:
         elif self._layers == value:
             pass
         else:
-            raise Exception("You can only define the layers for a window once.")
+            raise Exception("You can only define the layers for a scene once.")
 
     def _add_child(self, entity):
         """
-        Add this child to the Window; since only Views care about their children,
+        Add this child to the scene; since only Views care about their children,
         this function does nothing.
         """
         pass
 
     def _remove_child(self, entity):
         """
-        Remove this child to the Window; since only Views care about their
+        Remove this child to the scene; since only Views care about their
         children, this function does nothing.
         """
         pass

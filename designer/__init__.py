@@ -37,8 +37,17 @@ __all__ = [
     # Window information
     'set_window_color', 'get_window_color',
     'set_window_size',
+    'set_background_image', 'set_window_image',
+    'get_background_image', 'get_window_image',
     'get_height', 'get_window_height',
     'get_width', 'get_window_width',
+    'set_window_title', 'get_window_title', 'set_window_image',
+    'get_window_layers', 'set_window_layers',
+    # Scene information
+    'set_scene_image', 'get_scene_image',
+    'set_scene_color', 'get_scene_color',
+    'get_scene_height', 'get_scene_width',
+    'set_scene_layers', 'get_scene_layers',
     # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
     'start', 'debug',
@@ -52,9 +61,6 @@ __all__ = [
     # Director stuff
     'get_director',
     'change_scene',
-    # Window stuff
-    'set_window_title', 'get_window_title', 'set_window_image',
-    'get_window_layers', 'set_window_layers',
     # Keyboard stuff
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',

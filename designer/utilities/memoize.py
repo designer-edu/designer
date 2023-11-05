@@ -45,7 +45,7 @@ class SmartMemoize:
     def __init__(self, func):
         self.func = func
         self.cache = {}
-        self.window = None
+        self.scene = None
         self.last_clear = 0
 
     def __call__(self, *args):
@@ -56,8 +56,8 @@ class SmartMemoize:
         """
         from designer import GLOBAL_DIRECTOR
         frame = GLOBAL_DIRECTOR.tick
-        if GLOBAL_DIRECTOR.current_window is not self.window:
-            self.window = GLOBAL_DIRECTOR.current_window
+        if GLOBAL_DIRECTOR.current_scene is not self.scene:
+            self.scene = GLOBAL_DIRECTOR.current_scene
             self.cache = {}
         if frame - self.last_clear > 100:
             for key, value in list(self.cache.items()):

@@ -17,10 +17,12 @@ from designer.system import running_on_skulpt
 
 try:
     import imghdr
+
     ALT_MODE = False
 except:
     FileNotFoundError = Exception
     ALT_MODE = True
+
 
 def check_initialized(**kwargs):
     """
@@ -31,16 +33,16 @@ def check_initialized(**kwargs):
 
     if not designer.GLOBAL_DIRECTOR:
         designer.GLOBAL_DIRECTOR = Director(**kwargs)
-        designer.GLOBAL_DIRECTOR._setup_initial_window()
+        designer.GLOBAL_DIRECTOR._setup_initial_scene()
         return True
     return False
 
 
 def draw(*objs):
     """
-    Draws Designer Objects on window.
+    Draws Designer Objects on scene.
 
-    :param objs: objects that have been created to draw on the window
+    :param objs: objects that have been created to draw on the scene
     :type objs: DesignerObjects
 
     :return: None
@@ -97,6 +99,7 @@ def restart():
     check_initialized()
     designer.GLOBAL_DIRECTOR.restarting = True
 
+
 def set_window_color(color):
     """
     Changes window color to given color.
@@ -133,9 +136,13 @@ def get_window_title() -> str:
     return designer.GLOBAL_DIRECTOR.window_title
 
 
+set_scene_color = set_window_color
+get_scene_color = get_window_color
+
+
 def set_game_state(new_state):
     check_initialized()
-    designer.GLOBAL_DIRECTOR._game_state = new_state
+    designer.GLOBAL_DIRECTOR.game_state = new_state
 
 
 def set_world_state(new_state):
@@ -148,16 +155,20 @@ def set_window_state(new_state):
 
 def set_window_layers(new_layers):
     check_initialized()
-    if designer.GLOBAL_DIRECTOR.current_window:
-        designer.GLOBAL_DIRECTOR.current_window.layers = new_layers
+    if designer.GLOBAL_DIRECTOR.current_scene:
+        designer.GLOBAL_DIRECTOR.current_scene.layers = new_layers
 
 
 def get_window_layers():
     check_initialized()
-    if designer.GLOBAL_DIRECTOR.current_window:
-        return designer.GLOBAL_DIRECTOR.current_window.layers
+    if designer.GLOBAL_DIRECTOR.current_scene:
+        return designer.GLOBAL_DIRECTOR.current_scene.layers
     else:
         return []
+
+
+get_scene_layers = get_window_layers
+set_scene_layers = set_window_layers
 
 
 def set_window_size(width, height):
@@ -208,6 +219,10 @@ def get_window_height():
     :rtype: int
     """
     return get_height()
+
+
+get_scene_width = get_window_width
+get_scene_height = get_window_height
 
 
 def get_mouse_cursor():
@@ -342,8 +357,8 @@ def when(event: Union[str, callable], *funcs):
         def _dynamic_event(func):
             def _inner_dynamic_event(event, world):
                 if event_function(world):
-                    window = designer.GLOBAL_DIRECTOR.current_window
-                    window._send_event_to_handler(event, 'updating', func, None, None, None, None)
+                    scene = designer.GLOBAL_DIRECTOR.current_scene
+                    scene._send_event_to_handler(event, 'updating', func, None, None, None, None)
 
             return _inner_dynamic_event
 
@@ -367,6 +382,7 @@ def when(event: Union[str, callable], *funcs):
     else:
         def decorated(function):
             register(event, function, targets=targets)
+
         return decorated
 
 
@@ -418,6 +434,7 @@ def would_collide(*args):
         raise ValueError(f"Incorrect number of arguments to would_collide - expected 3 or 4, got {len(args)}")
     return obj1.collide_other_at(obj2, new_x, new_y)
 
+
 def destroy(*gobjects):
     check_initialized()
     for gobject in gobjects:
@@ -431,13 +448,13 @@ _USER_AGENT = "Designer Game Library for Python"
 def background_image(path):
     check_initialized()
     if ALT_MODE:
-        designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(filename=path)
+        designer.GLOBAL_DIRECTOR.current_scene.background = InternalImage(filename=path)
     else:
         try:
             path_strs = path.split('/')
             fixed_paths = os.path.join(*path_strs)
             if os.path.exists(fixed_paths):
-                designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(fixed_paths)
+                designer.GLOBAL_DIRECTOR.current_scene.background = InternalImage(fixed_paths)
             else:
                 raise FileNotFoundError(fixed_paths)
         except FileNotFoundError as err:
@@ -446,7 +463,8 @@ def background_image(path):
                 with urlopen(req) as opened_image:
                     image_str = opened_image.read()
                     image_file = io.BytesIO(image_str)
-                    designer.GLOBAL_DIRECTOR.current_window.background = InternalImage(filename=path, fileobj=image_file)
+                    designer.GLOBAL_DIRECTOR.current_scene.background = InternalImage(filename=path,
+                                                                                       fileobj=image_file)
             except:
                 print(f"Unexpected error while loading background image: {path}\n", sys.exc_info()[0])
                 raise
@@ -454,6 +472,13 @@ def background_image(path):
 
 set_background_image = background_image
 set_window_image = set_background_image
+set_scene_image = set_background_image
+
+def get_background_image():
+    return designer.GLOBAL_DIRECTOR.current_scene.background
+
+get_window_image = get_background_image
+get_scene_image = get_background_image
 
 
 def get_director():
@@ -463,4 +488,4 @@ def get_director():
 
 def change_scene(window_name, **kwargs):
     check_initialized()
-    designer.GLOBAL_DIRECTOR.change_window(window_name, kwargs)
+    designer.GLOBAL_DIRECTOR.change_scene(window_name, kwargs)
