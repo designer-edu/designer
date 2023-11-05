@@ -118,7 +118,6 @@ def shape(color, *points, x=None, y=None, anchor='center', border=None, filled=T
         points = list(zip(points[::2], points[1::2]))
     # Is the result a valid list of points?
     if not is_non_empty_iterable_of_points(points):
-        print(points)
         raise ValueError("The points of a shape must be a list of at least 3 points.")
     # Must have at least three points
     if not at_least_three(points):

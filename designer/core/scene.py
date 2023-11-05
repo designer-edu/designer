@@ -226,7 +226,6 @@ class Scene:
         else:
             args = [_get_arg_val(arg) for arg in args]
             kwargs = {}
-        print(handler, args, kwargs)
         if handler is not None:
             return handler(*args, **kwargs)
 

@@ -17,7 +17,6 @@ class GifImage(Animation):
         self.get_frames()
 
         # Handle per-frame durations
-        print(len(self.frames))
         super().__init__('image', Iterate(self.frames), self.total_duration, True, None, True)
 
     def get_rect(self):
