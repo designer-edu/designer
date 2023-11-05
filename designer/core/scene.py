@@ -19,6 +19,7 @@ from designer.core.internal_image import InternalImage
 from designer.utilities.layer_tree import _LayerTree
 from collections import defaultdict
 from designer.core.clock import GameClock
+from designer.utilities.weak_functions import weak_function
 
 
 def _has_value(obj, collect):
@@ -149,7 +150,7 @@ class Scene:
             namespace = namespace[:-2]
         self._namespaces.add(namespace)
         for handler in handlers:
-            self._handlers[namespace].append((handler, args, kwargs,
+            self._handlers[namespace].append((weak_function(handler), args, kwargs,
                                               priority, dynamic))
         self._handlers[namespace].sort(key=lambda item: item[3]) # operator.itemgetter(3))
 
@@ -191,6 +192,7 @@ class Scene:
                 handler = getattr(handler, piece, None)
                 if handler is None:
                     return
+        handler = handler()
         if handler is sys.exit and args is None and kwargs is None:
             # Dirty hack to deal with python builtins
             args = []

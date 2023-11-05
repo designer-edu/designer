@@ -59,6 +59,7 @@ class _LayerTree:
         :param view: the View to remove
         :type view: View (not a weakref)
         """
+        view = _wref(view)
         del self.tree_height[view]
         del self.layers[view]
         self.child_views[view()._parent].remove(view)
@@ -73,6 +74,7 @@ class _LayerTree:
         :type view: View (not a weakref)
         """
         parent = view._parent
+        view = _wref(view)
         self.layers[view] = []
         self.child_views[view] = []
         self.child_views[parent].append(view)
@@ -107,7 +109,7 @@ class _LayerTree:
         :param layers: the name of the layer on the parent
         :type layers: a list of strings
         """
-        self.layers[view] = list(layers)
+        self.layers[_wref(view)] = list(layers)
         self._precompute_positions()
 
     def _compute_positional_chain(self, chain):
@@ -132,7 +134,7 @@ class _LayerTree:
         each possible view/layer, which can be easily compared.
         """
         self.maximum_height = self.tree_height[self.scene()]
-        self.layer_location = {}
+        self.layer_location.clear()
         self._precompute_position_for_layer(self.scene(), [])
         for layer_key, v in self.layer_location.items():
             self.layer_location[layer_key] = self._compute_positional_chain(v)
@@ -173,6 +175,7 @@ class _LayerTree:
         :type layer: string
         :returns: A `float` representing where this layer is relative to others.
         """
+        parent = _wref(parent)
         if not layer:
             layer = ""
         s = layer.split(':')
