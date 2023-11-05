@@ -3,8 +3,13 @@ from typing import List
 
 import pygame
 
+try:
+    from weakref import WeakSet
+except ImportError:
+    WeakSet = set
+
 from designer.colors import _process_color
-from designer.core.window import Window
+from designer.core.scene import Scene
 from designer.core.event import handle, Event, _pygame_to_spyral, GameEndException, register
 from designer.keyboard import KeyboardModule
 from designer.mouse import MouseModule
@@ -40,10 +45,13 @@ class Director:
         self.debug_mode = False
         self.debug_window = None
 
-        self._windows: List[Window] = []
+        self._all_sprites = WeakSet()
 
-        self._all_sprites = set()
-        self._game_state = None
+        self._first_scene = None
+        self.scene_name = ""
+        self._scenes: List[Scene] = []
+        self._delayed_event_registrations = {None: []}
+        self._scene_changed = False
 
         self.screen = pygame.display.set_mode(self.window_size)
         self.screen.fill(self._window_color)
@@ -54,25 +62,26 @@ class Director:
         self.music = MusicModule()
         self.sfx = SfxModule()
 
-    def _setup_initial_window(self):
-        new_window = Window(self._window_size, self._fps)
-        self._windows.append(new_window)
+    def _setup_initial_scene(self):
+        new_scene = Scene(self._window_size, self._fps)
+        self._scenes.append(new_scene)
         register("system.quit", self.stop)
-        new_window._register_default_events()
+        new_scene._register_default_events()
 
-    def _switch_window(self):
+    def _switch_scene(self):
         """
         Ensure that dead sprites are removed from the list and that sprites are
-        redrawn on a window change.
+        redrawn on a scene change.
         """
-        self._all_sprites = {s for s in self._all_sprites
-                             if s is not None and s._expire_static()}
+        self._all_sprites = WeakSet({s for s in self._all_sprites
+                                     if s is not None and s._scene() is not None and s._parent() is not None
+                                     and s._expire_static()})
 
     def _track_object(self, object):
-        self._all_sprites.add(object)
+        self.all_sprites.add(object)
 
     def _untrack_object(self, object):
-        self._all_sprites.remove(object)
+        self.all_sprites.remove(object)
 
     @property
     def tick(self):
@@ -83,8 +92,25 @@ class Director:
         return self._fps
 
     @property
-    def current_window(self):
-        return self._windows[-1]
+    def current_scene(self):
+        return self._scenes[-1]
+
+    @property
+    def game_state(self):
+        return self._scenes[-1]._game_state
+
+    @game_state.setter
+    def game_state(self, value):
+        self._scenes[-1]._game_state = value
+
+
+    @property
+    def all_sprites(self):
+        return self._all_sprites
+
+    @all_sprites.setter
+    def all_sprites(self, value):
+        self._all_sprites = WeakSet(value)
 
     @property
     def window_size(self):
@@ -121,64 +147,145 @@ class Director:
         self._window_color = value
         self.screen.fill(_process_color(value))
         # TODO: Director shouldn't do this, the window itself should handle that
-        self.current_window.background.fill(_process_color(value))
-        self.current_window.background._version += 1
+        self.current_scene.background.fill(_process_color(value))
+        self.current_scene.background._version += 1
 
-    def replace(self, window):
+    scene_title = window_title
+    scene_size = window_size
+    scene_color = window_color
+
+    def register(self, event_namespace, handlers, args, kwargs, priority, dynamic, targets):
+        if not targets:
+            self.current_scene._reg_internal(event_namespace, handlers, args, kwargs, priority, dynamic)
+            self._delayed_event_registrations[None].append(
+                (event_namespace, handlers, args, kwargs, priority, dynamic))
+        else:
+            if self._first_scene is None:
+                self._first_scene = targets[0]
+                self.scene_name = self._first_scene
+            for target in targets:
+                if target not in self._delayed_event_registrations:
+                    self._delayed_event_registrations[target] = []
+                self._delayed_event_registrations[target].append((event_namespace, handlers, args, kwargs, priority, dynamic))
+
+    def register_delayed_events(self, new_scene, scene_name):
+        if scene_name in self._delayed_event_registrations:
+            events = self._delayed_event_registrations[scene_name]
+            for event in events:
+                new_scene._reg_internal(*event)
+        # Global default events
+        events = self._delayed_event_registrations[None]
+        for event in events:
+            new_scene._reg_internal(*event)
+
+    def change_scene(self, scene_name, kwargs):
+        self._scene_changed = ('replace', scene_name, kwargs)
+
+    def push_scene(self, scene_name, kwargs):
+        self._scene_changed = ('push', scene_name, kwargs)
+
+    def pop_scene(self, kwargs):
+        self._scene_changed = ('pop', None, kwargs)
+
+    def _do_scene_change(self, change_type, scene_name, kwargs):
+        if self._scenes:
+            old_scene = self._scenes[-1]
+            old_scene._handle_event('director.scene.exit',
+                                    Event(world=old_scene._game_state, scene=old_scene, **kwargs))
+            if change_type in ('replace', 'pop'):
+                self._scenes.pop()
+            self._switch_scene()
+            del old_scene
+
+        if change_type in ('replace', 'push'):
+            new_scene = Scene(self._window_size, self._fps)
+            self._scenes.append(new_scene)
+            register("system.quit", self.stop)
+            new_scene._register_default_events(True)
+            self.scene_name = scene_name
+            self.register_delayed_events(new_scene, scene_name)
+
+            # Run new starting, if necessary
+            new_game_state = new_scene._handle_event('director.start', Event(scene=new_scene, **kwargs))
+            if new_game_state is not None:
+                self.game_state = new_game_state
+            del new_game_state
+
+        latest_scene = self._scenes[-1]
+        handle('director.scene.enter',
+               event=Event(world=latest_scene._game_state, scene=latest_scene, **kwargs))
+        # Empty all events!
+        pygame.event.get()
+        self._scene_changed = True
+
+    def print_all_sprites(self):
+        print(len(self._all_sprites))
+        print({repr(s) for s in self._all_sprites if s is not None})
+        import gc
+        gc.collect()
+        import objgraph
+        print(">>>", len(self._all_sprites))
+        #for obj in list(self._all_sprites):
+        #    name = ''.join(filter(str.isalnum, repr(obj)))
+        #    objgraph.show_backrefs([obj], filename=f'graphs/{self.scene_name}_{name}.png',
+        #                           max_depth=6, refcounts=True, extra_info=lambda x: hex(id(x)))
+
+
+    def replace(self, scene):
         """
-        Replace the currently running window on the stack with *window*.
+        Replace the currently running scene on the stack with *scene*.
         Execution will continue after this is called, so make sure you return;
         otherwise you may find unexpected behavior::
 
-            designer.director.replace(Window())
+            designer.director.replace(Scene())
             print("This will be printed!")
             return
 
-        :param window: The new window.
-        :type window: :class:`Window <designer.core.window.Window>`
+        :param scene: The new scene.
+        :type scene: :class:`Scene <designer.core.scene.Scene>`
         """
-        if self._windows:
+        if self._scenes:
             handle('director.scene.exit')
-            self._windows.pop()
-            self._switch_window()
-        self._windows.append(window)
-        window._register_default_events()
-        handle('director.scene.enter', event=Event(window=window))
+            self._scenes.pop()
+            self._switch_scene()
+        self._scenes.append(scene)
+        scene._register_default_events()
+        handle('director.scene.enter', event=Event(scene=scene))
         # Empty all events!
         pygame.event.get()
 
     def pop(self):
         """
-        Pop the top window off the stack, returning control to the next window
+        Pop the top scene off the stack, returning control to the next scene
         on the stack. If the stack is empty, the game will stop.
         This does return control, so remember to return immediately after
         calling it.
         """
-        if len(self._windows) < 1:
+        if len(self._scenes) < 1:
             return
         handle('director.scene.exit')
-        self._windows.pop()
-        self._switch_window()
-        if self._windows:
+        self._scenes.pop()
+        self._switch_scene()
+        if self._scenes:
             handle('director.scene.enter')
         else:
             self.stop()
         # Empty all events!
         pygame.event.get()
 
-    def push(self, window):
+    def push(self, scene):
         """
-        Place *window* on the top of the stack, and move control to it. This does
+        Place *scene* on the top of the stack, and move control to it. This does
         return control, so remember to return immediately after calling it.
 
-        :param window: The new window.
-        :type window: :class:`Window <designer.core.window.Window>`
+        :param scene: The new scene.
+        :type scene: :class:`Scene <designer.core.scene.Scene>`
         """
-        if self._windows:
+        if self._scenes:
             handle('director.scene.exit')
-            self._switch_window()
-        self._windows.append(window)
-        window._register_default_events()
+            self._switch_scene()
+        self._scenes.append(scene)
+        scene._register_default_events()
         handle('director.scene.enter')
         # Empty all events!
         pygame.event.get()
@@ -197,24 +304,28 @@ class Director:
 
         :return: None
         """
-        if not self._windows:
+        if not self._scenes:
             return
-        old_window = None
-        window = self.current_window
-        clock = window.clock
-        stack = self._windows
+        old_scene = None
+        scene = self.current_scene
+        clock = scene.clock
+        stack = self._scenes
+        # Finish scene setup
+        if self._first_scene is not None:
+            self.scene_name = self._first_scene
+            self.register_delayed_events(scene, self._first_scene)
         # Load up initial game state
-        new_game_state = window._handle_event('director.start', Event(window=self))
+        new_game_state = scene._handle_event('director.start', Event(scene=self))
         if new_game_state is not None:
-            self._game_state = new_game_state
+            self.game_state = new_game_state
         else:
-            self._game_state = initial_game_state
+            self.game_state = initial_game_state
         del new_game_state
         del initial_game_state
         # Hide any unused references
         from designer.utilities.search import _detect_objects_recursively
-        self._all_sprites = _detect_objects_recursively(self._game_state)
-        for object in self._all_sprites:
+        self.all_sprites = _detect_objects_recursively(self.game_state)
+        for object in self.all_sprites:
             if object:
                 object._reactivate()
         # Set up debug window
@@ -225,20 +336,20 @@ class Director:
         self.running = True
         try:
             while self.running:
-                window = stack[-1]
-                if window is not old_window:
-                    clock = window.clock
-                    old_window = window
+                scene = stack[-1]
+                if scene is not old_scene:
+                    clock = scene.clock
+                    old_scene = scene
 
                     def frame_callback(interpolation):
                         """
                         A closure for handling drawing, which includes forcing the
                         rendering-related events to be fired.
                         """
-                        window._handle_event("director.pre_render")
-                        window._handle_event("director.render", Event(world=self._game_state))
-                        window._draw()
-                        window._handle_event("director.post_render")
+                        scene._handle_event("director.pre_render")
+                        scene._handle_event("director.render", Event(world=self.game_state))
+                        scene._draw()
+                        scene._handle_event("director.post_render")
 
                     def update_callback(delta):
                         """
@@ -246,31 +357,34 @@ class Director:
                         related events (e.g., pre_update, update, and post_update).
                         """
                         if self.paused:
-                            window._event_source.tick()
-                            for event in window._event_source.get():
+                            scene._event_source.tick()
+                            for event in scene._event_source.get():
                                 if event.type == pygame.QUIT:
                                     self.stop()
                             self._tick += 1
                             return
                         if self.restarting:
-                            window._handle_event("director.restart")
+                            scene._handle_event("director.restart")
                             self.restart()
                         if len(pygame.event.get([pygame.VIDEOEXPOSE])) > 0:
-                            window.redraw()
-                            window._handle_event("director.redraw")
+                            scene.redraw()
+                            scene._handle_event("director.redraw")
 
-                        window._event_source.tick()
-                        events = window._event_source.get()
+                        scene._event_source.tick()
+                        events = scene._event_source.get()
                         for event in events:
-                            window._queue_event(*_pygame_to_spyral(event, world=self._game_state))
-                        window._handle_event("director.pre_update")
-                        window._handle_event('director.update', Event(world=self._game_state, delta=delta))
+                            scene._queue_event(*_pygame_to_spyral(event, world=self.game_state))
+                        scene._handle_event("director.pre_update")
+                        scene._handle_event('director.update', Event(world=self.game_state, delta=delta))
                         self._tick += 1
-                        window._handle_event("director.post_update")
+                        scene._handle_event("director.post_update")
 
                     clock.frame_callback = frame_callback
                     clock.update_callback = update_callback
                 clock.tick()
+                if self._scene_changed:
+                    self._do_scene_change(*self._scene_changed)
+                    self._scene_changed = False
                 if run_once:
                     frame_callback(0)
                     self.running = False
@@ -287,11 +401,12 @@ class Director:
         self.paused = new_state
 
     def restart(self):
-        for object in set(self._all_sprites):
+        # TODO: This logic should adjust to new game starting concept
+        for object in set(self.all_sprites):
             object.destroy()
-        window = self.current_window
-        self._game_state = window._handle_event('director.start', Event(window=self))
+        scene = self.current_scene
+        self.game_state = scene._handle_event('director.start', Event(scene=self))
         # Hide any unused references
         from designer.utilities.search import _detect_objects_recursively
-        self._all_sprites = _detect_objects_recursively(self._game_state)
+        self.all_sprites = _detect_objects_recursively(self.game_state)
         self.restarting = False

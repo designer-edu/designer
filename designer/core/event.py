@@ -31,6 +31,9 @@ import random
 #import base64
 
 import designer
+import designer.utilities.weak_functions as weak_functions
+
+weak_function = weak_functions.weak_function
 
 
 class GameEndException(Exception):
@@ -94,6 +97,8 @@ COMMON_EVENT_NAMES = {
     'drawing': 'director.render',
     'starting': 'director.start',
     'updating': 'director.update',
+    'entering': 'director.scene.enter',
+    'exiting': 'director.scene.exit',
     'quitting': 'system.quit',
     'typing': 'input.keyboard.down',
     'done typing': 'input.keyboard.up',
@@ -140,7 +145,9 @@ def get_positional_event_parameters(event_type: str, event):
     elif event_type in ("clicking",) or event_type.startswith("input.mouse"):
         return "world", "x", "y", "button"
     elif event_type in ("starting", "director.start"):
-        return "window"
+        return "scene",
+    elif event_type in ("director.scene.enter", "director.scene.exit"):
+        return "world", "scene",
     return [key for key in dir(event) if not key.startswith("__")]
 
 
@@ -154,7 +161,7 @@ def queue(event_name, event=None):
     :param event: An Event object that holds properties for the event.
     :type event: :class:`Event <spyral.event.Event>`
     """
-    designer.GLOBAL_DIRECTOR.current_window._queue_event(event_name, event)
+    designer.GLOBAL_DIRECTOR.current_scene._queue_event(event_name, event)
 
 
 def handle(event_name, event=None):
@@ -167,11 +174,11 @@ def handle(event_name, event=None):
     :param event: An Event object that holds properties for the event.
     :type event: :class:`Event <spyral.event.Event>`
     """
-    designer.GLOBAL_DIRECTOR.current_window._handle_event(event_name, event)
+    designer.GLOBAL_DIRECTOR.current_scene._handle_event(event_name, event)
 
 
 def register(event_namespace, handler,
-             args=None, kwargs=None, priority=0):
+             args=None, kwargs=None, priority=0, targets=None):
     """
     Registers an event `handler` to a namespace. Whenever an event in that
     `event_namespace` is fired, the event `handler` will execute with that
@@ -194,8 +201,8 @@ def register(event_namespace, handler,
                          other event handlers registered.
     """
     event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
-    designer.GLOBAL_DIRECTOR.current_window._reg_internal(event_namespace, (handler,),
-                                                          args, kwargs, priority, False)
+    designer.GLOBAL_DIRECTOR.register(event_namespace, ((handler),),
+                                      args, kwargs, priority, False, targets)
 
 
 def unregister(event_namespace, handler):
@@ -208,7 +215,7 @@ def unregister(event_namespace, handler):
     :type handler: a function or string.
     """
     event_namespace = COMMON_EVENT_NAMES.get(event_namespace, event_namespace)
-    designer.GLOBAL_DIRECTOR.current_window._unregister(event_namespace, handler)
+    designer.GLOBAL_DIRECTOR.current_scene._unregister(event_namespace, handler)
 
 
 def clear_namespace(namespace):
@@ -218,7 +225,7 @@ def clear_namespace(namespace):
 
     :param str namespace: The complete namespace.
     """
-    designer.GLOBAL_DIRECTOR.current_window._clear_namespace(namespace)
+    designer.GLOBAL_DIRECTOR.current_scene._clear_namespace(namespace)
 
 
 class KeyboardKey:
@@ -280,11 +287,11 @@ def _pygame_to_spyral(event, **kwargs):
             m = str(event.button)
         event_type += '.' + m
     if event_type.startswith('input.mouse.wheel'):
-        e.pos = designer.utilities.Vec2D(e.x, e.y) / designer.GLOBAL_DIRECTOR.current_window._scale
+        e.pos = designer.utilities.Vec2D(e.x, e.y) / designer.GLOBAL_DIRECTOR.current_scene._scale
         e.x = e.pos[0]
         e.y = e.pos[1]
     elif event_type.startswith('input.mouse') or event_type.startswith('input.touch'):
-        e.pos = designer.utilities.Vec2D(e.pos) / designer.GLOBAL_DIRECTOR.current_window._scale
+        e.pos = designer.utilities.Vec2D(e.pos) / designer.GLOBAL_DIRECTOR.current_scene._scale
         e.x = e.pos[0]
         e.y = e.pos[1]
 

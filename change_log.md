@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+# Version 0.6.0
+
+* Allow simple layer values like 'top' and 'bottom' instead of requiring colon offsets
+* `change_scene`, `push_scene`, and `pop_scene` now work!
+* Use weakrefs for scenes and objects to avoid memory leaks
+* Transition from "window" terminology back to "scenes"
+
 # Version 0.5.0
 
 * Allow inheritance for fields

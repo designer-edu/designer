@@ -1,7 +1,7 @@
 from os import environ
 
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
-__version__ = '0.5.0'
+__version__ = '0.6.0'
 
 # For `debug` support on Mac, we need to preload tkinter
 from designer.system import setup_debug_mode
@@ -25,20 +25,29 @@ GLOBAL_DIRECTOR: Director = None
 
 __all__ = [
     '__version__',
-    'circle', 'ellipse',
-    'arc', 'line',
-    'rectangle',
-    'text',
-    'shape', 'lines', 'pen',
+    'circle', 'ellipse', 'Circle', 'Ellipse',
+    'arc', 'line', 'Arc', 'Line',
+    'rectangle', "Rectangle",
+    'text', "Text",
+    'shape', 'lines', 'pen', "Shape", "Pen",
     'background_image',
-    'image', 'emoji',
+    'image', 'emoji', "Image", "Emoji",
     'group',
     'draw',
     # Window information
     'set_window_color', 'get_window_color',
     'set_window_size',
+    'set_background_image', 'set_window_image',
+    'get_background_image', 'get_window_image',
     'get_height', 'get_window_height',
     'get_width', 'get_window_width',
+    'set_window_title', 'get_window_title', 'set_window_image',
+    'get_window_layers', 'set_window_layers',
+    # Scene information
+    'set_scene_image', 'get_scene_image',
+    'set_scene_color', 'get_scene_color',
+    'get_scene_height', 'get_scene_width',
+    'set_scene_layers', 'get_scene_layers',
     # Events
     'when', 'starting', 'updating', 'typing', 'clicking',
     'start', 'debug',
@@ -51,9 +60,7 @@ __all__ = [
     'above', 'below', 'beside',
     # Director stuff
     'get_director',
-    # Window stuff
-    'set_window_title', 'get_window_title', 'set_window_image',
-    'get_window_layers', 'set_window_layers',
+    'change_scene', 'push_scene', 'pop_scene',
     # Keyboard stuff
     'get_keyboard_repeat', 'set_keyboard_repeat',
     'get_keyboard_delay', 'set_keyboard_delay',

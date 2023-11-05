@@ -24,10 +24,14 @@ class DebugWindow:
         self.main_dialog.pack()
         self.root.protocol("WM_DELETE_WINDOW", self.destroy)
 
+        #register("director.scene.enter", self.register_updates)
+        self.register_updates()
+
+    def register_updates(self):
         register("updating", self.update_window)
 
     def update_window(self):
-        world = pformat(self.director._game_state, indent=2)
+        world = pformat(self.director.game_state, indent=2)
         self.status_line.config(text=f"{world}")
         try:
             self.main_dialog.update()

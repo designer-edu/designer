@@ -16,6 +16,12 @@ Important concepts:
         integer (or long, possibly)
 """
 
+try:
+    from weakref import WeakKeyDictionary, ref as _wref
+except ImportError:
+    WeakKeyDictionary = lambda x: x
+    _wref = lambda x: x
+
 
 class _LayerTree:
     """
@@ -37,11 +43,11 @@ class _LayerTree:
     }
 
     def __init__(self, scene):
-        self.layers = {scene : []}
-        self.child_views = {scene : []}
-        self.layer_location = {scene : [0]}
-        self.scene = scene
-        self.tree_height = {scene : 1}
+        self.layers = WeakKeyDictionary({scene : []})
+        self.child_views = WeakKeyDictionary({scene : []})
+        self.layer_location = WeakKeyDictionary({scene : [0]})
+        self.scene = _wref(scene)
+        self.tree_height = WeakKeyDictionary({scene : 1})
         self._precompute_positions()
         self.maximum_height = 1
 
@@ -53,6 +59,7 @@ class _LayerTree:
         :param view: the View to remove
         :type view: View (not a weakref)
         """
+        view = _wref(view)
         del self.tree_height[view]
         del self.layers[view]
         self.child_views[view()._parent].remove(view)
@@ -67,13 +74,14 @@ class _LayerTree:
         :type view: View (not a weakref)
         """
         parent = view._parent
+        view = _wref(view)
         self.layers[view] = []
         self.child_views[view] = []
         self.child_views[parent].append(view)
         self.tree_height[view] = 1
         if len(self.child_views[parent]) == 1:
             self.tree_height[parent] += 1
-            while parent != self.scene:
+            while parent != self.scene():
                 parent = parent()._parent
                 self.tree_height[parent] += 1
         self._precompute_positions()
@@ -101,7 +109,7 @@ class _LayerTree:
         :param layers: the name of the layer on the parent
         :type layers: a list of strings
         """
-        self.layers[view] = list(layers)
+        self.layers[_wref(view)] = list(layers)
         self._precompute_positions()
 
     def _compute_positional_chain(self, chain):
@@ -125,9 +133,9 @@ class _LayerTree:
         Runs through the entire LayerTree and calculates an absolute number for
         each possible view/layer, which can be easily compared.
         """
-        self.maximum_height = self.tree_height[self.scene]
-        self.layer_location = {}
-        self._precompute_position_for_layer(self.scene, [])
+        self.maximum_height = self.tree_height[self.scene()]
+        self.layer_location.clear()
+        self._precompute_position_for_layer(self.scene(), [])
         for layer_key, v in self.layer_location.items():
             self.layer_location[layer_key] = self._compute_positional_chain(v)
 
@@ -167,6 +175,7 @@ class _LayerTree:
         :type layer: string
         :returns: A `float` representing where this layer is relative to others.
         """
+        parent = _wref(parent)
         if not layer:
             layer = ""
         s = layer.split(':')
@@ -175,10 +184,12 @@ class _LayerTree:
         if len(s) > 1:
             mod = s[1]
             offset = self.MOD_OFFSET.get(mod, 0)
+        elif len(s) == 1 and s[0] in self.MOD_OFFSET:
+            offset = self.MOD_OFFSET[s[0]]
         if (parent, layer) in self.layer_location:
             position = self.layer_location[(parent, layer)]
         elif parent in self.layer_location:
             position = self.layer_location[parent]
         else:
-            position = self.layer_location[self.scene]
+            position = self.layer_location[self.scene()]
         return position + offset
