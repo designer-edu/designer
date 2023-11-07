@@ -1,0 +1,277 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene Management in Designer &#8212; Designer 0.6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="More Help" href="../students/help.html" />
+    <link rel="prev" title="List of Anchors" href="anchors.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../students/help.html" title="More Help"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="anchors.html" title="List of Anchors"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.6.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="reference.html" accesskey="U">Reference Lists</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene Management in Designer</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scene-management-in-designer">
+<span id="scenes"></span><h1>Scene Management in Designer<a class="headerlink" href="#scene-management-in-designer" title="Permalink to this heading">¶</a></h1>
+<p>The Designer’s scene management allows for dynamic transitions between different parts of the application.
+This feature allows you to create, switch, and manage game states or screens effectively.</p>
+<p>There are basically three kinds of transitions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">change_scene</span></code>: Create a new scene and move to it, destroying the current scene.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">push_scene</span></code>: Create a new scene and move to it, pausing the current scene.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pop_scene</span></code>: Destroy the current scene and move to the previous scene, resuming it.</p></li>
+</ul>
+<div class="section" id="scene-transitions">
+<h2>Scene Transitions<a class="headerlink" href="#scene-transitions" title="Permalink to this heading">¶</a></h2>
+<p>The designer package provides several functions to manage scene transitions:</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="change_scene">
+<span class="sig-name descname"><span class="pre">change_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#change_scene" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Switches from the current scene to a new one, indicated by <code class="docutils literal notranslate"><span class="pre">scene_name</span></code>.
+The current scene will be destroyed and replaced with the new one.
+Note that the transition happens <em>at the end of the current update</em>. The effect is not instantenous,
+so any objects created during the rest of this update cycle will be in the old scene and not the new scene.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scene_name</strong> (<em>str</em>) – The name of the scene to transition to.</p></li>
+<li><p><strong>kwargs</strong> – Keyword arguments that should be passed to the new scene’s initialization function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="push_scene">
+<span class="sig-name descname"><span class="pre">push_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scene_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#push_scene" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Pauses the current scene and places a new scene on top of the stack. The current scene will be
+paused and can be resumed later.
+Note that the transition happens <em>at the end of the current update</em>. The effect is not instantenous,
+so any objects created during the rest of this update cycle will be in the old scene and not the new scene.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scene_name</strong> (<em>str</em>) – The name of the scene to be pushed onto the stack.</p></li>
+<li><p><strong>kwargs</strong> – Keyword arguments that should be passed to the new scene’s initialization function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="pop_scene">
+<span class="sig-name descname"><span class="pre">pop_scene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pop_scene" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>Removes the current scene from the stack, resuming the previous one.
+Note that the transition happens <em>at the end of the current update</em>. The effect is not instantenous,
+so any objects created during the rest of this update cycle will be in the old scene and not the new scene.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – Keyword arguments that should be passed to the resumed scene’s handler function.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="scene-handlers">
+<h2>Scene Handlers<a class="headerlink" href="#scene-handlers" title="Permalink to this heading">¶</a></h2>
+<p>Scene handlers are functions designed to manage specific actions and events within a scene. They correspond
+to regular event handlers, but have a colon specifying what scene (or scenes) they are associated with.
+Events bound to a scene will only fire during those scenes.</p>
+<p>The syntax for scene handlers is <code class="docutils literal notranslate"><span class="pre">&quot;event_name:</span> <span class="pre">scene_name&quot;</span></code>. For example, a handler for handling mouse clicks
+in the overworld scene would be <code class="docutils literal notranslate"><span class="pre">&quot;clicking:</span> <span class="pre">overworld&quot;</span></code>. The other <a class="reference external" href="event">event</a> handlers work the same way.</p>
+<p>The event names follow a specific pattern, denoting the scene and the event type:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'starting:</span> <span class="pre">&lt;scene_name&gt;'</span></code>: When a scene is being initialized.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'clicking:</span> <span class="pre">&lt;scene_name&gt;'</span></code>: When a clicking event is detected in a scene.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'entering:</span> <span class="pre">&lt;scene_name&gt;'</span></code>: When a scene is being resumed or entered.</p></li>
+</ul>
+</div>
+<div class="section" id="scene-parameters">
+<h2>Scene Parameters<a class="headerlink" href="#scene-parameters" title="Permalink to this heading">¶</a></h2>
+<p>When creating or transitioning to a scene, you can provide keyword arguments that will be passed to the scene’s
+<code class="docutils literal notranslate"><span class="pre">starting</span></code> or <code class="docutils literal notranslate"><span class="pre">entering</span></code> handlers. This allows you to pass data between scenes. You can also have shared basic objects,
+but that’s mutabilty and you should be afraid of it. Much better to pass around mutable data.</p>
+<p>Don’t try to pass designer objects across scenes, though! That won’t work. Probably. I don’t even know what it will do, to be honest.</p>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../contents.html">Page contents</a></h3>
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../research/welcome.html">What is Designer and its Research?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/examples.html">Longer Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="reference.html">Reference Lists</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="colors.html">List of Colors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">List of Events</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keys.html">List of Keys</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anchors.html">List of Anchors</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scene Management in Designer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scene-transitions">Scene Transitions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scene-handlers">Scene Handlers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scene-parameters">Scene Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="anchors.html"
+                          title="Previous page">&larr; List of Anchors</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="../students/help.html"
+                          title="Next page">&rarr; More Help</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/reference/scenes.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../students/help.html" title="More Help"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="anchors.html" title="List of Anchors"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.6.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="reference.html" >Reference Lists</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene Management in Designer</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, acbart, krishols.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>

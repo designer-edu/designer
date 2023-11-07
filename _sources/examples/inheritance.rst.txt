@@ -3,6 +3,10 @@
 Extending DesignerObjects
 =========================
 
+.. note::
+
+        You will need to upgrade Designer to at least version 0.5.0 to run this example!
+
 This game demonstrates how to have:
 
 * A ``DesignerObject`` that has additional extra fields using inheritance

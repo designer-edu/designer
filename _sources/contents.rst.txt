@@ -12,6 +12,7 @@ Table of Contents
    students/functions
    reference/reference
    students/help
+   students/scenes
 
 ..
     lib/cloud_sptheme.make_helper

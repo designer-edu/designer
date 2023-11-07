@@ -1,0 +1,433 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scene Example &#8212; Designer 0.6.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
+    
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/tabs.js"></script>
+
+    
+    
+     
+        <script src="../_static/jquery.cookie.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.base.js"></script>
+    
+
+    
+     
+        <script src="../_static/cloud.js"></script>
+    
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Designer Documentation for Students" href="../students/docs.html" />
+    <link rel="prev" title="Extending DesignerObjects" href="inheritance.html" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head><body>
+    <div class="relbar-top">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../students/docs.html" title="Designer Documentation for Students"
+             accesskey="N">next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="inheritance.html" title="Extending DesignerObjects"
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.6.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="examples.html" accesskey="U">Longer Examples</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene Example</a></li> 
+      </ul>
+    </div>
+    </div>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="scene-example">
+<span id="id1"></span><h1>Scene Example<a class="headerlink" href="#scene-example" title="Permalink to this heading">¶</a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You will need to upgrade Designer to at least version 0.6.0 to run this example!</p>
+</div>
+<p>This game demonstrates how to have:</p>
+<ul class="simple">
+<li><p>Scenes that your game transitions between, including overworld/pause and title/setup/overworld scenes</p></li>
+<li><p>Simple menus with buttons</p></li>
+</ul>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-RGF0YWNsYXNzZXM=" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tab" tabindex="0">Dataclasses</button></div><div aria-labelledby="tab-0-RGF0YWNsYXNzZXM=" class="sphinx-tabs-panel group-tab" id="panel-0-RGF0YWNsYXNzZXM=" name="RGF0YWNsYXNzZXM=" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">designer</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="kn">import</span> <span class="n">randint</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Button</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A Button is a collection of designer objects that are grouped together to form a button.</span>
+<span class="sd">    The background and border are just rectangles, while the label is a text object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">background</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">border</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">label</span><span class="p">:</span> <span class="n">DesignerObject</span>
+
+
+<span class="k">def</span> <span class="nf">make_button</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Button</span><span class="p">:</span>
+    <span class="n">horizontal_padding</span> <span class="o">=</span> <span class="mi">4</span>
+    <span class="n">vertical_padding</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Button</span><span class="p">(</span><span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">horizontal_padding</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">vertical_padding</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
+                  <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">width</span> <span class="o">+</span> <span class="n">horizontal_padding</span><span class="p">,</span> <span class="n">label</span><span class="o">.</span><span class="n">height</span> <span class="o">+</span> <span class="n">vertical_padding</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                  <span class="n">label</span><span class="p">)</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PlayerSettings</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Shared dataclass that can be transmitted across scenes. Note that it doesn&#39;t have any designer objects,</span>
+<span class="sd">    since those cannot be sent across states!</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">avatar</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">lives</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">TitleScreen</span><span class="p">:</span>
+    <span class="n">header</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">start_button</span><span class="p">:</span> <span class="n">Button</span>
+    <span class="n">quit_button</span><span class="p">:</span> <span class="n">Button</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">SetupScreen</span><span class="p">:</span>
+    <span class="n">header</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">start_button</span><span class="p">:</span> <span class="n">Button</span>
+    <span class="n">back_button</span><span class="p">:</span> <span class="n">Button</span>
+    <span class="n">circles</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">counter</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">cursor</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">available_emoji</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">chosen_index</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">Overworld</span><span class="p">:</span>
+    <span class="n">player</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">score</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">lives</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">PlayerSettings</span>
+    <span class="n">pause_button</span><span class="p">:</span> <span class="n">Button</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">PauseScreen</span><span class="p">:</span>
+    <span class="n">header</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">settings</span><span class="p">:</span> <span class="n">PlayerSettings</span>
+    <span class="n">resume_button</span><span class="p">:</span> <span class="n">Button</span>
+    <span class="n">cursor</span><span class="p">:</span> <span class="n">DesignerObject</span>
+    <span class="n">available_emoji</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">DesignerObject</span><span class="p">]</span>
+    <span class="n">chosen_index</span><span class="p">:</span> <span class="nb">int</span>
+
+
+<span class="n">PLAYER_AVATARS</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;dog&quot;</span><span class="p">,</span> <span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;mouse&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span> <span class="nf">create_title_screen</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">TitleScreen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Title screen is simple, just two buttons and a header &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">TitleScreen</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Title&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+                       <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Begin Game&quot;</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+                       <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Quit to desktop&quot;</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">500</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">create_setup_screen</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">SetupScreen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; Setup screen has two buttons (start/back), but also three emoji that you can click</span>
+<span class="sd">    on to choose your avatar. There&#39;s a black box overlaid on top of the emoji. &quot;&quot;&quot;</span>
+    <span class="n">starting_index</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">emoji_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">emoji</span><span class="p">(</span><span class="n">avatar</span><span class="p">,</span> <span class="p">((</span><span class="mi">2</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">get_width</span><span class="p">())</span> <span class="o">/</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">avatar</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PLAYER_AVATARS</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">SetupScreen</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Setup&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+                       <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Start&quot;</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+                       <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Back&quot;</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">500</span><span class="p">),</span>
+                       <span class="p">[],</span> <span class="mi">0</span><span class="p">,</span>
+                       <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span>
+                                 <span class="n">emoji_list</span><span class="p">[</span><span class="n">starting_index</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">emoji_list</span><span class="p">[</span><span class="n">starting_index</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                       <span class="n">emoji_list</span><span class="p">,</span>
+                       <span class="n">starting_index</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">create_overworld</span><span class="p">(</span><span class="n">chosen_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Overworld</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot; The overworld is mostly just the player character and the pause button.</span>
+<span class="sd">    But wait! That parameter there comes from a PREVIOUS SCENE! Or the pause screen.</span>
+<span class="sd">    Anything that creates the overworld needs to be sure to pass in</span>
+<span class="sd">    the chosen_index of the player, since that will be used to update the overworld.&quot;&quot;&quot;</span>
+    <span class="n">avatar</span> <span class="o">=</span> <span class="n">PLAYER_AVATARS</span><span class="p">[</span><span class="n">chosen_index</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Overworld</span><span class="p">(</span><span class="n">emoji</span><span class="p">(</span><span class="n">avatar</span><span class="p">),</span>
+                     <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Score: 0&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">get_height</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>
+                     <span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Lives: 3&quot;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">get_height</span><span class="p">()</span><span class="o">/</span><span class="mi">4</span> <span class="o">+</span> <span class="mi">40</span><span class="p">),</span>
+                     <span class="n">PlayerSettings</span><span class="p">(</span><span class="n">avatar</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                     <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Pause&quot;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">create_pause_screen</span><span class="p">(</span><span class="n">settings</span><span class="p">:</span> <span class="n">PlayerSettings</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PauseScreen</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The pause screen is similar to the setup screen, but it has a resume button instead of a start button.</span>
+<span class="sd">    The settings also come in from the overworld, so we can reflect the currently chosen character.</span>
+<span class="sd">    Note that the settings CAN be modified from the pause menu, or you can pass parameters back when you</span>
+<span class="sd">    pop the scene later.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">starting_index</span> <span class="o">=</span> <span class="n">PLAYER_AVATARS</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">avatar</span><span class="p">)</span>
+    <span class="n">emoji_list</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">emoji</span><span class="p">(</span><span class="n">avatar</span><span class="p">,</span> <span class="p">((</span><span class="mi">2</span><span class="o">+</span><span class="n">i</span><span class="p">)</span> <span class="o">*</span> <span class="n">get_width</span><span class="p">())</span> <span class="o">/</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">avatar</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">PLAYER_AVATARS</span><span class="p">)</span>
+    <span class="p">]</span>
+    <span class="k">return</span> <span class="n">PauseScreen</span><span class="p">(</span><span class="n">text</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="s2">&quot;Pause&quot;</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span>
+                       <span class="n">settings</span><span class="p">,</span>
+                       <span class="n">make_button</span><span class="p">(</span><span class="s2">&quot;Resume&quot;</span><span class="p">,</span> <span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">400</span><span class="p">),</span>
+                       <span class="n">rectangle</span><span class="p">(</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span>
+                                 <span class="n">emoji_list</span><span class="p">[</span><span class="n">starting_index</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">emoji_list</span><span class="p">[</span><span class="n">starting_index</span><span class="p">]</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                       <span class="n">emoji_list</span><span class="p">,</span>
+                       <span class="n">starting_index</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">handle_title_buttons</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">TitleScreen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Buttons are pretty easy, just use the `clicking` event with the `colliding_with_mouse` function.</span>
+
+<span class="sd">    The change_scene(scene_name) function can be used to change scenes. This will call the relevant</span>
+<span class="sd">    `&quot;starting: scene_name&quot;` function and create the new scene.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">start_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">change_scene</span><span class="p">(</span><span class="s1">&#39;setup&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">quit_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">quit</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">handle_setup_buttons</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">SetupScreen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The change_scene(scene_name) function can also take any number of KEYWORD arguments. That means</span>
+<span class="sd">    you provide the name of the parameter and the argument itself. That parameter will be passed into</span>
+<span class="sd">    the corresponding `&quot;starting: scene_name&quot;` function as a parameter with the same name.</span>
+
+<span class="sd">    We also have some logic here to handle choosing a new avatar</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">start_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">change_scene</span><span class="p">(</span><span class="s1">&#39;overworld&#39;</span><span class="p">,</span> <span class="n">chosen_index</span><span class="o">=</span><span class="n">world</span><span class="o">.</span><span class="n">chosen_index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">back_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">change_scene</span><span class="p">(</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Handle picking a new avatar</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">emoji</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">available_emoji</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">emoji</span><span class="p">):</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">chosen_index</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">emoji</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">emoji</span><span class="o">.</span><span class="n">y</span>
+
+
+<span class="k">def</span> <span class="nf">handle_overworld_buttons</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">Overworld</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The push_scene(scene_name) function can be used to push a new scene onto the stack. Unlike change_scene,</span>
+<span class="sd">    this will not destroy the current scene, but instead will pause it. When the new scene is popped, the old</span>
+<span class="sd">    scene will be resumed. In this case, we push the pause screen onto the stack, and pass in the current</span>
+<span class="sd">    settings as a parameter. Then, when the pause screen is popped, we can resume the overworld with the</span>
+<span class="sd">    updated settings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">pause_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">push_scene</span><span class="p">(</span><span class="s1">&#39;pause&#39;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="n">world</span><span class="o">.</span><span class="n">settings</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">handle_pause_screen_buttons</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">PauseScreen</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The pop_scene() function can be used to pop the current scene off the stack. This will destroy the current</span>
+<span class="sd">    scene, and resume the previous scene. In this case, we pop the pause screen off the stack, and pass in the</span>
+<span class="sd">    chosen_index as a parameter. Then, when the overworld is resumed, we can update the player&#39;s avatar.</span>
+<span class="sd">    Technically, we don&#39;t have to pass in the chosen_index, since the settings are already passed in, but</span>
+<span class="sd">    it&#39;s good practice to pass in any parameters that you want to use in the next scene.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">resume_button</span><span class="o">.</span><span class="n">background</span><span class="p">):</span>
+        <span class="n">pop_scene</span><span class="p">(</span><span class="n">chosen_index</span><span class="o">=</span><span class="n">world</span><span class="o">.</span><span class="n">chosen_index</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">emoji</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">world</span><span class="o">.</span><span class="n">available_emoji</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">colliding_with_mouse</span><span class="p">(</span><span class="n">emoji</span><span class="p">):</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">chosen_index</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">emoji</span><span class="o">.</span><span class="n">x</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">cursor</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">emoji</span><span class="o">.</span><span class="n">y</span>
+            <span class="n">world</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">PLAYER_AVATARS</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">resume_from_pause</span><span class="p">(</span><span class="n">world</span><span class="p">:</span> <span class="n">Overworld</span><span class="p">,</span> <span class="n">chosen_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This function is called when the overworld is resumed from the pause screen. We can use this to update</span>
+<span class="sd">    the player&#39;s avatar.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">avatar</span> <span class="o">=</span> <span class="n">PLAYER_AVATARS</span><span class="p">[</span><span class="n">chosen_index</span><span class="p">]</span>
+    <span class="c1"># This actually changes the current emoji to the new picture</span>
+    <span class="n">world</span><span class="o">.</span><span class="n">player</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">world</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">avatar</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The when function is used to register events. The first parameter is the event name, and the second parameter</span>
+<span class="sd">is the function that will be called when that event is triggered. The event name here has a special format</span>
+<span class="sd">with a colon in it. This is used to specify which scene the event is for. In this case, we have four scenes:</span>
+<span class="sd">title, setup, overworld, and pause. Each scene has its own set of events. This is useful because it means</span>
+<span class="sd">that you can have distinct events for each scene.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting: title&#39;</span><span class="p">,</span> <span class="n">create_title_screen</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking: title&#39;</span><span class="p">,</span> <span class="n">handle_title_buttons</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting: setup&#39;</span><span class="p">,</span> <span class="n">create_setup_screen</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking: setup&#39;</span><span class="p">,</span> <span class="n">handle_setup_buttons</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting: overworld&#39;</span><span class="p">,</span> <span class="n">create_overworld</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking: overworld&#39;</span><span class="p">,</span> <span class="n">handle_overworld_buttons</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;starting: pause&#39;</span><span class="p">,</span> <span class="n">create_pause_screen</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;clicking: pause&#39;</span><span class="p">,</span> <span class="n">handle_pause_screen_buttons</span><span class="p">)</span>
+<span class="n">when</span><span class="p">(</span><span class="s1">&#39;entering: overworld&#39;</span><span class="p">,</span> <span class="n">resume_from_pause</span><span class="p">)</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">The debug function is used to start the game. It takes an optional parameter, which is the name of the</span>
+<span class="sd">starting scene. If no scene is provided, it will start with the first scene that was registered.</span>
+<span class="sd">The debug function works exactly the same as the start function, except that it will also open a window</span>
+<span class="sd">that shows the current game state.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="n">debug</span><span class="p">(</span><span class="n">scene</span><span class="o">=</span><span class="s1">&#39;title&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="sphinx-toc sphinxlocaltoc">
+    <h3><a href="../contents.html">Page contents</a></h3>
+    <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../research/welcome.html">What is Designer and its Research?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/installation.html">How to Install Designer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart/quickstart.html">Designer Quick Start Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="examples.html">Longer Examples</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="emoji_clicker.html">Emoji Clicker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="world.html">Designer Worlds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="firefighter.html">Fire Fighter Game</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sparkles.html">Sparkles</a></li>
+<li class="toctree-l2"><a class="reference internal" href="arrows.html">Arrows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="inheritance.html">Extending DesignerObjects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Scene Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../students/docs.html">Designer Documentation for Students</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/functions.html">Designer Functions Quick List</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../reference/reference.html">Reference Lists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../students/help.html">More Help</a></li>
+</ul>
+
+  </div>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
+    <p class="topless"><a href="inheritance.html"
+                          title="Previous page">&larr; Extending DesignerObjects</a></p>
+  </div>
+  <div class="sphinxnext">
+    <h4>Next page</h4>
+    <p class="topless"><a href="../students/docs.html"
+                          title="Next page">&rarr; Designer Documentation for Students</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/examples/scenes.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+    
+    
+        <div class="sidebar-toggle-group no-js">
+            
+            <button class="sidebar-toggle" id="sidebar-hide" title="Hide the sidebar menu">
+                 «
+                <span class="show-for-small">hide menu</span>
+                
+            </button>
+            <button class="sidebar-toggle" id="sidebar-show" title="Show the sidebar menu">
+                
+                <span class="show-for-small">menu</span>
+                <span class="hide-for-small">sidebar</span>
+                 »
+            </button>
+        </div>
+    
+      <div class="clearer"></div>
+    </div>
+    <div class="relbar-bottom">
+        
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="../students/docs.html" title="Designer Documentation for Students"
+             >next</a> &nbsp; &nbsp;</li>
+        <li class="right" >
+          <a href="inheritance.html" title="Extending DesignerObjects"
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="../contents.html">Designer 0.6.1 documentation</a> &#187;</li>
+
+          <li class="nav-item nav-item-1"><a href="examples.html" >Longer Examples</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scene Example</a></li> 
+      </ul>
+    </div>
+    </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2021, acbart, krishols.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.1.1.
+    </div>
+    <!-- cloud_sptheme 1.4 -->
+  </body>
+</html>
