@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.6.1
+
+* Fix error in designer object layers caused by the scene rewrite
+
 # Version 0.6.0
 
 * Allow simple layer values like 'top' and 'bottom' instead of requiring colon offsets
