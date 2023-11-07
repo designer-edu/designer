@@ -10,6 +10,8 @@ Longer Examples
     firefighter
     sparkles
     arrows
+    inheritance
+    scenes
 
 :ref:`Emoji Clicker<emoji_clicker>`
 
@@ -49,6 +51,12 @@ Build a simple interactive where two arrow boxes can be moved across the screen.
 Build a game where you add a new field to an existing Designer object by using inheritance.
 
 * Demonstrates: Extending a Designer object with inheritance
+
+:ref:`Scenes<scene_example>`
+
+Build a game where you have scenes that you can switch between.
+
+* Demonstrates: Scenes and transitions, simple menus
 
 `BlockPy Showcase`_
 
