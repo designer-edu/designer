@@ -7,7 +7,7 @@ import inspect
 import sys
 
 try:
-    from weakref import ref as _wref
+    from weakref import ref as _wref, WeakMethod
 except ImportError:
     _wref = lambda x: x
 
@@ -281,10 +281,11 @@ class Scene:
             event_namespace = event_namespace[:-2]
         self._handlers[event_namespace] = [h for h
                                            in self._handlers[event_namespace]
-                                           if ((not hasattr(h[0], '__self__') and handler != h[0])
-                                               or hasattr(h[0], '__self__')
-                                                   and ((h[0].__func__ is not handler.__func__)
-                                                        or (h[0].__self__ is not handler.__self__)))]
+                                           if ((not isinstance(h[0], WeakMethod)) and handler != h[0])
+                                               or (isinstance(h[0], _wref) or isinstance(h[0], WeakMethod))
+                                                    and ((not hasattr(h[0](), '__self__') and handler != h[0]())
+                                                            or hasattr(h[0](), '__self__') and ((h[0]().__func__ is not handler.__func__)
+                                                            or (h[0]().__self__ is not handler.__self__)))]
         if not self._handlers[event_namespace]:
             del self._handlers[event_namespace]
 
@@ -465,11 +466,9 @@ class Scene:
         """
         Removes this object from the static blit list
         """
-        try:
+        if key in self._static_blits:
             x = self._static_blits.pop(key)
             self._clear_this_frame.append(x.rect)
-        except:
-            pass
 
     def _draw(self):
         """

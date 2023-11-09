@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.6.2
+
+* Fixed bug with destroying designer objects leaving behind its render event (and therefore leaving it on the screen!)
+
 # Version 0.6.1
 
 * Fix error in designer object layers caused by the scene rewrite

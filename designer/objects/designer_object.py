@@ -545,10 +545,10 @@ class DesignerObject:
         remember to ``del`` the reference to it.
         """
         self._active = False
-        designer.GLOBAL_DIRECTOR._untrack_object(self)
-        self._scene()._unregister_object(self)
         self._scene()._remove_static_blit(self)
+        self._scene()._unregister_object(self)
         self._parent()._remove_child(self)
+        designer.GLOBAL_DIRECTOR._untrack_object(self)
         unregister('director.render', self._draw)
 
     def _reactivate(self):
