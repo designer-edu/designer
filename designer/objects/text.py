@@ -15,7 +15,7 @@ class Text(DesignerObject):
     FONTS = {}
     FIELDS = (*DesignerObject.FIELDS, 'text', 'color', 'font', 'text_size')
 
-    def __init__(self, center, anchor, text_string, text_size, color, font, font_path, **kwargs):
+    def __init__(self, center, anchor, text_string, text_size, color, font, font_path=None, **kwargs):
         """
         Creates Text Designer Object on window
 
@@ -154,7 +154,7 @@ def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
             x, y = x
         except TypeError as e:
             pass
-    return Text((x, y), anchor, text, text_size, color, font_name, font_path, **kwargs)
+    return Text((x, y), anchor, text, text_size, color, font_name, font_path=font_path, **kwargs)
 
 
 def get_text(target: DesignerObject) -> str:
