@@ -15,7 +15,7 @@ class Text(DesignerObject):
     FONTS = {}
     FIELDS = (*DesignerObject.FIELDS, 'text', 'color', 'font', 'text_size')
 
-    def __init__(self, center, anchor, text_string, text_size, color, font, **kwargs):
+    def __init__(self, center, anchor, text_string, text_size, color, font, font_path=None, **kwargs):
         """
         Creates Text Designer Object on window
 
@@ -44,6 +44,7 @@ class Text(DesignerObject):
         self._text_size = text_size
         self._color = color
         self._font_name = font
+        self._font_path = font_path
         self._update_font()
 
         # Draw the actual circle image
@@ -72,9 +73,19 @@ class Text(DesignerObject):
         if (font, text_size) not in cls.FONTS:
             cls.FONTS[(font, text_size)] = pygame.font.SysFont(font, text_size)
         return cls.FONTS[(font, text_size)]
+    
+    @classmethod
+    def _load_font(cls, font, font_path, text_size):
+        if (font, text_size) in cls.FONTS:
+            return cls._get_font(font, text_size)
+        cls.FONTS[(font, text_size)] = pygame.font.Font(font_path, text_size)
+        return cls.FONTS[(font, text_size)]
 
     def _update_font(self):
-        self._font = self._get_font(self._font_name, self._text_size)
+        if self._font_path is not None:
+            self._font = self._load_font(self._font_name, self._font_path, self._text_size)
+        else:
+            self._font = self._get_font(self._font_name, self._text_size)
         self._update_size()
 
     def _update_size(self):
@@ -126,7 +137,7 @@ class Text(DesignerObject):
 
 
 def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
-         x=None, y=None, anchor='center', font_name=Text.DEFAULT_FONT_NAME, **kwargs):
+         x=None, y=None, anchor='center', font_name=Text.DEFAULT_FONT_NAME, font_path=None, **kwargs):
     '''
     Function to create text.
 
@@ -134,6 +145,8 @@ def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
     :type text: str
     :param color: color of text
     :type color: str or List[str]
+    :param font_path: the path to a font file, such as a ttf or otf file
+    :type font_path: str
     :return: Text object created
     '''
     if x is not None and y is None:
@@ -141,7 +154,7 @@ def text(color, text, text_size=Text.DEFAULT_FONT_SIZE,
             x, y = x
         except TypeError as e:
             pass
-    return Text((x, y), anchor, text, text_size, color, font_name, **kwargs)
+    return Text((x, y), anchor, text, text_size, color, font_name, font_path=font_path, **kwargs)
 
 
 def get_text(target: DesignerObject) -> str:
