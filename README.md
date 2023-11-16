@@ -31,3 +31,10 @@ Find the documentation for Designer [here](https://designer-edu.github.io/design
 * Handle *potential* collision checks "if the object were placed here", circular, etc.
 * Update documentation to explain the `destroy` function
 * Improve the error handling in as many situations as possible
+
+# Contributors
+
+Special thanks to:
+
+* Robert Deaton (@rdeaton) for the creation of Spyral, which is the basis for Designer
+* @codeBodger for adding in functionality for font files

@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.6.3
+
+* Contributed by @codeBodger: allow custom fonts with font files
+
 # Version 0.6.2
 
 * Fixed bug with destroying designer objects leaving behind its render event (and therefore leaving it on the screen!)
