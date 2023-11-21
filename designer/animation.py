@@ -106,9 +106,51 @@ def spin(obj, duration=5, angle_limit=360):
         obj.animate(Animation('angle', Linear(0, angle_limit), duration, loop=True))
 
 
-def linear_animation(obj, property, start, end, duration, absolute=False, shift=False, loop=False):
-    obj.animate(Animation(property, Linear(start, end), duration, absolute, shift, loop))
+def linear_animation(obj, property, start, end, duration, absolute=True, shift=None, loop=False):
+    """
+    Animates an object's property, interpolating linearly between ``start`` and ``end``. For example, if you want
+    the object to glide from the left to the right of the screen, you can animate the object's ``x`` property from
+    ``0`` to ``get_width()``. Or you could animate the object's ``angle`` property from ``0`` to ``360`` to make it
+    spin in place.
+
+    :param obj: The designerobject to animate
+    :type obj: DesignerObject
+    :param property: The name of the property to animate (e.g., 'x', 'y', 'angle')
+    :type property: str
+    :param start: The starting value of the property
+    :type start: int or float
+    :param end: The ending value of the property
+    :type end: int or float
+    :param duration: The duration of the animation in seconds
+    :type duration: float
+    :param absolute: (TODO) This parameter is not implemented yet
+    :param shift: (TODO) this parameter is not implemented yet
+    :param loop: Whether to loop the animation
+    :type loop: bool
+    :return: This DesignerObject
+    """
+    return obj.animate(Animation(property, Linear(start, end), duration, absolute, shift, loop))
 
 
-def sequence_animation(obj, property, items, duration, times=1, absolute=False, shift=False, loop=False):
-    obj.animate(Animation(property, Iterate(items, times), duration, absolute, shift, loop))
+def sequence_animation(obj, property, items, duration, times=1, absolute=True, shift=None, loop=False):
+    """
+    Animates an object's property in sequence. For example, if you have a list of images, you can animate the object's
+    filename property to change the image repeatedly. This is useful for creating animations.
+
+    :param obj: The designerobject to animate
+    :type obj: DesignerObject
+    :param property: The name of the property to animate (e.g., 'x', 'y', 'angle', 'filename', 'name')
+    :type property: str
+    :param items: The items to iterate through with the animation
+    :type items: list
+    :param duration: The duration of the animation in seconds
+    :type duration: float
+    :param times: The number of times to iterate through the items
+    :type times: int
+    :param absolute: (TODO) This parameter is not implemented yet
+    :param shift: (TODO) this parameter is not implemented yet
+    :param loop: Whether to loop the animation
+    :type loop: bool
+    :return: This DesignerObject
+    """
+    return obj.animate(Animation(property, Iterate(items, times), duration, absolute, shift, loop))

@@ -15,6 +15,7 @@ Important concepts:
         A number representing a Relative Depth Chain collapsed into a single
         integer (or long, possibly)
 """
+from designer.utilities.weak_tuple_dictionary import MultiWeakKeyDict
 
 try:
     from weakref import WeakKeyDictionary, ref as _wref
@@ -45,7 +46,7 @@ class _LayerTree:
     def __init__(self, scene):
         self.layers = WeakKeyDictionary({scene : []})
         self.child_views = WeakKeyDictionary({scene : []})
-        self.layer_location = WeakKeyDictionary({scene : [0]})
+        self.layer_location = MultiWeakKeyDict({scene : [0]})
         self.scene = _wref(scene)
         self.tree_height = WeakKeyDictionary({scene : 1})
         self._precompute_positions()
@@ -74,10 +75,9 @@ class _LayerTree:
         :type view: View (not a weakref)
         """
         parent = view._parent
-        view = _wref(view)
         self.layers[view] = []
         self.child_views[view] = []
-        self.child_views[parent].append(view)
+        self.child_views[parent].append(_wref(view))
         self.tree_height[view] = 1
         if len(self.child_views[parent]) == 1:
             self.tree_height[parent] += 1
@@ -109,7 +109,7 @@ class _LayerTree:
         :param layers: the name of the layer on the parent
         :type layers: a list of strings
         """
-        self.layers[_wref(view)] = list(layers)
+        self.layers[view] = list(layers)
         self._precompute_positions()
 
     def _compute_positional_chain(self, chain):
@@ -175,7 +175,7 @@ class _LayerTree:
         :type layer: string
         :returns: A `float` representing where this layer is relative to others.
         """
-        parent = _wref(parent)
+        #parent = _wref(parent)
         if not layer:
             layer = ""
         s = layer.split(':')

@@ -1,6 +1,11 @@
 Change Log
 ==========
 
+# Versio 0.6.4
+
+* Fixed bugs with animations' default values
+* Fixed bugs with layer's weakref handling of set_window_layers
+
 # Version 0.6.3
 
 * Contributed by @codeBodger: allow custom fonts with font files

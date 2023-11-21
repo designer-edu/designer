@@ -628,6 +628,7 @@ class DesignerObject:
         # Loop over all possible properties
         for a_property in animation.properties:
             designer.core.event.handle(f"{self.__class__.__name__}.{a_property}.animation.start", e)
+        return self
 
     def stop_animation(self, animation):
         """
