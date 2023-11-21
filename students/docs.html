@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Designer Documentation for Students &#8212; Designer 0.6.3 documentation</title>
+    <title>Designer Documentation for Students &#8212; Designer 0.6.4 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/cloud.css" />
     <link rel="stylesheet" type="text/css" href="../_static/tabs.css" />
@@ -59,7 +59,7 @@
         <li class="right" >
           <a href="../examples/scenes.html" title="Scene Example"
              accesskey="P">previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.6.3 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.6.4 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 
       </ul>
@@ -655,6 +655,49 @@ this object should have when it is being drawn on the screen.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="designer.DesignerObject.layer">
+<span class="sig-name descname"><span class="pre">layer</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">string</span></em><a class="headerlink" href="#designer.DesignerObject.layer" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string indicating the layer that this object should be drawn on. Objects
+with the same layer will be drawn on top of each other in the order that
+they were created. The order of the layers should be set using <code class="xref py py-func docutils literal notranslate"><span class="pre">set_window_layers()</span></code>
+function, providing a list of the layer names (strings) in order from bottom to top.</p>
+<p>Alternatively, you can force a specific object to be drawn on top of all other layers using the <code class="docutils literal notranslate"><span class="pre">&quot;top&quot;</span></code> layer
+or below everything using the <code class="docutils literal notranslate"><span class="pre">&quot;bottom&quot;</span></code> layers, which are built in.</p>
+<p>There are also layer modifiers, which can be used to relatively position objects within layers:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;layer_name:top&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;layer_name:above&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;layer_name&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;layer_name:below&quot;</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;layer_name:bottom&quot;</span></code></p></li>
+</ul>
+<p>Swap out the name of the layer for the layer you want to modify. For example, if you have a layer called
+<code class="docutils literal notranslate"><span class="pre">&quot;background&quot;</span></code> and you want to draw an object on top of everything else in that layer, you would use
+<code class="docutils literal notranslate"><span class="pre">&quot;background:top&quot;</span></code>. Note that you cannot use these modifiers with the <code class="docutils literal notranslate"><span class="pre">&quot;top&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;bottom&quot;</span></code> layers,
+but they can be used without a layer name to modify the default layer.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">box</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">box2</span> <span class="o">=</span> <span class="n">rectangle</span><span class="p">(</span><span class="s1">&#39;blue&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1"># box on top</span>
+<span class="n">box</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;top&#39;</span>
+<span class="c1"># box on bottom</span>
+<span class="n">box</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;bottom&#39;</span>
+
+<span class="c1"># box2 above box</span>
+<span class="n">box</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;below</span>
+<span class="n">box2</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;above&#39;</span>
+
+<span class="c1"># Can only call set_window_layer once, but makes things explicit</span>
+<span class="n">set_window_layers</span><span class="p">([</span><span class="s1">&#39;background&#39;</span><span class="p">,</span> <span class="s1">&#39;foreground&#39;</span><span class="p">])</span>
+<span class="n">box</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;background&#39;</span>
+<span class="n">box2</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;foreground&#39;</span>
+<span class="c1"># Make circle in background layer appear behind everything else</span>
+<span class="n">green_circle</span> <span class="o">=</span> <span class="n">circle</span><span class="p">(</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
+<span class="n">green_circle</span><span class="o">.</span><span class="n">layer</span> <span class="o">=</span> <span class="s1">&#39;background:bottom&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="designer.DesignerObject.scale">
 <span class="sig-name descname"><span class="pre">scale</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="p"><span class="pre">[</span></span><span class="pre">scale_x</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">scale_y</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#designer.DesignerObject.scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>The combined horizontal and vertical scale of the object on the screen,
@@ -721,105 +764,51 @@ of the Designer Object, in addition to returning the value.</p>
 <div class="section" id="module-designer.animation">
 <span id="animation"></span><h2>Animation<a class="headerlink" href="#module-designer.animation" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.glide_down">
-<span class="sig-name descname"><span class="pre">glide_down</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_down" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves object down on the window.</p>
+<dt class="sig sig-object py" id="designer.animation.linear_animation">
+<span class="sig-name descname"><span class="pre">linear_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.linear_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animates an object’s property, interpolating linearly between <code class="docutils literal notranslate"><span class="pre">start</span></code> and <code class="docutils literal notranslate"><span class="pre">end</span></code>. For example, if you want
+the object to glide from the left to the right of the screen, you can animate the object’s <code class="docutils literal notranslate"><span class="pre">x</span></code> property from
+<code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">get_width()</span></code>. Or you could animate the object’s <code class="docutils literal notranslate"><span class="pre">angle</span></code> property from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">360</span></code> to make it
+spin in place.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+<li><p><strong>obj</strong> (<em>DesignerObject</em>) – The designerobject to animate</p></li>
+<li><p><strong>property</strong> (<em>str</em>) – The name of the property to animate (e.g., ‘x’, ‘y’, ‘angle’)</p></li>
+<li><p><strong>start</strong> (<em>int</em><em> or </em><em>float</em>) – The starting value of the property</p></li>
+<li><p><strong>end</strong> (<em>int</em><em> or </em><em>float</em>) – The ending value of the property</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – The duration of the animation in seconds</p></li>
+<li><p><strong>absolute</strong> – (TODO) This parameter is not implemented yet</p></li>
+<li><p><strong>shift</strong> – (TODO) this parameter is not implemented yet</p></li>
+<li><p><strong>loop</strong> (<em>bool</em>) – Whether to loop the animation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>This DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.glide_in_degrees">
-<span class="sig-name descname"><span class="pre">glide_in_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">direction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_in_degrees" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves object a given number of degrees in that direction</p>
+<dt class="sig sig-object py" id="designer.animation.sequence_animation">
+<span class="sig-name descname"><span class="pre">sequence_animation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">property</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">items</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">times</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">absolute</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.sequence_animation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Animates an object’s property in sequence. For example, if you have a list of images, you can animate the object’s
+filename property to change the image repeatedly. This is useful for creating animations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
-<li><p><strong>direction</strong> (<em>int</em>) – Direction in degrees counterclockwise for object to move</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
+<li><p><strong>obj</strong> (<em>DesignerObject</em>) – The designerobject to animate</p></li>
+<li><p><strong>property</strong> (<em>str</em>) – The name of the property to animate (e.g., ‘x’, ‘y’, ‘angle’, ‘filename’, ‘name’)</p></li>
+<li><p><strong>items</strong> (<em>list</em>) – The items to iterate through with the animation</p></li>
+<li><p><strong>duration</strong> (<em>float</em>) – The duration of the animation in seconds</p></li>
+<li><p><strong>times</strong> (<em>int</em>) – The number of times to iterate through the items</p></li>
+<li><p><strong>absolute</strong> – (TODO) This parameter is not implemented yet</p></li>
+<li><p><strong>shift</strong> – (TODO) this parameter is not implemented yet</p></li>
+<li><p><strong>loop</strong> (<em>bool</em>) – Whether to loop the animation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.glide_left">
-<span class="sig-name descname"><span class="pre">glide_left</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_left" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves object to the left of the window.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em>) – Object to move</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.glide_right">
-<span class="sig-name descname"><span class="pre">glide_right</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_right" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves object to the right of the window.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.glide_up">
-<span class="sig-name descname"><span class="pre">glide_up</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.glide_up" title="Permalink to this definition">¶</a></dt>
-<dd><p>Moves object up on the window.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="designer.animation.spin">
-<span class="sig-name descname"><span class="pre">spin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">angle_limit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">360</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.spin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Rotates object in place for a given number of degrees</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj</strong> (<em>DesignerObject</em><em> or </em><em>DesignerGroup</em>) – Object to move</p></li>
-<li><p><strong>angle_limit</strong> (<em>int</em>) – Degrees to rotate object</p></li>
-<li><p><strong>speed</strong> (<em>int</em>) – Pixels to move per second</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>None</p>
+<dd class="field-even"><p>This DesignerObject</p>
 </dd>
 </dl>
 </dd></dl>
@@ -898,6 +887,20 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">'white'
 <p>Changes the background of the window to the image. The <code class="docutils literal notranslate"><span class="pre">path</span></code> given
 can be a local file or a URL to a remote image. Keep in mind that
 loading large URLs can take a little while.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="designer.animation.set_window_layers">
+<span class="sig-name descname"><span class="pre">set_window_layers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">layer_names</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#designer.animation.set_window_layers" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>layer_names</strong> (<em>list</em><em>[</em><em>str</em><em>]</em>) – List of layer names in order from bottom to top</p>
+</dd>
+</dl>
+<p>Sets the order of the layers in the window. The first layer in the list will be drawn first, and the last layer
+in the list will be drawn last. The order of the layers is important, because objects in the same layer will
+be drawn on top of each other in the order that they were created. You can use layer modifiers to relatively
+position objects within layers. See the documentation on the <code class="docutils literal notranslate"><span class="pre">layer</span></code> attribute for more information.</p>
 </dd></dl>
 
 </div>
@@ -1057,7 +1060,7 @@ However, no further events will be processed (besides the <code class="docutils 
         <li class="right" >
           <a href="../examples/scenes.html" title="Scene Example"
              >previous</a> &nbsp; &nbsp;</li>
-    <li><a href="../contents.html">Designer 0.6.3 documentation</a> &#187;</li>
+    <li><a href="../contents.html">Designer 0.6.4 documentation</a> &#187;</li>
 
         <li class="nav-item nav-item-this"><a href="">Designer Documentation for Students</a></li> 
       </ul>

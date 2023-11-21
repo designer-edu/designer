@@ -553,6 +553,51 @@ Designer Objects Attributes
         # Fully visible
         ada.alpha = 1.0
 
+.. py:attribute:: layer
+    :type: string
+
+    A string indicating the layer that this object should be drawn on. Objects
+    with the same layer will be drawn on top of each other in the order that
+    they were created. The order of the layers should be set using :py:func:`set_window_layers`
+    function, providing a list of the layer names (strings) in order from bottom to top.
+
+    Alternatively, you can force a specific object to be drawn on top of all other layers using the ``"top"`` layer
+    or below everything using the ``"bottom"`` layers, which are built in.
+
+    There are also layer modifiers, which can be used to relatively position objects within layers:
+
+    - ``"layer_name:top"``
+    - ``"layer_name:above"``
+    - ``"layer_name"``
+    - ``"layer_name:below"``
+    - ``"layer_name:bottom"``
+
+    Swap out the name of the layer for the layer you want to modify. For example, if you have a layer called
+    ``"background"`` and you want to draw an object on top of everything else in that layer, you would use
+    ``"background:top"``. Note that you cannot use these modifiers with the ``"top"`` and ``"bottom"`` layers,
+    but they can be used without a layer name to modify the default layer.
+
+    .. code-block:: python
+
+        box = rectangle('red', 20, 50)
+        box2 = rectangle('blue', 50, 20)
+        # box on top
+        box.layer = 'top'
+        # box on bottom
+        box.layer = 'bottom'
+
+        # box2 above box
+        box.layer = 'below
+        box2.layer = 'above'
+
+        # Can only call set_window_layer once, but makes things explicit
+        set_window_layers(['background', 'foreground'])
+        box.layer = 'background'
+        box2.layer = 'foreground'
+        # Make circle in background layer appear behind everything else
+        green_circle = circle('green', 200, 200)
+        green_circle.layer = 'background:bottom'
+
 .. py:attribute:: scale
     :type: [scale_x, scale_y]
 
@@ -614,8 +659,7 @@ Animation
 ---------
 
 .. automodule:: designer.animation
-   :members: glide_down, glide_in_degrees, glide_left, glide_right, glide_up, spin
-
+   :members: linear_animation, sequence_animation
 
 Settings
 --------
@@ -671,6 +715,16 @@ Settings
     Changes the background of the window to the image. The ``path`` given
     can be a local file or a URL to a remote image. Keep in mind that
     loading large URLs can take a little while.
+
+.. py:function:: set_window_layers(layer_names)
+
+    :param layer_names: List of layer names in order from bottom to top
+    :type layer_names: list[str]
+
+    Sets the order of the layers in the window. The first layer in the list will be drawn first, and the last layer
+    in the list will be drawn last. The order of the layers is important, because objects in the same layer will
+    be drawn on top of each other in the order that they were created. You can use layer modifiers to relatively
+    position objects within layers. See the documentation on the ``layer`` attribute for more information.
 
 Events
 ------
