@@ -1,7 +1,11 @@
 Change Log
 ==========
 
-# Versio 0.6.4
+# Version 0.6.5
+
+* Added `resume` function to match `pause`
+
+# Version 0.6.4
 
 * Fixed bugs with animations' default values
 * Fixed bugs with layer's weakref handling of set_window_layers

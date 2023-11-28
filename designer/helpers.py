@@ -100,6 +100,10 @@ def restart():
     check_initialized()
     designer.GLOBAL_DIRECTOR.restarting = True
 
+def resume():
+    """ Resumes event processing in the game """
+    check_initialized()
+    designer.GLOBAL_DIRECTOR.pause(False)
 
 def set_window_color(color):
     """
