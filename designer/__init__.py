@@ -1,7 +1,7 @@
 from os import environ
 
 environ['PYGAME_HIDE_SUPPORT_PROMPT'] = '1'
-__version__ = '0.6.5'
+__version__ = '0.6.6'
 
 # For `debug` support on Mac, we need to preload tkinter
 from designer.system import setup_debug_mode

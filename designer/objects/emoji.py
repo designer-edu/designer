@@ -134,10 +134,11 @@ class Emoji(DesignerObject):
         default_size = Vec2D(self.DEFAULT_EMOJI_SIZE, self.DEFAULT_EMOJI_SIZE)
         size = default_size * self._scale
         hx, hy = default_size/2
-        flip_x, flip_y = "-" if self._flip_x else "", "-" if self._flip_y else ""
+        left_scale = -self._scale[0] if self._flip_x else self._scale[0]
+        right_scale = -self._scale[1] if self._flip_y else self._scale[1]
         fx, fy = size[0] if self._flip_x else 0, size[1] if self._flip_y else 0
         transforms = (f"translate({fx}, {fy}),"
-                      f"scale({flip_x}{self._scale[0]}, {flip_y}{self._scale[1]}),"
+                      f"scale({left_scale}, {right_scale}),"
                       f"rotate({-self._angle}, {hx}, {hy}),")
         image_data = (f'<svg xmlns="http://www.w3.org/2000/svg">'
                       f'<g transform="{transforms}">{self._svg}'

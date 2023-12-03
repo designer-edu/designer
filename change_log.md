@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+# Version 0.6.6
+
+* Fixed it so that flipping a negatively scaled emoji will not crash the game.
+
 # Version 0.6.5
 
 * Added `resume` function to match `pause`
