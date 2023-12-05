@@ -70,6 +70,7 @@ Creating DesignerObjects
               text(color, text, size)
               text(color, text, size, x, y)
               text(color, text, size, x, y, font_name='Arial')
+              text(color, text, size, x, y, font_name='Arial', font_path=None)
 
     Function to create text on the screen with the given color.
     Not all unicode characters are supported!
@@ -82,8 +83,8 @@ Creating DesignerObjects
 
     :param color: The :ref:`color<color>` of the text
     :type color: str
-    :param message: text to appear on window
-    :type message: str
+    :param text: text to appear on window
+    :type text: str
     :param size: Font size of the text
     :type size: int
     :param x: left most x-coordinate of text
@@ -92,6 +93,8 @@ Creating DesignerObjects
     :type y: int
     :param font_name: The name of the font to use. Defaults to 'Arial'.
     :type font_name: str
+    :param font_path: The path to the font to use. Ignored if font_name is already a font.
+    :type font_path: str
     :return: Text object created
     :rtype: DesignerObject
 
