@@ -10,6 +10,7 @@ try:
     from weakref import ref as _wref, WeakMethod
 except ImportError:
     _wref = lambda x: x
+    WeakMethod = lambda x: x
 
 import designer
 from itertools import chain

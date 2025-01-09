@@ -1,5 +1,14 @@
-import weakref
-from collections.abc import MutableMapping
+try:
+    from weakref import ref
+except ImportError:
+    ref = lambda *x: x[0]
+
+try:
+    from collections.abc import MutableMapping
+    NO_REFS = False
+except AttributeError:
+    NO_REFS = True
+    MutableMapping = dict
 
 
 class MultiWeakKeyDict(MutableMapping):
@@ -24,10 +33,10 @@ class MultiWeakKeyDict(MutableMapping):
 
     def _build_key(self, keys):
         if isinstance(keys, tuple):
-            return tuple(weakref.ref(item, self._remove) if not isinstance(item, str) else item
+            return tuple(ref(item, self._remove) if not isinstance(item, str) else item
                          for item in keys)
         else:
-            return (weakref.ref(keys, self._remove) if not isinstance(keys, str) else keys
+            return (ref(keys, self._remove) if not isinstance(keys, str) else keys
                     ,)
 
     def __setitem__(self, keys, value):
@@ -52,3 +61,7 @@ class MultiWeakKeyDict(MutableMapping):
 
     def __repr__(self):
         return f"{self.__class__.__name__}({', '.join('{!r}:{!r}'.format(k, v) for k, v in self.items())})"
+
+
+if NO_REFS:
+    MultiWeakKeyDict = lambda *args: args[0]

@@ -453,11 +453,10 @@ class Keys(object):
             delattr(self, original)
 
     def load_keys_from_file(self, filename):
-        fp = open(filename)
-        key_maps = fp.readlines()
-        fp.close()
+        with open(filename) as fp:
+            key_maps = [line.strip() for line in fp.readlines()]
         for single_mapping in key_maps:
-            mapping = single_mapping[:-1].split(' ')
+            mapping = single_mapping.strip().split(' ')
             if len(mapping) == 2:
                 if mapping[1][0:2] == '0x':
                     setattr(self, mapping[0], int(mapping[1], 16))
